@@ -3,6 +3,7 @@
 ## NOTES:
 - To ensure best results, make sure you are running this on a computer that has decent specs.
 - 1920x1080 fullscreen is required in League, game must also be on main monitor.
+- Make sure you dont have any overlays on.
 - If the program crashes, make sure you create an issue with the traceback.
 - Feel free to create a PR for whatever you want, I used this project to learn python and much of the code can be improved.
 - My initial goal with this project was to create a bot capable of hitting gold in TFT. Unfortunately I do not have anymore time to spend on this.
