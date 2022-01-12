@@ -2,6 +2,7 @@
 
 ## NOTES:
 - To ensure best results, make sure you are running this on a computer that has decent specs.
+- Client must be in English.
 - 1920x1080 fullscreen is required in League, game must also be on main monitor.
 - Make sure you dont have any overlays on.
 - If the program crashes, make sure you create an issue with the traceback.
@@ -33,5 +34,5 @@
 - Change all pyautogui screenshot functions to PIL ImageGrab
 - Revamp auto queue so it can never fail
 - Multiple defined team comps and pick the best one in game
-- General code imrpovements and optimization
+- General code improvements and optimization
 - [?] Intelligent carousel item/champion choice
