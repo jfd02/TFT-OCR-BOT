@@ -27,11 +27,10 @@
 - Auto queue using the LCU api
 
 ## TODO:
-- Change the functions that take multiple screenshots and change it to one screenshot and crop that image. This should increase performance.
+- v2.0 ~ Add transparent overlay console and draw text on screen for champs
 - Implement tome of traits logic
 - Add more logic to the gold spending function
 - Change all pyautogui screenshot functions to PIL ImageGrab
 - Revamp auto queue so it can never fail
 - Multiple defined team comps and pick the best one in game
-- General code improvements and optimization
 - [?] Intelligent carousel item/champion choice
