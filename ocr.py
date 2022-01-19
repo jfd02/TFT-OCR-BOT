@@ -25,7 +25,7 @@ def image_resize(image, scale):
     return image.resize((width, height))
 
 
-def get_text(screenxy, scale, psm, whitelist):
+def get_text(screenxy, scale, psm, whitelist) -> str:
     screenshot = ImageGrab.grab(bbox=screenxy)
     resize = image_resize(screenshot, scale)
     array = image_array(resize)
@@ -35,7 +35,7 @@ def get_text(screenxy, scale, psm, whitelist):
                                        config=f'--psm {psm} -c tessedit_char_whitelist={whitelist}').strip()
 
 
-def get_text_image(image, whitelist):
+def get_text_image(image, whitelist) -> str:
     resize = image_resize(image, 3)
     array = image_array(resize)
     grayscale = image_grayscale(array)

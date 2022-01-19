@@ -1,8 +1,6 @@
 import numpy as np
-import pyautogui
 from time import sleep
 
-# My modules
 import game_assets
 import mk_functions
 import screen_coords
@@ -27,7 +25,7 @@ class Arena:
         self.level = 0
 
     def fix_board_state(self):
-        bench_occupied = self.bench_occupied_check()
+        bench_occupied = arena_functions.bench_occupied_check()
         for index, slot in enumerate(self.bench):
             if slot is None and bench_occupied[index] is True:
                 self.bench[index] = "?"
@@ -282,15 +280,3 @@ class Arena:
 
         print("\t[!] No priority or backup augment found, undefined behavior may occur for the rest of the round")
         mk_functions.left_click(screen_coords.augment_pos[0])
-
-    @staticmethod
-    def bench_occupied_check() -> list:
-        bench_occupied = []
-        for positions in screen_coords.bench_health_pos:
-            screen_capture = pyautogui.screenshot(region=positions)  # Change this to ImageGrab
-            screenshot_array = np.array(screen_capture)
-            if not (np.abs(screenshot_array - (0, 255, 18)) <= 2).all(axis=2).any():
-                bench_occupied.append(False)
-            else:
-                bench_occupied.append(True)
-        return bench_occupied

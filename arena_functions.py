@@ -1,9 +1,10 @@
 import pydirectinput
+from PIL import ImageGrab
+import numpy as np
+
 import screen_coords
 import ocr
-import pyautogui
 import game_assets
-import numpy as np
 import mk_functions
 
 
@@ -25,7 +26,7 @@ def get_gold() -> int:
 
 
 def get_shop(silence=False) -> list:
-    screen_capture = pyautogui.screenshot(region=screen_coords.shop_loc)  # Change to ImageGrab
+    screen_capture = ImageGrab.grab(bbox=screen_coords.shop_loc)
     shop = []
     for names in screen_coords.champ_name_loc:
         champ = screen_capture.crop(names)
@@ -41,11 +42,24 @@ def get_shop(silence=False) -> list:
 
 def empty_slot() -> int:
     for slot, positions in enumerate(screen_coords.bench_health_pos):
-        screen_capture = pyautogui.screenshot(region=positions)  # Change to ImageGrab
+        screen_capture = ImageGrab.grab(bbox=positions) 
         screenshot_array = np.array(screen_capture)
         if not (np.abs(screenshot_array - (0, 255, 18)) <= 3).all(axis=2).any():
             return slot  # Slot 0-8
     return -1  # No empty slot
+
+
+def bench_occupied_check() -> list:
+    bench_occupied = []
+    for positions in screen_coords.bench_health_pos:
+        screen_capture = ImageGrab.grab(bbox=positions) 
+        screenshot_array = np.array(screen_capture)
+        if not (np.abs(screenshot_array - (0, 255, 18)) <= 2).all(axis=2).any():
+            bench_occupied.append(False)
+        else:
+            bench_occupied.append(True)
+    return bench_occupied
+
 
 
 def valid_item(item):

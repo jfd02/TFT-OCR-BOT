@@ -79,3 +79,7 @@ def queue():
             in_queue = False
         sleep(1)
     print("\tLoading screen found! Waiting for round 1-1")
+
+
+if __name__ == "__main__":  # used for testing
+    queue()

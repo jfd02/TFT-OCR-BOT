@@ -1,6 +1,5 @@
 from time import sleep
 
-# my modules
 import game_assets
 import game_functions
 from arena import Arena
