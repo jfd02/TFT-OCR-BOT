@@ -57,6 +57,7 @@ class Game:
         elif self.round == "2-7":
             self.arena.krug_round()
 
+        self.arena.update_health()
         self.arena.fix_board_state()
         self.arena.spend_gold()
         self.arena.move_champions()
@@ -77,6 +78,7 @@ class Game:
         elif self.round in game_assets.pickup_round:
             game_functions.pickup_items()
 
+        self.arena.update_health()
         self.arena.fix_board_state()
         self.arena.spend_gold()
         self.arena.move_champions()

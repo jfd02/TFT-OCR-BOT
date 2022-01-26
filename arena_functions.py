@@ -2,6 +2,8 @@ import pydirectinput
 from PIL import ImageGrab
 import numpy as np
 
+from time import sleep
+
 import screen_coords
 import ocr
 import game_assets
@@ -16,6 +18,15 @@ def get_level() -> int:
     except ValueError:
         return 1
 
+def get_health() -> int:
+    mk_functions.left_click(screen_coords.health_click)
+    sleep(0.5)
+    health = ocr.get_text(screenxy=screen_coords.health_pos, scale=3, psm=7, whitelist="0123456789")
+    try:
+        health = int(health)
+        return health
+    except ValueError:
+        return -1
 
 def get_gold() -> int:
     gold = ocr.get_text(screenxy=screen_coords.gold_loc, scale=3, psm=7, whitelist="0123456789")
