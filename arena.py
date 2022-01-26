@@ -15,6 +15,7 @@ class Arena:
     def __init__(self):
         self.board_size = 0
         self.bench = [None, None, None, None, None, None, None, None, None]
+        self.health = 100
         self.board = []
         self.board_unknown = []
         self.unknown_slots = comps.get_unknown_slots()
@@ -23,6 +24,9 @@ class Arena:
         self.items = []
         self.final_comp = False
         self.level = 0
+
+    def update_health(self):
+        self.health = arena_functions.get_health()
 
     def fix_board_state(self):
         bench_occupied = arena_functions.bench_occupied_check()
@@ -230,6 +234,7 @@ class Arena:
                 bench.append(champion.name)
         print(f"\tBench: {bench}")
         print(f"\tBoard: {self.board_unknown} {self.board_names}")
+        print(f"\tHealth: {self.health}")
 
     def spend_gold(self):  # Rework this function
         first_run = True
