@@ -2,12 +2,12 @@
 
 ## NOTES:
 - You must use the default arena skin
+- A lower color brightness in game makes the overlay easier to read
 - To ensure best results, make sure you are running this on a computer that has decent specs.
-- Client must be in English.
-- 1920x1080 fullscreen is required in League, game must also be on main monitor.
+- League & client must be in English.
+- 1920x1080 borderless windowed is required in League, game must also be on main monitor.
 - Make sure you dont have any overlays on.
-- If the program crashes, make sure you create an issue with the traceback.
-- My initial goal with this project was to create a bot capable of hitting gold in TFT.
+- If the program crashes, create an issue with the error.
 
 ## INSTALLATION:
 1. Install Python 3.9.6 from https://www.python.org/downloads/windows/
@@ -23,15 +23,14 @@
 - Keeps track of champions on the board and bench
 - Pick a random item/champ from the carousel
 - Pickup items from the board after PVE rounds
-- Place items onto champions
+- Place correct items onto champions
 - Plays the user defined team comp
 - Auto queue using the LCU api
 
 ## TODO:
-- v2.0 ~ Add transparent overlay console and draw text on screen for champs
 - Implement tome of traits logic
-- Add more logic to the gold spending function
-- Change all pyautogui screenshot functions to PIL ImageGrab
-- Revamp auto queue so it can never fail
-- Multiple defined team comps and pick the best one in game
-- [?] Intelligent carousel item/champion choice
+- Revamp the gold spending function
+- Add more checks to auto queue so it can never fail
+- Grab all S teamcomps from a TFT website and determine the best one to play in the game
+- Intelligent carousel item selection (Not sure how to accomplish this one)
+- Change item pickup to be based of the coordinates of orbs
