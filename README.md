@@ -1,6 +1,7 @@
 ![main](https://i.imgur.com/roX0N3C.png)
 
 ## NOTES:
+- You must use the default arena skin
 - To ensure best results, make sure you are running this on a computer that has decent specs.
 - Client must be in English.
 - 1920x1080 fullscreen is required in League, game must also be on main monitor.
