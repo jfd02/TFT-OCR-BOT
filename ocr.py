@@ -41,4 +41,3 @@ def get_text_image(image, whitelist) -> str:
     grayscale = image_grayscale(array)
     thresholding = image_thresholding(grayscale)
     return pytesseract.image_to_string(thresholding, config=f'--psm 7 -c tessedit_char_whitelist={whitelist}').strip()
-
