@@ -19,6 +19,7 @@
 5. Run the main.py file
 
 ## FEATURES:
+![main](https://i.imgur.com/1bXOmag.png)
 - Read the board state (Round / Level / Gold / Shop / Items)
 - Keeps track of champions on the board and bench
 - Pick a random item/champ from the carousel
