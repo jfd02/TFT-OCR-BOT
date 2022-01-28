@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.1.0] - 2022-01-27
+## [2.1.1] - 2022-01-28
+### Fixed
+- Items not placing properly after the first game
+
+## [2.1.0] - 2022-01-28
 ### Added
 - Click location offset randomization
 
@@ -52,6 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README
 - LICENSE
 
+[2.1.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/d6311dfe21889ac3851d488af82b75a18393aafc
 [2.0.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/9fd022e47e029694e3dd816671181a09a26c5b5e
 [1.2.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/54eea1991fcbd338eb720a69fad3193e1b393824
 [1.1.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/af6258fb3aaa5e3807fce2375338c4af328472d1
