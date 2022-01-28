@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2022-01-27
+### Added
+- Click location offset randomization
+
+### Fixed
+- Tacticians Crown check causing crashses when string is None
+
 ## [2.0.0] - 2022-01-27
 ### Added
 - Transparent overlay window
@@ -45,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README
 - LICENSE
 
+[2.0.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/9fd022e47e029694e3dd816671181a09a26c5b5e
 [1.2.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/54eea1991fcbd338eb720a69fad3193e1b393824
 [1.1.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/af6258fb3aaa5e3807fce2375338c4af328472d1
 [1.0.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/6b7ce114ef35c45d4fc8328bed5520ed04a39592
