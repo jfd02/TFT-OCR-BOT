@@ -36,7 +36,10 @@ class Arena:
                 self.bench[index] = None
 
     def bought_champion(self, name, slot):
-        self.bench[slot] = Champion(name, screen_coords.bench_loc[slot], comps.comp[name]["items"], slot,
+        items = []
+        for item in comps.comp[name]["items"]:
+            items.append(item)
+        self.bench[slot] = Champion(name, screen_coords.bench_loc[slot], items, slot,
                                     champion_data[name]["Board Size"], comps.comp[name]["final_comp"])
         mk_functions.move_mouse(screen_coords.default_loc)
         sleep(0.5)
