@@ -2,8 +2,8 @@ future~=0.18.2
 opencv-python~=4.5.3.56
 numpy~=1.21.0
 pytesseract~=0.3.8
-Pillow~=8.3.1
+Pillow~=9.0.0
 requests~=2.26.0
 urllib3~=1.26.7
 PyDirectInput~=1.0.4
-pywin32~=301
+pywin32
