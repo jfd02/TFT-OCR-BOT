@@ -216,15 +216,18 @@ class Arena:
 
     def tacticians_check(self):
         mk_functions.move_mouse(screen_coords.item_pos[0][0])
-        sleep(1)
+        sleep(2)
         item = ocr.get_text(screenxy=screen_coords.item_pos[0][1], scale=3, psm=13,
                             whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
         item = arena_functions.valid_item(item)
-        if "TacticiansCrown" in item:
-            self.message_queue.put(("CONSOLE", "Tacticians Crown on bench, adding extra slot to board"))
-            self.board_size -= 1
-        else:
-            self.message_queue.put(("CONSOLE", f"{item} is not TacticiansCrown"))
+        try:
+            if "TacticiansCrown" in item:
+                self.message_queue.put(("CONSOLE", "Tacticians Crown on bench, adding extra slot to board"))
+                self.board_size -= 1
+            else:
+                self.message_queue.put(("CONSOLE", f"{item} is not TacticiansCrown"))
+        except TypeError:
+            self.message_queue.put(("CONSOLE", "Tacticians Crown check failed"))
 
     def spend_gold(self):  # Rework this function
         first_run = True
