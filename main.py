@@ -15,7 +15,7 @@ if __name__ == "__main__":
     overlay = Ui(message_queue)
     game_thread = multiprocessing.Process(target=game_loop, args=(message_queue,))
 
-    print("TFT OCR | Ver. 2.1.1 | https://github.com/jfd02/TFT-OCR-BOT")
+    print("TFT OCR | Ver. 2.2.0 | https://github.com/jfd02/TFT-OCR-BOT")
     print("If text is not visible on the top left of the screen, the program is not functioning correctly.")
     print("Close this window to terminate the overlay window & program")
 
