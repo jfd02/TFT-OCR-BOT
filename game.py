@@ -1,7 +1,9 @@
-from time import sleep
+from time import sleep, perf_counter
 
 import game_assets
 import game_functions
+import settings
+import random
 from arena import Arena
 
 
@@ -10,18 +12,26 @@ class Game:
         self.message_queue = message_queue
         self.arena = Arena(self.message_queue)
         self.round = "0-0"
+        self.time = None
+        self.forfeit_time = settings.forfeit_time + random.randint(50, 150)
         self.loading_screen()
 
     def loading_screen(self):
         game_functions.default_pos()
         while game_functions.get_round() != "1-1":
             sleep(1)
+        self.start_time = perf_counter()
         self.game_loop()
 
     def game_loop(self):
         ran_round = None
         while game_functions.check_alive():
             self.round = game_functions.get_round()
+
+            if settings.forfeit is True:
+                if perf_counter() - self.start_time > self.forfeit_time:
+                    game_functions.forfeit()
+                    return
 
             if self.round != ran_round and self.round in game_assets.carousel_rounds:
                 self.carousel_round()

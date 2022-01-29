@@ -32,3 +32,7 @@ def buy_xp():
 
 def reroll():
     pydirectinput.press("d")
+
+
+def press_esc():
+    pydirectinput.press("esc")

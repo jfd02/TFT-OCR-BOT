@@ -67,3 +67,7 @@ refresh_loc = (364, 1039)
 default_loc = (60,222)
 
 health_loc = (1897, 126)
+
+surrender_loc = (771, 843)
+
+surrender2_loc = (832, 489)

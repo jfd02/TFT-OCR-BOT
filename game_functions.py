@@ -63,3 +63,11 @@ def exit_game():
 
 def default_pos():
     mk_functions.left_click(screen_coords.default_loc)
+
+
+def forfeit():
+    mk_functions.press_esc()
+    mk_functions.left_click(screen_coords.surrender_loc)
+    sleep(0.1)
+    mk_functions.left_click(screen_coords.surrender2_loc)
+    sleep(1)
