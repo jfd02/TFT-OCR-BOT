@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.1] - 2022-01-28
+### Fixed
+- Potential bugfix for autoqueue crash
+
 ## [2.2.0] - 2022-01-28
 ### Added
 - Forfeit functionality, change the time to forfeit in settings.py
@@ -60,6 +64,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README
 - LICENSE
 
+
+[2.2.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/4eb5a19b976cd11dcbb05dd6af5a60207bfa7ed1
 [2.1.1]: https://github.com/jfd02/TFT-OCR-BOT/tree/c4c08d692ac99cff3a3d6843a20fb10055743a46
 [2.1.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/d6311dfe21889ac3851d488af82b75a18393aafc
 [2.0.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/9fd022e47e029694e3dd816671181a09a26c5b5e
