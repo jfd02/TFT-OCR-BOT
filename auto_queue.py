@@ -1,6 +1,4 @@
 from http import server
-import subprocess
-import re
 from requests.auth import HTTPBasicAuth
 import requests
 import urllib3
@@ -8,6 +6,7 @@ import json
 from time import sleep
 from PIL import ImageGrab
 import numpy as np
+import settings
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -57,18 +56,18 @@ def change_arena_skin(client_info):
 
 def get_client(message_queue):
     message_queue.put(("CONSOLE", "[Auto Queue]"))
-    results = str(subprocess.run(['wmic', 'PROCESS', 'WHERE', "name= 'LeagueClientUx.exe'", 'GET', 'commandline'],
-                                 capture_output=True))
-    while "--app-port" not in results:  # Means client is not open
-        message_queue.put(("CONSOLE", "Client not open! Trying again in 10 seconds..."))
-        sleep(10)
-        results = str(subprocess.run(['wmic', 'PROCESS', 'WHERE', "name= 'LeagueClientUx.exe'", 'GET', 'commandline'],
-                                     capture_output=True))
-
-    sleep(3)
-    app_port = re.search("--app-port=([0-9]*)", results)[1]
-    remoting_auth_token = re.search("--remoting-auth-token=([\w-]*)", results)[1]
-    server_url = f"https://127.0.0.1:{app_port}"
+    file_path = settings.league_client_path + "\\lockfile"
+    got_lock_file = False
+    while got_lock_file is False:
+        try:
+            data = open(file_path, "r").read().split(':')
+            app_port = data[2]
+            remoting_auth_token = data[3]
+            server_url = f"https://127.0.0.1:{app_port}"
+            got_lock_file = True
+        except IOError:
+            message_queue.put(("CONSOLE", "Client not open! Trying again in 10 seconds."))
+            sleep(10)
     return (remoting_auth_token, server_url)
     
 
