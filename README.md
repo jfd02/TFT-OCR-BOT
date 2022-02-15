@@ -16,7 +16,8 @@
 4. Install tesseract using windows installer available at: https://github.com/UB-Mannheim/tesseract/wiki
    - Note the tesseract path from the installation.
    - Set the tesseract path in the ocr.py file (it may already be correct)
-5. Run the main.py file
+5. Configure settings.py so the league client path is correct & enable surrender functionality if you desere it.
+6. Run the main.py file
 
 ## FEATURES:
 ![main](https://i.imgur.com/1bXOmag.png)
