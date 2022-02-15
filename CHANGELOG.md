@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2022-01-28
+### Changed
+- Auto queue method changed from WMIC get to lockfile method, this makes it compatible with servers that dont return the app port & auth token from WMIC get.
+
 ## [2.2.1] - 2022-01-28
 ### Fixed
 - Potential bugfix for autoqueue crash
@@ -64,7 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README
 - LICENSE
 
-
+[2.2.1]: https://github.com/jfd02/TFT-OCR-BOT/tree/b801ba52a9da65a3d954c7a486bc581901c7af9c
 [2.2.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/4eb5a19b976cd11dcbb05dd6af5a60207bfa7ed1
 [2.1.1]: https://github.com/jfd02/TFT-OCR-BOT/tree/c4c08d692ac99cff3a3d6843a20fb10055743a46
 [2.1.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/d6311dfe21889ac3851d488af82b75a18393aafc
