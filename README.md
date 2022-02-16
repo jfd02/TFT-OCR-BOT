@@ -17,7 +17,8 @@
    - Note the tesseract path from the installation.
    - Set the tesseract path in the ocr.py file (it may already be correct)
 5. Configure settings.py so the league client path is correct & enable surrender functionality if you desere it.
-6. Run the main.py file
+6. Disable all in game overlays
+7. Run the main.py file
 
 ## FEATURES:
 ![main](https://i.imgur.com/1bXOmag.png)
