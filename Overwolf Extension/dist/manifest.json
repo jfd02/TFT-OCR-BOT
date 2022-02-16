@@ -1,0 +1,84 @@
+{
+    "manifest_version": 1,
+    "type": "WebApp",
+    "meta": {
+        "name": "Sample App",
+        "author": "Overwolf",
+        "version": "1.0.0",
+        "minimum-overwolf-version": "0.120.0",
+        "description": "TFT Scout",
+        "dock_button_title": "TFT Scout",
+        "icon": "icons/iconMouseOver.png",
+        "icon_gray": "icons/iconMouseNormal.png",
+        "launcher_icon": "icons/icon.ico",
+        "window_icon": "icons/windowIcon.png"
+    },
+    "permissions": [
+		"FileSystem",
+        "GameInfo"
+    ],
+    "data": {
+        "start_window": "overlay",
+        "windows": {
+            "overlay": {
+                "file": "overlay.html",
+                "in_game_only": true,
+                "focus_game_takeover": "ReleaseOnHidden",
+                "focus_game_takeover_release_hotkey": "showhide",
+                "resizable": false,
+                "transparent": true,
+                "max_size": {
+                    "width": 350,
+                    "height": 170
+                },
+                "min_size": {
+                    "width": 350,
+                    "height": 170
+                },
+                "keep_window_location": false
+            },
+            "background": {
+                "file": "background.html",
+                "is_background_page": true
+            }
+        },
+        "game_targeting": {
+            "type": "dedicated",
+            "game_ids": [
+                5426,
+                10902
+            ]
+        },
+        "game_events": [
+            5426,
+            10902
+        ],
+        "launch_events": [
+            {
+                "event": "GameLaunch",
+                "event_data": {
+                    "game_ids": [
+                        5426
+                    ]
+                },
+                "start_minimized": false
+            }
+        ],
+        "protocol_override_domains": {
+            "googlesyndication": "http"
+        },
+        "externally_connectable": {
+            "matches": [
+                "http://*.overwolf.com",
+                "https://*.overwolf.com",
+                "https://overwolf.github.io"
+            ]
+        },
+        "force_browser": "user",
+        "developer": {
+            "enable_auto_refresh": false,
+            "reload_delay": 1000,
+            "filter": "*.*"
+        }
+    }
+}
