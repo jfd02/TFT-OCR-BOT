@@ -1,10 +1,15 @@
 from time import sleep, perf_counter
 
+import requests
+
+import arena_functions
 import game_assets
 import game_functions
 import settings
 import random
 from arena import Arena
+import mk_functions
+import screen_coords
 
 
 class Game:
@@ -16,10 +21,13 @@ class Game:
         self.forfeit_time = settings.forfeit_time + random.randint(50, 150)
         self.loading_screen()
 
+
     def loading_screen(self):
         game_functions.default_pos()
-        while game_functions.get_round() != "1-1":
+        while arena_functions.check_GameStart() is False:
             sleep(1)
+        # while game_functions.get_round() != "1-1":
+        #     sleep(1)
         self.start_time = perf_counter()
         self.game_loop()
 
@@ -61,9 +69,12 @@ class Game:
             sleep(1)
             self.arena.pick_augment()
             sleep(2.5)  # Can't purchase champions for a short period after choosing augment
+        elif self.round == "1-2":
+            return
         elif self.round == "1-3":
-            sleep(1.5)
-            self.arena.fix_unknown()
+            sleep(1)
+            mk_functions.press_e(screen_coords.board_loc[3])
+            # self.arena.fix_unknown()
             self.arena.tacticians_check()
         elif self.round == "2-7":
             self.arena.krug_round()

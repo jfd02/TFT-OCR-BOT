@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>TFT Scout</title>
+    <style>
+        * { box-sizing: border-box; }
+        
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .overlay {
+            overflow: hidden;
+            display: flex;
+        }
+
+        .container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 48%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            width: 33.33%;
+            height: 33.33%;
+            border: 1px solid transparent;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        .debug{
+            width: 50%;
+            height: 100%;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body class="overlay">
+    <div class="debug"></div>
+    <div class="container">
+        <div id="box-7" class="box"></div>
+        <div id="box-0" class="box"></div>
+        <div id="box-1" class="box"></div>
+        <div id="box-6" class="box"></div>
+        <div class="box hidden"></div>
+        <div id="box-2" class="box"></div>
+        <div id="box-5" class="box"></div>
+        <div id="box-4" class="box"></div>
+        <div id="box-3" class="box"></div>
+    </div>
+</body>
+
+</html>

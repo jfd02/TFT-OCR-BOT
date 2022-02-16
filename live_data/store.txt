@@ -1,0 +1,1 @@
+{"store":{"shop_pieces":"{\"slot_1\":{\"name\":\"TFT6_Katarina\"}, \"slot_2\":{\"name\":\"TFT6_Lissandra\"}, \"slot_3\":{\"name\":\"TFT6_Jhin\"}, \"slot_4\":{\"name\":\"TFT6_Fiora\"}, \"slot_5\":{\"name\":\"TFT6_Lissandra\"}}"}}

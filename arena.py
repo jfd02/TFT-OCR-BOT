@@ -26,14 +26,26 @@ class Arena:
         self.spam_roll = False
 
     def fix_board_state(self):
-        bench_occupied = arena_functions.bench_occupied_check()
-        for index, slot in enumerate(self.bench):
-            if slot is None and bench_occupied[index] is True:
-                self.bench[index] = "?"
-            if isinstance(slot, str) and bench_occupied[index] is False:
-                self.bench[index] = None
-            if isinstance(slot, Champion) and bench_occupied[index] is False:
-                self.bench[index] = None
+        self.bench = arena_functions.get_bench()
+
+        board_champion = arena_functions.get_board()
+        self.board = board_champion["board"]
+        self.board_names.clear()
+        for champ in self.board:
+            self.board_names.append(champ.name)
+
+        self.board_unknown = board_champion["board_useless"]
+
+        self.board_size = board_champion["board_size"]
+
+        # bench_occupied = arena_functions.bench_occupied_check()
+        # for index, slot in enumerate(self.bench):
+        #     if slot is None and bench_occupied[index] is True:
+        #         self.bench[index] = "?"
+        #     if isinstance(slot, str) and bench_occupied[index] is False:
+        #         self.bench[index] = None
+        #     if isinstance(slot, Champion) and bench_occupied[index] is False:
+        #         self.bench[index] = None
 
     def bought_champion(self, name, slot):
         items = []
@@ -42,7 +54,7 @@ class Arena:
         self.bench[slot] = Champion(name, screen_coords.bench_loc[slot], items, slot,
                                     champion_data[name]["Board Size"], comps.comp[name]["final_comp"])
         mk_functions.move_mouse(screen_coords.default_loc)
-        sleep(0.5)
+        sleep(0.1)
         self.fix_board_state()
 
     def have_champion(self):
@@ -87,6 +99,7 @@ class Arena:
         return False
 
     def move_champions(self):
+        self.bench_cleanup()
         self.level = arena_functions.get_level()
         while self.level > self.board_size:
             champion = self.have_champion()
@@ -103,17 +116,17 @@ class Arena:
                             "Board Size"] == 1 and champion not in self.champs_to_buy and champion not in self.board_unknown:
                             none_slot = arena_functions.empty_slot()
                             mk_functions.left_click(screen_coords.buy_loc[index])
-                            sleep(0.2)
+                            sleep(0.1)
                             self.bench[none_slot] = f"{champion}"
                             self.move_unknown()
                             bought_unknown = True
                             break
                     except KeyError:
                         pass
-                if not bought_unknown:
-                    self.message_queue.put(("CONSOLE", "Need to sell entire bench to keep track of board"))
-                    self.sell_bench()
-                    return
+                # if not bought_unknown:
+                #     self.message_queue.put(("CONSOLE", "Need to sell entire bench to keep track of board"))
+                #     self.sell_bench()
+                #     return
 
     def replace_unknown(self):
         champion = self.have_champion()
@@ -124,6 +137,7 @@ class Arena:
             self.move_known(champion)
 
     def bench_cleanup(self):
+        # print(self.bench)
         for index, champion in enumerate(self.bench):
             if champion == "?" or isinstance(champion, str):
                 self.message_queue.put(("CONSOLE", "Selling unknown champion"))
@@ -134,6 +148,11 @@ class Arena:
                     self.message_queue.put(("CONSOLE", "Selling unknown champion"))
                     mk_functions.press_e(screen_coords.bench_loc[index])
                     self.bench[index] = None
+                if champion.name not in comps.comp:
+                    self.message_queue.put(("CONSOLE", f"Selling useless champion:{champion.name}"))
+                    mk_functions.press_e(screen_coords.bench_loc[index])
+                    self.bench[index] = None
+
 
     def place_items(self):
         self.items = arena_functions.get_items()
@@ -219,7 +238,7 @@ class Arena:
 
     def tacticians_check(self):
         mk_functions.move_mouse(screen_coords.item_pos[0][0])
-        sleep(2)
+        sleep(0.5)
         item = ocr.get_text(screenxy=screen_coords.item_pos[0][1], scale=3, psm=13,
                             whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
         item = arena_functions.valid_item(item)
@@ -288,7 +307,7 @@ class Arena:
         if health <= 100 and health >= 0:
             self.message_queue.put(("CONSOLE", f"Health: {health}"))
             if self.spam_roll is False:
-                if health < 30:
+                if health <= 30:
                     self.message_queue.put(("CONSOLE", f"Health under 30, spam roll activated"))
                     self.spam_roll = True
         else:
