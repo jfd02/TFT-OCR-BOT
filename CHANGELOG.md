@@ -81,6 +81,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README
 - LICENSE
 
+[2.3.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/d6bdd20823d92cd84343eb007d5ef146d0abb2f9
 [2.2.1]: https://github.com/jfd02/TFT-OCR-BOT/tree/b801ba52a9da65a3d954c7a486bc581901c7af9c
 [2.2.0]: https://github.com/jfd02/TFT-OCR-BOT/tree/4eb5a19b976cd11dcbb05dd6af5a60207bfa7ed1
 [2.1.1]: https://github.com/jfd02/TFT-OCR-BOT/tree/c4c08d692ac99cff3a3d6843a20fb10055743a46
