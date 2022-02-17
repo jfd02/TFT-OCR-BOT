@@ -6,7 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.3.0] - 2022-01-28
+## [2.4.0] - 2022-01-28
+### Changed
+- Champion list has been updated to reflect the Neon Nights patch
+- Augments have been modified in comps.py to reflect Neon Nights patch
+- Team comp is now Yordles in comps.py
+
+### Added
+- More items in game_assets
+- Auto queue messages
+
+### Fixed
+- CHANGELOG
+
+## [2.3.0] - 2022-02-15
 ### Changed
 - Auto queue method changed from WMIC get to lockfile method, this makes it compatible with servers that dont return the app port & auth token from WMIC get.
 

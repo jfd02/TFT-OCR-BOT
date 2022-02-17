@@ -3,91 +3,67 @@
 # Items are in camel case and a-Z
 
 
-comp = {"Lux": {"board_position": 0,
-                "items": ["BlueBuff", "InfinityEdge", "JeweledGauntlet", "SpearofShojin", "GuinsoosRageblade"],
+comp = {"Poppy": {"board_position": 23,
+                "items": ["BrambleVest", "GargoyleStoneplate", "SunfireCape"],
+                "level": 3,
+                "final_comp": True},
+
+        "Ziggs": {"board_position": 0,
+                "items": [],
                 "level": 2,
                 "final_comp": True},
 
-        "Ziggs": {"board_position": 6,
-                  "items": ["BlueBuff", "SpearofShojin", "JeweledGauntlet", "ArchangelsStaff", "StatikkShiv"],
-                  "level": 2,
-                  "final_comp": False},
+        "Blitzcrank": {"board_position": 24,
+                "items": [],
+                "level": 2,
+                "final_comp": False},
+                
+        "Corki": {"board_position": 5,
+                "items": ["BlueBuff", "InfinityEdge", "JeweledGauntlet"],
+                "level": 3,
+                "final_comp": True},
 
-        "Katarina": {"board_position": 7,
-                     "items": ["HandofJustice", "InfinityEdge", "IonicSpark"],
-                     "level": 2,
-                     "final_comp": True},
+        "Lulu": {"board_position": 4,
+                "items": ["ChaliceofPower", "ZekesHerald", "BlueBuff"],
+                "level": 3,
+                "final_comp": True},
 
-        "Twisted Fate": {"board_position": 13,
-                         "items": [],
-                         "level": 2,
-                         "final_comp": False},
+        "Gnar": {"board_position": 12,
+                "items": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
+                "level": 3,
+                "final_comp": True},
 
-        "Graves": {"board_position": 22,
-                   "items": ["GiantSlayer", "GuinsoosRageblade", "HandofJustice", "InfinityEdge"],
-                   "level": 2,
-                   "final_comp": True},
+        "Lucian": {"board_position": 13,
+                "items": [],
+                "level": 2,
+                "final_comp": True},
 
-        "Blitzcrank": {"board_position": 19,
-                       "items": [],
-                       "level": 2,
-                       "final_comp": False},
+        "Vex": {"board_position": 25,
+                "items": [],
+                "level": 2,
+                "final_comp": True},
 
-        "Yuumi": {"board_position": 20,
-                  "items": ["ArchangelsStaff", "BlueBuff", "Morellonomicon"],
-                  "level": 2,
-                  "final_comp": True},
+        "Veigar": {"board_position": 6,
+                "items": ["BlueBuff", "InfinityEdge", "JeweledGauntlet"],
+                "level": 2,
+                "final_comp": True},
+}
 
-        "Fiora": {"board_position": 23,
-                  "items": ["InfinityEdge", "GuardianAngel", "JeweledGauntlet"],
-                  "level": 2,
-                  "final_comp": True},
-
-        "Leona": {"board_position": 24,
-                  "items": ["BrambleVest", "DragonsClaw", "WarmogsArmor", "SunfireCape"],
-                  "level": 2,
-                  "final_comp": True},
-
-        "Garen": {"board_position": 25,
-                  "items": ["Bloodthirster", "TitansResolve", "WarmogsArmor"],
-                  "level": 2,
-                  "final_comp": False},
-
-        "Braum": {"board_position": 26,
-                  "items": [],
-                  "level": 2,
-                  "final_comp": True},
-
-        "Yone": {"board_position": 27,
-                 "items": ["GuardianAngel", "LastWhisper", "RunaansHurricane"],
-                 "level": 2,
-                 "final_comp": True}}
 
 # This tries to get a trait in the priority trait (priority is from left to right) before looking in backup traits
 # No logic for traits like Phony Frontline meaning the bot won't know what to do if they are included in here.
-priority_augments = ["Thrill of the Hunt", "Celestial Blessing", "Makeshift Armor", "Cybernetic Implants",
-                     "Knife's Edge", "Sunfire Board", "Featherweights", "Woodland Charm", "High End Shopping",
-                     "Level Up!", "Wise Spending", "Windfall", "Titanic Force", "Rich Get Richer", "Weakspot",
-                     "Underdogs", "Ascension", "Dominance", "First Aid Kit"]
+priority_augments = ["Celestial Blessing", "Backfoot", "Cybernetic Implants", "Cybernetic Shell", "Cybernetic Uplink", 
+                     "Disintegrator", "Thrill of the Hunt", "Electrocharge", "Knife's Edge", "Featherweights", "Makeshift Armor",
+                     "Underdogs", "Second Wind", "Tri Force", "Weakspot", "Rich Get Richer",
+                     "Woodland Charm", "Metabolic Accelerator", "Wise Spending", "Woodland Trinket", "Sunfire Board"]
 
-backup_augments = {"Dominance", "Hyper Roll", "Ascension", "Built Different", "Celestial Blessing", "Knife's Edge",
-                   "Cybernetic Implants", "Exiles", "Featherweights", "First Aid Kit", "Makeshift Armor",
-                   "Stand United", "Thrill of the Hunt", "Underdogs", "Weakspot", "Academy Heart", "Arcanist Heart",
-                   "Runic Shield", "Assassin Heart", "Cutthroat", "Bodyguard Heart", "Stand Behind Me", "Bruiser Heart",
-                   "Challenger Heart", "En Garde", "Chemical Overload", "Chemtech Heart", "Clockwork Heart",
-                   "Enchanter Heart", "Ardent Censer", "Enforcer Heart", "Imperial Heart", "Dual Rule",
-                   "Innovator Heart", "Self-Repair", "Mercenary Heart", "Pirates", "Mutant Heart", "Unstable Evolution",
-                   "Protector Heart", "Scholar Heart", "Lifelong Learning", "Scrap Heart", "Sniper's Nest",
-                   "Sniper Heart", "Duet", "Socialite Heart", "Syndicate Heart", "One For All", "Payday",
-                   "Twinshot Heart", "So Small", "Rich Get Richer", "Binary Airdrop", "Clear Mind", "Sunfire Board",
-                   "Metabolic Accelerator", "Titanic Force", "Cram Session", "Spell Blade", "Smoke Bomb", "Safety Vest",
-                   "Shrug It Off", "Instant Injection", "Armor Plating", "All For One", "Gold Reserves", "Deadeye",
-                   "Shady Business", "Sharpshooter", "Share the Spotlight", "Windfall", "Wise Spending", "Level Up!",
-                   "High End Shopping", "Woodland Charm", "Academy Soul", "Arcanist Soul", "Assassin Soul",
-                   "Bodyguard Soul", "Bruiser Soul", "Challenger Soul", "Chemtech Soul", "Clockwork Soul",
-                   "Broken Stopwatch", "Enchanter Soul", "Enforcer Soul", "Imperial Soul", "Innovator Soul",
-                   "Mercenary Soul", "Mutant Soul", "Protector Soul", "Scholar Soul", "Scrap Soul", "Sniper Soul",
-                   "Socialite Soul", "Syndicate Soul", "Twinshot Soul"}
+backup_augments = {"Arcane Nullifier", "Ascension", "Backfoot", "Battlemage", "Blue Battery",
+                   "Celestial Blessing", "Cybernetic Implants", "Cybernetic Shell", "Cybernetic Uplink", "Disintegrator", "Dominance",
+                   "Electrocharge", "Exiles", "Featherweights", "First Aid Kit", "Item Grab Bag", "Keepers",
+                   "Knife's Edge", "Luden's Echo", "Makeshift Armor", "Meditation", "Phalanx", "Second Wind",
+                   "Stand United", "Thrill of the Hunt", "Tri Force", "Underdogs", "Weakspot",
+                   "Binary Airdrop", "Component Grab Bag", "Metabolic Accelerator", "Rich Get Richer", "Salvage Bin",
+                   "Sunfire Board", "Titanic Force", "Woodland Trinket", "Wise Spending", "Ardent Censer", "High End Shopping"}
 
 
 def champions_to_buy() -> list:
