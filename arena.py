@@ -47,12 +47,12 @@ class Arena:
         #     if isinstance(slot, Champion) and bench_occupied[index] is False:
         #         self.bench[index] = None
 
-    def bought_champion(self, name, slot):
-        items = []
-        for item in comps.comp[name]["items"]:
-            items.append(item)
-        self.bench[slot] = Champion(name, screen_coords.bench_loc[slot], items, slot,
-                                    champion_data[name]["Board Size"], comps.comp[name]["final_comp"])
+    def bought_champion(self):
+        # items = []
+        # for item in comps.comp[name]["items"]:
+        #     items.append(item)
+        # self.bench[slot] = Champion(name, screen_coords.bench_loc[slot], items, slot,
+        #                             champion_data[name]["Board Size"], comps.comp[name]["final_comp"])
         mk_functions.move_mouse(screen_coords.default_loc)
         sleep(0.1)
         self.fix_board_state()
@@ -65,16 +65,18 @@ class Arena:
         return None
 
     def move_known(self, champion):
-        self.message_queue.put(("CONSOLE", f"Moving {champion.name} to board"))
-        destination = screen_coords.board_loc[comps.comp[champion.name]["board_position"]]
-        mk_functions.left_click(champion.coords)
-        mk_functions.left_click(destination)
-        champion.coords = destination
-        self.board.append(champion)
-        self.board_names.append(champion.name)
-        self.bench[champion.index] = None
-        champion.index = comps.comp[champion.name]["board_position"]
-        self.board_size += champion.size
+        if champion.name in comps.comp:
+            self.message_queue.put(("CONSOLE", f"Moving {champion.name} to board"))
+            destination = screen_coords.board_loc[comps.comp[champion.name]["board_position"]]
+            mk_functions.left_click(champion.coords)
+            mk_functions.left_click(destination)
+            champion.coords = destination
+            self.board.append(champion)
+            self.board_names.append(champion.name)
+            self.bench[champion.index] = None
+            champion.index = comps.comp[champion.name]["board_position"]
+            self.board_size += champion.size
+
 
     def move_unknown(self):
         for index, champion in enumerate(self.bench):
@@ -103,7 +105,7 @@ class Arena:
         self.level = arena_functions.get_level()
         while self.level > self.board_size:
             champion = self.have_champion()
-            if champion is not None:
+            if champion is not None and self.level - self.board_size >= champion.size:
                 self.move_known(champion)
             elif self.unknown_in_bench():
                 self.move_unknown()
@@ -131,27 +133,48 @@ class Arena:
     def replace_unknown(self):
         champion = self.have_champion()
         if len(self.board_unknown) > 0 and champion is not None:
-            mk_functions.press_e(screen_coords.board_loc[self.unknown_slots[len(self.board_unknown) - 1]])
-            self.board_unknown.pop()
-            self.board_size -= 1
-            self.move_known(champion)
+            if self.level - self.board_size <= champion.size != 2:
+                mk_functions.press_e(screen_coords.board_loc[self.unknown_slots[len(self.board_unknown) - 1]])
+                self.board_unknown.pop()
+                self.board_size -= 1
+                self.move_known(champion)
+            elif len(self.board_unknown) > 1 and self.level - self.board_size + 1 <= champion.size:
+                mk_functions.press_e(screen_coords.board_loc[self.unknown_slots[len(self.board_unknown) - 1]])
+                self.board_unknown.pop()
+                mk_functions.press_e(screen_coords.board_loc[self.unknown_slots[len(self.board_unknown) - 1]])
+                self.board_unknown.pop()
+                self.board_size -= 2
+                self.move_known(champion)
+            elif self.level - self.board_size + 1 <= champion.size:
+                for slot in self.board:
+                    if isinstance(slot, Champion):
+                        if slot.final_comp is False:
+                            mk_functions.press_e(slot.coords)
+                            self.board_size -= 1
+                self.move_known(champion)
 
     def bench_cleanup(self):
         # print(self.bench)
         for index, champion in enumerate(self.bench):
             if champion == "?" or isinstance(champion, str):
-                self.message_queue.put(("CONSOLE", "Selling unknown champion"))
-                mk_functions.press_e(screen_coords.bench_loc[index])
-                self.bench[index] = None
+                pass
+                # self.message_queue.put(("CONSOLE", "Selling unknown champion"))
+                # mk_functions.press_e(screen_coords.bench_loc[index])
+                # self.bench[index] = None
             elif isinstance(champion, Champion):
-                if champion.name not in self.champs_to_buy and champion.name in self.board_names:
-                    self.message_queue.put(("CONSOLE", "Selling unknown champion"))
-                    mk_functions.press_e(screen_coords.bench_loc[index])
-                    self.bench[index] = None
+                # if champion.name not in self.champs_to_buy and champion.name in self.board_names:
+                #     self.message_queue.put(("CONSOLE", "Selling unknown champion"))
+                #     mk_functions.press_e(screen_coords.bench_loc[index])
+                #     self.bench[index] = None
                 if champion.name not in comps.comp:
-                    self.message_queue.put(("CONSOLE", f"Selling useless champion:{champion.name}"))
+                    self.message_queue.put(("CONSOLE", f"Selling useless champion: {champion.name}"))
                     mk_functions.press_e(screen_coords.bench_loc[index])
-                    self.bench[index] = None
+                else:
+                    for index1, champion1 in enumerate(self.board):
+                        if isinstance(champion1, Champion) and champion1.name == champion.name and \
+                                champion1.level >= comps.comp[champion1.name]["level"]:
+                            self.message_queue.put(("CONSOLE", f"Selling useless champion(level-up): {champion.name}"))
+                            mk_functions.press_e(screen_coords.bench_loc[index])
 
 
     def place_items(self):
@@ -203,12 +226,6 @@ class Arena:
                         self.message_queue.put(("CONSOLE", f"Placed {item} on {champ.name}"))
                         self.message_queue.put(("CONSOLE", f"Completed {builditem[0]}"))
                         return
-
-    def fix_unknown(self):
-        sleep(0.25)
-        mk_functions.press_e(screen_coords.board_loc[self.unknown_slots[0]])
-        self.board_unknown.pop(0)
-        self.board_size -= 1
 
     def remove_champion(self, champion):
         for index, slot in enumerate(self.bench):
@@ -266,12 +283,12 @@ class Arena:
             for index, champion in enumerate(shop):
                 if champion in self.champs_to_buy:
                     if arena_functions.get_gold() - game_assets.champion_data[champion]["Gold"] >= 0:
-                        none_slot = arena_functions.empty_slot()
-                        if none_slot != -1:
-                            mk_functions.left_click(screen_coords.buy_loc[index])
-                            self.message_queue.put(("CONSOLE", f"Purchased {champion}"))
-                            self.bought_champion(champion, none_slot)
-                            self.champs_to_buy.remove(champion)
+                        # none_slot = arena_functions.empty_slot()
+                        # if none_slot != -1:
+                        mk_functions.left_click(screen_coords.buy_loc[index])
+                        self.message_queue.put(("CONSOLE", f"Purchased {champion}"))
+                        self.bought_champion()
+                        self.champs_to_buy.remove(champion)
             first_run = False
 
     def krug_round(self):

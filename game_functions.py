@@ -19,17 +19,17 @@ def get_round() -> str:
         return game_round
 
 
-def pickup_items():
-    for index, coords in enumerate(screen_coords.item_pickup_loc):
-        mk_functions.right_click(coords)
-        if index == 7:  # Don't need to sleep on final click
-            return
-        if index == 0:
-            sleep(1.2)
-        if index % 2 == 0:
-            sleep(2)
-        else:
-            sleep(1.2)
+# def pickup_items():
+#     for index, coords in enumerate(screen_coords.item_pickup_loc):
+#         mk_functions.right_click(coords)
+#         if index == 7:  # Don't need to sleep on final click
+#             return
+#         if index == 0:
+#             sleep(1.2)
+#         if index % 2 == 0:
+#             sleep(2)
+#         else:
+#             sleep(1.2)
 
 
 def get_champ_carousel(tft_round):

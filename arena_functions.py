@@ -26,6 +26,16 @@ def check_GameStart():
     except Exception:
         return False
 
+
+def check_GameLoading():
+    try:
+        allrespones = requests.get('https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
+        if allrespones.json()['httpStatus'] == 404:
+                return True
+        return False
+    except Exception:
+        return False
+
 def get_champion_data():
     global client_champion_data
     try:
@@ -77,7 +87,7 @@ def get_gold() -> int:
         return 0
 
 
-def replaceKeyName(name):
+def replaceItemKeyName(name):
     return name.replace("Item_Icons/Spatula/", "").replace("Item_Icons/Standard/", "").replace(
         "Item_Icons/Standard_New/", "").replace("Item_Icons/Radiant/", "").replace("Item_Icons/Shadow/", "").replace(
         "ASSETS/Maps/Particles/TFT/", "").replace("ASSETS/Maps/Particles/TFT2/", "").replace(
@@ -89,8 +99,7 @@ def replaceKeyName(name):
                                                                                                             "").replace(
         "Icon_", "").replace(".dds", "").replace("Shroud", "ShroudofStillness").replace("MortalReminder",
                                                                                         "Last Whisper").replace(
-        "Mercurial", "Quicksilver").replace("Jeweled_Guantlet", "Jeweled_Gauntlet").replace("Gaints_Belt",
-                                                                                            "Giants_Belt")
+        "Mercurial", "Quicksilver").replace("Jeweled_Guantlet", "Jeweled_Gauntlet").replace("Gaints_Belt", "Giants_Belt").replace("_", "").replace(".", "").replace("ThievesGloves", "ThiefsGloves")
 
 
 def get_shop() -> list:
@@ -103,7 +112,7 @@ def get_shop() -> list:
             s = json.loads(shop_dict["store"]["shop_pieces"])
             for slot in s:
                 name_tmp = s[slot]["name"]
-                champ = client_champion_data["data"][name_tmp.replace("TFT6_", "").lower()][
+                champ = client_champion_data["data"][name_tmp.replace("TFT6_", "").lower().replace("tft6b_", "")][
                     "name"] if name_tmp != "Sold" else name_tmp
                 if champ in game_assets.champions:
                     shop.append(champ)
@@ -130,10 +139,12 @@ def get_bench() -> list:
 
             _solt = []
             _name = []
+            _level = []
 
             for slot in s:
                 _solt.append(int(slot.replace("slot_", "")))
                 _name.append(s[slot]["name"])
+                _level.append((int(s[slot]["level"])))
 
             for i in range(1, 10):
                 if i in _solt:
@@ -142,7 +153,7 @@ def get_bench() -> list:
                         sleep(1)
                         mk_functions.left_click(screen_coords.buy_loc[2])
                         continue
-                    champ = client_champion_data["data"][_name[_solt.index(i)].replace("TFT6_", "").lower()]["name"]
+                    champ = client_champion_data["data"][_name[_solt.index(i)].replace("TFT6_", "").lower().replace("tft6b_", "")]["name"]
                     if champ in game_assets.champions:
                         items = []
                         if champ in comps.comp:
@@ -150,7 +161,7 @@ def get_bench() -> list:
                                 items.append(item)
                         _bench[i - 1] = Champion(champ, screen_coords.bench_loc[i - 1], items, i - 1,
                                                  champion_data[champ]["Board Size"],
-                                                 comps.comp[champ]["final_comp"] if champ in comps.comp else False)
+                                                 comps.comp[champ]["final_comp"] if champ in comps.comp else False, None,None,_level[_solt.index(i)])
                     else:
                         _bench[i - 1] = None
                 else:
@@ -179,26 +190,68 @@ def get_board() -> dict:
 
             _solt = []
             _name = []
+            _level = []
+            _item = []
 
             for slot in s:
-                _solt.append(int(slot.replace("cell_", "")))
+                if s[slot]["name"].lower() == 'tft_trainingdummy':
+                    continue
                 _name.append(s[slot]["name"])
+                _solt.append(int(slot.replace("cell_", "")))
+                _level.append((int(s[slot]["level"])))
+
+                if s[slot]["item_1"] != "":
+                    _item_name = replaceItemKeyName(s[slot]["item_1"])
+                    if _item_name in game_assets.items:
+                        _item.append(_item_name)
+                    else:
+                        print(f"[!] get_board: unknow item1: {_item_name}")
+                if s[slot]["item_2"] != "":
+                    _item_name = replaceItemKeyName(s[slot]["item_2"])
+                    if _item_name in game_assets.items:
+                        _item.append(_item_name)
+                    else:
+                        print(f"[!] get_board: unknow item2: {_item_name}")
+                if s[slot]["item_3"] != "":
+                    _item_name = replaceItemKeyName(s[slot]["item_3"])
+                    if _item_name in game_assets.items:
+                        _item.append(_item_name)
+                    else:
+                        print(f"[!] get_board: unknow item3: {_item_name}")
+
 
             for i in range(1, 29):
                 if i in _solt:
-                    champ = client_champion_data["data"][_name[_solt.index(i)].replace("TFT6_", "").lower()]["name"]
+                    champ = client_champion_data["data"][_name[_solt.index(i)].replace("TFT6_", "").lower().replace("tft6b_", "")]["name"]
                     if champ in game_assets.champions:
-                        items = []
+                        items = [] # 阵容设置装备
                         if champ in comps.comp:
                             for item in comps.comp[champ]["items"]:
                                 items.append(item)
+
+                            completed_items = []
+                            current_building = []
+                            for item in _item: # 遍历已有装备
+                                if item in game_assets.full_items: # 是成装
+                                    if item in items:
+                                        completed_items.append(item)
+                                        items.remove(item)
+                                else:
+                                    for build_item in items:
+                                        build_item_components = list(game_assets.full_items[build_item])
+                                        if item in build_item_components:
+                                            build_item_components.remove(item)
+                                            current_building.append((build_item, build_item_components[0]))
+                                            items.remove(build_item)
+
                             board.append(Champion(champ, screen_coords.board_loc[i - 1], items, i - 1,
                                                   champion_data[champ]["Board Size"],
-                                                  comps.comp[champ]["final_comp"] if champ in comps.comp else False))
-                            board_size += champion_data[champ]["Board Size"]
+                                                  comps.comp[champ]["final_comp"] if champ in comps.comp else False,
+                                                  completed_items, current_building, _level[_solt.index(i)]))
                         else:
                             board_useless.append(champ)
-                            board_size += champion_data[champ]["Board Size"]
+
+                        board_size += champion_data[champ]["Board Size"]
 
     except FileNotFoundError:
         pass

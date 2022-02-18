@@ -60,13 +60,13 @@ def change_arena_skin(server_url, remoting_auth_token):
 def queue(message_queue):
     # shop = arena_functions.get_board()
     # for c in shop['board']:
-    #     print(c.name, c.index)
+    #     print(c.name, c.index, c.build, c.completed_items, c.current_building, c.level)
 
     message_queue.put(("CONSOLE", "[Auto Queue]"))
     results = str(subprocess.run(['wmic', 'PROCESS', 'WHERE', "name= 'LeagueClientUx.exe'", 'GET', 'commandline'],
                                  capture_output=True))
 
-    if arena_functions.check_GameStart():
+    if arena_functions.check_GameStart() or arena_functions.check_GameLoading():
         message_queue.put(("CONSOLE", "In Game"))
         return
 
@@ -95,10 +95,7 @@ def queue(message_queue):
         #          auth=HTTPBasicAuth('riot', remoting_auth_token), verify=False)
         # message_queue.put(("CONSOLE", f"get accept_queue:{status.status_code} == {status.text}"))
         accept_queue(message_queue, server_url, remoting_auth_token)
-        in_game = ImageGrab.grab(bbox=(19, 10, 38, 28))
-        array = np.array(in_game)
-        if (np.abs(array - (27, 79, 66)) <= 2).all(
-                axis=2).any():  # Checks the top left of the loading screen for the green circle
+        if arena_functions.check_GameLoading():  # Checks the top left of the loading screen for the green circle
             in_queue = False
         sleep(1)
     message_queue.put(("CONSOLE", "Loading screen found! Waiting for round 1-1"))

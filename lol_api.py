@@ -8,7 +8,6 @@ import requests
 PROJECT_NAME = 'E:/Development/Python/TFT-OCR-BOT-main'
 DATA_CHAMPION_PATH = '/'
 
-
 class Hero:
     def __init__(self, id, key, name, title):
         self.id = id
@@ -56,7 +55,7 @@ def dowmloadChampionJson(version):
         
         
 if __name__ == '__main__':
-    game_version = input('input game_version (press Enter get latest version data): ')
+    game_version = input('input game_version: ')
     if game_version == '':
         game_version = getLatestestVersion()
         print(f'当前游戏版本：Ver {game_version}')
