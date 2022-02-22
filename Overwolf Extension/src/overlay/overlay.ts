@@ -86,7 +86,7 @@ export class Overlay {
         const feature = info.feature;
         const key = info.key;
 		
-		console.info(JSON.stringify(info));
+		// console.info(JSON.stringify(info));
 
         if (feature === "roster" && key === "player_status"){
             this.handleRoster(info.value);
@@ -119,7 +119,7 @@ export class Overlay {
     }
 
     private async setupRoster(players: PlayerData[]){
-        console.info("Initialising roster", players);
+        // console.info("Initialising roster", players);
 
         if (!this.selfName){
             this.selfName = await this.getSummonerName();
@@ -140,7 +140,7 @@ export class Overlay {
     }
 
     private updateRoster(players: PlayerData[]){
-        console.info("Updating roster");
+        // console.info("Updating roster");
 
         const me = players.find(player => player.name === this.selfName);
         if (me && me.health <= 0){
@@ -158,7 +158,7 @@ export class Overlay {
     }
 
     private removePlayer(name: string){
-        console.info(`Removing: ${name}`);
+        // console.info(`Removing: ${name}`);
 
         const player = this.players.find(player => player.name.trim() === name.trim());
         const index = this.players.indexOf(player);
@@ -179,7 +179,7 @@ export class Overlay {
         const opponent = this.players.find(player => player.name === opponentName);
         const index = this.players.indexOf(opponent);
 
-        console.info(`LAST OPPONENT WAS ${opponentName}`);
+        // console.info(`LAST OPPONENT WAS ${opponentName}`);
 
         if (index !== -1){
             this.players.splice(index, 1);
@@ -199,7 +199,7 @@ export class Overlay {
     }
 
     private clear(){
-        console.info(`A player was eliminated, clearing`);
+        // console.info(`A player was eliminated, clearing`);
 
         this.players.forEach(player => {
             player.box.style.borderColor = "green";
@@ -207,7 +207,7 @@ export class Overlay {
     }
 
     private reset(){
-        console.info("Reset");
+        // console.info("Reset");
 
         document.querySelectorAll(`.box`).forEach((box: any) => box.style.borderColor = "transparent");
 
@@ -224,12 +224,19 @@ export class Overlay {
     private registerEvents() {
         console.info("register events");
 
-        overwolf.games.events.onError.addListener((event) => {
-            console.info("Error: " + JSON.stringify(event));
+        // overwolf.games.events.onError.addListener((event) => {
+        //     // console.info("Error: " + JSON.stringify(event));
+        // });
+
+        overwolf.games.events.onInfoUpdates.addListener((event) => {
+            // this.handleEvent("Info UPDATE: " + JSON.stringify(event));
+            this.handleEvent(event.info[0]);
+
+
         });
 
         overwolf.games.events.onInfoUpdates2.addListener((event) => {
-            this.handleEvent("Info UPDATE: " + JSON.stringify(event));
+            // this.handleEvent("Info UPDATE: " + JSON.stringify(event));
 
             switch (event.feature) {
                 case "store":
@@ -250,14 +257,13 @@ export class Overlay {
             }
 
 
-
         });
-
-        overwolf.games.events.onNewEvents.addListener((event) => {
-            this.handleEvent("EVENT FIRED: " + JSON.stringify(event));
-
-
-        });
+        //
+        // overwolf.games.events.onNewEvents.addListener((event) => {
+        //     // this.handleEvent("EVENT FIRED: " + JSON.stringify(event));
+        //
+        //
+        // });
     }
 
     private static gameLaunched(gameInfoResult) {
