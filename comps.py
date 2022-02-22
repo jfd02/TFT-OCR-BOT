@@ -3,65 +3,51 @@
 # Items are in camel case and a-Z
 
 
-comp = {"Lux": {"board_position": 0,
-                "items": ["BlueBuff", "InfinityEdge", "JeweledGauntlet", "SpearofShojin", "GuinsoosRageblade"],
+comp = {"Kassadin": {"board_position": 4,
+                "items": [],
+                "level": 2,
+                "final_comp": False},
+
+        "Rek'Sai": {"board_position": 26,
+                "items": ["ThiefsGloves"],
                 "level": 2,
                 "final_comp": True},
 
-        "Ziggs": {"board_position": 6,
-                  "items": ["BlueBuff", "SpearofShojin", "JeweledGauntlet", "ArchangelsStaff", "StatikkShiv"],
-                  "level": 2,
-                  "final_comp": False},
+        "Sejuani": {"board_position": 23,
+                "items": [],
+                "level": 2,
+                "final_comp": False},
 
-        "Katarina": {"board_position": 7,
-                     "items": ["HandofJustice", "InfinityEdge", "IonicSpark"],
-                     "level": 2,
-                     "final_comp": True},
+        "Swain": {"board_position": 3,
+                "items": [],
+                "level": 2,
+                "final_comp": False},
 
-        "Twisted Fate": {"board_position": 13,
-                         "items": [],
-                         "level": 2,
-                         "final_comp": False},
+        "Malzahar": {"board_position": 6,
+                "items": ["BlueBuff", "HextechGunblade", "Morellonomicon"],
+                "level": 3,
+                "final_comp": True},
 
-        "Graves": {"board_position": 22,
-                   "items": ["GiantSlayer", "GuinsoosRageblade", "HandofJustice", "InfinityEdge"],
-                   "level": 2,
-                   "final_comp": True},
+        "Cho'Gath": {"board_position": 25,
+                "items": ["BrambleVest", "Redemption", "TitansResolve", "NeekosHelp"],
+                "level": 3,
+                "final_comp": True},
 
-        "Blitzcrank": {"board_position": 19,
-                       "items": [],
-                       "level": 2,
-                       "final_comp": False},
+        "Alistar": {"board_position": 24,
+                "items": ["DragonsClaw"],
+                "level": 2,
+                "final_comp": True},
 
-        "Yuumi": {"board_position": 20,
-                  "items": ["ArchangelsStaff", "BlueBuff", "Morellonomicon"],
-                  "level": 2,
-                  "final_comp": True},
+        "Kha'Zix": {"board_position": 13,
+                "items": ["ThiefsGloves"],
+                "level": 2,
+                "final_comp": True},
 
-        "Fiora": {"board_position": 23,
-                  "items": ["InfinityEdge", "GuardianAngel", "JeweledGauntlet"],
-                  "level": 2,
-                  "final_comp": True},
-
-        "Leona": {"board_position": 24,
-                  "items": ["BrambleVest", "DragonsClaw", "WarmogsArmor", "SunfireCape"],
-                  "level": 2,
-                  "final_comp": True},
-
-        "Garen": {"board_position": 25,
-                  "items": ["Bloodthirster", "TitansResolve", "WarmogsArmor"],
-                  "level": 2,
-                  "final_comp": False},
-
-        "Braum": {"board_position": 26,
-                  "items": [],
-                  "level": 2,
-                  "final_comp": True},
-
-        "Yone": {"board_position": 27,
-                 "items": ["GuardianAngel", "LastWhisper", "RunaansHurricane"],
-                 "level": 2,
-                 "final_comp": True}}
+        "Kai'Sa": {"board_position": 5,
+                "items": ["ThiefsGloves"],
+                "level": 2,
+                "final_comp": True},
+        }
 
 # This tries to get a trait in the priority trait (priority is from left to right) before looking in backup traits
 # No logic for traits like Phony Frontline meaning the bot won't know what to do if they are included in here.

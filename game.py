@@ -68,7 +68,7 @@ class Game:
         pickers = ["tft_itemunknown", "testcuberender"]
         pickers_pointers = find_pointers(mem, pickers)
         view_proj_matrix, width, height = find_view_proj_matrix(mem)
-
+        # print(view_proj_matrix, width, height)
         for p in pickers_pointers:
             o = read_object(mem, p)
             x = None

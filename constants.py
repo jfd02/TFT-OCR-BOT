@@ -1,6 +1,6 @@
 PROCESS_NAME = 'League of Legends.exe'
 
-oObjectManager = 0x18670C8
+oObjectManager = 0x185C0C8
 oObjectMapRoot = 0x28
 oObjectMapNodeNetId = 0x10
 oObjectMapNodeObject = 0x14
@@ -46,8 +46,8 @@ oObjectZ = oObjectPos + 0x4
 oObjectY = oObjectPos + 0x8
 
 oLocalPlayer = 0x310473C
-oViewProjMatrices = 0x312DDD8
-oRenderer = 0x3130C78
+oViewProjMatrices = 0x3122BD0
+oRenderer = 0x3125A70
 oRendererWidth = 0xC
 oRendererHeight = 0x10
 oGameTime = 0x30FB7CC
