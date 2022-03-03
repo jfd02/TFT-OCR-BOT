@@ -85,7 +85,7 @@ class Game:
                 x = None
                 y = None
                 x, y = world_to_screen(view_proj_matrix, width, height, o.x, o.z, o.y)
-                if x < 500:
+                if x is None or x < 500:
                     return
 
 
