@@ -194,9 +194,10 @@ def get_board() -> dict:
             _item = []
 
             for slot in s:
-                if s[slot]["name"].lower() == 'tft_trainingdummy':
+                name_tmp = s[slot]["name"].replace("TFT6_", "").lower().replace("tft6b_", "")
+                if name_tmp not in client_champion_data["data"]:
                     continue
-                _name.append(s[slot]["name"])
+                _name.append(name_tmp)
                 _solt.append(int(slot.replace("cell_", "")))
                 _level.append((int(s[slot]["level"])))
 
@@ -222,7 +223,7 @@ def get_board() -> dict:
 
             for i in range(1, 29):
                 if i in _solt:
-                    champ = client_champion_data["data"][_name[_solt.index(i)].replace("TFT6_", "").lower().replace("tft6b_", "")]["name"]
+                    champ = client_champion_data["data"][_name[_solt.index(i)]]["name"]
                     if champ in game_assets.champions:
                         items = [] # 阵容设置装备
                         if champ in comps.comp:

@@ -3,48 +3,58 @@
 # Items are in camel case and a-Z
 
 
-comp = {"Kassadin": {"board_position": 4,
+comp = {"Ezreal": {"board_position": 4,
+                "items": [],
+                "level": 2,
+                "final_comp": True},
+
+        "Singed": {"board_position": 24,
                 "items": [],
                 "level": 2,
                 "final_comp": False},
 
-        "Rek'Sai": {"board_position": 26,
-                "items": ["ThiefsGloves"],
+        "Ekko": {"board_position": 3,
+                "items": [],
                 "level": 2,
                 "final_comp": True},
 
-        "Sejuani": {"board_position": 23,
+        "Talon": {"board_position": 2,
                 "items": [],
                 "level": 2,
                 "final_comp": False},
 
-        "Swain": {"board_position": 3,
+        "Leona": {"board_position": 22,
                 "items": [],
                 "level": 2,
                 "final_comp": False},
 
-        "Malzahar": {"board_position": 6,
-                "items": ["BlueBuff", "HextechGunblade", "Morellonomicon"],
-                "level": 3,
-                "final_comp": True},
-
-        "Cho'Gath": {"board_position": 25,
-                "items": ["BrambleVest", "Redemption", "TitansResolve", "NeekosHelp"],
-                "level": 3,
-                "final_comp": True},
-
-        "Alistar": {"board_position": 24,
-                "items": ["DragonsClaw"],
+        "Zilean": {"board_position": 12,
+                "items": [],
                 "level": 2,
                 "final_comp": True},
 
-        "Kha'Zix": {"board_position": 13,
-                "items": ["ThiefsGloves"],
+        "Senna": {"board_position": 6,
+                "items": ["GiantSlayer", "InfinityEdge", "LastWhisper"],
                 "level": 2,
                 "final_comp": True},
 
-        "Kai'Sa": {"board_position": 5,
-                "items": ["ThiefsGloves"],
+        "Orianna": {"board_position": 13,
+                "items": [],
+                "level": 2,
+                "final_comp": True},
+
+        "Vi": {"board_position": 25,
+                "items": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
+                "level": 2,
+                "final_comp": True},
+
+        "Seraphine": {"board_position": 5,
+                "items": [],
+                "level": 2,
+                "final_comp": True},
+
+        "Jayce": {"board_position": 26,
+                "items": [],
                 "level": 2,
                 "final_comp": True},
         }
