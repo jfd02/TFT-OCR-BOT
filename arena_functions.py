@@ -1,5 +1,7 @@
+import string
 import pydirectinput
 from PIL import ImageGrab
+from difflib import SequenceMatcher
 import numpy as np
 import requests
 
@@ -32,6 +34,11 @@ def get_gold() -> int:
     except ValueError:
         return 0
 
+def match_string(champ) -> string:
+    for champion in game_assets.champions:
+        if SequenceMatcher(a=champ,b=champion).ratio() >= 0.7:
+            return champion
+    return ""
 
 def get_shop() -> list:
     screen_capture = ImageGrab.grab(bbox=screen_coords.shop_pos)
@@ -42,7 +49,7 @@ def get_shop() -> list:
         if champ in game_assets.champions:
             shop.append(champ)
         else:
-            shop.append("")
+            shop.append(match_string(champ))
     return shop
 
 
@@ -70,6 +77,8 @@ def bench_occupied_check() -> list:
 def valid_item(item):
     for valid_item_name in game_assets.items:
         if valid_item_name in item:
+            return valid_item_name
+        elif SequenceMatcher(a=valid_item_name,b=item).ratio() >= 0.7:
             return valid_item_name
     return None
 
