@@ -1,6 +1,7 @@
 import pydirectinput
 from PIL import ImageGrab
 import numpy as np
+import requests
 
 import screen_coords
 import ocr
@@ -9,21 +10,18 @@ import mk_functions
 
 
 def get_level() -> int:
-    level = ocr.get_text(screenxy=screen_coords.level_pos, scale=3, psm=7, whitelist="0123456789")
     try:
-        level = int(level)
-        return level
-    except ValueError:
+        resposne = requests.get('https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
+        return int(resposne.json()['activePlayer']['level'])
+    except Exception:
         return 1
 
 
 def get_health() -> int:
-    mk_functions.left_click(screen_coords.health_loc)
-    health = ocr.get_text(screenxy=screen_coords.health_pos, scale=3, psm=7, whitelist="0123456789")
     try:
-        health = int(health)
-        return health
-    except ValueError:
+        resposne = requests.get('https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
+        return int(resposne.json()['activePlayer']['championStats']["currentHealth"])
+    except Exception:
         return 100
 
 
