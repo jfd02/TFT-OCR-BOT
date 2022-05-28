@@ -6,7 +6,6 @@ import ocr
 import game_assets
 import mk_functions
 
-
 def get_round() -> str:
     screen_capture = ImageGrab.grab(bbox=screen_coords.round_pos)
     round_two_x = screen_capture.crop(screen_coords.round_pos_two)
@@ -17,7 +16,6 @@ def get_round() -> str:
         round_one_x = screen_capture.crop(screen_coords.round_pos_one)
         game_round = ocr.get_text_image(image=round_one_x, whitelist="0123456789-")
         return game_round
-
 
 def pickup_items():
     for index, coords in enumerate(screen_coords.item_pickup_loc):
@@ -30,7 +28,6 @@ def pickup_items():
             sleep(2)
         else:
             sleep(1.2)
-
 
 def get_champ_carousel(tft_round):
     mk_functions.right_click(screen_coords.carousel_loc)
@@ -47,7 +44,6 @@ def get_champ_carousel(tft_round):
             sleep(3)
             mk_functions.right_click(screen_coords.carousel_loc)
 
-
 def check_alive() -> bool:
     if ocr.get_text(screenxy=screen_coords.exit_now_pos, scale=3, psm=7, whitelist='') == 'EXIT NOW':
         return False
@@ -56,14 +52,11 @@ def check_alive() -> bool:
     else:
         return True
 
-
 def exit_game():
     mk_functions.left_click(screen_coords.exit_now_loc)
 
-
 def default_pos():
     mk_functions.left_click(screen_coords.default_loc)
-
 
 def forfeit():
     mk_functions.press_esc()

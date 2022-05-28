@@ -10,7 +10,6 @@ import ocr
 import game_assets
 import mk_functions
 
-
 def get_level() -> int:
     try:
         resposne = requests.get('https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
@@ -18,14 +17,12 @@ def get_level() -> int:
     except Exception:
         return 1
 
-
 def get_health() -> int:
     try:
         resposne = requests.get('https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
         return int(resposne.json()['activePlayer']['championStats']["currentHealth"])
     except Exception:
         return 100
-
 
 def get_gold() -> int:
     gold = ocr.get_text(screenxy=screen_coords.gold_pos, scale=3, psm=7, whitelist="0123456789")
@@ -52,7 +49,6 @@ def get_shop() -> list:
             shop.append(match_string(champ))
     return shop
 
-
 def empty_slot() -> int:
     for slot, positions in enumerate(screen_coords.bench_health_pos):
         screen_capture = ImageGrab.grab(bbox=positions)
@@ -60,7 +56,6 @@ def empty_slot() -> int:
         if not (np.abs(screenshot_array - (0, 255, 18)) <= 3).all(axis=2).any():
             return slot  # Slot 0-8
     return -1  # No empty slot
-
 
 def bench_occupied_check() -> list:
     bench_occupied = []
@@ -73,7 +68,6 @@ def bench_occupied_check() -> list:
             bench_occupied.append(True)
     return bench_occupied
 
-
 def valid_item(item):
     for valid_item_name in game_assets.items:
         if valid_item_name in item:
@@ -81,7 +75,6 @@ def valid_item(item):
         elif SequenceMatcher(a=valid_item_name,b=item).ratio() >= 0.7:
             return valid_item_name
     return None
-
 
 def get_items() -> list:
     item_bench = []

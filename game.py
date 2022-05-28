@@ -1,11 +1,9 @@
 from time import sleep, perf_counter
-
 import game_assets
 import game_functions
 import settings
 import random
 from arena import Arena
-
 
 class Game:
     def __init__(self, message_queue):

@@ -4,12 +4,10 @@ import multiprocessing
 from ui import Ui
 import settings
 
-
 def game_loop(message_queue):
     while True:
         auto_queue.queue(message_queue)
         game = Game(message_queue)
-
 
 if __name__ == "__main__": 
     if settings.league_client_path == None:

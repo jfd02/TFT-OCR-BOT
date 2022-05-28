@@ -2,7 +2,6 @@
 # (x, y, x+w, y+h) for rectangle coords, (x, y) for click locations
 # Naming convention is _pos for bbox, _loc for (x, y) click locations
 
-
 bench_health_pos = [(369, 622, 472, 757), (485, 622, 588, 757), (601, 622, 704, 757),
                     (728, 622, 831, 757), (844, 622, 947, 757), (960, 622, 1063, 757),
                     (1076, 622, 1179, 757), (1192, 622, 1295, 757), (1308, 622, 1411, 757)]

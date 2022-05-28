@@ -20,7 +20,6 @@ champions = {'Ahri', 'Alistar', 'Ashe', 'Blitzcrank', 'Brand', 'Braum', 'Caitlyn
              'Quinn', "Rek'Sai", 'Renata Glasc', 'Sejuani', 'Senna', 'Seraphine', 'Silco', 'Singed', 'Sivir', 'Swain', 'Syndra', 'Tahm Kench',
              'Talon', 'Tryndamere', 'Twitch', 'Veigar', 'Vex', 'Vi', 'Viktor', 'Warwick', 'Zac', 'Zeri', 'Ziggs', 'Zilean', 'Zyra'}
 
-
 champion_data = {
     "Ahri": {"Gold": 4, "Board Size": 1},
     "Alistar": {"Gold": 4, "Board Size": 2},
@@ -157,4 +156,4 @@ full_items = {"ArcanistEmblem": ("NeedlesslyLargeRod", "Spatula"),
               "Zephyr": ("GiantsBelt", "NegatronCloak"),
               "ZzRotPortal": ("GiantsBelt", "RecurveBow")
               }
-
+              

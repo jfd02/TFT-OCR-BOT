@@ -10,7 +10,6 @@ import settings
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-
 def create_lobby(message_queue, client_info):
     payload = {"queueId": 1090}  # Ranked TFT is 1100
     payload = json.dumps(payload)
@@ -25,7 +24,6 @@ def create_lobby(message_queue, client_info):
     except ConnectionError:
         return False
 
-
 def start_queue(message_queue, client_info):
     try:
         status =requests.post(client_info[1] + "/lol-lobby/v2/lobby/matchmaking/search",
@@ -38,11 +36,9 @@ def start_queue(message_queue, client_info):
     except ConnectionError:
         return False
 
-
 def accept_queue(client_info):
     requests.post(client_info[1] + "/lol-matchmaking/v1/ready-check/accept",
                   auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
-
 
 def change_arena_skin(message_queue, client_info):
     try:
@@ -55,7 +51,6 @@ def change_arena_skin(message_queue, client_info):
             return False
     except ConnectionError:
         return False
-
 
 def get_client(message_queue):
     message_queue.put(("CONSOLE", "[Auto Queue]"))
@@ -74,7 +69,6 @@ def get_client(message_queue):
     message_queue.put(("CONSOLE", "Client found"))
     return (remoting_auth_token, server_url)
     
-
 def queue(message_queue):
     client_info = get_client(message_queue)
     while create_lobby(message_queue, client_info) != True:
@@ -95,4 +89,3 @@ def queue(message_queue):
             in_queue = False
         sleep(1)
     message_queue.put(("CONSOLE", "Loading screen found! Waiting for round 1-1"))
-

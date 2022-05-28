@@ -3,7 +3,6 @@ from win32gui import SetWindowLong, GetWindowLong, SetLayeredWindowAttributes
 from win32con import WS_EX_LAYERED, WS_EX_TRANSPARENT, GWL_EXSTYLE
 import tkinter as tk
 
-
 class Ui:
     def __init__(self, message_queue):
         self.label_container = []

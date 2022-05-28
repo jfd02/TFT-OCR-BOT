@@ -2,7 +2,6 @@
 # Challengers Academy
 # Items are in camel case and a-Z
 
-
 comp = {"Poppy": {"board_position": 23,
                 "items": ["BrambleVest", "GargoyleStoneplate", "SunfireCape"],
                 "level": 3,
@@ -49,7 +48,6 @@ comp = {"Poppy": {"board_position": 23,
                 "final_comp": True},
 }
 
-
 # This tries to get a trait in the priority trait (priority is from left to right) before looking in backup traits
 # No logic for traits like Phony Frontline meaning the bot won't know what to do if they are included in here.
 priority_augments = ["Celestial Blessing", "Backfoot", "Cybernetic Implants", "Cybernetic Shell", "Cybernetic Uplink", 
@@ -65,7 +63,6 @@ backup_augments = {"Arcane Nullifier", "Ascension", "Backfoot", "Battlemage", "B
                    "Binary Airdrop", "Component Grab Bag", "Metabolic Accelerator", "Rich Get Richer", "Salvage Bin",
                    "Sunfire Board", "Titanic Force", "Woodland Trinket", "Wise Spending", "Ardent Censer", "High End Shopping"}
 
-
 def champions_to_buy() -> list:
     champs_to_buy = []
     for champion in comp:
@@ -78,7 +75,6 @@ def champions_to_buy() -> list:
             for _ in range(9):
                 champs_to_buy.append(champion)
     return champs_to_buy
-
 
 def get_unknown_slots():
     container = []

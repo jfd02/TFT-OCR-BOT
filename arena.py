@@ -9,7 +9,6 @@ import comps
 import ocr
 import arena_functions
 
-
 class Arena:
     def __init__(self, message_queue):
         self.message_queue = message_queue
