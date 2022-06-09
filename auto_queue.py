@@ -38,6 +38,7 @@ def start_queue(message_queue, client_info):
     except ConnectionError:
         return False
 
+
 def check_queue(message_queue, client_info):
     try:
         status = requests.get(client_info[1] + "/lol-lobby/v2/lobby/matchmaking/search-state",
@@ -46,12 +47,14 @@ def check_queue(message_queue, client_info):
     except ConnectionError:
         return False
 
+
 def check_game_status(message_queue, client_info):
     try:
         status = requests.get(client_info[1] + "/lol-game-session/v1/echo",
                             auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
     except ConnectionError:
         return False
+
 
 def accept_queue(client_info):
     requests.post(client_info[1] + "/lol-matchmaking/v1/ready-check/accept",
