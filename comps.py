@@ -2,50 +2,34 @@
 # Challengers Academy
 # Items are in camel case and a-Z
 
-comp = {"Poppy": {"board_position": 23,
-                "items": ["BrambleVest", "GargoyleStoneplate", "SunfireCape"],
-                "level": 3,
+comp = {"Sejuani": {"board_position": 23,
+                "items": [],
+                "level": 1,
                 "final_comp": True},
 
-        "Ziggs": {"board_position": 0,
+        "Shen": {"board_position": 24,
                 "items": [],
                 "level": 2,
                 "final_comp": True},
 
-        "Blitzcrank": {"board_position": 24,
-                "items": [],
-                "level": 2,
-                "final_comp": False},
-                
-        "Corki": {"board_position": 5,
-                "items": ["BlueBuff", "InfinityEdge", "JeweledGauntlet"],
-                "level": 3,
-                "final_comp": True},
-
-        "Lulu": {"board_position": 4,
-                "items": ["ChaliceofPower", "ZekesHerald", "BlueBuff"],
-                "level": 3,
-                "final_comp": True},
-
-        "Gnar": {"board_position": 12,
-                "items": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
-                "level": 3,
-                "final_comp": True},
-
-        "Lucian": {"board_position": 13,
+        "Twitch": {"board_position": 1,
                 "items": [],
                 "level": 2,
                 "final_comp": True},
 
-        "Vex": {"board_position": 25,
-                "items": [],
-                "level": 2,
-                "final_comp": True},
+        "Hecarim": {"board_position": 22,
+                   "items": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
+                   "level": 4,
+                   "final_comp": True},
+        "Xayah": {"board_position": 0,
+                    "items": ["GiantSlayer", "GuinsoosRageblade", "InfinityEdge"],
+                    "level": 4,
+                    "final_comp": True},
+        "Bard": {"board_position": 3,
+                  "items": [],
+                  "level": 5,
+                  "final_comp": True},
 
-        "Veigar": {"board_position": 6,
-                "items": ["BlueBuff", "InfinityEdge", "JeweledGauntlet"],
-                "level": 2,
-                "final_comp": True},
 }
 
 # This tries to get a trait in the priority trait (priority is from left to right) before looking in backup traits
