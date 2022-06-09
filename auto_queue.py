@@ -10,6 +10,7 @@ import settings
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+
 def create_lobby(message_queue, client_info):
     payload = {"queueId": 1090}  # Ranked TFT is 1100
     payload = json.dumps(payload)
@@ -24,9 +25,10 @@ def create_lobby(message_queue, client_info):
     except ConnectionError:
         return False
 
+
 def start_queue(message_queue, client_info):
     try:
-        status =requests.post(client_info[1] + "/lol-lobby/v2/lobby/matchmaking/search",
+        status = requests.post(client_info[1] + "/lol-lobby/v2/lobby/matchmaking/search",
                             auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
         if status.status_code == 204:
             message_queue.put(("CONSOLE", "Starting queue"))
@@ -36,9 +38,25 @@ def start_queue(message_queue, client_info):
     except ConnectionError:
         return False
 
+def check_queue(message_queue, client_info):
+    try:
+        status = requests.get(client_info[1] + "/lol-lobby/v2/lobby/matchmaking/search-state",
+                            auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
+        return True if status.json()['searchState'] == 'Searching' else False
+    except ConnectionError:
+        return False
+
+def check_game_status(message_queue, client_info):
+    try:
+        status = requests.get(client_info[1] + "/lol-game-session/v1/echo",
+                            auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
+    except ConnectionError:
+        return False
+
 def accept_queue(client_info):
     requests.post(client_info[1] + "/lol-matchmaking/v1/ready-check/accept",
                   auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
+
 
 def change_arena_skin(message_queue, client_info):
     try:
@@ -51,6 +69,7 @@ def change_arena_skin(message_queue, client_info):
             return False
     except ConnectionError:
         return False
+
 
 def get_client(message_queue):
     message_queue.put(("CONSOLE", "[Auto Queue]"))
@@ -68,7 +87,8 @@ def get_client(message_queue):
             sleep(10)
     message_queue.put(("CONSOLE", "Client found"))
     return (remoting_auth_token, server_url)
-    
+
+
 def queue(message_queue):
     client_info = get_client(message_queue)
     while create_lobby(message_queue, client_info) != True:
@@ -76,16 +96,25 @@ def queue(message_queue):
 
     change_arena_skin(message_queue, client_info)
 
-    sleep(5) 
-    while start_queue(message_queue, client_info) != True:
+    sleep(3)
+    while check_queue(message_queue, client_info) != True:
+        sleep(5)
+        create_lobby(message_queue, client_info)
         sleep(3)
+        start_queue(message_queue, client_info)
+        sleep(1)
 
     in_queue = True
+    time = 0
     while in_queue:
+        if time % 60 == 0:
+            create_lobby(message_queue, client_info)
+            sleep(5)
+            start_queue(message_queue, client_info)
         accept_queue(client_info)
-        in_game = ImageGrab.grab(bbox=(19, 10, 38, 28))
-        array = np.array(in_game)
-        if (np.abs(array - (28, 88, 73)) <= 5).all(axis=2).any():  # Checks the top left of the loading screen for the green circle
+        if check_game_status(message_queue, client_info):
             in_queue = False
         sleep(1)
+        time += 1
+    print('found game')
     message_queue.put(("CONSOLE", "Loading screen found! Waiting for round 1-1"))
