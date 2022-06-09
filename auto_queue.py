@@ -52,6 +52,8 @@ def check_game_status(message_queue, client_info):
     try:
         status = requests.get(client_info[1] + "/lol-game-session/v1/echo",
                             auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
+        if status.json()['phase'] == 'InProgress':
+            return True
     except ConnectionError:
         return False
 
