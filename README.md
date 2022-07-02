@@ -31,9 +31,11 @@
 - Auto queue using the LCU api
 
 ## TODO:
+- Add other resolution support
 - Implement tome of traits logic
 - Revamp the gold spending function
-- Add more checks to auto queue so it can never fail
-- Grab all S teamcomps from a TFT website and determine the best one to play in the game
-- Intelligent carousel item selection (Not sure how to accomplish this one)
+- Revamp auto queue to have more safety checks / fail safes
+- Grab best compositions from TFT website
+- Intelligent carousel item selection
 - Change item pickup to be based of the coordinates of orbs
+- Rewrite most of the code
