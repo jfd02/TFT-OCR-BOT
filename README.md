@@ -1,12 +1,10 @@
 ![main](https://i.imgur.com/roX0N3C.png)
 
 ## NOTES:
-- You must use the default arena skin
-- A lower color brightness in game makes the overlay easier to read
+- Make sure you dont have any overlays on.
 - To ensure best results, make sure you are running this on a computer that has decent specs.
 - League & client must be in English.
 - 1920x1080 borderless windowed is required in League, game must also be on main monitor.
-- Make sure you dont have any overlays on.
 - If the program crashes, create an issue with the error.
 
 ## INSTALLATION:
