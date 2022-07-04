@@ -1,13 +1,11 @@
 """
 Contains static screen coordinates the bot uses
+Screen coords for 1920x1080 screens
+(x, y, x+w, y+h) for vec4 locations, (x, y) for vec2 locations
 """
 
 from vec4 import vec4
 from vec2 import vec2
-
-# Screen coords for 1920x1080 screens
-# (x, y, x+w, y+h) for rectangle coords, (x, y) for click locations
-
 
 bench_health_pos = [vec4(369, 622, 472, 757), vec4(485, 622, 588, 757), vec4(601, 622, 704, 757),
                     vec4(728, 622, 831, 757), vec4(844, 622, 947, 757), vec4(960, 622, 1063, 757),

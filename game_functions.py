@@ -4,7 +4,6 @@ Functions used by the Game class to get data
 
 from time import sleep
 from PIL import ImageGrab
-
 import screen_coords
 import ocr
 import game_assets

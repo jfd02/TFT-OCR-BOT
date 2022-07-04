@@ -81,7 +81,7 @@ def valid_item(item):
 def get_items() -> list:
     item_bench = []
     for positions in screen_coords.item_pos:
-        mk_functions.move_mouse(positions[0].get_coords()[0], positions[0].get_coords()[1])
+        mk_functions.move_mouse(positions[0].get_coords())
         item = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=13,
                             whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
         item_bench.append(valid_item(item))

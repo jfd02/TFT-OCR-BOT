@@ -1,6 +1,6 @@
 """
 Vec2 class that handles point screen coordinates
-Transformations related to the game start position & game size happen here
+Transformations related to the game position & game size happen here
 """
 
 class vec2:

@@ -1,7 +1,3 @@
-"""
-Settings that modify the program state at runtime
-"""
-
 FORFEIT = False
 FORFEIT_TIME = 600 # time in seconds
 LEAGUE_CLIENT_PATH = None

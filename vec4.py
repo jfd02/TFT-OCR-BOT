@@ -1,6 +1,6 @@
 """
 Vec4 class that handles box screen coordinates
-Transformations related to the game start position & game size happen here 
+Transformations related to the game position & game size happen here
   x,y
    *----------------*
    |                |
