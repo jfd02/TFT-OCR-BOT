@@ -1,26 +1,36 @@
-combined_items = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod", "NegatronCloak", "RecurveBow",
-         "SparringGloves", "Spatula", "TearoftheGoddess", "ArchangelsStaff", "AssassinEmblem",
-         "BansheesClaw", "Bloodthirster", "BlueBuff", "BrambleVest", "CavalierEmblem", "ChaliceofPower",
-         "Deathblade","DragonmancerEmblem","DragonsClaw","EdgeofNight","FrozenHeart","GargoyleStoneplate","GiantSlayer","GuardianEmblem", "GuinsoosRageblade",
-         "HandofJustice", "HextechGunblade","InfinityEdge","IonicSpark","JewledGauntlet","LastWhisper","LocketoftheIronSolari", "MageEmblem", "MirageEmblem",
-         "Morellonomicon", "Quicksilver","RabadonsDeathcap","Ragewing Emblem", "RapidFirecannon","Redemption","RunaansHurricane","ShimmerscaleEmblem",
-         "ShroudofStillness", "SpearofShojin","StatikkShiv","SunfireCape","TacticiansCrown","ThiefsGloves","TitansResolve","WarmogsArmor",
-         "ZekesHerald","Zephyr","ZZRotPortal"}
+"""
+Contains static item & champion data
+"""
 
-elusive_items ={"AstralEmblem", "BruiserEmblem", "Cannoneer Emblem", "DragonmancersBlessing", "EvokerEmblem", "GuildEmblem", "JadeEmblem", "LegendEmblem",
-              "MysticEmblem", "RevelEmblem", "ScalescornEmblem", "SwiftshotEmblem", "TempestEmblem", "WarriorEmblem", "WhispersEmblem"}
+combined_items = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod", "NegatronCloak",
+                  "SparringGloves", "Spatula", "TearoftheGoddess", "ArchangelsStaff", "AssassinEmblem",
+                  "BansheesClaw", "Bloodthirster", "BlueBuff", "BrambleVest", "CavalierEmblem", "ChaliceofPower",
+                  "Deathblade","DragonmancerEmblem","DragonsClaw","EdgeofNight","FrozenHeart","GargoyleStoneplate","GiantSlayer",
+                  "HandofJustice", "HextechGunblade","InfinityEdge","IonicSpark","JewledGauntlet","LastWhisper","LocketoftheIronSolari", "MageEmblem", "MirageEmblem",
+                  "Morellonomicon", "Quicksilver","RabadonsDeathcap","Ragewing Emblem", "RapidFirecannon","Redemption","RunaansHurricane","ShimmerscaleEmblem",
+                  "ShroudofStillness", "SpearofShojin","StatikkShiv","SunfireCape","TacticiansCrown","ThiefsGloves","TitansResolve","WarmogsArmor",
+                  "ZekesHerald","Zephyr","ZZRotPortal", "RecurveBow", "GuardianEmblem", "GuinsoosRageblade"}
 
-shimmerscale_items = {"CrownOfChampions", "DeterminedInvestor", "DiamondHands", "DravensAxe", "GamblersBlade", "GoldmancersStaff", "MogulsMail",
-                      "NeedlesslyBigGem", "PhilosophersStone"}
+elusive_items ={"AstralEmblem", "BruiserEmblem", "Cannoneer Emblem", "DragonmancersBlessing", "EvokerEmblem", "GuildEmblem",
+                "JadeEmblem", "LegendEmblem", "MysticEmblem", "RevelEmblem", "ScalescornEmblem", "SwiftshotEmblem",
+                "TempestEmblem", "WarriorEmblem", "WhispersEmblem"}
 
-ornn_items = {"AnimaVisage","DeathsDefiance","EternalWinter","GoldCollector","InfinityForce","Manazane",
-         "ObsidianCleaver","RaduinsSanctum","RocketPropelledFist","ZhonyasParadox"}
+shimmerscale_items = {"CrownOfChampions", "DeterminedInvestor", "DiamondHands", "DravensAxe", "GamblersBlade",
+                      "GoldmancersStaff", "MogulsMail", "NeedlesslyBigGem", "PhilosophersStone"}
 
-radiant_items = { "Absolution", "BansheesSilence","BlessedBloodthirster","BlueBlessing","BrinkofDawn","ChaliceofCharity","CovalentSpark","DemonSlayer","DragonsWill",
-         "DvarapalaStoneplate", "EternalWhisper", "FistofFairness","FrozenHeartOfGold","GlamorousGauntlet","GuinsoosReckoning","HextechLifeblade",
-         "LocketofTargonPrime","LuminousDeathblade","Mistral","MoreMoreellonomicon","Quickestsilver","RabadonsAscendedDeathcap","RadiantRedemption","RapidLightcannon",
-         "RascalsGloves","RosethornVest","RunaansTempest","ShroudofReverance","SpearofHirana","StatikkFavor","SunlightCape","TitansVow","UrfAngelsStaff","WarmogsPride",
-         "ZekesHarmony", "ZenithEdge", "ZzRotsInvitation"}
+ornn_items = {"AnimaVisage","DeathsDefiance","EternalWinter","GoldCollector","InfinityForce",
+              "Manazane", "ObsidianCleaver","RaduinsSanctum","RocketPropelledFist","ZhonyasParadox"}
+
+radiant_items = { "Absolution", "BansheesSilence","BlessedBloodthirster","BlueBlessing",
+                  "BrinkofDawn","ChaliceofCharity","CovalentSpark","DemonSlayer","DragonsWill",
+                  "DvarapalaStoneplate", "EternalWhisper", "FistofFairness","FrozenHeartOfGold",
+                  "GlamorousGauntlet","GuinsoosReckoning","HextechLifeblade",
+                  "LocketofTargonPrime","LuminousDeathblade","Mistral","MoreMoreellonomicon",
+                  "Quickestsilver","RabadonsAscendedDeathcap","RadiantRedemption","RapidLightcannon",
+                  "RascalsGloves","RosethornVest","RunaansTempest","ShroudofReverance",
+                  "SpearofHirana","StatikkFavor","SunlightCape","TitansVow",
+                  "UrfAngelsStaff","WarmogsPride", "ZekesHarmony", "ZenithEdge",
+                  "ZzRotsInvitation"}
 
 items = combined_items.union(elusive_items).union(shimmerscale_items).union(ornn_items).union(radiant_items)
 
@@ -29,8 +39,6 @@ champions = {'Aatrox', 'Anivia', 'Ao Shin', 'Ashe', 'Aurelion Sol', 'Bard', 'Bra
              'Nidalee', 'Nunu', 'Olaf', 'Ornn', 'Pyke', 'Qiyana', 'Ryze', 'Sejuani', 'Senna', 'Sett', 'Shen', 'Shi Oh Yu', 'Shyvana', 'Skarner',
              'Sona', 'Soraka', 'Swain', 'Syfen', 'Sylas', 'Tahm Kench', 'Talon', 'Taric', 'Thresh', 'Tristana', 'Twitch', 'Varus', 'Vladmir',
              'Volibear', 'Xayah', 'Yasuo', 'Yone', 'Zoe'}
-
-
 
 champion_data = {
     "Aatrox": {"Gold": 1, "Board Size": 1},

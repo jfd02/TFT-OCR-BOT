@@ -1,8 +1,12 @@
+"""
+Handles getting into a game
+"""
+
 from time import sleep
+import json
 from requests.auth import HTTPBasicAuth
 import requests
 import urllib3
-import json
 import settings
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -79,13 +83,13 @@ def get_client():
 
 def queue():
     client_info = get_client()
-    while create_lobby(client_info) != True:
+    while create_lobby(client_info) is not True:
         sleep(3)
 
     change_arena_skin(client_info)
 
     sleep(3)
-    while check_queue(client_info) != True:
+    while check_queue(client_info) is not True:
         sleep(5)
         create_lobby(client_info)
         sleep(3)

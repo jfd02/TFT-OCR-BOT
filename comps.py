@@ -1,6 +1,8 @@
-# Comps come from https://tftactics.gg/tierlist/team-comps
-# Challengers Academy
-# Items are in camel case and a-Z
+"""
+Team composition used by the bot
+Comps come from https://tftactics.gg/tierlist/team-comps
+Items are in camel case and a-Z
+"""
 
 comp = {"Sejuani": {"board_position": 23,
                 "items": [],
@@ -29,7 +31,6 @@ comp = {"Sejuani": {"board_position": 23,
                   "items": [],
                   "level": 5,
                   "final_comp": True},
-
 }
 
 # This tries to get a trait in the priority trait (priority is from left to right) before looking in backup traits

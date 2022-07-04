@@ -1,10 +1,14 @@
+"""
+Handles tasks that happen each game round
+"""
+
 from time import sleep, perf_counter
+import random
+import win32gui
+import settings
 import game_assets
 import game_functions
-import settings
-import random
 from arena import Arena
-import win32gui
 import vec4
 import vec2
 
@@ -28,19 +32,21 @@ class Game:
             return
 
         rect = win32gui.GetWindowRect(hwnd)
+
         x = rect[0]
         y = rect[1]
         w = rect[2] - x
         h = rect[3] - y
-        print("Window %s:" % win32gui.GetWindowText(hwnd))
-        print("\tLocation: (%d, %d)" % (x, y))
-        print("\tSize: (%d, %d)" % (w, h))
+
         if w < 200 or h < 200:
-            self.found_window = False
-        else:
-            vec4.vec4.setup_screen(x, y, w, h)
-            vec2.vec2.setup_screen(x, y, w, h)
-            self.found_window = True
+            return
+
+        print(f"Window {win32gui.GetWindowText(hwnd)} found")
+        print(f"  Location: ({x}, {y})")
+        print(f"  Size:     ({w}, {h})")
+        vec4.vec4.setup_screen(x, y, w, h)
+        vec2.vec2.setup_screen(x, y, w, h)
+        self.found_window = True
         
     def loading_screen(self):
         game_functions.default_pos()
