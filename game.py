@@ -39,10 +39,8 @@ class Game:
         if w < 200 or h < 200:
             self.found_window = False
         else:
-            vec4.vec4.screen_x_offset = x
-            vec4.vec4.screen_y_offset = y
-            vec2.vec2.screen_x_offset = x
-            vec2.vec2.screen_y_offset = y
+            vec4.vec4.setup_screen(x, y, w, h)
+            vec2.vec2.setup_screen(x, y, w, h)
             self.found_window = True
         
     def loading_screen(self):
