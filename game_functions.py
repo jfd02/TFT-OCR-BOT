@@ -30,19 +30,9 @@ def pickup_items():
             sleep(1.2)
 
 def get_champ_carousel(tft_round):
-    mk_functions.right_click(screen_coords.carousel_loc.get_coords())
-    if tft_round == '1-1':
-        sleep(9.5)
+    while tft_round == get_round():
         mk_functions.right_click(screen_coords.carousel_loc.get_coords())
-    elif tft_round == '2-4':
-        sleep(5)
-        for _ in range(6):
-            sleep(3)
-            mk_functions.right_click(screen_coords.carousel_loc.get_coords())
-    else:
-        for _ in range(6):
-            sleep(3)
-            mk_functions.right_click(screen_coords.carousel_loc.get_coords())
+        sleep(1)
 
 def check_alive() -> bool:
     if ocr.get_text(screenxy=screen_coords.exit_now_pos.get_coords(), scale=3, psm=7, whitelist='') == 'EXIT NOW':
