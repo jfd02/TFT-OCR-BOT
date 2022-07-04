@@ -64,10 +64,4 @@ screen_coords = {
     'surrender_loc': vec2(771, 843),
 
     'surrender2_loc': vec2(832, 489),
-
 }
-
-def get_coords(key: str):
-    return screen_coords[key]
-
-    
