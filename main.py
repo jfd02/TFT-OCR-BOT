@@ -10,7 +10,7 @@ def game_loop(message_queue):
         game = Game(message_queue)
 
 if __name__ == "__main__": 
-    if settings.league_client_path == None:
+    if settings.LEAGUE_CLIENT_PATH == None:
         raise Exception("No league client path specified. Please set the path in settings.py")
     message_queue = multiprocessing.Queue()
     overlay = Ui(message_queue)

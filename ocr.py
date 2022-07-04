@@ -2,8 +2,9 @@ import cv2
 import numpy as np
 from PIL import ImageGrab
 import pytesseract
+import settings
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = settings.TESSERACT_PATH
 
 def image_grayscale(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
