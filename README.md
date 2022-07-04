@@ -1,12 +1,10 @@
 ![main](https://i.imgur.com/roX0N3C.png)
 
 ## NOTES:
-- You must use the default arena skin
-- A lower color brightness in game makes the overlay easier to read
+- Make sure you dont have any overlays on.
 - To ensure best results, make sure you are running this on a computer that has decent specs.
 - League & client must be in English.
 - 1920x1080 borderless windowed is required in League, game must also be on main monitor.
-- Make sure you dont have any overlays on.
 - If the program crashes, create an issue with the error.
 
 ## INSTALLATION:
@@ -31,9 +29,11 @@
 - Auto queue using the LCU api
 
 ## TODO:
+- Add other resolution support
 - Implement tome of traits logic
 - Revamp the gold spending function
-- Add more checks to auto queue so it can never fail
-- Grab all S teamcomps from a TFT website and determine the best one to play in the game
-- Intelligent carousel item selection (Not sure how to accomplish this one)
+- Revamp auto queue to have more safety checks / fail safes
+- Grab best compositions from TFT website
+- Intelligent carousel item selection
 - Change item pickup to be based of the coordinates of orbs
+- Rewrite most of the code
