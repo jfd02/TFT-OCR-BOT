@@ -1,7 +1,3 @@
-
-from tkinter import W
-
-
 class vec4:
     screen_x_offset = 0
     screen_y_offset = 0
