@@ -27,24 +27,26 @@ class Game:
 
         self.loading_screen()
 
-    def callback(self, hwnd, extra):
+    def callback(self, hwnd):
         if "League of Legends (TM) Client" not in win32gui.GetWindowText(hwnd):
             return
 
         rect = win32gui.GetWindowRect(hwnd)
+
         x = rect[0]
         y = rect[1]
         w = rect[2] - x
         h = rect[3] - y
-        print("Window %s:" % win32gui.GetWindowText(hwnd))
-        print("\tLocation: (%d, %d)" % (x, y))
-        print("\tSize: (%d, %d)" % (w, h))
+
         if w < 200 or h < 200:
-            self.found_window = False
-        else:
-            vec4.vec4.setup_screen(x, y, w, h)
-            vec2.vec2.setup_screen(x, y, w, h)
-            self.found_window = True
+            return
+
+        print(f"Window {win32gui.GetWindowText(hwnd)} found")
+        print(f"  Location: ({x}, {y})")
+        print(f"  Size:     ({w}, {h})")
+        vec4.vec4.setup_screen(x, y, w, h)
+        vec2.vec2.setup_screen(x, y, w, h)
+        self.found_window = True
         
     def loading_screen(self):
         game_functions.default_pos()
