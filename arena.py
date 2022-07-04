@@ -1,3 +1,8 @@
+"""
+This class handles the board / bench state inside of the game and
+other variables used by the bot to make decisions
+"""
+
 from time import sleep
 import game_assets
 import mk_functions

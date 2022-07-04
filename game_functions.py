@@ -1,3 +1,7 @@
+"""
+Functions used by the Game class to get data
+"""
+
 from time import sleep
 from PIL import ImageGrab
 
@@ -9,12 +13,12 @@ import mk_functions
 def get_round() -> str:
     screen_capture = ImageGrab.grab(bbox=screen_coords.round_pos.get_coords())
     round_two_x = screen_capture.crop(screen_coords.round_pos_two.get_coords())
-    game_round = ocr.get_text_image(image=round_two_x, whitelist="0123456789-")
+    game_round = ocr.get_text_from_image(image=round_two_x, whitelist="0123456789-")
     if game_round in game_assets.rounds:
         return game_round
     else:
         round_one_x = screen_capture.crop(screen_coords.round_pos_one.get_coords())
-        game_round = ocr.get_text_image(image=round_one_x, whitelist="0123456789-")
+        game_round = ocr.get_text_from_image(image=round_one_x, whitelist="0123456789-")
         return game_round
 
 def pickup_items():

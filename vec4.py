@@ -1,8 +1,18 @@
+"""
+Vec4 class that handles box screen coordinates
+Transformations related to the game start position & game size happen here 
+  x,y
+   *----------------*
+   |                |
+   *----------------*
+                x+w, y+h
+"""
+
 class vec4:
     screen_x_offset = 0
     screen_y_offset = 0
     screen_x_scale = 1
-    screen_y_scale = 1 
+    screen_y_scale = 1
 
     def __init__(self, x, y, w, h, use_screen_offset: bool = True):
         self.x = x

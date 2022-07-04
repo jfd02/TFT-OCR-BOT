@@ -1,3 +1,7 @@
+"""
+Where the bot execution starts & contains the game loop that keeps the bot running indefinitely
+"""
+
 import auto_queue
 from game import Game
 import settings
@@ -5,7 +9,7 @@ import settings
 def game_loop():
     while True:
         auto_queue.queue()
-        game = Game()
+        Game()
 
 if __name__ == "__main__": 
     if settings.LEAGUE_CLIENT_PATH == None:

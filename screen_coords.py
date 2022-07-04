@@ -1,3 +1,7 @@
+"""
+Contains static screen coordinates the bot uses
+"""
+
 from vec4 import vec4
 from vec2 import vec2
 

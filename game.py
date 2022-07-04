@@ -1,10 +1,14 @@
+"""
+Handles tasks that happen each game round
+"""
+
 from time import sleep, perf_counter
+import random
+import win32gui
+import settings
 import game_assets
 import game_functions
-import settings
-import random
 from arena import Arena
-import win32gui
 import vec4
 import vec2
 

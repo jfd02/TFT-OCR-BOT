@@ -1,3 +1,7 @@
+"""
+The champion class contains all information related to an individual board slot used by the bot
+"""
+
 class Champion:
     def __init__(self, name, coords, build, slot, size, final_comp):
         self.name = name

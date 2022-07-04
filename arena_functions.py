@@ -1,7 +1,10 @@
+"""
+Functions used by the Arena class to get data
+"""
+
 import string
 from difflib import SequenceMatcher
 from PIL import ImageGrab
-import pydirectinput
 import numpy as np
 import requests
 import screen_coords
@@ -41,7 +44,7 @@ def get_shop() -> list:
     shop = []
     for names in screen_coords.champ_name_pos:
         champ = screen_capture.crop(names.get_coords())
-        champ = ocr.get_text_image(image=champ, whitelist="")
+        champ = ocr.get_text_from_image(image=champ, whitelist="")
         if champ in game_assets.champions:
             shop.append(champ)
         else:
@@ -78,7 +81,7 @@ def valid_item(item):
 def get_items() -> list:
     item_bench = []
     for positions in screen_coords.item_pos:
-        pydirectinput.moveTo(positions[0].get_coords()[0], positions[0].get_coords()[1])
+        mk_functions.move_mouse(positions[0].get_coords()[0], positions[0].get_coords()[1])
         item = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=13,
                             whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
         item_bench.append(valid_item(item))

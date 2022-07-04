@@ -1,5 +1,9 @@
-import pydirectinput
+"""
+Handles sending input to the game
+"""
+
 import random
+import pydirectinput
 
 def left_click(coords_tuple):
     offset = random.randint(-3, 3)

@@ -1,8 +1,12 @@
+"""
+Handles getting into a game
+"""
+
 from time import sleep
+import json
 from requests.auth import HTTPBasicAuth
 import requests
 import urllib3
-import json
 import settings
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)

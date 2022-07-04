@@ -1,3 +1,7 @@
+"""
+Contains static item & champion data
+"""
+
 combined_items = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod", "NegatronCloak", "RecurveBow",
          "SparringGloves", "Spatula", "TearoftheGoddess", "ArchangelsStaff", "AssassinEmblem",
          "BansheesClaw", "Bloodthirster", "BlueBuff", "BrambleVest", "CavalierEmblem", "ChaliceofPower",
