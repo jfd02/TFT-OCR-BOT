@@ -10,8 +10,5 @@ class vec2:
 
     def get_coords(self) -> tuple:
         if self.use_screen_offset:
-            print(self.x + vec2.screen_x_offset, self.y + vec2.screen_y_offset)
             return (self.x + vec2.screen_x_offset, self.y + vec2.screen_y_offset)
-        else:
-            print(self.x, self.y)
-            return (self.x, self.y)
+        return (self.x, self.y)

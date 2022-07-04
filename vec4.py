@@ -11,10 +11,7 @@ class vec4:
         self.use_screen_offset = use_screen_offset
 
     def get_coords(self) -> tuple:
-        print(self.x + vec4.screen_x_offset, self.y + vec4.screen_y_offset, self.w + vec4.screen_x_offset, self.h + vec4.screen_y_offset)
         if self.use_screen_offset:
-            print(self.x + vec4.screen_x_offset, self.y + vec4.screen_y_offset, self.w + vec4.screen_x_offset, self.h + vec4.screen_y_offset)
             return (self.x + vec4.screen_x_offset, self.y + vec4.screen_y_offset, self.w + vec4.screen_x_offset, self.h + vec4.screen_y_offset)
-        else:
-            print(self.x, self.y, self.w, self.h)
-            return (self.x, self.y, self.w, self.h)
+            
+        return (self.x, self.y, self.w, self.h)
