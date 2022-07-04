@@ -71,7 +71,7 @@ def change_arena_skin(message_queue, client_info):
 
 def get_client(message_queue):
     message_queue.put(("CONSOLE", "[Auto Queue]"))
-    file_path = settings.league_client_path + "\\lockfile"
+    file_path = settings.LEAGUE_CLIENT_PATH + "\\lockfile"
     got_lock_file = False
     while got_lock_file is False:
         try:
