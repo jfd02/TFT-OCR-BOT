@@ -1,10 +1,9 @@
 import string
-import pydirectinput
-from PIL import ImageGrab
 from difflib import SequenceMatcher
+from PIL import ImageGrab
+import pydirectinput
 import numpy as np
 import requests
-
 import screen_coords
 import ocr
 import game_assets
@@ -25,7 +24,7 @@ def get_health() -> int:
         return 100
 
 def get_gold() -> int:
-    gold = ocr.get_text(screenxy=screen_coords.gold_pos, scale=3, psm=7, whitelist="0123456789")
+    gold = ocr.get_text(screenxy=screen_coords.gold_pos.get_coords(), scale=3, psm=7, whitelist="0123456789")
     try:
         return int(gold)
     except ValueError:
@@ -38,10 +37,10 @@ def match_string(champ) -> string:
     return ""
 
 def get_shop() -> list:
-    screen_capture = ImageGrab.grab(bbox=screen_coords.shop_pos)
+    screen_capture = ImageGrab.grab(bbox=screen_coords.shop_pos.get_coords())
     shop = []
     for names in screen_coords.champ_name_pos:
-        champ = screen_capture.crop(names)
+        champ = screen_capture.crop(names.get_coords())
         champ = ocr.get_text_image(image=champ, whitelist="")
         if champ in game_assets.champions:
             shop.append(champ)
@@ -51,7 +50,7 @@ def get_shop() -> list:
 
 def empty_slot() -> int:
     for slot, positions in enumerate(screen_coords.bench_health_pos):
-        screen_capture = ImageGrab.grab(bbox=positions)
+        screen_capture = ImageGrab.grab(bbox=positions.get_coords())
         screenshot_array = np.array(screen_capture)
         if not (np.abs(screenshot_array - (0, 255, 18)) <= 3).all(axis=2).any():
             return slot  # Slot 0-8
@@ -60,7 +59,7 @@ def empty_slot() -> int:
 def bench_occupied_check() -> list:
     bench_occupied = []
     for positions in screen_coords.bench_health_pos:
-        screen_capture = ImageGrab.grab(bbox=positions)
+        screen_capture = ImageGrab.grab(bbox=positions.get_coords())
         screenshot_array = np.array(screen_capture)
         if not (np.abs(screenshot_array - (0, 255, 18)) <= 2).all(axis=2).any():
             bench_occupied.append(False)
@@ -79,9 +78,9 @@ def valid_item(item):
 def get_items() -> list:
     item_bench = []
     for positions in screen_coords.item_pos:
-        pydirectinput.moveTo(positions[0][0], positions[0][1])
-        item = ocr.get_text(screenxy=positions[1], scale=3, psm=13,
+        pydirectinput.moveTo(positions[0].get_coords()[0], positions[0].get_coords()[1])
+        item = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=13,
                             whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
         item_bench.append(valid_item(item))
-    mk_functions.move_mouse(screen_coords.default_loc)
+    mk_functions.move_mouse(screen_coords.default_loc.get_coords())
     return item_bench
