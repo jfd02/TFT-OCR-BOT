@@ -4,6 +4,10 @@ import game_functions
 import settings
 import random
 from arena import Arena
+from ctypes import *
+import win32gui
+import vec4
+import vec2
 
 class Game:
     def __init__(self, message_queue):
@@ -12,8 +16,36 @@ class Game:
         self.round = "0-0"
         self.time = None
         self.forfeit_time = settings.forfeit_time + random.randint(50, 150)
+        self.found_window = False
+
+        while not self.found_window:
+            print("Did not find window, trying again...")
+            win32gui.EnumWindows(self.callback, None)
+            sleep(0.75)
+
         self.loading_screen()
 
+    def callback(self, hwnd, extra):
+        if "League of Legends (TM) Client" not in win32gui.GetWindowText(hwnd):
+            return
+
+        rect = win32gui.GetWindowRect(hwnd)
+        x = rect[0]
+        y = rect[1]
+        w = rect[2] - x
+        h = rect[3] - y
+        print("Window %s:" % win32gui.GetWindowText(hwnd))
+        print("\tLocation: (%d, %d)" % (x, y))
+        print("\tSize: (%d, %d)" % (w, h))
+        if w < 200 or h < 200:
+            self.found_window = False
+        else:
+            vec4.vec4.screen_x_offset = x
+            vec4.vec4.screen_y_offset = y
+            vec2.vec2.screen_x_offset = x
+            vec2.vec2.screen_y_offset = y
+            self.found_window = True
+        
     def loading_screen(self):
         game_functions.default_pos()
         while game_functions.get_round() != "1-1":
@@ -85,7 +117,7 @@ class Game:
             self.arena.pick_augment()
             sleep(2.5)
         elif self.round in game_assets.pickup_round:
-            self.message_queue.put(("CONSOLE", f"Picking up items"))
+            self.message_queue.put(("CONSOLE", "Picking up items"))
             game_functions.pickup_items()
 
         self.arena.fix_board_state()
