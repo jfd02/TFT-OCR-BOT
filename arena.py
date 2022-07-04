@@ -209,8 +209,11 @@ class Arena:
         item = ocr.get_text(screenxy=screen_coords.item_pos[0][1].get_coords(), scale=3, psm=13,
                             whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
         item = arena_functions.valid_item(item)
-        if "TacticiansCrown" in item:
-            self.board_size -= 1
+        try:
+            if "TacticiansCrown" in item:
+                self.board_size -= 1
+        except TypeError:
+            return
 
 
     def spend_gold(self):  # Rework this function
