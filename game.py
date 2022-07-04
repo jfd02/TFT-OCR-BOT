@@ -4,7 +4,6 @@ import game_functions
 import settings
 import random
 from arena import Arena
-from ctypes import *
 import win32gui
 import vec4
 import vec2
