@@ -15,7 +15,7 @@ class Game:
         self.arena = Arena(self.message_queue)
         self.round = "0-0"
         self.time = None
-        self.forfeit_time = settings.forfeit_time + random.randint(50, 150)
+        self.forfeit_time = settings.FORFEIT_TIME + random.randint(50, 150)
         self.found_window = False
 
         while not self.found_window:
@@ -58,7 +58,7 @@ class Game:
         while game_functions.check_alive():
             self.round = game_functions.get_round()
 
-            if settings.forfeit is True:
+            if settings.FORFEIT is True:
                 if perf_counter() - self.start_time > self.forfeit_time:
                     game_functions.forfeit()
                     return
