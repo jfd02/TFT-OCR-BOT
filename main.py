@@ -16,5 +16,4 @@ if __name__ == "__main__":
         raise Exception("No league client path specified. Please set the path in settings.py")
 
     print("TFT OCR | https://github.com/jfd02/TFT-OCR-BOT")
-    print("Close this window to terminate the overlay window & program")
     game_loop()

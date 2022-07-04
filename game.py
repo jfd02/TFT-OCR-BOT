@@ -27,7 +27,7 @@ class Game:
 
         self.loading_screen()
 
-    def callback(self, hwnd):
+    def callback(self, hwnd, extra):
         if "League of Legends (TM) Client" not in win32gui.GetWindowText(hwnd):
             return
 
