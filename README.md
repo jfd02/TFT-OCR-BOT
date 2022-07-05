@@ -29,11 +29,9 @@
 - Auto queue using the LCU api
 
 ## TODO:
-- Add other resolution support
 - Implement tome of traits logic
 - Revamp the gold spending function
 - Revamp auto queue to have more safety checks / fail safes
 - Grab best compositions from TFT website
 - Intelligent carousel item selection
 - Change item pickup to be based of the coordinates of orbs
-- Rewrite most of the code
