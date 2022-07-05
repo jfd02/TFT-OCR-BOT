@@ -1,3 +1,8 @@
+"""
+Vec2 class that handles point screen coordinates
+Transformations related to the game position & game size happen here
+"""
+
 class vec2:
     screen_x_offset = 0
     screen_y_offset = 0

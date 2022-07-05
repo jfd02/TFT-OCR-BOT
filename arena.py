@@ -1,3 +1,8 @@
+"""
+This class handles the board / bench state inside of the game and
+other variables used by the bot to make decisions
+"""
+
 from time import sleep
 import game_assets
 import mk_functions
@@ -129,7 +134,6 @@ class Arena:
 
     def place_items(self):
         self.items = arena_functions.get_items()
-        log_items = list(filter((None).__ne__, self.items))
         for index, _ in enumerate(self.items):
             if self.items[index] is not None:
                 self.add_item_to_champs(index)
@@ -215,7 +219,6 @@ class Arena:
         except TypeError:
             return
 
-
     def spend_gold(self):  # Rework this function
         first_run = True
         min_gold = 24 if self.spam_roll is True else 56
@@ -250,7 +253,6 @@ class Arena:
                 if potential in augment:
                     mk_functions.left_click(screen_coords.augment_loc[augments.index(augment)].get_coords())
                     return
-
         mk_functions.left_click(screen_coords.augment_loc[0].get_coords())
 
     def check_health(self):

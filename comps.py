@@ -1,6 +1,8 @@
-# Comps come from https://tftactics.gg/tierlist/team-comps
-# Challengers Academy
-# Items are in camel case and a-Z
+"""
+Team composition used by the bot
+Comps come from https://tftactics.gg/tierlist/team-comps
+Items are in camel case and a-Z
+"""
 
 comp = {"Sejuani": {"board_position": 23,
                 "items": [],
@@ -29,7 +31,6 @@ comp = {"Sejuani": {"board_position": 23,
                   "items": [],
                   "level": 5,
                   "final_comp": True},
-
 }
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here (Anything that changes gameplay or adds something to the bench).
