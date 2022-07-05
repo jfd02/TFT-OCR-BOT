@@ -1,9 +1,11 @@
+"""
+Contains static screen coordinates the bot uses
+Screen coords for 1920x1080 screens
+(x, y, x+w, y+h) for vec4 locations, (x, y) for vec2 locations
+"""
+
 from vec4 import vec4
 from vec2 import vec2
-
-# Screen coords for 1920x1080 screens
-# (x, y, x+w, y+h) for rectangle coords, (x, y) for click locations
-
 
 bench_health_pos = [vec4(369, 622, 472, 757), vec4(485, 622, 588, 757), vec4(601, 622, 704, 757),
                     vec4(728, 622, 831, 757), vec4(844, 622, 947, 757), vec4(960, 622, 1063, 757),
@@ -38,7 +40,9 @@ gold_pos = vec4(870, 883, 920, 909)
 
 exit_now_pos = vec4(771, 541, 890, 564)
 
-augment_pos = [vec4(490, 555, 693, 584), vec4(850, 555, 1053, 584), vec4(1214, 555, 1415, 584)]
+augment_pos = [vec4(423, 579, 675, 614), vec4(835, 579, 1086, 614), vec4(1244, 579, 1495, 614)]
+
+augment_loc = [vec2(549, 445), vec2(955, 445), vec2(1365, 445)]
 
 victory_pos = vec4(916, 630, 1008, 652)
 
@@ -57,8 +61,6 @@ board_loc = [vec2(581, 651), vec2(707, 651), vec2(839, 651), vec2(966, 651), vec
              vec2(557, 423), vec2(673, 423), vec2(791, 423), vec2(907, 423), vec2(1019, 423), vec2(1138, 423), vec2(1251, 423)]
 
 carousel_loc = vec2(964, 644)
-
-augment_loc = [vec2(476, 343), vec2(837, 343), vec2(1197, 343)]
 
 exit_now_loc = vec2(830, 551)
 

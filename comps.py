@@ -32,20 +32,12 @@ comp = {"Sejuani": {"board_position": 23,
 
 }
 
-# This tries to get a trait in the priority trait (priority is from left to right) before looking in backup traits
-# No logic for traits like Phony Frontline meaning the bot won't know what to do if they are included in here.
-priority_augments = ["Celestial Blessing", "Backfoot", "Cybernetic Implants", "Cybernetic Shell", "Cybernetic Uplink", 
-                     "Disintegrator", "Thrill of the Hunt", "Electrocharge", "Knife's Edge", "Featherweights", "Makeshift Armor",
-                     "Underdogs", "Second Wind", "Tri Force", "Weakspot", "Rich Get Richer",
-                     "Woodland Charm", "Metabolic Accelerator", "Wise Spending", "Woodland Trinket", "Sunfire Board"]
-
-backup_augments = {"Arcane Nullifier", "Ascension", "Backfoot", "Battlemage", "Blue Battery",
-                   "Celestial Blessing", "Cybernetic Implants", "Cybernetic Shell", "Cybernetic Uplink", "Disintegrator", "Dominance",
-                   "Electrocharge", "Exiles", "Featherweights", "First Aid Kit", "Item Grab Bag", "Keepers",
-                   "Knife's Edge", "Luden's Echo", "Makeshift Armor", "Meditation", "Phalanx", "Second Wind",
-                   "Stand United", "Thrill of the Hunt", "Tri Force", "Underdogs", "Weakspot",
-                   "Binary Airdrop", "Component Grab Bag", "Metabolic Accelerator", "Rich Get Richer", "Salvage Bin",
-                   "Sunfire Board", "Titanic Force", "Woodland Trinket", "Wise Spending", "Ardent Censer", "High End Shopping"}
+# No logic for certain augments meaning the bot won't know what to do if they are included in here (Anything that changes gameplay or adds something to the bench).
+augments = ["Cybernetic Implants", "Stand United", "Electrocharge", "Cybernetic Uplink", "Celestial Blessing",
+            "Cybernetic Shell", "Weakspot", "Tri Force", "Gadget Expert", "Metabolic Accelerator", "Second Wind",
+             "Luden's Echo", "Last Stand", "Ascension", "Tiny Titans", "Sunfire Board", "Wise Spending", "Component Grab Bag+",
+             "Featherweights", "Thrill of the Hunt", "Preparation", "Blue Battery", "Hustler", "Windfall++", "Verdant Veil",
+             "First Aid Kit", "Rich Get Richer+", "Combat Training", "Meditation", "Axiom Arc"]
 
 def champions_to_buy() -> list:
     champs_to_buy = []
