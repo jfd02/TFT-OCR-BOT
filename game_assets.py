@@ -39,7 +39,7 @@ champions = {'Aatrox', 'Anivia', 'Ao Shin', 'Ashe', 'Aurelion Sol', 'Bard', 'Bra
              'Nidalee', 'Nunu', 'Olaf', 'Ornn', 'Pyke', 'Qiyana', 'Ryze', 'Sejuani', 'Senna', 'Sett', 'Shen', 'Shi Oh Yu', 'Shyvana', 'Skarner',
              'Sona', 'Soraka', 'Swain', 'Syfen', 'Sylas', 'Tahm Kench', 'Talon', 'Taric', 'Thresh', 'Tristana', 'Twitch', 'Varus', 'Vladmir',
              'Volibear', 'Xayah', 'Yasuo', 'Yone', 'Zoe'}
-
+             
 champion_data = {
     "Aatrox": {"Gold": 1, "Board Size": 1},
     "Anivia": {"Gold": 3, "Board Size": 1},
@@ -121,7 +121,7 @@ pvp_round = {"2-1", "2-2", "2-3", "2-5", "2-6",
 
 pickup_round = {"2-1", "3-1", "4-1", "5-1", "6-1", "7-1"}
 
-augment_rounds = {"1-4", "3-3", "4-6"}
+augment_rounds = {"2-1", "3-2", "4-2"}
 
 item_placement_rounds = {"2-2", "3-2", "4-2", "5-2", "6-2", "7-2", "2-5", "3-5", "4-5", "5-5", "6-5", "7-5"}
 

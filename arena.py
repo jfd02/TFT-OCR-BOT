@@ -249,13 +249,7 @@ class Arena:
             augments.append(augment)
 
         for augment in augments:
-            for potential in comps.priority_augments:
-                if potential in augment:
-                    mk_functions.left_click(screen_coords.augment_loc[augments.index(augment)].get_coords())
-                    return
-
-        for augment in augments:
-            for potential in comps.backup_augments:
+            for potential in comps.augments:
                 if potential in augment:
                     mk_functions.left_click(screen_coords.augment_loc[augments.index(augment)].get_coords())
                     return
