@@ -1,11 +1,12 @@
-from http import server
+"""
+Handles getting into a game
+"""
+
+from time import sleep
+import json
 from requests.auth import HTTPBasicAuth
 import requests
 import urllib3
-import json
-from time import sleep
-from PIL import ImageGrab
-import numpy as np
 import settings
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -36,7 +37,7 @@ def start_queue(message_queue, client_info):
     except ConnectionError:
         return False
 
-def check_queue(message_queue, client_info):
+def check_queue(client_info):
     try:
         status = requests.get(client_info[1] + "/lol-lobby/v2/lobby/matchmaking/search-state",
                             auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
@@ -44,7 +45,7 @@ def check_queue(message_queue, client_info):
     except ConnectionError:
         return False
 
-def check_game_status(message_queue, client_info):
+def check_game_status(client_info):
     try:
         status = requests.get(client_info[1] + "/lol-gameflow/v1/session",
                             auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
@@ -71,7 +72,7 @@ def change_arena_skin(message_queue, client_info):
 
 def get_client(message_queue):
     message_queue.put(("CONSOLE", "[Auto Queue]"))
-    file_path = settings.league_client_path + "\\lockfile"
+    file_path = settings.LEAGUE_CLIENT_PATH + "\\lockfile"
     got_lock_file = False
     while got_lock_file is False:
         try:
@@ -94,7 +95,7 @@ def queue(message_queue):
     change_arena_skin(message_queue, client_info)
 
     sleep(3)
-    while check_queue(message_queue, client_info) != True:
+    while check_queue(client_info) is not True:
         sleep(5)
         create_lobby(message_queue, client_info)
         sleep(3)
@@ -109,8 +110,7 @@ def queue(message_queue):
             sleep(5)
             start_queue(message_queue, client_info)
         accept_queue(client_info)
-        if check_game_status(message_queue, client_info):
+        if check_game_status(client_info):
             in_queue = False
         sleep(1)
         time += 1
-    message_queue.put(("CONSOLE", "Loading screen found! Waiting for round 1-1"))
