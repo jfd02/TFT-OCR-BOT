@@ -13,8 +13,9 @@ import vec4
 import vec2
 
 class Game:
-    def __init__(self):
-        self.arena = Arena()
+    def __init__(self, message_queue):
+        self.message_queue = message_queue
+        self.arena = Arena(self.message_queue)
         self.round = "0-0"
         self.time = None
         self.forfeit_time = settings.FORFEIT_TIME + random.randint(50, 150)
@@ -80,12 +81,14 @@ class Game:
     def carousel_round(self):
         if self.round == "3-4":
             self.arena.final_comp = True
+        self.message_queue.put(("CONSOLE", f"[Carousel Round] {self.round}"))
         self.arena.check_health()
+        self.message_queue.put(("CONSOLE", "Getting a champ from the carousel"))
         game_functions.get_champ_carousel(self.round)
 
     def pve_round(self):
         sleep(0.5)
-
+        self.message_queue.put(("CONSOLE", f"[PvE Round] {self.round}"))
         if self.round in game_assets.augment_rounds:
             sleep(1)
             self.arena.pick_augment()
@@ -105,15 +108,18 @@ class Game:
             self.arena.final_comp_check()
         self.arena.bench_cleanup()
         self.arena.check_health()
+        self.arena.get_label()
         game_functions.default_pos()
 
     def pvp_round(self):
         sleep(0.5)
+        self.message_queue.put(("CONSOLE", f"[PvP Round] {self.round}"))
         if self.round in game_assets.augment_rounds:
             sleep(1)
             self.arena.pick_augment()
             sleep(2.5)
-        elif self.round in game_assets.pickup_round:
+        if self.round in game_assets.pickup_round:
+            self.message_queue.put(("CONSOLE", "Picking up items"))
             game_functions.pickup_items()
 
         self.arena.fix_board_state()
@@ -129,4 +135,5 @@ class Game:
             sleep(1)
             self.arena.place_items()
         self.arena.check_health()
+        self.arena.get_label()
         game_functions.default_pos()
