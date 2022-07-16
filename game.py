@@ -93,12 +93,14 @@ class Game:
             sleep(1)
             self.arena.pick_augment()
             sleep(2.5)  # Can't purchase champions for a short period after choosing augment
-        elif self.round == "1-3":
+        if self.round == "1-3":
             sleep(1.5)
             self.arena.fix_unknown()
             self.arena.tacticians_check()
         elif self.round == "2-7":
             self.arena.krug_round()
+        elif self.round == "4-7":
+            game_functions.select_shop()
 
         self.arena.fix_board_state()
         self.arena.spend_gold()

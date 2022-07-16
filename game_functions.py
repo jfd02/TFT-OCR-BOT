@@ -45,6 +45,9 @@ def check_alive() -> bool:
     else:
         return True
 
+def select_shop():
+    mk_functions.left_click(screen_coords.take_all_button.get_coords())
+
 def exit_game():
     mk_functions.left_click(screen_coords.exit_now_loc.get_coords())
 
