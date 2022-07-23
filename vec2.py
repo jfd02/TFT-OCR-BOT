@@ -1,5 +1,5 @@
 """
-Vec2 class that handles point screen coordinates
+Vector2 that handles point screen coordinates
 Transformations related to the game position & game size happen here
 """
 

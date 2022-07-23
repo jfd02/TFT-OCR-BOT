@@ -4,33 +4,41 @@ Comps come from https://tftactics.gg/tierlist/team-comps
 Items are in camel case and a-Z
 """
 
-comp = {"Sejuani": {"board_position": 23,
-                "items": [],
-                "level": 1,
-                "final_comp": True},
-
-        "Shen": {"board_position": 24,
+comp = {"Ezreal": {"board_position": 0,
                 "items": [],
                 "level": 2,
                 "final_comp": True},
 
         "Twitch": {"board_position": 1,
-                "items": [],
+                "items": ["InfinityEdge", "LastWhisper", "RunaansHurricane"],
                 "level": 2,
                 "final_comp": True},
 
-        "Hecarim": {"board_position": 22,
-                   "items": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
-                   "level": 4,
+        "Xayah": {"board_position": 5,
+                "items": ["GiantSlayer", "GuinsoosRageblade", "Quicksilver"],
+                "level": 2,
+                "final_comp": True},
+
+        "Varus": {"board_position": 6,
+                   "items": ["Deathblade", "GuinsoosRageblade", "RunaansHurricane"],
+                   "level": 3,
                    "final_comp": True},
-        "Xayah": {"board_position": 0,
+        "Ornn": {"board_position": 23,
                     "items": ["GiantSlayer", "GuinsoosRageblade", "InfinityEdge"],
-                    "level": 4,
+                    "level": 3,
                     "final_comp": True},
-        "Bard": {"board_position": 3,
+        "Shen": {"board_position": 24,
                   "items": [],
-                  "level": 5,
+                  "level": 3,
                   "final_comp": True},
+        "Illaoi": {"board_position": 25,
+                "items": ["GargoyleStoneplate", "SunfireCape", "WarmogsArmor"],
+                "level": 3,
+                "final_comp": True},
+        "Skarner": {"board_position": 26,
+                "items": [],
+                "level": 3,
+                "final_comp": True},
 }
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here (Anything that changes gameplay or adds something to the bench).

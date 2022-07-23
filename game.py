@@ -21,8 +21,9 @@ class Game:
         self.forfeit_time = settings.FORFEIT_TIME + random.randint(50, 150)
         self.found_window = False
 
+        print("\n[!] Searching for game window")
         while not self.found_window:
-            print("Did not find window, trying again...")
+            print("  Did not find window, trying again...")
             win32gui.EnumWindows(self.callback, None)
             sleep(1)
 
@@ -42,9 +43,9 @@ class Game:
         if w < 200 or h < 200:
             return
 
-        print(f"Window {win32gui.GetWindowText(hwnd)} found")
-        print(f"  Location: ({x}, {y})")
-        print(f"  Size:     ({w}, {h})")
+        print(f"  Window {win32gui.GetWindowText(hwnd)} found")
+        print(f"    Location: ({x}, {y})")
+        print(f"    Size:     ({w}, {h})")
         vec4.vec4.setup_screen(x, y, w, h)
         vec2.vec2.setup_screen(x, y, w, h)
         self.found_window = True
@@ -79,16 +80,18 @@ class Game:
         game_functions.exit_game()
 
     def carousel_round(self):
+        print(f"\n[Carousel Round] {self.round}")
+        self.message_queue.put("CLEAR")
         if self.round == "3-4":
             self.arena.final_comp = True
-        self.message_queue.put(("CONSOLE", f"[Carousel Round] {self.round}"))
         self.arena.check_health()
-        self.message_queue.put(("CONSOLE", "Getting a champ from the carousel"))
+        print("  Getting a champ from the carousel")
         game_functions.get_champ_carousel(self.round)
 
     def pve_round(self):
+        print(f"\n[PvE Round] {self.round}")
+        self.message_queue.put("CLEAR")
         sleep(0.5)
-        self.message_queue.put(("CONSOLE", f"[PvE Round] {self.round}"))
         if self.round in game_assets.augment_rounds:
             sleep(1)
             self.arena.pick_augment()
@@ -114,14 +117,15 @@ class Game:
         game_functions.default_pos()
 
     def pvp_round(self):
+        print(f"\n[PvP Round] {self.round}")
+        self.message_queue.put("CLEAR")
         sleep(0.5)
-        self.message_queue.put(("CONSOLE", f"[PvP Round] {self.round}"))
         if self.round in game_assets.augment_rounds:
             sleep(1)
             self.arena.pick_augment()
             sleep(2.5)
         if self.round in game_assets.pickup_round:
-            self.message_queue.put(("CONSOLE", "Picking up items"))
+            print("  Picking up items")
             game_functions.pickup_items()
 
         self.arena.fix_board_state()
