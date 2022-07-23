@@ -1,5 +1,5 @@
 """
-The champion class contains all information related to an individual board slot used by the bot
+Contains all information related to an individual board slot used by the bot
 """
 
 class Champion:
