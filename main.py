@@ -12,7 +12,7 @@ def game_loop(message_queue):
         auto_queue.queue()
         Game(message_queue)
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     if settings.LEAGUE_CLIENT_PATH is None:
         raise Exception("No league client path specified. Please set the path in settings.py")
     message_queue = multiprocessing.Queue()
