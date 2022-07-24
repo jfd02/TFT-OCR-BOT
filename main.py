@@ -7,7 +7,7 @@ import auto_queue
 from game import Game
 import settings
 
-def game_loop(message_queue):
+def game_loop(message_queue) -> None:
     while True:
         auto_queue.queue()
         Game(message_queue)
