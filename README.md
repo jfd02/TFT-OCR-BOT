@@ -4,7 +4,7 @@
 - Make sure you dont have any overlays on.
 - To ensure best results, make sure you are running this on a computer that has decent specs.
 - League & client must be in English.
-- 1920x1080 borderless windowed is required in League, game must also be on main monitor.
+- 16:9 resoluton borderless windowed is required in League, game must also be on main monitor (Use 1920x1080 for best results).
 - If the program crashes, create an issue with the error.
 
 ## INSTALLATION:
