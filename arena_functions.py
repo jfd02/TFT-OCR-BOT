@@ -70,7 +70,7 @@ def bench_occupied_check() -> list:
             bench_occupied.append(True)
     return bench_occupied
 
-def valid_item(item):
+def valid_item(item) -> str | None:
     for valid_item_name in game_assets.items:
         if valid_item_name in item:
             return valid_item_name

@@ -21,10 +21,10 @@ class Ui:
         self.set_clickthrough(self.root.winfo_id())
 
     @classmethod
-    def rgb_convert(cls, rgb):
+    def rgb_convert(cls, rgb) -> str:
         return "#%02x%02x%02x" % rgb
 
-    def setup_window_size(self):
+    def setup_window_size(self) -> None:
         primary_monitor = None
         for monitor in screeninfo.get_monitors():
             if monitor.is_primary:
@@ -37,7 +37,7 @@ class Ui:
             return
         self.root.geometry(f'{primary_monitor.width}x{primary_monitor.height}')
 
-    def set_clickthrough(self, hwnd):
+    def set_clickthrough(self, hwnd) -> None:
         try:
             styles = GetWindowLong(hwnd, GWL_EXSTYLE)
             styles = WS_EX_LAYERED | WS_EX_TRANSPARENT
@@ -46,7 +46,7 @@ class Ui:
         except Exception as e:
             print(e)
 
-    def consume_text(self):
+    def consume_text(self) -> None:
         if self.message_queue.empty() is False:
 
             message = self.message_queue.get()
@@ -63,6 +63,6 @@ class Ui:
 
         self.root.after(ms=1, func=self.consume_text)
 
-    def ui_loop(self):
+    def ui_loop(self) -> None:
         self.consume_text()
         self.root.mainloop()

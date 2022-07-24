@@ -28,7 +28,7 @@ class Arena:
         self.level = 0
         self.spam_roll = False
 
-    def fix_board_state(self):
+    def fix_board_state(self) -> None:
         bench_occupied = arena_functions.bench_occupied_check()
         for index, slot in enumerate(self.bench):
             if slot is None and bench_occupied[index] is True:
@@ -38,7 +38,7 @@ class Arena:
             if isinstance(slot, Champion) and bench_occupied[index] is False:
                 self.bench[index] = None
 
-    def bought_champion(self, name, slot):
+    def bought_champion(self, name, slot) -> None:
         items = []
         for item in comps.comp[name]["items"]:
             items.append(item)
@@ -48,14 +48,14 @@ class Arena:
         sleep(0.5)
         self.fix_board_state()
 
-    def have_champion(self):
+    def have_champion(self) -> Champion | None:
         for champion in self.bench:
             if isinstance(champion, Champion):
                 if champion.name not in self.board_names:
                     return champion
         return None
 
-    def move_known(self, champion):
+    def move_known(self, champion) -> None:
         print(f"  Moving {champion.name} to board")
         destination = screen_coords.board_loc[comps.comp[champion.name]["board_position"]].get_coords()
         mk_functions.left_click(champion.coords)
@@ -67,7 +67,7 @@ class Arena:
         champion.index = comps.comp[champion.name]["board_position"]
         self.board_size += champion.size
 
-    def move_unknown(self):
+    def move_unknown(self) -> None:
         for index, champion in enumerate(self.bench):
             if isinstance(champion, str):
                 print(f"  Moving {champion} to board")
@@ -78,18 +78,18 @@ class Arena:
                 self.board_size += 1
                 return
 
-    def sell_bench(self):
+    def sell_bench(self) -> None:
         for index, _ in enumerate(self.bench):
             mk_functions.press_e(screen_coords.bench_loc[index].get_coords())
             self.bench[index] = None
 
-    def unknown_in_bench(self):
+    def unknown_in_bench(self) -> bool:
         for slot in self.bench:
             if isinstance(slot, str):
                 return True
         return False
 
-    def move_champions(self):
+    def move_champions(self) -> None:
         self.level = arena_functions.get_level()
         while self.level > self.board_size:
             champion = self.have_champion()
@@ -118,7 +118,7 @@ class Arena:
                     self.sell_bench()
                     return
 
-    def replace_unknown(self):
+    def replace_unknown(self) -> None:
         champion = self.have_champion()
         if len(self.board_unknown) > 0 and champion is not None:
             mk_functions.press_e(screen_coords.board_loc[self.unknown_slots[len(self.board_unknown) - 1]].get_coords())
@@ -126,7 +126,7 @@ class Arena:
             self.board_size -= 1
             self.move_known(champion)
 
-    def bench_cleanup(self):
+    def bench_cleanup(self) -> None:
         for index, champion in enumerate(self.bench):
             if champion == "?" or isinstance(champion, str):
                 print("  Selling unknown champion")
@@ -138,7 +138,7 @@ class Arena:
                     mk_functions.press_e(screen_coords.bench_loc[index].get_coords())
                     self.bench[index] = None
 
-    def place_items(self):
+    def place_items(self) -> None:
         self.items = arena_functions.get_items()
         log_items = list(filter((None).__ne__, self.items))
         print(f"  Items: {log_items}")
@@ -146,12 +146,12 @@ class Arena:
             if self.items[index] is not None:
                 self.add_item_to_champs(index)
 
-    def add_item_to_champs(self, item_index):
+    def add_item_to_champs(self, item_index) -> None:
         for champ in self.board:
             if champ.does_need_items() and self.items[item_index] is not None:
                 self.add_item_to_champ(item_index, champ)
 
-    def add_item_to_champ(self, item_index, champ):
+    def add_item_to_champ(self, item_index, champ) -> None:
         item = self.items[item_index]
         if item in full_items:
             if item in champ.build:
@@ -188,13 +188,13 @@ class Arena:
                         print(f"  Completed {builditem[0]}")
                         return
 
-    def fix_unknown(self):
+    def fix_unknown(self) -> None:
         sleep(0.25)
         mk_functions.press_e(screen_coords.board_loc[self.unknown_slots[0]].get_coords())
         self.board_unknown.pop(0)
         self.board_size -= 1
 
-    def remove_champion(self, champion):
+    def remove_champion(self, champion) -> None:
         for index, slot in enumerate(self.bench):
             if isinstance(slot, Champion):
                 if slot.name == champion.name:
@@ -209,7 +209,7 @@ class Arena:
         self.board_size -= champion.size
         self.board.remove(champion)
 
-    def final_comp_check(self):
+    def final_comp_check(self) -> None:
         for slot in self.bench:
             if isinstance(slot, Champion):
                 if slot.final_comp is True and slot.name not in self.board_names:
@@ -220,7 +220,7 @@ class Arena:
                             self.move_known(slot)
                             break
 
-    def tacticians_check(self):
+    def tacticians_check(self) -> None:
         mk_functions.move_mouse(screen_coords.item_pos[0][0].get_coords())
         sleep(2)
         item = ocr.get_text(screenxy=screen_coords.item_pos[0][1].get_coords(), scale=3, psm=13,
@@ -230,13 +230,13 @@ class Arena:
             if "TacticiansCrown" in item:
                 print("  Tacticians Crown on bench, adding extra slot to board")
                 self.board_size -= 1
+                return
             else:
-                print(f"{item} is not TacticiansCrown")
+                print(f"  {item} is not TacticiansCrown")
         except TypeError:
             print("  Item could not be read for Tacticians Check")
-            return
 
-    def spend_gold(self):  # Rework this function
+    def spend_gold(self) -> None:
         first_run = True
         min_gold = 24 if self.spam_roll is True else 56
         while first_run or arena_functions.get_gold() >= min_gold:
@@ -259,11 +259,11 @@ class Arena:
                             self.champs_to_buy.remove(champion)
             first_run = False
 
-    def krug_round(self):
+    def krug_round(self) -> None:
         if arena_functions.get_gold() >= 4:
             mk_functions.buy_xp()
 
-    def pick_augment(self):
+    def pick_augment(self) -> None:
         augments = []
         for coords in screen_coords.augment_pos:
             augment = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7, whitelist="")
@@ -278,18 +278,18 @@ class Arena:
         print("  [!] No priority or backup augment found, undefined behavior may occur for the rest of the round")
         mk_functions.left_click(screen_coords.augment_loc[0].get_coords())
 
-    def check_health(self):
+    def check_health(self) -> None:
         health = arena_functions.get_health()
-        if health <= 100 and health >= 0:
+        if 100 >= health >= 0:
             print(f"  Health: {health}")
             if self.spam_roll is False:
                 if health < 30:
                     print("    Health under 30, spam roll activated")
                     self.spam_roll = True
-        else:
-            print("  Health check failed")
+            return
+        print("  Health check failed")
 
-    def get_label(self):
+    def get_label(self) -> None:
         labels = []
         for slot in self.bench:
             if isinstance(slot, Champion):

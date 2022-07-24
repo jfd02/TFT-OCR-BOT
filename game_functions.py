@@ -20,7 +20,7 @@ def get_round() -> str:
         game_round = ocr.get_text_from_image(image=round_one_x, whitelist="0123456789-")
         return game_round
 
-def pickup_items():
+def pickup_items() -> None:
     for index, coords in enumerate(screen_coords.item_pickup_loc):
         mk_functions.right_click(coords.get_coords())
         if index == 7:  # Don't need to sleep on final click
@@ -32,7 +32,7 @@ def pickup_items():
         else:
             sleep(1.2)
 
-def get_champ_carousel(tft_round):
+def get_champ_carousel(tft_round) -> None:
     while tft_round == get_round():
         mk_functions.right_click(screen_coords.carousel_loc.get_coords())
         sleep(1)
@@ -45,16 +45,16 @@ def check_alive() -> bool:
     else:
         return True
 
-def select_shop():
+def select_shop() -> None:
     mk_functions.left_click(screen_coords.take_all_button.get_coords())
 
-def exit_game():
+def exit_game() -> None:
     mk_functions.left_click(screen_coords.exit_now_loc.get_coords())
 
-def default_pos():
+def default_pos() -> None:
     mk_functions.left_click(screen_coords.default_loc.get_coords())
 
-def forfeit():
+def forfeit() -> None:
     mk_functions.press_esc()
     mk_functions.left_click(screen_coords.surrender_loc.get_coords())
     sleep(0.1)

@@ -13,5 +13,5 @@ class Champion:
         self.current_building = []
         self.final_comp = final_comp
 
-    def does_need_items(self):
+    def does_need_items(self) -> bool:
         return False if len(self.completed_items) == 3 or len(self.build) + len(self.current_building) == 0 else True

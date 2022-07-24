@@ -11,7 +11,7 @@ import settings
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-def create_lobby(client_info):
+def create_lobby(client_info) -> bool:
     payload = {"queueId": 1090}  # Ranked TFT is 1100
     payload = json.dumps(payload)
     try:
@@ -24,7 +24,7 @@ def create_lobby(client_info):
     except ConnectionError:
         return False
 
-def start_queue(client_info):
+def start_queue(client_info) -> bool:
     try:
         status = requests.post(client_info[1] + "/lol-lobby/v2/lobby/matchmaking/search",
                             auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
@@ -35,7 +35,7 @@ def start_queue(client_info):
     except ConnectionError:
         return False
 
-def check_queue(client_info):
+def check_queue(client_info) -> bool:
     try:
         status = requests.get(client_info[1] + "/lol-lobby/v2/lobby/matchmaking/search-state",
                             auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
@@ -43,7 +43,7 @@ def check_queue(client_info):
     except ConnectionError:
         return False
 
-def check_game_status(client_info):
+def check_game_status(client_info) -> bool:
     try:
         status = requests.get(client_info[1] + "/lol-gameflow/v1/session",
                             auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
@@ -52,11 +52,11 @@ def check_game_status(client_info):
     except ConnectionError:
         return False
 
-def accept_queue(client_info):
+def accept_queue(client_info) -> None:
     requests.post(client_info[1] + "/lol-matchmaking/v1/ready-check/accept",
                   auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
 
-def change_arena_skin(client_info):
+def change_arena_skin(client_info) -> bool:
     try:
         status = requests.delete(client_info[1] + "/lol-cosmetics/v1/selection/tft-map-skin",
                                 auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
@@ -67,7 +67,7 @@ def change_arena_skin(client_info):
     except ConnectionError:
         return False
 
-def get_client():
+def get_client() -> tuple:
     print("\n\n[Auto Queue]")
     file_path = settings.LEAGUE_CLIENT_PATH + "\\lockfile"
     got_lock_file = False
@@ -84,7 +84,7 @@ def get_client():
     print("  Client found")
     return (remoting_auth_token, server_url)
 
-def queue():
+def queue() -> None:
     client_info = get_client()
     while create_lobby(client_info) != True:
         sleep(3)

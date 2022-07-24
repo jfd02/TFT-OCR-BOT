@@ -29,7 +29,7 @@ class Game:
 
         self.loading_screen()
 
-    def callback(self, hwnd, extra):
+    def callback(self, hwnd, extra) -> None:
         if "League of Legends (TM) Client" not in win32gui.GetWindowText(hwnd):
             return
 
@@ -50,14 +50,14 @@ class Game:
         vec2.vec2.setup_screen(x, y, w, h)
         self.found_window = True
         
-    def loading_screen(self):
+    def loading_screen(self) -> None:
         game_functions.default_pos()
         while game_functions.get_round() != "1-1":
             sleep(1)
         self.start_time = perf_counter()
         self.game_loop()
 
-    def game_loop(self):
+    def game_loop(self) -> None:
         ran_round = None
         while game_functions.check_alive():
             self.round = game_functions.get_round()
@@ -79,7 +79,7 @@ class Game:
             sleep(0.5)
         game_functions.exit_game()
 
-    def carousel_round(self):
+    def carousel_round(self) -> None:
         print(f"\n[Carousel Round] {self.round}")
         self.message_queue.put("CLEAR")
         if self.round == "3-4":
@@ -88,7 +88,7 @@ class Game:
         print("  Getting a champ from the carousel")
         game_functions.get_champ_carousel(self.round)
 
-    def pve_round(self):
+    def pve_round(self) -> None:
         print(f"\n[PvE Round] {self.round}")
         self.message_queue.put("CLEAR")
         sleep(0.5)
@@ -116,7 +116,7 @@ class Game:
         self.arena.get_label()
         game_functions.default_pos()
 
-    def pvp_round(self):
+    def pvp_round(self) -> None:
         print(f"\n[PvP Round] {self.round}")
         self.message_queue.put("CLEAR")
         sleep(0.5)

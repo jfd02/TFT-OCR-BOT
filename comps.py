@@ -61,7 +61,7 @@ def champions_to_buy() -> list:
                 champs_to_buy.append(champion)
     return champs_to_buy
 
-def get_unknown_slots():
+def get_unknown_slots() -> list:
     container = []
     for champion in comp:
         container.append(comp[champion]["board_position"])
