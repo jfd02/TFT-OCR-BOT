@@ -21,11 +21,11 @@ def image_array(image):
     image = image[..., :3]
     return image
 
-def image_resize(image, scale):
+def image_resize(image, scale: int):
     (width, height) = (image.width * scale, image.height * scale)
     return image.resize((width, height))
 
-def get_text(screenxy, scale, psm, whitelist) -> str:
+def get_text(screenxy: tuple, scale: int, psm: int, whitelist: str) -> str:
     screenshot = ImageGrab.grab(bbox=screenxy)
     resize = image_resize(screenshot, scale)
     array = image_array(resize)
@@ -34,7 +34,7 @@ def get_text(screenxy, scale, psm, whitelist) -> str:
     return pytesseract.image_to_string(thresholding,
                                        config=f'--psm {psm} -c tessedit_char_whitelist={whitelist}').strip()
 
-def get_text_from_image(image, whitelist) -> str:
+def get_text_from_image(image, whitelist: str) -> str:
     resize = image_resize(image, 3)
     array = image_array(resize)
     grayscale = image_grayscale(array)

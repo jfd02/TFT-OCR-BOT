@@ -23,7 +23,7 @@ class vec2:
         return (round(x), round(y))
 
     @classmethod
-    def setup_screen(cls, x, y, w, h) -> None:
+    def setup_screen(cls, x: int, y: int, w: int , h: int) -> None:
         vec2.screen_x_offset = x
         vec2.screen_y_offset = y
         vec2.screen_x_scale = w / 1920

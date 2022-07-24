@@ -7,6 +7,7 @@ from difflib import SequenceMatcher
 from PIL import ImageGrab
 import numpy as np
 import requests
+from champion import Champion
 import screen_coords
 import ocr
 import game_assets
@@ -16,14 +17,14 @@ def get_level() -> int:
     try:
         resposne = requests.get('https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
         return int(resposne.json()['activePlayer']['level'])
-    except Exception:
+    except requests.exceptions.ConnectionError:
         return 1
 
 def get_health() -> int:
     try:
         resposne = requests.get('https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
         return int(resposne.json()['activePlayer']['championStats']["currentHealth"])
-    except Exception:
+    except requests.exceptions.ConnectionError:
         return 100
 
 def get_gold() -> int:
@@ -33,7 +34,7 @@ def get_gold() -> int:
     except ValueError:
         return 0
 
-def match_string(champ) -> string:
+def match_string(champ) -> str | Champion:
     for champion in game_assets.champions:
         if SequenceMatcher(a=champ,b=champion).ratio() >= 0.7:
             return champion

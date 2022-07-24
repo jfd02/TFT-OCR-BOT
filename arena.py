@@ -38,7 +38,7 @@ class Arena:
             if isinstance(slot, Champion) and bench_occupied[index] is False:
                 self.bench[index] = None
 
-    def bought_champion(self, name, slot) -> None:
+    def bought_champion(self, name: str, slot: int) -> None:
         items = []
         for item in comps.comp[name]["items"]:
             items.append(item)
@@ -55,7 +55,7 @@ class Arena:
                     return champion
         return None
 
-    def move_known(self, champion) -> None:
+    def move_known(self, champion: Champion) -> None:
         print(f"  Moving {champion.name} to board")
         destination = screen_coords.board_loc[comps.comp[champion.name]["board_position"]].get_coords()
         mk_functions.left_click(champion.coords)
@@ -146,12 +146,12 @@ class Arena:
             if self.items[index] is not None:
                 self.add_item_to_champs(index)
 
-    def add_item_to_champs(self, item_index) -> None:
+    def add_item_to_champs(self, item_index: int) -> None:
         for champ in self.board:
             if champ.does_need_items() and self.items[item_index] is not None:
                 self.add_item_to_champ(item_index, champ)
 
-    def add_item_to_champ(self, item_index, champ) -> None:
+    def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         item = self.items[item_index]
         if item in full_items:
             if item in champ.build:
@@ -194,7 +194,7 @@ class Arena:
         self.board_unknown.pop(0)
         self.board_size -= 1
 
-    def remove_champion(self, champion) -> None:
+    def remove_champion(self, champion: Champion) -> None:
         for index, slot in enumerate(self.bench):
             if isinstance(slot, Champion):
                 if slot.name == champion.name:

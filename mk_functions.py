@@ -5,25 +5,25 @@ Handles sending input to the game
 import random
 import pydirectinput
 
-def left_click(coords_tuple) -> None:
+def left_click(coords: tuple) -> None:
     offset = random.randint(-3, 3)
-    pydirectinput.moveTo(coords_tuple[0] - offset, coords_tuple[1] - offset)
+    pydirectinput.moveTo(coords[0] - offset, coords[1] - offset)
     pydirectinput.mouseDown()
     pydirectinput.mouseUp()
 
-def right_click(coords_tuple) -> None:
+def right_click(coords: tuple) -> None:
     offset = random.randint(-3, 3)
-    pydirectinput.moveTo(coords_tuple[0]- offset, coords_tuple[1] - offset)
+    pydirectinput.moveTo(coords[0]- offset, coords[1] - offset)
     pydirectinput.mouseDown(button='right')
     pydirectinput.mouseUp(button='right')
 
-def press_e(coords_tuple) -> None:
+def press_e(coords: tuple) -> None:
     offset = random.randint(-3, 3)
-    pydirectinput.moveTo(coords_tuple[0] - offset, coords_tuple[1] - offset)
+    pydirectinput.moveTo(coords[0] - offset, coords[1] - offset)
     pydirectinput.press("e")
 
-def move_mouse(coords_tuple) -> None:
-    pydirectinput.moveTo(coords_tuple[0], coords_tuple[1])
+def move_mouse(coords: tuple) -> None:
+    pydirectinput.moveTo(coords[0], coords[1])
 
 def buy_xp() -> None:
     pydirectinput.press("f")

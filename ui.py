@@ -21,7 +21,7 @@ class Ui:
         self.set_clickthrough(self.root.winfo_id())
 
     @classmethod
-    def rgb_convert(cls, rgb) -> str:
+    def rgb_convert(cls, rgb: tuple) -> str:
         return "#%02x%02x%02x" % rgb
 
     def setup_window_size(self) -> None:
@@ -37,7 +37,7 @@ class Ui:
             return
         self.root.geometry(f'{primary_monitor.width}x{primary_monitor.height}')
 
-    def set_clickthrough(self, hwnd) -> None:
+    def set_clickthrough(self, hwnd: int) -> None:
         try:
             styles = GetWindowLong(hwnd, GWL_EXSTYLE)
             styles = WS_EX_LAYERED | WS_EX_TRANSPARENT

@@ -21,7 +21,7 @@ def create_lobby(client_info) -> bool:
             print("  Creating lobby")
             return True
         return False
-    except ConnectionError:
+    except requests.exceptions.RequestException:
         return False
 
 def start_queue(client_info) -> bool:
@@ -32,7 +32,7 @@ def start_queue(client_info) -> bool:
             print("  Starting queue")
             return True
         return False
-    except ConnectionError:
+    except requests.exceptions.RequestException:
         return False
 
 def check_queue(client_info) -> bool:
@@ -40,7 +40,7 @@ def check_queue(client_info) -> bool:
         status = requests.get(client_info[1] + "/lol-lobby/v2/lobby/matchmaking/search-state",
                             auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
         return True if status.json()['searchState'] == 'Searching' else False
-    except ConnectionError:
+    except requests.exceptions.RequestException:
         return False
 
 def check_game_status(client_info) -> bool:
@@ -49,7 +49,7 @@ def check_game_status(client_info) -> bool:
                             auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
         if status.json()["phase"] == "InProgress":
             return True
-    except ConnectionError:
+    except requests.exceptions.RequestException:
         return False
 
 def accept_queue(client_info) -> None:
@@ -64,7 +64,7 @@ def change_arena_skin(client_info) -> bool:
             print("  Changed arena skin to default")
             return True
         return False
-    except ConnectionError:
+    except requests.exceptions.RequestException:
         return False
 
 def get_client() -> tuple:
