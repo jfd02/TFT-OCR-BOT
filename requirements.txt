@@ -7,4 +7,4 @@ pywin32==304
 requests==2.28.1
 screeninfo==0.8
 urllib3==1.26.9
-win32gui==221.6
+pypiwin32==223
