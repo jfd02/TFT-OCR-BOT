@@ -12,18 +12,14 @@ import mk_functions
 
 def get_round() -> str:
     """Gets the current game round"""
-    screen_capture = ImageGrab.grab(
-        bbox=screen_coords.ROUND_POS_ONE.get_coords())
-    round_two_x = screen_capture.crop(screen_coords.ROUND_POS_TWO.get_coords())
-    game_round = ocr.get_text_from_image(
-        image=round_two_x, whitelist=ocr.ROUND_WHITELIST)
+    screen_capture = ImageGrab.grab(bbox=screen_coords.ROUND_POS.get_coords())
+    round_two = screen_capture.crop(screen_coords.ROUND_POS_TWO.get_coords())
+    game_round = ocr.get_text_from_image(image=round_two, whitelist=ocr.ROUND_WHITELIST)
     if game_round in game_assets.ROUNDS:
         return game_round
 
-    round_one_x = screen_capture.crop(
-        screen_coords.ROUND_POS_ONE.get_coords())
-    game_round = ocr.get_text_from_image(
-        image=round_one_x, whitelist=ocr.ROUND_WHITELIST)
+    round_one = screen_capture.crop(screen_coords.ROUND_POS_ONE.get_coords())
+    game_round = ocr.get_text_from_image(image=round_one, whitelist=ocr.ROUND_WHITELIST)
     return game_round
 
 

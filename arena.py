@@ -65,8 +65,7 @@ class Arena:
     def move_known(self, champion: Champion) -> None:
         """Moves champion to the board"""
         print(f"  Moving {champion.name} to board")
-        destination = screen_coords.BENCH_LOC[comps.COMP[champion.name]
-                                              ["board_position"]].get_coords()
+        destination = screen_coords.BOARD_LOC[comps.COMP[champion.name]["board_position"]].get_coords()
         mk_functions.left_click(champion.coords)
         mk_functions.left_click(destination)
         champion.coords = destination

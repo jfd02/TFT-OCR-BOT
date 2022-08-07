@@ -86,7 +86,8 @@ def get_client() -> tuple:
     got_lock_file = False
     while not got_lock_file:
         try:
-            with open(file_path, "r", encoding="utf-8").read().split(':') as data:
+            with open(file_path, "r", encoding="utf-8") as data:
+                data = data.read().split(':')
                 app_port = data[2]
                 remoting_auth_token = data[3]
                 server_url = f"https://127.0.0.1:{app_port}"
