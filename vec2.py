@@ -3,28 +3,34 @@ Vector2 that handles point screen coordinates
 Transformations related to the game position & game size happen here
 """
 
-class vec2:
+class Vec2:
+    "Vector 2 class that has methods to scale screen coordinates"
+
     screen_x_offset = 0
     screen_y_offset = 0
     screen_x_scale = 1
-    screen_y_scale = 1 
+    screen_y_scale = 1
 
-    def __init__(self, x, y, use_screen_offset: bool = True):
-        self.x = x
-        self.y = y
+    def __init__(self, x_pos, y_pos, use_screen_offset: bool = True):
+        self.x_pos = x_pos
+        self.y_pos = y_pos
         self.use_screen_offset = use_screen_offset
 
     def get_coords(self) -> tuple:
-        x = self.x * vec2.screen_x_scale
-        y = self.y * vec2.screen_y_scale
+        """Returns screen coordinates with transformations"""
+        x_pos = self.x_pos * Vec2.screen_x_scale
+        y_pos = self.y_pos * Vec2.screen_y_scale
 
         if self.use_screen_offset:
-            return (round(x + vec2.screen_x_offset), round(y + vec2.screen_y_offset))
-        return (round(x), round(y))
+            return (round(x_pos + Vec2.screen_x_offset),
+                    round(y_pos + Vec2.screen_y_offset))
+
+        return (round(x_pos), round(y_pos))
 
     @classmethod
-    def setup_screen(cls, x, y, w, h):
-        vec2.screen_x_offset = x
-        vec2.screen_y_offset = y
-        vec2.screen_x_scale = w / 1920
-        vec2.screen_y_scale = h / 1080
+    def setup_screen(cls, x_pos: int, y_pos: int, width: int, height: int) -> None:
+        """Setup for screen coordinate offset and scale"""
+        Vec2.screen_x_offset = x_pos
+        Vec2.screen_y_offset = y_pos
+        Vec2.screen_x_scale = width / 1920
+        Vec2.screen_y_scale = height / 1080

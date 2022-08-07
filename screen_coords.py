@@ -1,80 +1,91 @@
 """
 Contains static screen coordinates the bot uses
 Screen coords for 1920x1080 screens
-(x, y, x+w, y+h) for vec4 locations, (x, y) for vec2 locations
+(x, y, x+w, y+h) for Vec4 locations, (x, y) for Vec2 locations
 """
 
-from vec4 import vec4
-from vec2 import vec2
+from vec4 import Vec4, GameWindow
+from vec2 import Vec2
 
-bench_health_pos = [vec4(369, 622, 472, 757), vec4(485, 622, 588, 757), vec4(601, 622, 704, 757),
-                    vec4(728, 622, 831, 757), vec4(844, 622, 947, 757), vec4(960, 622, 1063, 757),
-                    vec4(1076, 622, 1179, 757), vec4(1192, 622, 1295, 757), vec4(1308, 622, 1411, 757)]
+BENCH_HEALTH_POS = [Vec4(GameWindow(369, 622, 472, 757)), Vec4(GameWindow(485, 622, 588, 757)),
+                    Vec4(GameWindow(601, 622, 704, 757)), Vec4(GameWindow(728, 622, 831, 757)),
+                    Vec4(GameWindow(844, 622, 947, 757)), Vec4(GameWindow(960, 622, 1063, 757)),
+                    Vec4(GameWindow(1076, 622, 1179, 757)), Vec4(GameWindow(1192, 622, 1295, 757)),
+                    Vec4(GameWindow(1308, 622, 1411, 757))]
 
-item_pos = [[vec2(273, 753), vec4(373, 794, 611, 824)],
-            [vec2(348, 737), vec4(451, 778, 689, 808)],
-            [vec2(289, 692), vec4(391, 734, 629, 764)],
-            [vec2(356, 676), vec4(458, 717, 696, 747)],
-            [vec2(307, 631), vec4(410, 674, 648, 704)],
-            [vec2(323, 586), vec4(422, 623, 658, 659)],
-            [vec2(407, 679), vec4(507, 721, 745, 751)],
-            [vec2(379, 632), vec4(482, 674, 721, 704)],
-            [vec2(396, 582), vec4(497, 625, 735, 655)],
-            [vec2(457, 628), vec4(559, 670, 797, 701)]]
+ITEM_POS = [[Vec2(273, 753), Vec4(GameWindow(373, 794, 611, 824))],
+            [Vec2(348, 737), Vec4(GameWindow(451, 778, 689, 808))],
+            [Vec2(289, 692), Vec4(GameWindow(391, 734, 629, 764))],
+            [Vec2(356, 676), Vec4(GameWindow(458, 717, 696, 747))],
+            [Vec2(307, 631), Vec4(GameWindow(410, 674, 648, 704))],
+            [Vec2(323, 586), Vec4(GameWindow(422, 623, 658, 659))],
+            [Vec2(407, 679), Vec4(GameWindow(507, 721, 745, 751))],
+            [Vec2(379, 632), Vec4(GameWindow(482, 674, 721, 704))],
+            [Vec2(396, 582), Vec4(GameWindow(497, 625, 735, 655))],
+            [Vec2(457, 628), Vec4(GameWindow(559, 670, 797, 701))]]
 
-round_pos = vec4(767,10, 870,31)
+ROUND_POS = Vec4(GameWindow(767, 10, 870, 31))
 
-round_pos_two = vec4(2, 0, 42, 21, use_screen_offset = False)
+ROUND_POS_ONE = Vec4(GameWindow(2, 0, 42, 21), use_screen_offset=False)
 
-round_pos_one = vec4(57, 1, 96, 21, use_screen_offset = False)
+ROUND_POS_TWO = Vec4(GameWindow(57, 1, 96, 21), use_screen_offset=False)
 
-shop_pos = vec4(481, 1039, 1476, 1070)
+SHOP_POS = Vec4(GameWindow(481, 1039, 1476, 1070))
 
-champ_name_pos = [vec4(3, 5, 120, 24, use_screen_offset = False),
-                  vec4(204, 5, 320, 24, use_screen_offset = False),
-                  vec4(407, 5, 522, 24, use_screen_offset = False),
-                  vec4(608, 5, 712, 24, use_screen_offset = False),
-                  vec4(808, 5, 912, 24, use_screen_offset = False)]
+CHAMP_NAME_POS = [Vec4(GameWindow(3, 5, 120, 24), use_screen_offset=False),
+                  Vec4(GameWindow(204, 5, 320, 24), use_screen_offset=False),
+                  Vec4(GameWindow(407, 5, 522, 24), use_screen_offset=False),
+                  Vec4(GameWindow(608, 5, 712, 24), use_screen_offset=False),
+                  Vec4(GameWindow(808, 5, 912, 24), use_screen_offset=False)]
 
-gold_pos = vec4(870, 883, 920, 909)
+GOLD_POS = Vec4(GameWindow(870, 883, 920, 909))
 
-exit_now_pos = vec4(771, 541, 890, 564)
+EXIT_NOW_POS = Vec4(GameWindow(771, 541, 890, 564))
 
-augment_pos = [vec4(423, 579, 675, 614), vec4(835, 579, 1086, 614), vec4(1244, 579, 1495, 614)]
+AUGMENT_POS = [Vec4(GameWindow(423, 579, 675, 614)),
+               Vec4(GameWindow(835, 579, 1086, 614)),
+               Vec4(GameWindow(1244, 579, 1495, 614))]
 
-augment_loc = [vec2(549, 445), vec2(955, 445), vec2(1365, 445)]
+AUGMENT_LOC = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
 
-victory_pos = vec4(916, 630, 1008, 652)
+VICTORY_POS = Vec4(GameWindow(916, 630, 1008, 652))
 
-buy_loc = [vec2(575, 992), vec2(775, 992), vec2(975, 992), vec2(1175, 992), vec2(1375, 992)]
+BUY_LOC = [Vec2(575, 992), Vec2(775, 992), Vec2(
+    975, 992), Vec2(1175, 992), Vec2(1375, 992)]
 
-item_pickup_loc = [vec2(1427, 611), vec2(406, 544), vec2(1412, 486), vec2(469, 440),
-                   vec2(1380, 381), vec2(644, 323), vec2(1297, 262), vec2(590, 215)]
+ITEM_PICKUP_LOC = [Vec2(1427, 611), Vec2(406, 544), Vec2(1412, 486), Vec2(469, 440),
+                   Vec2(1380, 381), Vec2(644, 323), Vec2(1297, 262), Vec2(590, 215)]
 
-bench_loc = [vec2(425, 777), vec2(542, 777), vec2(658, 777),
-             vec2(778, 777), vec2(892, 777), vec2(1010, 777),
-             vec2(1128, 777), vec2(1244, 777), vec2(1359, 777)]
+BENCH_LOC = [Vec2(425, 777), Vec2(542, 777), Vec2(658, 777),
+             Vec2(778, 777), Vec2(892, 777), Vec2(1010, 777),
+             Vec2(1128, 777), Vec2(1244, 777), Vec2(1359, 777)]
 
-board_loc = [vec2(581, 651), vec2(707, 651), vec2(839, 651), vec2(966, 651), vec2(1091, 651), vec2(1222, 651), vec2(1349, 651), # THIS LIST GOES FROM BOTTOM LEFT (0) TO TOP RIGHT (27)
-             vec2(532, 571), vec2(660, 571), vec2(776, 571), vec2(903, 571), vec2(1022, 571), vec2(1147, 571), vec2(1275, 571),
-             vec2(609, 494), vec2(723, 494), vec2(841, 494), vec2(962, 494), vec2(1082, 494), vec2(1198, 494), vec2(1318, 494),
-             vec2(557, 423), vec2(673, 423), vec2(791, 423), vec2(907, 423), vec2(1019, 423), vec2(1138, 423), vec2(1251, 423)]
+# This list goes from bottom left (0) to top right (27)
+BOARD_LOC = [Vec2(581, 651), Vec2(707, 651), Vec2(839, 651),
+             Vec2(966, 651), Vec2(1091, 651), Vec2(1222, 651),
+             Vec2(1349, 651), Vec2(532, 571), Vec2(660, 571),
+             Vec2(776, 571), Vec2(903, 571), Vec2(1022, 571),
+             Vec2(1147, 571), Vec2(1275, 571), Vec2(609, 494),
+             Vec2(723, 494), Vec2(841, 494), Vec2(962, 494),
+             Vec2(1082, 494), Vec2(1198, 494), Vec2(1318, 494),
+             Vec2(557, 423), Vec2(673, 423), Vec2(791, 423),
+             Vec2(907, 423), Vec2(1019, 423), Vec2(1138, 423),
+             Vec2(1251, 423)]
 
-carousel_loc = vec2(964, 644)
+CAROUSEL_LOC = Vec2(964, 644)
 
-exit_now_loc = vec2(830, 551)
+EXIT_NOW_LOC = Vec2(830, 551)
 
-buy_xp_loc = vec2(364, 964)
+BUY_XP_LOC = Vec2(364, 964)
 
-refresh_loc = vec2(364, 1039)
+REFRESH_LOC = Vec2(364, 1039)
 
-default_loc = vec2(60,222)
+DEFAULT_LOC = Vec2(60, 222)
 
-health_loc = vec2(1897, 126)
+HEALTH_LOC = Vec2(1897, 126)
 
-surrender_loc = vec2(771, 843)
+SURRENDER_LOC = Vec2(771, 843)
 
-surrender2_loc = vec2(832, 489)
-surrender2_loc = vec2(832, 489)
+SURRENDER_TWO_LOC = Vec2(832, 489)
 
-take_all_button = vec2(1352, 940)
+TAKE_ALL_BUTTON = Vec2(1352, 940)

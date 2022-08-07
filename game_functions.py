@@ -1,5 +1,5 @@
 """
-Functions used by the Game class to get data
+Functions used by the Game class to retrieve relevant data
 """
 
 from time import sleep
@@ -9,19 +9,23 @@ import ocr
 import game_assets
 import mk_functions
 
+
 def get_round() -> str:
-    screen_capture = ImageGrab.grab(bbox=screen_coords.round_pos.get_coords())
-    round_two_x = screen_capture.crop(screen_coords.round_pos_two.get_coords())
-    game_round = ocr.get_text_from_image(image=round_two_x, whitelist="0123456789-")
-    if game_round in game_assets.rounds:
-        return game_round
-    else:
-        round_one_x = screen_capture.crop(screen_coords.round_pos_one.get_coords())
-        game_round = ocr.get_text_from_image(image=round_one_x, whitelist="0123456789-")
+    """Gets the current game round"""
+    screen_capture = ImageGrab.grab(bbox=screen_coords.ROUND_POS.get_coords())
+    round_two = screen_capture.crop(screen_coords.ROUND_POS_TWO.get_coords())
+    game_round = ocr.get_text_from_image(image=round_two, whitelist=ocr.ROUND_WHITELIST)
+    if game_round in game_assets.ROUNDS:
         return game_round
 
-def pickup_items():
-    for index, coords in enumerate(screen_coords.item_pickup_loc):
+    round_one = screen_capture.crop(screen_coords.ROUND_POS_ONE.get_coords())
+    game_round = ocr.get_text_from_image(image=round_one, whitelist=ocr.ROUND_WHITELIST)
+    return game_round
+
+
+def pickup_items() -> None:  # Refacor this function to make it more clear whats happening
+    """Picks up items from the board after PVP round"""
+    for index, coords in enumerate(screen_coords.ITEM_PICKUP_LOC):
         mk_functions.right_click(coords.get_coords())
         if index == 7:  # Don't need to sleep on final click
             return
@@ -32,31 +36,42 @@ def pickup_items():
         else:
             sleep(1.2)
 
-def get_champ_carousel(tft_round):
+
+def get_champ_carousel(tft_round: str) -> None:
+    """Gets a champion from the carousel"""
     while tft_round == get_round():
-        mk_functions.right_click(screen_coords.carousel_loc.get_coords())
-        sleep(1)
+        mk_functions.right_click(screen_coords.CAROUSEL_LOC.get_coords())
+        sleep(0.7)
 
-def check_alive() -> bool:
-    if ocr.get_text(screenxy=screen_coords.exit_now_pos.get_coords(), scale=3, psm=7, whitelist='') == 'EXIT NOW':
+
+def check_alive() -> bool:  # Refactor this function to use api
+    """Checks the screen to see if player is still alive"""
+    if ocr.get_text(screenxy=screen_coords.EXIT_NOW_POS.get_coords(), scale=3, psm=7) == 'EXIT NOW':
         return False
-    elif ocr.get_text(screenxy=screen_coords.victory_pos.get_coords(), scale=3, psm=7, whitelist='') == 'CONTINUE':
+    if ocr.get_text(screenxy=screen_coords.VICTORY_POS.get_coords(), scale=3, psm=7) == 'CONTINUE':
         return False
-    else:
-        return True
+    return True
 
-def select_shop():
-    mk_functions.left_click(screen_coords.take_all_button.get_coords())
 
-def exit_game():
-    mk_functions.left_click(screen_coords.exit_now_loc.get_coords())
+def select_shop() -> None:
+    """Clicks the take all button on special round"""
+    mk_functions.left_click(screen_coords.TAKE_ALL_BUTTON.get_coords())
 
-def default_pos():
-    mk_functions.left_click(screen_coords.default_loc.get_coords())
 
-def forfeit():
+def exit_game() -> None:
+    """Exits the game"""
+    mk_functions.left_click(screen_coords.EXIT_NOW_LOC.get_coords())
+
+
+def default_pos() -> None:
+    """Moves the mouse to a default position to ensure no data is being blocked from OCR"""
+    mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
+
+
+def forfeit() -> None:
+    """Forfeits the game"""
     mk_functions.press_esc()
-    mk_functions.left_click(screen_coords.surrender_loc.get_coords())
+    mk_functions.left_click(screen_coords.SURRENDER_LOC.get_coords())
     sleep(0.1)
-    mk_functions.left_click(screen_coords.surrender2_loc.get_coords())
+    mk_functions.left_click(screen_coords.SURRENDER_TWO_LOC.get_coords())
     sleep(1)
