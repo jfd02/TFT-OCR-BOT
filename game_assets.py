@@ -2,45 +2,54 @@
 Contains static item & champion data
 """
 
-combined_items = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod", "NegatronCloak",
-                  "SparringGloves", "Spatula", "TearoftheGoddess", "ArchangelsStaff", "AssassinEmblem",
-                  "BansheesClaw", "Bloodthirster", "BlueBuff", "BrambleVest", "CavalierEmblem", "ChaliceofPower",
-                  "Deathblade","DragonmancerEmblem","DragonsClaw","EdgeofNight","FrozenHeart","GargoyleStoneplate","GiantSlayer",
-                  "HandofJustice", "HextechGunblade","InfinityEdge","IonicSpark","JewledGauntlet","LastWhisper","LocketoftheIronSolari", "MageEmblem", "MirageEmblem",
-                  "Morellonomicon", "Quicksilver","RabadonsDeathcap","Ragewing Emblem", "RapidFirecannon","Redemption","RunaansHurricane","ShimmerscaleEmblem",
-                  "ShroudofStillness", "SpearofShojin","StatikkShiv","SunfireCape","TacticiansCrown","ThiefsGloves","TitansResolve","WarmogsArmor",
-                  "ZekesHerald","Zephyr","ZZRotPortal", "RecurveBow", "GuardianEmblem", "GuinsoosRageblade"}
+COMBINED_ITEMS = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod",
+                  "NegatronCloak", "SparringGloves", "Spatula", "TearoftheGoddess",
+                  "ArchangelsStaff", "AssassinEmblem", "BansheesClaw", "Bloodthirster",
+                  "BlueBuff", "BrambleVest", "CavalierEmblem", "ChaliceofPower",
+                  "Deathblade", "DragonmancerEmblem", "DragonsClaw", "EdgeofNight",
+                  "FrozenHeart", "GargoyleStoneplate", "GiantSlayer", "HandofJustice",
+                  "HextechGunblade", "InfinityEdge", "IonicSpark", "JewledGauntlet",
+                  "LastWhisper", "LocketoftheIronSolari", "MageEmblem", "MirageEmblem",
+                  "Morellonomicon", "Quicksilver", "RabadonsDeathcap", "Ragewing Emblem",
+                  "RapidFirecannon", "Redemption", "RunaansHurricane", "ShimmerscaleEmblem",
+                  "ShroudofStillness", "SpearofShojin", "StatikkShiv", "SunfireCape",
+                  "TacticiansCrown", "ThiefsGloves", "TitansResolve", "WarmogsArmor",
+                  "ZekesHerald", "Zephyr", "ZZRotPortal", "RecurveBow",
+                  "GuardianEmblem", "GuinsoosRageblade"}
 
-elusive_items ={"AstralEmblem", "BruiserEmblem", "Cannoneer Emblem", "DragonmancersBlessing", "EvokerEmblem", "GuildEmblem",
-                "JadeEmblem", "LegendEmblem", "MysticEmblem", "RevelEmblem", "ScalescornEmblem", "SwiftshotEmblem",
-                "TempestEmblem", "WarriorEmblem", "WhispersEmblem"}
+ELUSIVE_ITEMS = {"AstralEmblem", "BruiserEmblem", "Cannoneer Emblem",
+                 "DragonmancersBlessing", "EvokerEmblem", "GuildEmblem",
+                 "JadeEmblem", "LegendEmblem", "MysticEmblem",
+                 "RevelEmblem", "ScalescornEmblem", "SwiftshotEmblem",
+                 "TempestEmblem", "WarriorEmblem", "WhispersEmblem"}
 
-shimmerscale_items = {"CrownOfChampions", "DeterminedInvestor", "DiamondHands", "DravensAxe", "GamblersBlade",
-                      "GoldmancersStaff", "MogulsMail", "NeedlesslyBigGem", "PhilosophersStone"}
+SHIMMERSCALE_ITEMS = {"CrownOfChampions", "DeterminedInvestor", "DiamondHands",
+                      "DravensAxe", "GamblersBlade", "GoldmancersStaff",
+                      "MogulsMail", "NeedlesslyBigGem", "PhilosophersStone"}
 
-ornn_items = {"AnimaVisage","DeathsDefiance","EternalWinter","GoldCollector","InfinityForce",
-              "Manazane", "ObsidianCleaver","RaduinsSanctum","RocketPropelledFist","ZhonyasParadox"}
+ORNN_ITEMS = {"AnimaVisage", "DeathsDefiance", "EternalWinter",
+              "GoldCollector", "InfinityForce",
+              "Manazane", "ObsidianCleaver", "RaduinsSanctum",
+              "RocketPropelledFist", "ZhonyasParadox"}
 
-radiant_items = { "Absolution", "BansheesSilence","BlessedBloodthirster","BlueBlessing",
-                  "BrinkofDawn","ChaliceofCharity","CovalentSpark","DemonSlayer","DragonsWill",
-                  "DvarapalaStoneplate", "EternalWhisper", "FistofFairness","FrozenHeartOfGold",
-                  "GlamorousGauntlet","GuinsoosReckoning","HextechLifeblade",
-                  "LocketofTargonPrime","LuminousDeathblade","Mistral","MoreMoreellonomicon",
-                  "Quickestsilver","RabadonsAscendedDeathcap","RadiantRedemption","RapidLightcannon",
-                  "RascalsGloves","RosethornVest","RunaansTempest","ShroudofReverance",
-                  "SpearofHirana","StatikkFavor","SunlightCape","TitansVow",
-                  "UrfAngelsStaff","WarmogsPride", "ZekesHarmony", "ZenithEdge",
-                  "ZzRotsInvitation"}
+RADIANT_ITEMS = {"Absolution", "BansheesSilence", "BlessedBloodthirster",
+                 "BlueBlessing", "BrinkofDawn", "ChaliceofCharity",
+                 "CovalentSpark", "DemonSlayer", "DragonsWill",
+                 "DvarapalaStoneplate", "EternalWhisper", "FistofFairness",
+                 "FrozenHeartOfGold", "GlamorousGauntlet", "GuinsoosReckoning",
+                 "HextechLifeblade", "LocketofTargonPrime", "LuminousDeathblade",
+                 "Mistral", "MoreMoreellonomicon", "Quickestsilver",
+                 "RabadonsAscendedDeathcap", "RadiantRedemption", "RapidLightcannon",
+                 "RascalsGloves", "RosethornVest", "RunaansTempest",
+                 "ShroudofReverance", "SpearofHirana", "StatikkFavor",
+                 "SunlightCape", "TitansVow", "UrfAngelsStaff",
+                 "WarmogsPride", "ZekesHarmony", "ZenithEdge",
+                 "ZzRotsInvitation"}
 
-items = combined_items.union(elusive_items).union(shimmerscale_items).union(ornn_items).union(radiant_items)
+ITEMS = COMBINED_ITEMS.union(ELUSIVE_ITEMS).union(
+    SHIMMERSCALE_ITEMS).union(ORNN_ITEMS).union(RADIANT_ITEMS)
 
-champions = {'Aatrox', 'Anivia', 'Ao Shin', 'Ashe', 'Aurelion Sol', 'Bard', 'Braum', 'Corki', 'Daeja', 'Diana', 'Elise', 'Ezreal', 'Gnar',
-             'Hecarim', 'Heimerdinger', 'Idas', 'Illaoi', 'Jinx', 'Karma', 'Kayn', 'Lee sin', 'Leona', 'Lillia', 'Lulu', 'Nami', 'Neeko',
-             'Nidalee', 'Nunu', 'Olaf', 'Ornn', 'Pyke', 'Qiyana', 'Ryze', 'Sejuani', 'Senna', 'Sett', 'Shen', 'Shi Oh Yu', 'Shyvana', 'Skarner',
-             'Sona', 'Soraka', 'Swain', 'Syfen', 'Sylas', 'Tahm Kench', 'Talon', 'Taric', 'Thresh', 'Tristana', 'Twitch', 'Varus', 'Vladmir',
-             'Volibear', 'Xayah', 'Yasuo', 'Yone', 'Zoe'}
-             
-champion_data = {
+CHAMPIONS = {
     "Aatrox": {"Gold": 1, "Board Size": 1},
     "Anivia": {"Gold": 3, "Board Size": 1},
     "Ao Shin": {"Gold": 10, "Board Size": 2},
@@ -100,7 +109,7 @@ champion_data = {
     "Yone": {"Gold": 2, "Board Size": 1},
     "Zoe": {"Gold": 5, "Board Size": 1}}
 
-rounds = {"1-1", "1-2", "1-3", "1-4",
+ROUNDS = {"1-1", "1-2", "1-3", "1-4",
           "2-1", "2-2", "2-3", "2-4", "2-5", "2-6", "2-7",
           "3-1", "3-2", "3-3", "3-4", "3-5", "3-6", "3-7",
           "4-1", "4-2", "4-3", "4-4", "4-5", "4-6", "4-7",
@@ -108,26 +117,27 @@ rounds = {"1-1", "1-2", "1-3", "1-4",
           "6-1", "6-2", "6-3", "6-4", "6-5", "6-6", "6-7",
           "7-1", "7-2", "7-3", "7-4", "7-5", "7-6", "7-7"}
 
-carousel_rounds = {"1-1", "2-4", "3-4", "4-4", "5-4", "6-4", "7-4"}
+CAROUSEL_ROUND = {"1-1", "2-4", "3-4", "4-4", "5-4", "6-4", "7-4"}
 
-pve_round = {"1-2", "1-3", "1-4", "2-7", "3-7", "4-7", "5-7", "6-7", "7-7"}
+PVE_ROUND = {"1-2", "1-3", "1-4", "2-7", "3-7", "4-7", "5-7", "6-7", "7-7"}
 
-pvp_round = {"2-1", "2-2", "2-3", "2-5", "2-6",
+PVP_ROUND = {"2-1", "2-2", "2-3", "2-5", "2-6",
              "3-1", "3-2", "3-3", "3-5", "3-6",
              "4-1", "4-2", "4-3", "4-5", "4-6",
              "5-1", "5-2", "5-3", "5-5", "5-6",
              "6-1", "6-2", "6-3", "6-5", "6-6",
              "7-1", "7-2", "7-3", "7-5", "7-6"}
 
-pickup_round = {"2-1", "3-1", "4-1", "5-1", "6-1", "7-1"}
+PICKUP_ROUNDS = {"2-1", "3-1", "4-1", "5-1", "6-1", "7-1"}
 
-augment_rounds = {"2-1", "3-2", "4-2"}
+AUGMENT_ROUNDS = {"2-1", "3-2", "4-2"}
 
-item_placement_rounds = {"2-2", "3-2", "4-2", "5-2", "6-2", "7-2", "2-5", "3-5", "4-5", "5-5", "6-5", "7-5"}
+ITEM_PLACEMENT_ROUNDS = {"2-2", "3-2", "4-2", "5-2",
+                         "6-2", "7-2", "2-5", "3-5", "4-5", "5-5", "6-5", "7-5"}
 
-final_comp_round = "4-5"
+FINAL_COMP_ROUND = "4-5"
 
-full_items = {"ArchangelsStaff": ("NeedlesslyLargeRod", "TearoftheGoddess"),
+FULL_ITEMS = {"ArchangelsStaff": ("NeedlesslyLargeRod", "TearoftheGoddess"),
               "AssassinEmblem": ("SparringGloves", "Spatula"),
               "BansheesClaw": ("GiantsBelt", "SparringGloves"),
               "Bloodthirster": ("BFSword", "NegatronCloak"),
@@ -173,3 +183,13 @@ full_items = {"ArchangelsStaff": ("NeedlesslyLargeRod", "TearoftheGoddess"),
               "Zephyr": ("GiantsBelt", "NegatronCloak"),
               "ZzRotPortal": ("GiantsBelt", "RecurveBow")
               }
+
+
+def champion_board_size(champion: str) -> int:
+    """Takes a string (champion name) and returns board size of champion"""
+    return CHAMPIONS[champion]["Board Size"]
+
+
+def champion_gold_cost(champion: str) -> int:
+    """Takes a string (champion name) and returns gold of champion"""
+    return CHAMPIONS[champion]["Gold"]
