@@ -14,7 +14,7 @@
 4. Run pip install -r requirements.txt in Command Prompt
 5. Install tesseract using the Windows installer available at: https://github.com/UB-Mannheim/tesseract/wiki
    - Note the tesseract path from the installation.
-   - Set the tesseract path in the ocr.py file (it may already be correct)
+   - Set the tesseract path in the settings.py file (it may already be correct)
 6. Configure settings.py so the league client path is correct
 7. Disable all in-game overlays
 8. Run the main.py file
