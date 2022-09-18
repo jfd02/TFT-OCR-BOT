@@ -21,24 +21,24 @@ class GameWindow:
 
 class Vec4:
     "Vector 4 class that has methods to scale screen coordinates"
-    screen_x_offset = 0
-    screen_y_offset = 0
-    screen_x_scale = 1
-    screen_y_scale = 1
+    screen_x_offset: int = 0
+    screen_y_offset: int = 0
+    screen_x_scale: int = 1
+    screen_y_scale: int = 1
 
     def __init__(self, game_window: GameWindow, use_screen_offset: bool = True):
-        self.x_pos = game_window.x_pos
-        self.y_pos = game_window.y_pos
-        self.width = game_window.width
-        self.height = game_window.height
-        self.use_screen_offset = use_screen_offset
+        self.x_pos: int = game_window.x_pos
+        self.y_pos: int = game_window.y_pos
+        self.width: int = game_window.width
+        self.height: int = game_window.height
+        self.use_screen_offset: bool = use_screen_offset
 
     def get_coords(self) -> tuple:
         """Returns screen coordinates with transformations"""
-        x_pos = self.x_pos * Vec4.screen_x_scale
-        y_pos = self.y_pos * Vec4.screen_y_scale
-        width = self.width * Vec4.screen_x_scale
-        height = self.height * Vec4.screen_y_scale
+        x_pos: int = self.x_pos * Vec4.screen_x_scale
+        y_pos: int = self.y_pos * Vec4.screen_y_scale
+        width: int = self.width * Vec4.screen_x_scale
+        height: int = self.height * Vec4.screen_y_scale
 
         if self.use_screen_offset:
             return (round(x_pos + Vec4.screen_x_offset),

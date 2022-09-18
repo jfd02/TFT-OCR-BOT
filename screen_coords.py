@@ -13,7 +13,7 @@ BENCH_HEALTH_POS = [Vec4(GameWindow(369, 622, 472, 757)), Vec4(GameWindow(485, 6
                     Vec4(GameWindow(1076, 622, 1179, 757)), Vec4(GameWindow(1192, 622, 1295, 757)),
                     Vec4(GameWindow(1308, 622, 1411, 757))]
 
-ITEM_POS = [[Vec2(273, 753), Vec4(GameWindow(373, 794, 611, 824))],
+ITEM_POS: list[list] = [[Vec2(273, 753), Vec4(GameWindow(373, 794, 611, 824))],
             [Vec2(348, 737), Vec4(GameWindow(451, 778, 689, 808))],
             [Vec2(289, 692), Vec4(GameWindow(391, 734, 629, 764))],
             [Vec2(356, 676), Vec4(GameWindow(458, 717, 696, 747))],

@@ -6,15 +6,15 @@ Transformations related to the game position & game size happen here
 class Vec2:
     "Vector 2 class that has methods to scale screen coordinates"
 
-    screen_x_offset = 0
-    screen_y_offset = 0
-    screen_x_scale = 1
-    screen_y_scale = 1
+    screen_x_offset: int = 0
+    screen_y_offset: int = 0
+    screen_x_scale: int = 1
+    screen_y_scale: int = 1
 
     def __init__(self, x_pos, y_pos, use_screen_offset: bool = True):
         self.x_pos = x_pos
         self.y_pos = y_pos
-        self.use_screen_offset = use_screen_offset
+        self.use_screen_offset: bool = use_screen_offset
 
     def get_coords(self) -> tuple:
         """Returns screen coordinates with transformations"""

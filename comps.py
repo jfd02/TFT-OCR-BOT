@@ -43,7 +43,7 @@ COMP = {"Ezreal": {"board_position": 0,
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
 # (Anything that changes gameplay or adds something to the bench).
-AUGMENTS = ["Cybernetic Implants", "Stand United", "Electrocharge",
+AUGMENTS: list[str] = ["Cybernetic Implants", "Stand United", "Electrocharge",
             "Cybernetic Uplink", "Celestial Blessing",
             "Cybernetic Shell", "Weakspot", "Tri Force",
             "Gadget Expert", "Metabolic Accelerator", "Second Wind",
@@ -57,7 +57,7 @@ AUGMENTS = ["Cybernetic Implants", "Stand United", "Electrocharge",
 
 def champions_to_buy() -> list:
     """Creates a list of champions to buy during the game"""
-    champs_to_buy = []
+    champs_to_buy: list = []
     for champion, champion_data in COMP.items():
         if champion_data['level'] == 1:
             champs_to_buy.append(champion)
@@ -73,7 +73,7 @@ def champions_to_buy() -> list:
 
 def get_unknown_slots() -> list:
     """Creates a list of slots on the board that don't have a champion from the team composition"""
-    container = []
+    container: list = []
     for _, champion_data in COMP.items():
         container.append(champion_data["board_position"])
     return [n for n in range(27) if n not in container]

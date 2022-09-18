@@ -14,8 +14,8 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def create_lobby(client_info: tuple) -> bool:
     """Creates a lobby"""
-    payload = {"queueId": 1090}  # Ranked TFT is 1100
-    payload = json.dumps(payload)
+    payload: dict[str, int] = {"queueId": 1090}  # Ranked TFT is 1100
+    payload: dict[str, int] = json.dumps(payload)
     try:
         status = requests.post(client_info[1] + "/lol-lobby/v2/lobby/", payload,
                                auth=HTTPBasicAuth('riot', client_info[0]), verify=False)
@@ -87,10 +87,10 @@ def get_client() -> tuple:
     while not got_lock_file:
         try:
             with open(file_path, "r", encoding="utf-8") as data:
-                data = data.read().split(':')
-                app_port = data[2]
-                remoting_auth_token = data[3]
-                server_url = f"https://127.0.0.1:{app_port}"
+                data: list[str] = data.read().split(':')
+                app_port: str = data[2]
+                remoting_auth_token: str = data[3]
+                server_url: str = f"https://127.0.0.1:{app_port}"
                 got_lock_file = True
         except IOError:
             print("  Client not open! Trying again in 10 seconds.")
@@ -101,7 +101,7 @@ def get_client() -> tuple:
 
 def queue() -> None:
     """Function that handles getting into a game"""
-    client_info = get_client()
+    client_info: tuple = get_client()
     while not create_lobby(client_info):
         sleep(3)
 

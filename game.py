@@ -17,12 +17,12 @@ from vec2 import Vec2
 class Game:
     """Game class that handles game logic such as round tasks"""
 
-    def __init__(self, message_queue: multiprocessing.Queue):
+    def __init__(self, message_queue: multiprocessing.Queue) -> None:
         self.message_queue = message_queue
         self.arena = Arena(self.message_queue)
         self.round = "0-0"
         self.time = None
-        self.forfeit_time = settings.FORFEIT_TIME + random.randint(50, 150)
+        self.forfeit_time: int = settings.FORFEIT_TIME + random.randint(50, 150)
         self.found_window = False
 
         print("\n[!] Searching for game window")
@@ -60,14 +60,14 @@ class Game:
         game_functions.default_pos()
         while game_functions.get_round() != "1-1":
             sleep(1)
-        self.start_time = perf_counter()
+        self.start_time: float = perf_counter()
         self.game_loop()
 
     def game_loop(self) -> None:
         """Loop that runs while the game is active, handles calling the correct tasks for round and exiting game"""
         ran_round = None
         while game_functions.check_alive():
-            self.round = game_functions.get_round()
+            self.round: str = game_functions.get_round()
 
             if settings.FORFEIT:
                 if perf_counter() - self.start_time > self.forfeit_time:
@@ -76,13 +76,13 @@ class Game:
 
             if self.round != ran_round and self.round in game_assets.CAROUSEL_ROUND:
                 self.carousel_round()
-                ran_round = self.round
+                ran_round: str = self.round
             elif self.round != ran_round and self.round in game_assets.PVE_ROUND:
                 self.pve_round()
-                ran_round = self.round
+                ran_round: str = self.round
             elif self.round != ran_round and self.round in game_assets.PVP_ROUND:
                 self.pvp_round()
-                ran_round = self.round
+                ran_round: str = self.round
             sleep(0.5)
         self.message_queue.put("CLEAR")
         game_functions.exit_game()
@@ -152,7 +152,7 @@ class Game:
             self.arena.place_items()
         self.end_round_tasks()
 
-    def end_round_tasks(self):
+    def end_round_tasks(self) -> None:
         """Common tasks across rounds that happen at the end"""
         self.arena.check_health()
         self.arena.get_label()

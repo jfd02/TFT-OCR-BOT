@@ -2,7 +2,7 @@
 Contains static item & champion data
 """
 
-COMBINED_ITEMS = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod",
+COMBINED_ITEMS: set[str] = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod",
                   "NegatronCloak", "SparringGloves", "Spatula", "TearoftheGoddess",
                   "ArchangelsStaff", "AssassinEmblem", "BansheesClaw", "Bloodthirster",
                   "BlueBuff", "BrambleVest", "CavalierEmblem", "ChaliceofPower",
@@ -17,22 +17,22 @@ COMBINED_ITEMS = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod",
                   "ZekesHerald", "Zephyr", "ZZRotPortal", "RecurveBow",
                   "GuardianEmblem", "GuinsoosRageblade"}
 
-ELUSIVE_ITEMS = {"AstralEmblem", "BruiserEmblem", "Cannoneer Emblem",
+ELUSIVE_ITEMS: set[str] = {"AstralEmblem", "BruiserEmblem", "Cannoneer Emblem",
                  "DragonmancersBlessing", "EvokerEmblem", "GuildEmblem",
                  "JadeEmblem", "LegendEmblem", "MysticEmblem",
                  "RevelEmblem", "ScalescornEmblem", "SwiftshotEmblem",
                  "TempestEmblem", "WarriorEmblem", "WhispersEmblem"}
 
-SHIMMERSCALE_ITEMS = {"CrownOfChampions", "DeterminedInvestor", "DiamondHands",
+SHIMMERSCALE_ITEMS: set[str] = {"CrownOfChampions", "DeterminedInvestor", "DiamondHands",
                       "DravensAxe", "GamblersBlade", "GoldmancersStaff",
                       "MogulsMail", "NeedlesslyBigGem", "PhilosophersStone"}
 
-ORNN_ITEMS = {"AnimaVisage", "DeathsDefiance", "EternalWinter",
+ORNN_ITEMS: set[str] = {"AnimaVisage", "DeathsDefiance", "EternalWinter",
               "GoldCollector", "InfinityForce",
               "Manazane", "ObsidianCleaver", "RaduinsSanctum",
               "RocketPropelledFist", "ZhonyasParadox"}
 
-RADIANT_ITEMS = {"Absolution", "BansheesSilence", "BlessedBloodthirster",
+RADIANT_ITEMS: set[str] = {"Absolution", "BansheesSilence", "BlessedBloodthirster",
                  "BlueBlessing", "BrinkofDawn", "ChaliceofCharity",
                  "CovalentSpark", "DemonSlayer", "DragonsWill",
                  "DvarapalaStoneplate", "EternalWhisper", "FistofFairness",
@@ -46,10 +46,10 @@ RADIANT_ITEMS = {"Absolution", "BansheesSilence", "BlessedBloodthirster",
                  "WarmogsPride", "ZekesHarmony", "ZenithEdge",
                  "ZzRotsInvitation"}
 
-ITEMS = COMBINED_ITEMS.union(ELUSIVE_ITEMS).union(
+ITEMS: set[str] = COMBINED_ITEMS.union(ELUSIVE_ITEMS).union(
     SHIMMERSCALE_ITEMS).union(ORNN_ITEMS).union(RADIANT_ITEMS)
 
-CHAMPIONS = {
+CHAMPIONS: dict[str, dict[str, int]] = {
     "Wukong": {"Gold": 1, "Board Size": 1},
     "Malphite": {"Gold": 3, "Board Size": 1},
     "Ao Shin": {"Gold": 8, "Board Size": 2},
@@ -129,7 +129,7 @@ CHAMPIONS = {
     "Rell": {"Gold": 2, "Board Size": 1},
     "Zeri": {"Gold": 3, "Board Size": 1}}
 
-ROUNDS = {"1-1", "1-2", "1-3", "1-4",
+ROUNDS: set[str] = {"1-1", "1-2", "1-3", "1-4",
           "2-1", "2-2", "2-3", "2-4", "2-5", "2-6", "2-7",
           "3-1", "3-2", "3-3", "3-4", "3-5", "3-6", "3-7",
           "4-1", "4-2", "4-3", "4-4", "4-5", "4-6", "4-7",
@@ -137,22 +137,22 @@ ROUNDS = {"1-1", "1-2", "1-3", "1-4",
           "6-1", "6-2", "6-3", "6-4", "6-5", "6-6", "6-7",
           "7-1", "7-2", "7-3", "7-4", "7-5", "7-6", "7-7"}
 
-CAROUSEL_ROUND = {"1-1", "2-4", "3-4", "4-4", "5-4", "6-4", "7-4"}
+CAROUSEL_ROUND: set[str] = {"1-1", "2-4", "3-4", "4-4", "5-4", "6-4", "7-4"}
 
-PVE_ROUND = {"1-2", "1-3", "1-4", "2-7", "3-7", "4-7", "5-7", "6-7", "7-7"}
+PVE_ROUND: set[str] = {"1-2", "1-3", "1-4", "2-7", "3-7", "4-7", "5-7", "6-7", "7-7"}
 
-PVP_ROUND = {"2-1", "2-2", "2-3", "2-5", "2-6",
+PVP_ROUND: set[str] = {"2-1", "2-2", "2-3", "2-5", "2-6",
              "3-1", "3-2", "3-3", "3-5", "3-6",
              "4-1", "4-2", "4-3", "4-5", "4-6",
              "5-1", "5-2", "5-3", "5-5", "5-6",
              "6-1", "6-2", "6-3", "6-5", "6-6",
              "7-1", "7-2", "7-3", "7-5", "7-6"}
 
-PICKUP_ROUNDS = {"2-1", "3-1", "4-1", "5-1", "6-1", "7-1"}
+PICKUP_ROUNDS: set[str] = {"2-1", "3-1", "4-1", "5-1", "6-1", "7-1"}
 
-AUGMENT_ROUNDS = {"2-1", "3-2", "4-2"}
+AUGMENT_ROUNDS: set[str] = {"2-1", "3-2", "4-2"}
 
-ITEM_PLACEMENT_ROUNDS = {"2-2", "3-2", "4-2", "5-2",
+ITEM_PLACEMENT_ROUNDS: set[str] = {"2-2", "3-2", "4-2", "5-2",
                          "6-2", "7-2", "2-5", "3-5", "4-5", "5-5", "6-5", "7-5"}
 
 FINAL_COMP_ROUND = "4-5"
