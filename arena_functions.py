@@ -34,7 +34,7 @@ def get_health() -> int:
 
 def get_gold() -> int:
     """Returns the gold for the tactician"""
-    gold = ocr.get_text(screenxy=screen_coords.GOLD_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    gold: str = ocr.get_text(screenxy=screen_coords.GOLD_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
     try:
         return int(gold)
     except ValueError:
@@ -55,10 +55,10 @@ def valid_champ(champ: str) -> str:
 def get_shop() -> list:
     """Returns the list of champions in the shop"""
     screen_capture = ImageGrab.grab(bbox=screen_coords.SHOP_POS.get_coords())
-    shop = []
+    shop: list = []
     for names in screen_coords.CHAMP_NAME_POS:
-        champ = screen_capture.crop(names.get_coords())
-        champ = ocr.get_text_from_image(image=champ, whitelist="")
+        champ: str = screen_capture.crop(names.get_coords())
+        champ: str = ocr.get_text_from_image(image=champ, whitelist="")
         if champ in game_assets.CHAMPIONS:
             shop.append(champ)
         else:
@@ -78,7 +78,7 @@ def empty_slot() -> int:
 
 def bench_occupied_check() -> list:
     """Returns a list of booleans that map to each bench slot indicating if its occupied"""
-    bench_occupied = []
+    bench_occupied: list = []
     for positions in screen_coords.BENCH_HEALTH_POS:
         screen_capture = ImageGrab.grab(bbox=positions.get_coords())
         screenshot_array = np.array(screen_capture)
@@ -99,10 +99,10 @@ def valid_item(item: str) -> str | None:
 
 def get_items() -> list:
     """Returns a list of items currently on the board"""
-    item_bench = []
+    item_bench: list = []
     for positions in screen_coords.ITEM_POS:
         mk_functions.move_mouse(positions[0].get_coords())
-        item = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=13,
+        item: str = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=13,
                             whitelist=ocr.ALPHABET_WHITELIST)
         item_bench.append(valid_item(item))
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())

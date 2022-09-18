@@ -9,10 +9,10 @@ import screeninfo
 class UI:
     """User interface class that handles drawing labels on the screen during gameplay"""
 
-    def __init__(self, message_queue: multiprocessing.Queue):
-        self.champ_text = UI.rgb_convert((255, 255, 255))
-        self.transparent = UI.rgb_convert((0, 0, 0))
-        self.label_container = []
+    def __init__(self, message_queue: multiprocessing.Queue) -> None:
+        self.champ_text: str = UI.rgb_convert((255, 255, 255))
+        self.transparent: str = UI.rgb_convert((0, 0, 0))
+        self.label_container: list = []
         self.message_queue = message_queue
         self.root = tk.Tk()
         self.setup_window_size()
@@ -46,7 +46,7 @@ class UI:
     def set_clickthrough(self, hwnd: int) -> None:
         """Uses window API function to make the window clickthrough"""
         styles = GetWindowLong(hwnd, GWL_EXSTYLE)
-        styles = WS_EX_LAYERED | WS_EX_TRANSPARENT
+        styles: int = WS_EX_LAYERED | WS_EX_TRANSPARENT
         SetWindowLong(hwnd, GWL_EXSTYLE, styles)
         SetLayeredWindowAttributes(hwnd, 0, 255, 0x00000001)
 

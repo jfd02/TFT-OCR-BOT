@@ -16,16 +16,16 @@ import arena_functions
 class Arena:
     """Arena class that handles game logic such as board and bench state"""
     # pylint: disable=too-many-instance-attributes,too-many-public-methods
-    def __init__(self, message_queue):
+    def __init__(self, message_queue) -> None:
         self.message_queue = message_queue
         self.board_size = 0
-        self.bench = [None, None, None, None, None, None, None, None, None]
-        self.board = []
-        self.board_unknown = []
-        self.unknown_slots = comps.get_unknown_slots()
-        self.champs_to_buy = comps.champions_to_buy()
-        self.board_names = []
-        self.items = []
+        self.bench: list[None] = [None, None, None, None, None, None, None, None, None]
+        self.board: list = []
+        self.board_unknown: list = []
+        self.unknown_slots: list = comps.get_unknown_slots()
+        self.champs_to_buy: list = comps.champions_to_buy()
+        self.board_names: list = []
+        self.items: list = []
         self.final_comp = False
         self.level = 0
         self.spam_roll = False
@@ -65,7 +65,7 @@ class Arena:
     def move_known(self, champion: Champion) -> None:
         """Moves champion to the board"""
         print(f"  Moving {champion.name} to board")
-        destination = screen_coords.BOARD_LOC[comps.COMP[champion.name]["board_position"]].get_coords()
+        destination: tuple = screen_coords.BOARD_LOC[comps.COMP[champion.name]["board_position"]].get_coords()
         mk_functions.left_click(champion.coords)
         mk_functions.left_click(destination)
         champion.coords = destination
@@ -104,18 +104,18 @@ class Arena:
 
     def move_champions(self) -> None:
         """Moves champions to the board"""
-        self.level = arena_functions.get_level()
+        self.level: int = arena_functions.get_level()
         while self.level > self.board_size:
-            champion = self.have_champion()
+            champion: Champion | None = self.have_champion()
             if champion is not None:
                 self.move_known(champion)
             elif self.unknown_in_bench():
                 self.move_unknown()
             else:
                 bought_unknown = False
-                shop = arena_functions.get_shop()
+                shop: list = arena_functions.get_shop()
                 for index, champion in enumerate(shop):
-                    gold = arena_functions.get_gold()
+                    gold: int = arena_functions.get_gold()
                     valid_champ = (
                         champion in game_assets.CHAMPIONS and
                         game_assets.champion_gold_cost(champion) <= gold and
@@ -125,7 +125,7 @@ class Arena:
                     )
 
                     if valid_champ:
-                        none_slot = arena_functions.empty_slot()
+                        none_slot: int = arena_functions.empty_slot()
                         mk_functions.left_click(screen_coords.BUY_LOC[index].get_coords())
                         sleep(0.2)
                         self.bench[none_slot] = f"{champion}"
@@ -140,7 +140,7 @@ class Arena:
 
     def replace_unknown(self) -> None:
         """Replaces unknown champion"""
-        champion = self.have_champion()
+        champion: Champion | None = self.have_champion()
         if len(self.board_unknown) > 0 and champion is not None:
             mk_functions.press_e(screen_coords.BOARD_LOC[self.unknown_slots[len(
                 self.board_unknown) - 1]].get_coords())
@@ -193,7 +193,7 @@ class Arena:
             if len(champ.current_building) == 0:
                 item_to_move = None
                 for build_item in champ.build:
-                    build_item_components = list(
+                    build_item_components: list = list(
                         game_assets.FULL_ITEMS[build_item])
                     if item in build_item_components:
                         item_to_move = item
@@ -261,9 +261,9 @@ class Arena:
         """Checks if the item from carousel is tacticians crown"""
         mk_functions.move_mouse(screen_coords.ITEM_POS[0][0].get_coords())
         sleep(2)
-        item = ocr.get_text(screenxy=screen_coords.ITEM_POS[0][1].get_coords(), scale=3, psm=13,
+        item: str = ocr.get_text(screenxy=screen_coords.ITEM_POS[0][1].get_coords(), scale=3, psm=13,
                             whitelist=ocr.ALPHABET_WHITELIST)
-        item = arena_functions.valid_item(item)
+        item: str = arena_functions.valid_item(item)
         try:
             if "TacticiansCrown" in item:
                 print("  Tacticians Crown on bench, adding extra slot to board")
@@ -284,12 +284,12 @@ class Arena:
                     print("  Purchasing XP")
                 mk_functions.reroll()
                 print("  Rerolling shop")
-            shop = arena_functions.get_shop()
+            shop: list = arena_functions.get_shop()
             print(f"  Shop: {shop}")
             for index, champion in enumerate(shop):
                 if champion in self.champs_to_buy:
                     if arena_functions.get_gold() - game_assets.CHAMPIONS[champion]["Gold"] >= 0:
-                        none_slot = arena_functions.empty_slot()
+                        none_slot: int = arena_functions.empty_slot()
                         if none_slot != -1:
                             mk_functions.left_click(
                                 screen_coords.BUY_LOC[index].get_coords())
@@ -305,9 +305,9 @@ class Arena:
 
     def pick_augment(self) -> None:
         """Picks an augment from user defined augment priority list or defaults to first augment"""
-        augments = []
+        augments: list = []
         for coords in screen_coords.AUGMENT_POS:
-            augment = ocr.get_text(
+            augment: str = ocr.get_text(
                 screenxy=coords.get_coords(), scale=3, psm=7)
             augments.append(augment)
 
@@ -322,7 +322,7 @@ class Arena:
 
     def check_health(self) -> None:
         """Checks if current health is below 30 and conditionally activates spam roll"""
-        health = arena_functions.get_health()
+        health: int = arena_functions.get_health()
         if 100 >= health > 0:
             print(f"  Health: {health}")
             if not self.spam_roll:
@@ -334,7 +334,7 @@ class Arena:
 
     def get_label(self) -> None:
         """Gets labels used to display champion name UI on window"""
-        labels = []
+        labels: list = []
         for slot in self.bench:
             if isinstance(slot, Champion):
                 labels.append((f"{slot.name}", slot.coords))
