@@ -114,21 +114,21 @@ class Arena:
             else:
                 bought_unknown = False
                 shop: list = arena_functions.get_shop()
-                for index, champion in enumerate(shop):
+                for champion in shop:
                     gold: int = arena_functions.get_gold()
                     valid_champ = (
-                        champion in game_assets.CHAMPIONS and
-                        game_assets.champion_gold_cost(champion) <= gold and
-                        game_assets.champion_board_size(champion) == 1 and
-                        champion not in self.champs_to_buy and
-                        champion not in self.board_unknown
+                        champion[1] in game_assets.CHAMPIONS and
+                        game_assets.champion_gold_cost(champion[1]) <= gold and
+                        game_assets.champion_board_size(champion[1]) == 1 and
+                        champion[1] not in self.champs_to_buy and
+                        champion[1] not in self.board_unknown
                     )
 
                     if valid_champ:
                         none_slot: int = arena_functions.empty_slot()
-                        mk_functions.left_click(screen_coords.BUY_LOC[index].get_coords())
+                        mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
                         sleep(0.2)
-                        self.bench[none_slot] = f"{champion}"
+                        self.bench[none_slot] = f"{champion[1]}"
                         self.move_unknown()
                         bought_unknown = True
                         break
@@ -286,16 +286,16 @@ class Arena:
                 print("  Rerolling shop")
             shop: list = arena_functions.get_shop()
             print(f"  Shop: {shop}")
-            for index, champion in enumerate(shop):
-                if champion in self.champs_to_buy:
-                    if arena_functions.get_gold() - game_assets.CHAMPIONS[champion]["Gold"] >= 0:
-                        none_slot: int = arena_functions.empty_slot()
-                        if none_slot != -1:
-                            mk_functions.left_click(
-                                screen_coords.BUY_LOC[index].get_coords())
-                            print(f"    Purchased {champion}")
-                            self.bought_champion(champion, none_slot)
-                            self.champs_to_buy.remove(champion)
+            for champion in shop:
+                if (champion[1] in self.champs_to_buy and
+                    arena_functions.get_gold() - game_assets.CHAMPIONS[champion[1]]["Gold"] >= 0
+                 ):
+                    none_slot: int = arena_functions.empty_slot()
+                    if none_slot != -1:
+                        mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
+                        print(f"    Purchased {champion[1]}")
+                        self.bought_champion(champion[1], none_slot)
+                        self.champs_to_buy.remove(champion[1])
             first_run = False
 
     def krug_round(self) -> None:
