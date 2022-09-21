@@ -3,6 +3,7 @@ Functions used by the Arena class to get game data
 """
 
 from difflib import SequenceMatcher
+import threading
 from PIL import ImageGrab
 import numpy as np
 import requests
@@ -10,6 +11,7 @@ import screen_coords
 import ocr
 import game_assets
 import mk_functions
+from vec4 import Vec4
 
 
 def get_level() -> int:
@@ -51,18 +53,24 @@ def valid_champ(champ: str) -> str:
             return champion
     return ""
 
+def get_champ(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, shop_array: list) -> str:
+    """Returns a tuple containing the shop position and champion name"""
+    champ = screen_capture.crop(name_pos.get_coords())
+    champ = ocr.get_text_from_image(image=champ, whitelist="")
+    shop_array.append((shop_pos, valid_champ(champ)))
 
 def get_shop() -> list:
     """Returns the list of champions in the shop"""
     screen_capture = ImageGrab.grab(bbox=screen_coords.SHOP_POS.get_coords())
-    shop: list = []
-    for names in screen_coords.CHAMP_NAME_POS:
-        champ: str = screen_capture.crop(names.get_coords())
-        champ: str = ocr.get_text_from_image(image=champ, whitelist="")
-        if champ in game_assets.CHAMPIONS:
-            shop.append(champ)
-        else:
-            shop.append(valid_champ(champ))
+    shop = []
+    thread_list = []
+    for shop_index, name_pos in enumerate(screen_coords.CHAMP_NAME_POS):
+        thread = threading.Thread(target=get_champ, args=(screen_capture, name_pos, shop_index, shop))
+        thread_list.append(thread)
+    for thread in thread_list:
+        thread.start()
+    for thread in thread_list:
+        thread.join()
     return shop
 
 
