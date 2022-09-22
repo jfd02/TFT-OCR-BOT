@@ -21,7 +21,7 @@ class Game:
         self.message_queue = message_queue
         self.arena = Arena(self.message_queue)
         self.round = "0-0"
-        self.time = None
+        self.time: None = None
         self.forfeit_time: int = settings.FORFEIT_TIME + random.randint(50, 150)
         self.found_window = False
 
@@ -65,7 +65,7 @@ class Game:
 
     def game_loop(self) -> None:
         """Loop that runs while the game is active, handles calling the correct tasks for round and exiting game"""
-        ran_round = None
+        ran_round: str = None
         while game_functions.check_alive():
             self.round: str = game_functions.get_round()
 

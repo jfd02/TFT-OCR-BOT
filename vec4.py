@@ -26,7 +26,7 @@ class Vec4:
     screen_x_scale: int = 1
     screen_y_scale: int = 1
 
-    def __init__(self, game_window: GameWindow, use_screen_offset: bool = True):
+    def __init__(self, game_window: GameWindow, use_screen_offset: bool = True) -> None:
         self.x_pos: int = game_window.x_pos
         self.y_pos: int = game_window.y_pos
         self.width: int = game_window.width

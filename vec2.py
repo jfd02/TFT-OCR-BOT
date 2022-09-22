@@ -11,7 +11,7 @@ class Vec2:
     screen_x_scale: int = 1
     screen_y_scale: int = 1
 
-    def __init__(self, x_pos, y_pos, use_screen_offset: bool = True):
+    def __init__(self, x_pos, y_pos, use_screen_offset: bool = True) -> None:
         self.x_pos = x_pos
         self.y_pos = y_pos
         self.use_screen_offset: bool = use_screen_offset

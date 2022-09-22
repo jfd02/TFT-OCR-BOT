@@ -7,7 +7,7 @@ Screen coords for 1920x1080 screens
 from vec4 import Vec4, GameWindow
 from vec2 import Vec2
 
-BENCH_HEALTH_POS = [Vec4(GameWindow(369, 622, 472, 757)), Vec4(GameWindow(485, 622, 588, 757)),
+BENCH_HEALTH_POS: list[Vec4] = [Vec4(GameWindow(369, 622, 472, 757)), Vec4(GameWindow(485, 622, 588, 757)),
                     Vec4(GameWindow(601, 622, 704, 757)), Vec4(GameWindow(728, 622, 831, 757)),
                     Vec4(GameWindow(844, 622, 947, 757)), Vec4(GameWindow(960, 622, 1063, 757)),
                     Vec4(GameWindow(1076, 622, 1179, 757)), Vec4(GameWindow(1192, 622, 1295, 757)),
@@ -24,44 +24,44 @@ ITEM_POS: list[list] = [[Vec2(273, 753), Vec4(GameWindow(373, 794, 611, 824))],
             [Vec2(396, 582), Vec4(GameWindow(497, 625, 735, 655))],
             [Vec2(457, 628), Vec4(GameWindow(559, 670, 797, 701))]]
 
-ROUND_POS = Vec4(GameWindow(767, 10, 870, 31))
+ROUND_POS: Vec4 = Vec4(GameWindow(767, 10, 870, 31))
 
-ROUND_POS_ONE = Vec4(GameWindow(2, 0, 42, 21), use_screen_offset=False)
+ROUND_POS_ONE: Vec4 = Vec4(GameWindow(2, 0, 42, 21), use_screen_offset=False)
 
-ROUND_POS_TWO = Vec4(GameWindow(57, 1, 96, 21), use_screen_offset=False)
+ROUND_POS_TWO: Vec4 = Vec4(GameWindow(57, 1, 96, 21), use_screen_offset=False)
 
-SHOP_POS = Vec4(GameWindow(481, 1039, 1476, 1070))
+SHOP_POS: Vec4 = Vec4(GameWindow(481, 1039, 1476, 1070))
 
-CHAMP_NAME_POS = [Vec4(GameWindow(3, 5, 120, 24), use_screen_offset=False),
+CHAMP_NAME_POS: list[Vec4] = [Vec4(GameWindow(3, 5, 120, 24), use_screen_offset=False),
                   Vec4(GameWindow(204, 5, 320, 24), use_screen_offset=False),
                   Vec4(GameWindow(407, 5, 522, 24), use_screen_offset=False),
                   Vec4(GameWindow(608, 5, 712, 24), use_screen_offset=False),
                   Vec4(GameWindow(808, 5, 912, 24), use_screen_offset=False)]
 
-GOLD_POS = Vec4(GameWindow(870, 883, 920, 909))
+GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 
-EXIT_NOW_POS = Vec4(GameWindow(771, 541, 890, 564))
+EXIT_NOW_POS: Vec4 = Vec4(GameWindow(771, 541, 890, 564))
 
-AUGMENT_POS = [Vec4(GameWindow(423, 579, 675, 614)),
+AUGMENT_POS: list[Vec4] = [Vec4(GameWindow(423, 579, 675, 614)),
                Vec4(GameWindow(835, 579, 1086, 614)),
                Vec4(GameWindow(1244, 579, 1495, 614))]
 
-AUGMENT_LOC = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
+AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
 
-VICTORY_POS = Vec4(GameWindow(916, 630, 1008, 652))
+VICTORY_POS: Vec4 = Vec4(GameWindow(916, 630, 1008, 652))
 
-BUY_LOC = [Vec2(575, 992), Vec2(775, 992), Vec2(
+BUY_LOC: list[Vec2] = [Vec2(575, 992), Vec2(775, 992), Vec2(
     975, 992), Vec2(1175, 992), Vec2(1375, 992)]
 
-ITEM_PICKUP_LOC = [Vec2(1427, 611), Vec2(406, 544), Vec2(1412, 486), Vec2(469, 440),
+ITEM_PICKUP_LOC: list[Vec2] = [Vec2(1427, 611), Vec2(406, 544), Vec2(1412, 486), Vec2(469, 440),
                    Vec2(1380, 381), Vec2(644, 323), Vec2(1297, 262), Vec2(590, 215)]
 
-BENCH_LOC = [Vec2(425, 777), Vec2(542, 777), Vec2(658, 777),
+BENCH_LOC: list[Vec2] = [Vec2(425, 777), Vec2(542, 777), Vec2(658, 777),
              Vec2(778, 777), Vec2(892, 777), Vec2(1010, 777),
              Vec2(1128, 777), Vec2(1244, 777), Vec2(1359, 777)]
 
 # This list goes from bottom left (0) to top right (27)
-BOARD_LOC = [Vec2(581, 651), Vec2(707, 651), Vec2(839, 651),
+BOARD_LOC: list[Vec2] = [Vec2(581, 651), Vec2(707, 651), Vec2(839, 651),
              Vec2(966, 651), Vec2(1091, 651), Vec2(1222, 651),
              Vec2(1349, 651), Vec2(532, 571), Vec2(660, 571),
              Vec2(776, 571), Vec2(903, 571), Vec2(1022, 571),
@@ -72,20 +72,20 @@ BOARD_LOC = [Vec2(581, 651), Vec2(707, 651), Vec2(839, 651),
              Vec2(907, 423), Vec2(1019, 423), Vec2(1138, 423),
              Vec2(1251, 423)]
 
-CAROUSEL_LOC = Vec2(964, 644)
+CAROUSEL_LOC: Vec2 = Vec2(964, 644)
 
-EXIT_NOW_LOC = Vec2(830, 551)
+EXIT_NOW_LOC: Vec2 = Vec2(830, 551)
 
-BUY_XP_LOC = Vec2(364, 964)
+BUY_XP_LOC: Vec2 = Vec2(364, 964)
 
-REFRESH_LOC = Vec2(364, 1039)
+REFRESH_LOC: Vec2 = Vec2(364, 1039)
 
-DEFAULT_LOC = Vec2(60, 222)
+DEFAULT_LOC: Vec2 = Vec2(60, 222)
 
-HEALTH_LOC = Vec2(1897, 126)
+HEALTH_LOC: Vec2 = Vec2(1897, 126)
 
-SURRENDER_LOC = Vec2(771, 843)
+SURRENDER_LOC: Vec2 = Vec2(771, 843)
 
-SURRENDER_TWO_LOC = Vec2(832, 489)
+SURRENDER_TWO_LOC: Vec2 = Vec2(832, 489)
 
-TAKE_ALL_BUTTON = Vec2(1352, 940)
+TAKE_ALL_BUTTON: Vec2 = Vec2(1352, 940)

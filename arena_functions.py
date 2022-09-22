@@ -55,15 +55,15 @@ def valid_champ(champ: str) -> str:
 
 def get_champ(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, shop_array: list) -> str:
     """Returns a tuple containing the shop position and champion name"""
-    champ = screen_capture.crop(name_pos.get_coords())
-    champ = ocr.get_text_from_image(image=champ, whitelist="")
+    champ: str = screen_capture.crop(name_pos.get_coords())
+    champ: str = ocr.get_text_from_image(image=champ, whitelist="")
     shop_array.append((shop_pos, valid_champ(champ)))
 
 def get_shop() -> list:
     """Returns the list of champions in the shop"""
     screen_capture = ImageGrab.grab(bbox=screen_coords.SHOP_POS.get_coords())
-    shop = []
-    thread_list = []
+    shop: list = []
+    thread_list: list = []
     for shop_index, name_pos in enumerate(screen_coords.CHAMP_NAME_POS):
         thread = threading.Thread(target=get_champ, args=(screen_capture, name_pos, shop_index, shop))
         thread_list.append(thread)

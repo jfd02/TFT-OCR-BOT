@@ -31,10 +31,10 @@ class UI:
 
     def setup_window_size(self) -> None:
         """Setups window size"""
-        primary_monitor = None
+        primary_monitor: None = None
         for monitor in screeninfo.get_monitors():
             if monitor.is_primary:
-                primary_monitor = monitor
+                primary_monitor: None = monitor
                 break
 
         if primary_monitor is None:
@@ -45,7 +45,7 @@ class UI:
 
     def set_clickthrough(self, hwnd: int) -> None:
         """Uses window API function to make the window clickthrough"""
-        styles = GetWindowLong(hwnd, GWL_EXSTYLE)
+        styles: int = GetWindowLong(hwnd, GWL_EXSTYLE)
         styles: int = WS_EX_LAYERED | WS_EX_TRANSPARENT
         SetWindowLong(hwnd, GWL_EXSTYLE, styles)
         SetLayeredWindowAttributes(hwnd, 0, 255, 0x00000001)
