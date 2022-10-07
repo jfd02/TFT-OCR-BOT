@@ -27,9 +27,9 @@ def get_level() -> int:
 def get_health() -> int:
     """Returns the health for the tactician"""
     try:
-        resposne = requests.get(
+        response = requests.get(
             'https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
-        return int(resposne.json()['activePlayer']['championStats']["currentHealth"])
+        return int(response.json()['activePlayer']['championStats']["currentHealth"])
     except (requests.exceptions.ConnectionError, KeyError):
         return 100
 
