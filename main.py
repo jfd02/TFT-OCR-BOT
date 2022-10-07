@@ -21,7 +21,7 @@ if __name__ == "__main__":
         raise Exception(
             "No league client path specified. Please set the path in settings.py")
     message_queue = multiprocessing.Queue()
-    overlay = UI(message_queue)
+    overlay: UI = UI(message_queue)
     game_thread = multiprocessing.Process(target=game_loop, args=(message_queue,))
 
     print("TFT OCR | https://github.com/jfd02/TFT-OCR-BOT")

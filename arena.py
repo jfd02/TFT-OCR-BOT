@@ -32,7 +32,7 @@ class Arena:
 
     def fix_bench_state(self) -> None:
         """Iterates through bench and fixes invalid slots"""
-        bench_occupied = arena_functions.bench_occupied_check()
+        bench_occupied: list = arena_functions.bench_occupied_check()
         for index, slot in enumerate(self.bench):
             if slot is None and bench_occupied[index]:
                 self.bench[index] = "?"
@@ -116,7 +116,7 @@ class Arena:
                 shop: list = arena_functions.get_shop()
                 for champion in shop:
                     gold: int = arena_functions.get_gold()
-                    valid_champ = (
+                    valid_champ: bool = (
                         champion[1] in game_assets.CHAMPIONS and
                         game_assets.champion_gold_cost(champion[1]) <= gold and
                         game_assets.champion_board_size(champion[1]) == 1 and
@@ -191,12 +191,12 @@ class Arena:
                 self.items[self.items.index(item)] = None
         else:
             if len(champ.current_building) == 0:
-                item_to_move = None
+                item_to_move: None = None
                 for build_item in champ.build:
                     build_item_components: list = list(
                         game_assets.FULL_ITEMS[build_item])
                     if item in build_item_components:
-                        item_to_move = item
+                        item_to_move: None = item
                         build_item_components.remove(item)
                         champ.current_building.append(
                             (build_item, build_item_components[0]))

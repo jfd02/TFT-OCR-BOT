@@ -27,9 +27,9 @@ def get_level() -> int:
 def get_health() -> int:
     """Returns the health for the tactician"""
     try:
-        resposne = requests.get(
+        response = requests.get(
             'https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
-        return int(resposne.json()['activePlayer']['championStats']["currentHealth"])
+        return int(response.json()['activePlayer']['championStats']["currentHealth"])
     except (requests.exceptions.ConnectionError, KeyError):
         return 100
 
@@ -55,15 +55,15 @@ def valid_champ(champ: str) -> str:
 
 def get_champ(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, shop_array: list) -> str:
     """Returns a tuple containing the shop position and champion name"""
-    champ = screen_capture.crop(name_pos.get_coords())
-    champ = ocr.get_text_from_image(image=champ, whitelist="")
+    champ: str = screen_capture.crop(name_pos.get_coords())
+    champ: str = ocr.get_text_from_image(image=champ, whitelist="")
     shop_array.append((shop_pos, valid_champ(champ)))
 
 def get_shop() -> list:
     """Returns the list of champions in the shop"""
     screen_capture = ImageGrab.grab(bbox=screen_coords.SHOP_POS.get_coords())
-    shop = []
-    thread_list = []
+    shop: list = []
+    thread_list: list = []
     for shop_index, name_pos in enumerate(screen_coords.CHAMP_NAME_POS):
         thread = threading.Thread(target=get_champ, args=(screen_capture, name_pos, shop_index, shop))
         thread_list.append(thread)
