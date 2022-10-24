@@ -46,7 +46,7 @@ class Arena:
         self.bench[slot] = Champion(name=name,
                                     coords=screen_coords.BENCH_LOC[slot].get_coords(
                                     ),
-                                    build=comps.COMP[name]["items"],
+                                    build=comps.COMP[name]["items"].copy(),
                                     slot=slot,
                                     size=game_assets.CHAMPIONS[name]["Board Size"],
                                     final_comp=comps.COMP[name]["final_comp"])
