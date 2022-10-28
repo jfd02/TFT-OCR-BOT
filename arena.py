@@ -173,9 +173,11 @@ class Arena:
 
     def add_item_to_champs(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
-        for champ in self.board:
-            if champ.does_need_items() and self.items[item_index] is not None:
-                self.add_item_to_champ(item_index, champ)
+        for champName in comps.COMP:
+            for champ in self.board:
+                if champName == champ.name:
+                    if champ.does_need_items() and self.items[item_index] is not None:
+                        self.add_item_to_champ(item_index, champ)
 
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
@@ -306,10 +308,13 @@ class Arena:
     def pick_augment(self) -> None:
         """Picks an augment from user defined augment priority list or defaults to first augment"""
         augments: list = []
-        for coords in screen_coords.AUGMENT_POS:
-            augment: str = ocr.get_text(
-                screenxy=coords.get_coords(), scale=3, psm=7)
-            augments.append(augment)
+        while True:
+            for coords in screen_coords.AUGMENT_POS:
+                augment: str = ocr.get_text(
+                    screenxy=coords.get_coords(), scale=3, psm=7)
+                augments.append(augment)
+            if len(augments) != 0:
+                break
 
         for augment in augments:
             for potential in comps.AUGMENTS:
