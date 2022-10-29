@@ -307,13 +307,13 @@ class Arena:
 
     def pick_augment(self) -> None:
         """Picks an augment from user defined augment priority list or defaults to first augment"""
-        augments: list = []
         while True:
+            augments: list = []
             for coords in screen_coords.AUGMENT_POS:
                 augment: str = ocr.get_text(
                     screenxy=coords.get_coords(), scale=3, psm=7)
                 augments.append(augment)
-            if len(augments) != 0:
+            if len(augments) == 3 and '' not in augments:
                 break
 
         for augment in augments:
