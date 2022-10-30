@@ -308,6 +308,7 @@ class Arena:
     def pick_augment(self) -> None:
         """Picks an augment from user defined augment priority list or defaults to first augment"""
         while True:
+            sleep(1)
             augments: list = []
             for coords in screen_coords.AUGMENT_POS:
                 augment: str = ocr.get_text(
@@ -316,8 +317,8 @@ class Arena:
             if len(augments) == 3 and '' not in augments:
                 break
 
-        for augment in augments:
-            for potential in comps.AUGMENTS:
+        for potential in comps.AUGMENTS:
+            for augment in augments:
                 if potential in augment:
                     print(f"  Choosing augment {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
