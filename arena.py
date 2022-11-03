@@ -323,7 +323,7 @@ class Arena:
     def check_health(self) -> None:
         """Checks if current health is below 30 and conditionally activates spam roll"""
         health: int = arena_functions.get_health()
-        if 100 >= health > 0:
+        if health > 0:
             print(f"  Health: {health}")
             if not self.spam_roll:
                 if health < 30:
