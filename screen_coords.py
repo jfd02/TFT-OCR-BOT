@@ -34,6 +34,9 @@ ITEM_POS: list[list] = [
 
 ROUND_POS: Vec4 = Vec4(GameWindow(767, 10, 870, 31))
 
+PLACE_WHERE_ORBS_FALL: Vec4 = Vec4(GameWindow(480, 150, 1420, 750))
+StartPosision: Vec2 = Vec2(460, 652)
+
 ROUND_POS_ONE: Vec4 = Vec4(GameWindow(2, 0, 42, 21), use_screen_offset=False)
 
 ROUND_POS_TWO: Vec4 = Vec4(GameWindow(57, 1, 96, 21), use_screen_offset=False)
