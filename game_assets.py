@@ -92,7 +92,7 @@ CHAMPIONS: dict[str, dict[str, int]] = {
     "Skarner": {"Gold": 1, "Board Size": 1},
     "Sona": {"Gold": 4, "Board Size": 1},
     "Soraka": {"Gold": 5, "Board Size": 1},
-    "Swain": {"Gold": 7, "Board Size": 2},
+    "Tyrant Swain": {"Gold": 7, "Board Size": 2},
     "Syfen": {"Gold": 8, "Board Size": 2},
     "Sylas": {"Gold": 3, "Board Size": 1},
     "Tahm Kench": {"Gold": 1, "Board Size": 1},
