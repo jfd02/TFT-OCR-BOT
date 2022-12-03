@@ -296,6 +296,13 @@ class Arena:
                         print(f"    Purchased {champion[1]}")
                         self.bought_champion(champion[1], none_slot)
                         self.champs_to_buy.remove(champion[1])
+                    else:
+                        #Try to buy champ 3 when bench is full
+                        left_to_buy: int = self.champs_to_buy.count(champion[1])
+                        is_mod_3: int = left_to_buy + 2
+                        if is_mod_3%3 == 0:
+                            self.force_bought_champion(champion[1])
+                            self.champs_to_buy.remove(champion[1])
             first_run = False
 
     def krug_round(self) -> None:
