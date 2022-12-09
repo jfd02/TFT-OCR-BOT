@@ -54,6 +54,7 @@ CHAMPIONS: dict[str, dict[str, int]] = {
     "Annie": {"Gold": 2, "Board Size": 1},
     "Aphelios": {"Gold": 5, "Board Size": 1},
     "Ashe": {"Gold": 1, "Board Size": 1},
+    "AurelionSol": {"Gold": 4, "Board Size":1},
     "Belveth": {"Gold": 4, "Board Size": 1},
     "Blitzcrank": {"Gold": 1, "Board Size": 1},
     "Camille": {"Gold": 2, "Board Size": 1},
