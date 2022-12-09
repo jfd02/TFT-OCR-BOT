@@ -334,3 +334,6 @@ ASALocalRun/
 .localhistory/
 *.pyproj
 .vscode
+test2222.py
+dump_comps.py
+cached_data/cached8.json
