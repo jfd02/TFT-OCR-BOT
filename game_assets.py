@@ -52,6 +52,7 @@ ITEMS: set[str] = COMBINED_ITEMS.union(ELUSIVE_ITEMS).union(
 CHAMPIONS: dict[str, dict[str, int]] = {
     "Alistar": {"Gold": 3, "Board Size": 1},
     "Annie": {"Gold": 2, "Board Size": 1},
+    "Aphelios": {"Gold": 5, "Board Size": 1},
     "Ashe": {"Gold": 1, "Board Size": 1},
     "Belveth": {"Gold": 4, "Board Size": 1},
     "Blitzcrank": {"Gold": 1, "Board Size": 1},
