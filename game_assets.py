@@ -8,7 +8,7 @@ COMBINED_ITEMS: set[str] = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLar
                             "BlueBuff", "BrambleVest", "MascotEmblem", "ChaliceofPower",
                             "Deathblade", "HeartEmblem", "DragonsClaw", "EdgeofNight",
                             "FrozenHeart", "GargoyleStoneplate", "GiantSlayer", "HandofJustice",
-                            "HextechGunblade", "InfinityEdge", "IonicSpark", "JewledGauntlet",
+                            "HextechGunblade", "InfinityEdge", "IonicSpark", "JeweledGauntlet",
                             "LastWhisper", "LocketoftheIronSolari", "AnimaEmblem", "ADMINEmblem",
                             "Morellonomicon", "Quicksilver", "RabadonsDeathcap", "OxForceEmblem",
                             "RapidFirecannon", "Redemption", "RunaansHurricane", "DuelistEmblem",
