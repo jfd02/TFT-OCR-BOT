@@ -12,7 +12,7 @@ import ocr
 import game_assets
 import mk_functions
 from vec4 import Vec4
-
+from comps import CompsManager
 
 def get_level() -> int:
     """Returns the level for the tactician"""
@@ -43,29 +43,29 @@ def get_gold() -> int:
         return 0
 
 
-def valid_champ(champ: str) -> str:
+def valid_champ(champ: str, comps : CompsManager) -> str:
     """Matches champion string to a valid champion name string and returns it"""
-    if champ in game_assets.CHAMPIONS:
+    if champ in comps.champions:
         return champ
 
-    for champion in game_assets.CHAMPIONS:
+    for champion in comps.champions:
         if SequenceMatcher(a=champion, b=champ).ratio() >= 0.7:
             return champion
     return ""
 
-def get_champ(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, shop_array: list) -> str:
+def get_champ(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, shop_array: list, comps : CompsManager) -> str:
     """Returns a tuple containing the shop position and champion name"""
     champ: str = screen_capture.crop(name_pos.get_coords())
     champ: str = ocr.get_text_from_image(image=champ, whitelist="")
-    shop_array.append((shop_pos, valid_champ(champ)))
+    shop_array.append((shop_pos, valid_champ(champ, comps)))
 
-def get_shop() -> list:
+def get_shop(comps : CompsManager) -> list:
     """Returns the list of champions in the shop"""
     screen_capture = ImageGrab.grab(bbox=screen_coords.SHOP_POS.get_coords())
     shop: list = []
     thread_list: list = []
     for shop_index, name_pos in enumerate(screen_coords.CHAMP_NAME_POS):
-        thread = threading.Thread(target=get_champ, args=(screen_capture, name_pos, shop_index, shop))
+        thread = threading.Thread(target=get_champ, args=(screen_capture, name_pos, shop_index, shop, comps))
         thread_list.append(thread)
     for thread in thread_list:
         thread.start()

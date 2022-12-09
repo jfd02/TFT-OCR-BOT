@@ -48,6 +48,9 @@ CHAMP_NAME_POS: list[Vec4] = [
     Vec4(GameWindow(808, 5, 912, 24), use_screen_offset=False),
 ]
 
+
+
+
 GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 
 EXIT_NOW_POS: Vec4 = Vec4(GameWindow(771, 541, 890, 564))

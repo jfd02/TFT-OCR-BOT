@@ -12,14 +12,15 @@ import game_functions
 from arena import Arena
 from vec4 import Vec4
 from vec2 import Vec2
-
+from comps import CompsManager
 
 class Game:
     """Game class that handles game logic such as round tasks"""
 
-    def __init__(self, message_queue: multiprocessing.Queue) -> None:
+    def __init__(self, message_queue: multiprocessing.Queue, comps : CompsManager) -> None:
         self.message_queue = message_queue
-        self.arena = Arena(self.message_queue)
+        self.comps_manager = comps
+        self.arena = Arena(self.message_queue, comps)
         self.round = "0-0"
         self.time: None = None
         self.forfeit_time: int = settings.FORFEIT_TIME + random.randint(50, 150)
@@ -65,6 +66,7 @@ class Game:
 
     def game_loop(self) -> None:
         """Loop that runs while the game is active, handles calling the correct tasks for round and exiting game"""
+        
         ran_round: str = None
         while game_functions.check_alive():
             self.round: str = game_functions.get_round()
@@ -74,6 +76,8 @@ class Game:
                     game_functions.forfeit()
                     return
 
+            if self.round != ran_round:
+                 print(f"\n[Comps] Stick to [{','.join(self.comps_manager.CURRENT_COMP()[1])}] ")
             if self.round != ran_round and self.round in game_assets.CAROUSEL_ROUND:
                 self.carousel_round()
                 ran_round: str = self.round

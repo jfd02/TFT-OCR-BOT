@@ -1,5 +1,5 @@
 """
-Contains static item & champion data
+Contains static item
 """
 
 COMBINED_ITEMS: set[str] = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod",
@@ -17,11 +17,13 @@ COMBINED_ITEMS: set[str] = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLar
                   "ZekesHerald", "Zephyr", "ZZRotPortal", "RecurveBow",
                   "GuardianEmblem", "GuinsoosRageblade"}
 
-ELUSIVE_ITEMS: set[str] = {"AstralEmblem", "BruiserEmblem", "Cannoneer Emblem",
+ELUSIVE_ITEMS: set[str] = {"AstralEmblem", "BruiserEmblem", "CannoneerEmblem",
                  "DragonmancersBlessing", "EvokerEmblem", "GuildEmblem",
                  "JadeEmblem", "LegendEmblem", "MysticEmblem",
                  "RevelEmblem", "ScalescornEmblem", "SwiftshotEmblem",
-                 "TempestEmblem", "WarriorEmblem", "WhispersEmblem"}
+                 "TempestEmblem", "WarriorEmblem", "WhispersEmblem",
+                 "DarkflightEmblem", "HeartEmblem", "AnimaSquadEmblem",
+                 "DuelistEmblem"}
 
 SHIMMERSCALE_ITEMS: set[str] = {"CrownOfChampions", "DeterminedInvestor", "DiamondHands",
                       "DravensAxe", "GamblersBlade", "GoldmancersStaff",
@@ -49,85 +51,9 @@ RADIANT_ITEMS: set[str] = {"Absolution", "BansheesSilence", "BlessedBloodthirste
 ITEMS: set[str] = COMBINED_ITEMS.union(ELUSIVE_ITEMS).union(
     SHIMMERSCALE_ITEMS).union(ORNN_ITEMS).union(RADIANT_ITEMS)
 
-CHAMPIONS: dict[str, dict[str, int]] = {
-    "Wukong": {"Gold": 1, "Board Size": 1},
-    "Malphite": {"Gold": 3, "Board Size": 1},
-    "Ao Shin": {"Gold": 8, "Board Size": 2},
-    "Aphelios": {"Gold": 2, "Board Size": 1},
-    "Aurelion Sol": {"Gold": 8, "Board Size": 2},
-    "Bard": {"Gold": 5, "Board Size": 1},
-    "Braum": {"Gold": 2, "Board Size": 1},
-    "Corki": {"Gold": 4, "Board Size": 1},
-    "Daeja": {"Gold": 8, "Board Size": 2},
-    "Diana": {"Gold": 3, "Board Size": 1},
-    "Elise": {"Gold": 3, "Board Size": 1},
-    "Ezreal": {"Gold": 1, "Board Size": 1},
-    "Gnar": {"Gold": 2, "Board Size": 1},
-    "Hecarim": {"Gold": 4, "Board Size": 1},
-    "Heimerdinger": {"Gold": 1, "Board Size": 1},
-    "Idas": {"Gold": 8, "Board Size": 2},
-    "Illaoi": {"Gold": 3, "Board Size": 1},
-    "Jinx": {"Gold": 2, "Board Size": 1},
-    "Karma": {"Gold": 1, "Board Size": 1},
-    "Kayn": {"Gold": 2, "Board Size": 1},
-    "Lee sin": {"Gold": 3, "Board Size": 1},
-    "Leona": {"Gold": 1, "Board Size": 1},
-    "Lillia": {"Gold": 2, "Board Size": 1},
-    "Lulu": {"Gold": 3, "Board Size": 1},
-    "Nami": {"Gold": 2, "Board Size": 1},
-    "Neeko": {"Gold": 4, "Board Size": 1},
-    "Nidalee": {"Gold": 1, "Board Size": 1},
-    "Nunu & Willump": {"Gold": 3, "Board Size": 1},
-    "Olaf": {"Gold": 3, "Board Size": 1},
-    "Ornn": {"Gold": 4, "Board Size": 1},
-    "Pyke": {"Gold": 5, "Board Size": 1},
-    "Qiyana": {"Gold": 2, "Board Size": 1},
-    "Ryze": {"Gold": 3, "Board Size": 1},
-    "Sejuani": {"Gold": 1, "Board Size": 1},
-    "Senna": {"Gold": 1, "Board Size": 1},
-    "Sett": {"Gold": 1, "Board Size": 1},
-    "Shen": {"Gold": 2, "Board Size": 1},
-    "Shi Oh Yu": {"Gold": 8, "Board Size": 2},
-    "Shyvana": {"Gold": 10, "Board Size": 2},
-    "Skarner": {"Gold": 1, "Board Size": 1},
-    "Sona": {"Gold": 4, "Board Size": 1},
-    "Soraka": {"Gold": 5, "Board Size": 1},
-    "Tyrant Swain": {"Gold": 7, "Board Size": 2},
-    "Syfen": {"Gold": 8, "Board Size": 2},
-    "Sylas": {"Gold": 3, "Board Size": 1},
-    "Tahm Kench": {"Gold": 1, "Board Size": 1},
-    "Talon": {"Gold": 4, "Board Size": 1},
-    "Taric": {"Gold": 1, "Board Size": 1},
-    "Thresh": {"Gold": 2, "Board Size": 1},
-    "Tristana": {"Gold": 2, "Board Size": 1},
-    "Twitch": {"Gold": 2, "Board Size": 1},
-    "Varus": {"Gold": 3, "Board Size": 1},
-    "Vladmir": {"Gold": 1, "Board Size": 1},
-    "Volibear": {"Gold": 3, "Board Size": 1},
-    "Xayah": {"Gold": 4, "Board Size": 1},
-    "Yasuo": {"Gold": 5, "Board Size": 1},
-    "Yone": {"Gold": 2, "Board Size": 1},
-    "Zoe": {"Gold": 5, "Board Size": 1},
-    "Zac": {"Gold": 2, "Board Size": 1},
-    "Taliyah": {"Gold": 1, "Board Size": 1},
-    "Graves": {"Gold": 4, "Board Size": 1},
-    "Nasus": {"Gold": 1, "Board Size": 1},
-    "Lux": {"Gold": 2, "Board Size": 1},
-    "Nomsy": {"Gold": 6, "Board Size": 2},
-    "Jax": {"Gold": 2, "Board Size": 1},
-    "Nilah": {"Gold": 4, "Board Size": 1},
-    "Pantheon": {"Gold": 4, "Board Size": 1},
-    "Rakan": {"Gold": 3, "Board Size": 1},
-    "Terra": {"Gold": 8, "Board Size": 2},
-    "Rengar": {"Gold": 3, "Board Size": 1},
-    "Seraphine": {"Gold": 3, "Board Size": 1},
-    "Kaisa": {"Gold": 2, "Board Size": 1},
-    "Zyra": {"Gold": 2, "Board Size": 1},
-    "Zippy": {"Gold": 6, "Board Size": 2},
-    "Jayce": {"Gold": 4, "Board Size": 1},
-    "Sohm": {"Gold": 7, "Board Size": 1},
-    "Rell": {"Gold": 2, "Board Size": 1},
-    "Zeri": {"Gold": 3, "Board Size": 1}}
+ITEMS_WITHOUT_COMBINED: set[str] = ELUSIVE_ITEMS.union(
+    SHIMMERSCALE_ITEMS).union(ORNN_ITEMS).union(RADIANT_ITEMS)
+
 
 ROUNDS: set[str] = {"1-1", "1-2", "1-3", "1-4",
           "2-1", "2-2", "2-3", "2-4", "2-5", "2-6", "2-7",
@@ -201,15 +127,40 @@ FULL_ITEMS = {"ArchangelsStaff": ("NeedlesslyLargeRod", "TearoftheGoddess"),
               "WarmogsArmor": ("GiantsBelt", "GiantsBelt"),
               "ZekesHerald": ("BFSword", "GiantsBelt"),
               "Zephyr": ("GiantsBelt", "NegatronCloak"),
-              "ZzRotPortal": ("GiantsBelt", "RecurveBow")
+              "ZzRotPortal": ("GiantsBelt", "RecurveBow"),
+              "ProtectorsVow": ("ChainVest","TearoftheGoddess")
               }
+AUGMENTS: list[str] = [
+        "Cybernetic Implants",
+        "Stand United",
+        "Electrocharge",
+        "Cybernetic Uplink",
+        "Celestial Blessing",
+        "Cybernetic Shell",
+        "Weakspot",
+        "Tri Force",
+        "Gadget Expert",
+        "Metabolic Accelerator",
+        "Second Wind",
+        "Luden's Echo",
+        "Last Stand",
+        "Ascension",
+        "Tiny Titans",
+        "Sunfire Board",
+        "Wise Spending",
+        "Component Grab Bag+",
+        "Featherweights",
+        "Thrill of the Hunt",
+        "Preparation",
+        "Blue Battery",
+        "Hustler",
+        "Windfall++",
+        "Verdant Veil",
+        "First Aid Kit",
+        "Rich Get Richer+",
+        "Combat Training",
+        "Meditation",
+        "Axiom Arc",
+    ]
 
 
-def champion_board_size(champion: str) -> int:
-    """Takes a string (champion name) and returns board size of champion"""
-    return CHAMPIONS[champion]["Board Size"]
-
-
-def champion_gold_cost(champion: str) -> int:
-    """Takes a string (champion name) and returns gold of champion"""
-    return CHAMPIONS[champion]["Gold"]
