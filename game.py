@@ -78,9 +78,11 @@ class Game:
                 self.carousel_round()
                 ran_round: str = self.round
             elif self.round != ran_round and self.round in game_assets.PVE_ROUND:
+                game_functions.default_pos()
                 self.pve_round()
                 ran_round: str = self.round
             elif self.round != ran_round and self.round in game_assets.PVP_ROUND:
+                game_functions.default_pos()
                 self.pvp_round()
                 ran_round: str = self.round
             sleep(0.5)
