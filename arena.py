@@ -10,6 +10,7 @@ import screen_coords
 from champion import Champion
 import comps
 import ocr
+import game_functions
 import arena_functions
 
 
@@ -300,6 +301,7 @@ class Arena:
                         #Try to buy champ 3 when bench is full
                         print(f"  Board is full but want {champion[1]}")
                         mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
+                        game_functions.default_pos()
                         sleep(0.5)
                         self.fix_bench_state()
                         none_slot = arena_functions.empty_slot()
