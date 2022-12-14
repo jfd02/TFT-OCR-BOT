@@ -10,6 +10,7 @@ import screen_coords
 from champion import Champion
 import comps
 import ocr
+import game_functions
 import arena_functions
 
 
