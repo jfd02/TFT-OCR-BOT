@@ -139,7 +139,7 @@ ITEM_PLACEMENT_ROUNDS: set[str] = {"2-2", "3-2", "4-2", "5-2",
 FINAL_COMP_ROUND = "4-5"
 
 FULL_ITEMS = {"ArchangelsStaff": ("NeedlesslyLargeRod", "TearoftheGoddess"),
-              "RnegadeEmblem": ("SparringGloves", "Spatula"),
+              "RenegadeEmblem": ("SparringGloves", "Spatula"),
               "Guardbreaker": ("GiantsBelt", "SparringGloves"),
               "Bloodthirster": ("BFSword", "NegatronCloak"),
               "BlueBuff": ("TearoftheGoddess", "TearoftheGoddess"),
