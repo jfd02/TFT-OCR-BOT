@@ -53,9 +53,9 @@ GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 EXIT_NOW_POS: Vec4 = Vec4(GameWindow(771, 541, 890, 564))
 
 AUGMENT_POS: list[Vec4] = [
-    Vec4(GameWindow(423, 579, 675, 614)),
-    Vec4(GameWindow(835, 579, 1086, 614)),
-    Vec4(GameWindow(1244, 579, 1495, 614)),
+    Vec4(GameWindow(423, 535, 675, 582)),
+    Vec4(GameWindow(835, 525, 1086, 582)),
+    Vec4(GameWindow(1231, 527, 1506, 583)),
 ]
 
 AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
@@ -71,7 +71,7 @@ BUY_LOC: list[Vec2] = [
 ]
 
 ITEM_PICKUP_LOC: list[Vec2] = [
-    Vec2(1427, 611),
+    Vec2(1440, 611),
     Vec2(406, 544),
     Vec2(1412, 486),
     Vec2(469, 440),
