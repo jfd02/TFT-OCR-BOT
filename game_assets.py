@@ -14,7 +14,7 @@ COMBINED_ITEMS: set[str] = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLar
                             "RapidFirecannon", "Redemption", "RunaansHurricane", "DuelistEmblem",
                             "ShroudofStillness", "SpearofShojin", "StatikkShiv", "SunfireCape",
                             "TacticiansCrown", "ThiefsGloves", "TitansResolve", "WarmogsArmor",
-                            "ZekesHerald", "Zephyr", "ZZRotPortal", "RecurveBow",
+                            "ZekesHerald", "Zephyr", "ZzRotPortal", "RecurveBow",
                             "LaserCorpsEmblem", "GuinsoosRageblade"}
 
 ELUSIVE_ITEMS: set[str] = {"AceEmblem", "AegisEmblem", "BrawlerEmblem",

@@ -5,54 +5,93 @@ Items are in camel case and a-Z
 """
 
 COMP = {
-    "Ezreal": {
+    "Ashe": {
         "board_position": 0,
-        "items": [],
-        "level": 2,
-        "final_comp": True
-    },
-    "Twitch": {
-        "board_position": 1,
-        "items": ["InfinityEdge", "LastWhisper", "RunaansHurricane"],
-        "level": 2,
+        "items": ["GuinsoosRageblade", "LastWhisper", "GiantSlayer"],
+        "level": 3,
         "final_comp": True,
     },
-    "Xayah": {
-        "board_position": 5,
-        "items": ["GiantSlayer", "GuinsoosRageblade", "Quicksilver"],
-        "level": 2,
-        "final_comp": True,
-    },
-    "Varus": {
+    "Ezreal": {
         "board_position": 6,
-        "items": ["Deathblade", "GuinsoosRageblade", "RunaansHurricane"],
+        "items": ["BlueBuff", "GiantSlayer", "JeweledGauntlet"],
+        "level": 3,
+        "final_comp": True
+    },
+    "Gangplank": {
+        "board_position": 15,
+        "items": [],
         "level": 3,
         "final_comp": True,
     },
-    "Ornn": {
-        "board_position": 23,
-        "items": ["GiantSlayer", "GuinsoosRageblade", "InfinityEdge"],
+    "Malphite": {
+        "board_position": 22,
+        "items": ["ZzRotPortal"],
         "level": 3,
         "final_comp": True,
     },
-    "Shen": {
+    "Renekton": {
         "board_position": 24,
+        "items": ["WarmogsArmor", "DragonsClaw", "Redemption"],
+        "level": 3,
+        "final_comp": True,
+    },
+    "LeeSin": {
+        "board_position": 25,
         "items": [],
         "level": 3,
         "final_comp": True
     },
-    "Illaoi": {
-        "board_position": 25,
-        "items": ["GargoyleStoneplate", "SunfireCape", "WarmogsArmor"],
+    "Yasuo": {
+        "board_position": 26,
+        "items": ["Bloodthirster", "TitansResolve"],
         "level": 3,
         "final_comp": True,
     },
-    "Skarner": {"board_position": 26, "items": [], "level": 3, "final_comp": True},
+    "Zed": {
+        "board_position": 18,
+        "items": ["EdgeofNight", "RunaansHurricane", "LastWhisper"],
+        "level": 3,
+        "final_comp": True,
+    },
+    "Mordekaiser": {
+        "board_position": 19,
+        "items": ["RabadonsDeathcap", "HextechGunblade", "Morellonomicon"],
+        "level": 3,
+        "final_comp": True,
+    }
 }
+"""
+Team composition used by the bot
+Comps come from https://tftactics.gg/tierlist/team-comps
+Items are in camel case and a-Z
+"""
+
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
 # (Anything that changes gameplay or adds something to the bench).
 AUGMENTS: list[str] = [
+    "Featherweight",
+    "Combat Training",
+    "Tiny Legends",
+    "Celestial Blessing",
+    "Knife's Edge",
+    "First Aid",
+    "Shadow Jutsu",
+    "Contempt for the Weak",
+    "Laser Focus",
+    "Corps Focus",
+    "Siphoning Winds",
+    "Spirit of the Exile",
+    "Rising Spell Force",
+    "Raider's Spoils",
+    "Flaming Ricochet",
+    "Get Paid",
+    "Flurry",
+    "Invigorate",
+    "Reign of Anger",
+    "Cull the Meek",
+    "Rock Solid",
+    "Guardian Spirit",
     "Cybernetic Implants",
     "Stand United",
     "Electrocharge",
