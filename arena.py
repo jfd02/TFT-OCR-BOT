@@ -307,8 +307,7 @@ class Arena:
                         self.champs_to_buy.remove(champion[1])
             first_run = False
 
-    def krug_round(self) -> None:
-        """Checks if current round is krug round"""
+    def buy_xp_round(self) -> None:
         if arena_functions.get_gold() >= 4:
             mk_functions.buy_xp()
 

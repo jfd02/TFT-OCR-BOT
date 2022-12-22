@@ -34,7 +34,7 @@ class Game:
 
         self.loading_screen()
 
-    def callback(self, hwnd, extra) -> None: # pylint: disable=unused-argument
+    def callback(self, hwnd, extra) -> None:  # pylint: disable=unused-argument
         """Function used to find the game window and get its size"""
         if "League of Legends (TM) Client" not in win32gui.GetWindowText(hwnd):
             return
@@ -115,8 +115,6 @@ class Game:
             sleep(1.5)
             self.arena.fix_unknown()
             self.arena.tacticians_crown_check()
-        elif self.round == "2-7":
-            self.arena.krug_round()
         elif self.round == "4-7":
             game_functions.select_shop()
 
@@ -138,6 +136,8 @@ class Game:
             sleep(1)
             self.arena.pick_augment()
             sleep(2.5)
+        if self.round == "2-1" or self.round == "2-5":
+            self.arena.buy_xp_round()
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items")
             game_functions.pickup_items()
