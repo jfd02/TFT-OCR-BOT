@@ -81,7 +81,7 @@ def __LoadLolChessComps(input_str, set_str, comps_manager : CompsManager):
         is_good_comp = True
         response_each_link = requests.get(url_start_string + each_link[1])
         json_in_text = Parse(response_each_link.text, "      window.simulator = ", "              }")
-        text_proceed = __FixJson(json_in_text[1].replace("'", '"'))[:-2] + '}'
+        text_proceed = __FixJson(json_in_text[1].replace("'", '"'))[:-4] + '}'
         json_parsed = json.loads(text_proceed)
         slots = []
         if len(comps_name) == 0:
