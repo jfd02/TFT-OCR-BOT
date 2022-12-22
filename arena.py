@@ -308,6 +308,7 @@ class Arena:
             first_run = False
 
     def buy_xp_round(self) -> None:
+        """Buys XP if gold is equals or over 4"""
         if arena_functions.get_gold() >= 4:
             mk_functions.buy_xp()
 
