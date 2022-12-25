@@ -29,6 +29,7 @@ class Arena:
         self.items: list = []
         self.final_comp = False
         self.level = 0
+        self.augment_roll = True
         self.spam_roll = False
 
     def fix_bench_state(self) -> None:
@@ -330,6 +331,13 @@ class Arena:
                     print(f"  Choosing augment {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                     return
+
+        if self.augment_roll:
+            print("  Rolling for augment")
+            mk_functions.left_click(screen_coords.AUGMENT_ROLL.get_coords())
+            self.augment_roll = False
+            self.pick_augment()
+
         print("  [!] No priority or backup augment found, undefined behavior may occur for the rest of the round")
         mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
 
