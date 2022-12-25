@@ -2,8 +2,10 @@
 Contains all information related to an individual board slot used by the bot
 """
 
+
 class Champion:
     """Champion class that contains information about a single unit on the board or bench"""
+
     # pylint: disable=too-many-instance-attributes,too-few-public-methods,too-many-arguments
 
     def __init__(self, name: str, coords: tuple, build, slot: int, size: int, final_comp: bool) -> None:

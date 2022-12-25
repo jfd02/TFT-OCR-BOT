@@ -59,6 +59,7 @@ def get_champ(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, sh
     champ: str = ocr.get_text_from_image(image=champ, whitelist="")
     shop_array.append((shop_pos, valid_champ(champ)))
 
+
 def get_shop() -> list:
     """Returns the list of champions in the shop"""
     screen_capture = ImageGrab.grab(bbox=screen_coords.SHOP_POS.get_coords())
@@ -115,4 +116,3 @@ def get_items() -> list:
         item_bench.append(valid_item(item))
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
     return item_bench
-    
