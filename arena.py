@@ -16,6 +16,7 @@ import arena_functions
 
 class Arena:
     """Arena class that handles game logic such as board and bench state"""
+
     # pylint: disable=too-many-instance-attributes,too-many-public-methods
     def __init__(self, message_queue) -> None:
         self.message_queue = message_queue
@@ -82,6 +83,7 @@ class Arena:
         for index, champion in enumerate(self.bench):
             if isinstance(champion, str):
                 print(f"  Moving {champion} to board")
+                mk_functions.left_click(screen_coords.BENCH_LOC[index].get_coords())
                 mk_functions.left_click(
                     screen_coords.BENCH_LOC[index].get_coords())
                 mk_functions.left_click(
@@ -155,14 +157,12 @@ class Arena:
         for index, champion in enumerate(self.bench):
             if champion == "?" or isinstance(champion, str):
                 print("  Selling unknown champion")
-                mk_functions.press_e(
-                    screen_coords.BENCH_LOC[index].get_coords())
+                mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                 self.bench[index] = None
             elif isinstance(champion, Champion):
                 if champion.name not in self.champs_to_buy and champion.name in self.board_names:
                     print("  Selling unknown champion")
-                    mk_functions.press_e(
-                        screen_coords.BENCH_LOC[index].get_coords())
+                    mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                     self.bench[index] = None
 
     def place_items(self) -> None:
@@ -253,8 +253,7 @@ class Arena:
                 if slot.final_comp and slot.name not in self.board_names:
                     for champion in self.board:
                         if not champion.final_comp and champion.size == slot.size:
-                            print(
-                                f"  Replacing {champion.name} with {slot.name}")
+                            print(f"  Replacing {champion.name} with {slot.name}")
                             self.remove_champion(champion)
                             self.move_known(slot)
                             break
@@ -299,7 +298,7 @@ class Arena:
                         self.bought_champion(champion[1], none_slot)
                         self.champs_to_buy.remove(champion[1])
                     else:
-                        #Try to buy champ 3 when bench is full
+                        # Try to buy champ 3 when bench is full
                         print(f"  Board is full but want {champion[1]}")
                         mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
                         game_functions.default_pos()
@@ -321,8 +320,7 @@ class Arena:
         """Picks an augment from user defined augment priority list or defaults to first augment"""
         augments: list = []
         for coords in screen_coords.AUGMENT_POS:
-            augment: str = ocr.get_text(
-                screenxy=coords.get_coords(), scale=3, psm=7)
+            augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
             augments.append(augment)
 
         for augment in augments:

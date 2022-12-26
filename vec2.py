@@ -3,6 +3,7 @@ Vector2 that handles point screen coordinates
 Transformations related to the game position & game size happen here
 """
 
+
 class Vec2:
     "Vector 2 class that has methods to scale screen coordinates"
 
