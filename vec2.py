@@ -4,7 +4,9 @@ Transformations related to the game position & game size happen here
 """
 
 class Vec2:
-    "Vector 2 class that has methods to scale screen coordinates"
+    """
+    Vector 2 class that has methods to scale screen coordinates
+    """
 
     screen_x_offset: int = 0
     screen_y_offset: int = 0
