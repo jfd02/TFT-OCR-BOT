@@ -21,7 +21,7 @@ class Arena:
 	def __init__(self, message_queue) -> None:
 		self.message_queue = message_queue
 		self.board_size = 0
-		self.bench: list[None] = [None, None, None, None, None, None, None, None, None]
+		self.bench: list[Champion | str | None] = [None, None, None, None, None, None, None, None, None]
 		self.board: list = []
 		self.board_unknown: list = []
 		self.unknown_slots: list = comps.get_unknown_slots()
@@ -46,11 +46,8 @@ class Arena:
 
 	def bought_champion(self, name: str, slot: int) -> None:
 		"""Purchase champion and creates champion instance"""
-		self.bench[slot] = Champion(name=name,
-		                            coords=screen_coords.BENCH_LOC[slot].get_coords(
-		                            ),
-		                            build=comps.COMP[name]["items"].copy(),
-		                            slot=slot,
+		self.bench[slot] = Champion(name=name, coords=screen_coords.BENCH_LOC[slot].get_coords(),
+		                            build=comps.COMP[name]["items"].copy(), slot=slot,
 		                            size=game_assets.CHAMPIONS[name]["Board Size"],
 		                            final_comp=comps.COMP[name]["final_comp"])
 		mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
@@ -93,13 +90,13 @@ class Arena:
 				return
 
 	def sell_bench(self) -> None:
-		"""Sells all of the champions on the bench"""
+		"""Sells all champions on the bench"""
 		for index, _ in enumerate(self.bench):
 			mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
 			self.bench[index] = None
 
 	def unknown_in_bench(self) -> bool:
-		"""Sells all of the champions on the bench"""
+		"""Sells all champions on the bench"""
 		for slot in self.bench:
 			if isinstance(slot, str):
 				return True
@@ -239,8 +236,8 @@ class Arena:
 					mk_functions.press_e(slot.coords)
 					self.bench[index] = None
 
-		self.champs_to_buy = list(filter(f"{champion.name}".__ne__,
-		                                 self.champs_to_buy))  # Remove all instances of champion in champs_to_buy
+		self.champs_to_buy = list(
+			filter(f"{champion.name}".__ne__, self.champs_to_buy))  # Remove all instances of champion in champs_to_buy
 
 		mk_functions.press_e(champion.coords)
 		self.board_names.remove(champion.name)

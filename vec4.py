@@ -38,7 +38,7 @@ class Vec4:
 		self.height: int = game_window.height
 		self.use_screen_offset: bool = use_screen_offset
 
-	def get_coords(self) -> tuple:
+	def get_coords(self) -> tuple[int, int, int, int]:
 		"""Returns screen coordinates with transformations"""
 		x_pos: int = self.x_pos * Vec4.screen_x_scale
 		y_pos: int = self.y_pos * Vec4.screen_y_scale
@@ -51,7 +51,7 @@ class Vec4:
 			        round(width + Vec4.screen_x_offset),
 			        round(height + Vec4.screen_y_offset))
 
-		return (round(x_pos), round(y_pos), round(width), round(height))
+		return round(x_pos), round(y_pos), round(width), round(height)
 
 	@classmethod
 	def setup_screen(cls, x_pos: int, y_pos: int, width: int, height: int) -> None:
