@@ -13,7 +13,6 @@ from dataclasses import dataclass
 
 @dataclass
 class GameWindow:
-
 	"""
 	Struct that contains information about the game window size and position
 	"""
