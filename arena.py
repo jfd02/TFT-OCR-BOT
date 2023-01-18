@@ -355,7 +355,7 @@ class Arena:
             if not self.spam_roll:
                 if health < 30:
                     print("    Health under 30, spam roll activated")
-                    self.spam_roll = TRUE
+                    self.spam_roll = True
         else:
             print("  Health check failed")
 
