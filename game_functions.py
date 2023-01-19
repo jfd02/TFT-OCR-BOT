@@ -63,6 +63,11 @@ def exit_game() -> None:
     mk_functions.left_click(screen_coords.EXIT_NOW_LOC.get_coords())
 
 
+def victory_exit() -> None:
+    """Exits the game after victory"""
+    mk_functions.left_click(screen_coords.VICTORY_CONTINUE_LOC.get_coords())
+
+
 def default_pos() -> None:
     """Moves the mouse to a default position to ensure no data is being blocked from OCR"""
     mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
