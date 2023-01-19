@@ -63,6 +63,8 @@ AUGMENT_POS: list[Vec4] = [
 
 AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
 
+AUGMENT_ROLL: Vec2 = Vec2(960, 875)
+
 VICTORY_POS: Vec4 = Vec4(GameWindow(916, 630, 1008, 652))
 
 BUY_LOC: list[Vec2] = [

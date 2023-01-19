@@ -15,6 +15,7 @@ import comps
 
 class Arena:
     """Arena class that handles game logic such as board and bench state"""
+
     # pylint: disable=too-many-instance-attributes,too-many-public-methods
     def __init__(self, message_queue, comps_manager : CompsManager) -> None:
         self.comps_manager = comps_manager
@@ -30,6 +31,7 @@ class Arena:
         self.items: list = []
         self.final_comp = False
         self.level = 0
+        self.augment_roll = True
         self.spam_roll = False
 
     def fix_bench_state(self) -> None:
@@ -82,8 +84,7 @@ class Arena:
         for index, champion in enumerate(self.bench):
             if isinstance(champion, str):
                 print(f"  Moving {champion} to board")
-                mk_functions.left_click(
-                    screen_coords.BENCH_LOC[index].get_coords())
+                mk_functions.left_click(screen_coords.BENCH_LOC[index].get_coords())
                 mk_functions.left_click(
                     screen_coords.BOARD_LOC[self.unknown_slots[len(self.board_unknown)]].get_coords())
                 self.bench[index] = None
@@ -154,14 +155,12 @@ class Arena:
         for index, champion in enumerate(self.bench):
             if champion == "?" or isinstance(champion, str):
                 print("  Selling unknown champion")
-                mk_functions.press_e(
-                    screen_coords.BENCH_LOC[index].get_coords())
+                mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                 self.bench[index] = None
             elif isinstance(champion, Champion):
                 if champion.name not in self.champs_to_buy and champion.name in self.board_names:
                     print("  Selling unknown champion")
-                    mk_functions.press_e(
-                        screen_coords.BENCH_LOC[index].get_coords())
+                    mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                     self.bench[index] = None
 
     def place_items(self) -> None:
@@ -260,8 +259,7 @@ class Arena:
                 if slot.final_comp and slot.name not in self.board_names:
                     for champion in self.board:
                         if not champion.final_comp and champion.size == slot.size:
-                            print(
-                                f"  Replacing {champion.name} with {slot.name}")
+                            print(f"  Replacing {champion.name} with {slot.name}")
                             self.remove_champion(champion)
                             self.move_known(slot)
                             break
@@ -316,8 +314,7 @@ class Arena:
         """Picks an augment from user defined augment priority list or defaults to first augment"""
         augments: list = []
         for coords in screen_coords.AUGMENT_POS:
-            augment: str = ocr.get_text(
-                screenxy=coords.get_coords(), scale=3, psm=7)
+            augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
             augments.append(game_assets.AUGMENTS)
 
         for augment in augments:
@@ -326,6 +323,13 @@ class Arena:
                     print(f"  Choosing augment {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                     return
+                    
+        if self.augment_roll:
+            print("  Rolling for augment")
+            mk_functions.left_click(screen_coords.AUGMENT_ROLL.get_coords())
+            self.augment_roll = False
+            self.pick_augment()
+
         print("  [!] No priority or backup augment found, undefined behavior may occur for the rest of the round")
         mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
 
