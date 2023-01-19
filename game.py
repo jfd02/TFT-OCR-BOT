@@ -9,6 +9,7 @@ import win32gui
 import settings
 import game_assets
 import game_functions
+import arena_functions
 from arena import Arena
 from vec4 import Vec4
 from vec2 import Vec2
@@ -136,8 +137,36 @@ class Game:
             sleep(1)
             self.arena.pick_augment()
             sleep(2.5)
-        if self.round in ("2-1", "2-5"):
-            self.arena.buy_xp_round()
+        if self.round in ("2-1"):
+            """Level to 4 at 2-1"""
+            while arena_functions.get_level() < 4:
+                self.arena.buy_xp_round()
+            else:
+                print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
+        if self.round in ("2-5"):
+            """Level to 5 at 2-5"""
+            while arena_functions.get_level() < 5:
+                self.arena.buy_xp_round()
+            else:
+                print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
+        if self.round in ("3-2"):
+            """Level to 6 at 3-2"""
+            while arena_functions.get_level() < 6:
+                self.arena.buy_xp_round()
+            else:
+                print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
+        if self.round in ("4-1"):
+            """Level to 7 at 4-1"""
+            while arena_functions.get_level() < 7:
+                self.arena.buy_xp_round()
+            else:
+                print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
+        if self.round in ("5-1"):
+            """Level to 8 at 5-1"""
+            while arena_functions.get_level() < 8:
+                self.arena.buy_xp_round()
+            else:
+                print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items")
             game_functions.pickup_items()
