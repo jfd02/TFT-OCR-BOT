@@ -71,6 +71,7 @@ class Arena:
         print(f"  Moving {champion.name} to board")
         destination: tuple = screen_coords.BOARD_LOC[self.comps_manager.CURRENT_COMP()[1][champion.name]["board_position"]].get_coords()
         mk_functions.left_click(champion.coords)
+        sleep(0.1)
         mk_functions.left_click(destination)
         champion.coords = destination
         self.board.append(champion)
@@ -85,6 +86,7 @@ class Arena:
             if isinstance(champion, str):
                 print(f"  Moving {champion} to board")
                 mk_functions.left_click(screen_coords.BENCH_LOC[index].get_coords())
+                sleep(0.1)
                 mk_functions.left_click(
                     screen_coords.BOARD_LOC[self.unknown_slots[len(self.board_unknown)]].get_coords())
                 self.bench[index] = None
@@ -170,6 +172,7 @@ class Arena:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
         sleep(1)
         mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
+        sleep(0.5)
 
     def place_items(self) -> None:
         """Iterates through items and tries to add them to champion"""
