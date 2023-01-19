@@ -76,8 +76,12 @@ PICKUP_ROUNDS: set[str] = {"2-1", "3-1", "4-1", "5-1", "6-1", "7-1"}
 
 AUGMENT_ROUNDS: set[str] = {"2-1", "3-2", "4-2"}
 
-ITEM_PLACEMENT_ROUNDS: set[str] = {"2-2", "3-2", "4-2", "5-2",
-                         "6-2", "7-2", "2-5", "3-5", "4-5", "5-5", "6-5", "7-5"}
+ITEM_PLACEMENT_ROUNDS: set[str] = {"2-1", "2-5", "2-7",
+             "3-1", "3-3", "3-5", "3-7",
+             "4-1", "4-3", "4-5", "4-7",
+             "5-1", "5-3", "5-5", "5-7",
+             "6-1", "6-2", "6-3", "6-5", "6-6", "6-7",
+             "7-1", "7-2", "7-3","7-5", "7-6", "7-7"}
 
 FINAL_COMP_ROUND = "5-5"
 
@@ -127,6 +131,9 @@ FULL_ITEMS = {"ArchangelsStaff": ("NeedlesslyLargeRod", "TearoftheGoddess"),
               "Zephyr": ("GiantsBelt", "NegatronCloak"),
               "ZzRotPortal": ("GiantsBelt", "RecurveBow")
               }
+
+# No logic for certain augments meaning the bot won't know what to do if they are included in here
+# (Anything that changes gameplay or adds something to the bench).
 AUGMENTS: list[str] = [
     "Featherweight",
     "Combat Training",
@@ -173,4 +180,11 @@ AUGMENTS: list[str] = [
     "Preparation",
     "Blue Battery",
     "Hustler",
-    ]
+    "Windfall++",
+    "Verdant Veil",
+    "First Aid Kit",
+    "Rich Get Richer+",
+    "Combat Training",
+    "Meditation",
+    "Axiom Arc",
+]
