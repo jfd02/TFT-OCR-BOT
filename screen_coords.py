@@ -76,9 +76,9 @@ BUY_LOC: list[Vec2] = [
 ]
 
 ITEM_PICKUP_LOC: list[Vec2] = [
-    Vec2(1450, 611),
+    Vec2(1460, 611),
     Vec2(406, 544),
-    Vec2(1412, 486),
+    Vec2(1430, 486),
     Vec2(469, 440),
     Vec2(1380, 381),
     Vec2(644, 323),
