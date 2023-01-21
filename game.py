@@ -91,6 +91,7 @@ class Game:
             sleep(0.5)
         self.message_queue.put("CLEAR")
         game_functions.exit_game()
+        game_functions.victory_exit()
 
     def carousel_round(self) -> None:
         """Handles tasks for carousel rounds"""
