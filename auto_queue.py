@@ -120,7 +120,7 @@ def queue() -> None:
     while in_queue:
         if time % 60 == 0:
             create_lobby(client_info)
-            sleep(5)
+            sleep(3)
             start_queue(client_info)
         accept_queue(client_info)
         if check_game_status(client_info):
