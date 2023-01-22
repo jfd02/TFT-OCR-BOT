@@ -326,7 +326,7 @@ class Arena:
         augments: list = []
         for coords in screen_coords.AUGMENT_POS:
             augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
-            augments.append(game_assets.AUGMENTS)
+            augments.append(augment)
 
         for augment in augments:
             for potential in game_assets.AUGMENTS:
