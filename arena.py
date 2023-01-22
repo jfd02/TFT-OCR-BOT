@@ -331,7 +331,7 @@ class Arena:
         for augment in augments:
             for potential in game_assets.AUGMENTS:
                 if potential in augment:
-                    print(f"  Choosing augment {augment}")
+                    print(f"  Choosing augment: {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                     return
                     
