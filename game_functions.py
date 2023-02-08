@@ -30,11 +30,11 @@ def pickup_items() -> None:  # Refacor this function to make it more clear whats
         if index == 7:  # Don't need to sleep on final click
             return
         if index == 0:
-            sleep(1.2)
+            sleep(1.3)
         if index % 2 == 0:
-            sleep(2)
+            sleep(2.1)
         else:
-            sleep(1.2)
+            sleep(1.3)
 
 
 def get_champ_carousel(tft_round: str) -> None:
