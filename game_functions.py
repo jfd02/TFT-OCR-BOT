@@ -44,13 +44,16 @@ def get_champ_carousel(tft_round: str) -> None:
         sleep(0.7)
 
 
-def check_alive() -> bool:  # Refactor this function to use API
+def check_alive() -> bool:    # Refactor this function to use API
     """Checks the screen to see if player is still alive"""
     if ocr.get_text(screenxy=screen_coords.EXIT_NOW_POS.get_coords(), scale=3, psm=7) == 'EXIT NOW':
         return False
-    if ocr.get_text(screenxy=screen_coords.VICTORY_POS.get_coords(), scale=3, psm=7) == 'CONTINUE':
-        return False
-    return True
+    return (
+        ocr.get_text(
+            screenxy=screen_coords.VICTORY_POS.get_coords(), scale=3, psm=7
+        )
+        != 'CONTINUE'
+    )
 
 
 def select_shop() -> None:

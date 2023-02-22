@@ -59,11 +59,15 @@ class Arena:
 
     def have_champion(self) -> Champion | None:
         """Checks the bench to see if champion exists"""
-        for champion in self.bench:
-            if isinstance(champion, Champion):
-                if champion.name not in self.board_names:
-                    return champion
-        return None
+        return next(
+            (
+                champion
+                for champion in self.bench
+                if isinstance(champion, Champion)
+                and champion.name not in self.board_names
+            ),
+            None,
+        )
 
     def move_known(self, champion: Champion) -> None:
         """Moves champion to the board"""
@@ -101,10 +105,7 @@ class Arena:
 
     def unknown_in_bench(self) -> bool:
         """Sells all of the champions on the bench"""
-        for slot in self.bench:
-            if isinstance(slot, str):
-                return True
-        return False
+        return any(isinstance(slot, str) for slot in self.bench)
 
     def move_champions(self) -> None:
         """Moves champions to the board"""
@@ -191,36 +192,35 @@ class Arena:
                 champ.completed_items.append(item)
                 champ.build.remove(item)
                 self.items[self.items.index(item)] = None
+        elif len(champ.current_building) == 0:
+            item_to_move: None = None
+            for build_item in champ.build:
+                build_item_components: list = list(
+                    game_assets.FULL_ITEMS[build_item])
+                if item in build_item_components:
+                    item_to_move: None = item
+                    build_item_components.remove(item_to_move)
+                    champ.current_building.append(
+                        (build_item, build_item_components[0]))
+                    champ.build.remove(build_item)
+            if item_to_move is not None:
+                mk_functions.left_click(
+                    screen_coords.ITEM_POS[item_index][0].get_coords())
+                mk_functions.left_click(champ.coords)
+                print(f"  Placed {item} on {champ.name}")
+                self.items[self.items.index(item)] = None
         else:
-            if len(champ.current_building) == 0:
-                item_to_move: None = None
-                for build_item in champ.build:
-                    build_item_components: list = list(
-                        game_assets.FULL_ITEMS[build_item])
-                    if item in build_item_components:
-                        item_to_move: None = item
-                        build_item_components.remove(item)
-                        champ.current_building.append(
-                            (build_item, build_item_components[0]))
-                        champ.build.remove(build_item)
-                if item_to_move is not None:
+            for builditem in champ.current_building:
+                if item == builditem[1]:
                     mk_functions.left_click(
                         screen_coords.ITEM_POS[item_index][0].get_coords())
                     mk_functions.left_click(champ.coords)
-                    print(f"  Placed {item} on {champ.name}")
+                    champ.completed_items.append(builditem[0])
+                    champ.current_building.clear()
                     self.items[self.items.index(item)] = None
-            else:
-                for builditem in champ.current_building:
-                    if item == builditem[1]:
-                        mk_functions.left_click(
-                            screen_coords.ITEM_POS[item_index][0].get_coords())
-                        mk_functions.left_click(champ.coords)
-                        champ.completed_items.append(builditem[0])
-                        champ.current_building.clear()
-                        self.items[self.items.index(item)] = None
-                        print(f"  Placed {item} on {champ.name}")
-                        print(f"  Completed {builditem[0]}")
-                        return
+                    print(f"  Placed {item} on {champ.name}")
+                    print(f"  Completed {builditem[0]}")
+                    return
 
     def fix_unknown(self) -> None:
         """Checks if the item passed in arg one is valid"""
@@ -233,10 +233,9 @@ class Arena:
     def remove_champion(self, champion: Champion) -> None:
         """Checks if the item passed in arg one is valid"""
         for index, slot in enumerate(self.bench):
-            if isinstance(slot, Champion):
-                if slot.name == champion.name:
-                    mk_functions.press_e(slot.coords)
-                    self.bench[index] = None
+            if isinstance(slot, Champion) and slot.name == champion.name:
+                mk_functions.press_e(slot.coords)
+                self.bench[index] = None
 
         self.champs_to_buy = list(filter(f"{champion.name}".__ne__,
                                          self.champs_to_buy))  # Remove all instances of champion in champs_to_buy
@@ -249,14 +248,17 @@ class Arena:
     def final_comp_check(self) -> None:
         """Checks the board and replaces champions not in final comp"""
         for slot in self.bench:
-            if isinstance(slot, Champion):
-                if slot.final_comp and slot.name not in self.board_names:
-                    for champion in self.board:
-                        if not champion.final_comp and champion.size == slot.size:
-                            print(f"  Replacing {champion.name} with {slot.name}")
-                            self.remove_champion(champion)
-                            self.move_known(slot)
-                            break
+            if (
+                isinstance(slot, Champion)
+                and slot.final_comp
+                and slot.name not in self.board_names
+            ):
+                for champion in self.board:
+                    if not champion.final_comp and champion.size == slot.size:
+                        print(f"  Replacing {champion.name} with {slot.name}")
+                        self.remove_champion(champion)
+                        self.move_known(slot)
+                        break
 
     def tacticians_crown_check(self) -> None:
         """Checks if the item from carousel is tacticians crown"""
@@ -344,25 +346,25 @@ class Arena:
         health: int = arena_functions.get_health()
         if health > 0:
             print(f"  Health: {health}")
-            if not self.spam_roll:
-                if health < 30:
-                    print("    Health under 30, spam roll activated")
-                    self.spam_roll = True
+            if not self.spam_roll and health < 30:
+                print("    Health under 30, spam roll activated")
+                self.spam_roll = True
         else:
             print("  Health check failed")
 
     def get_label(self) -> None:
         """Gets labels used to display champion name UI on window"""
-        labels: list = []
-        for slot in self.bench:
-            if isinstance(slot, Champion):
-                labels.append((f"{slot.name}", slot.coords))
-
+        labels: list = [
+            (f"{slot.name}", slot.coords)
+            for slot in self.bench
+            if isinstance(slot, Champion)
+        ]
         for slot in self.board:
             if isinstance(slot, Champion):
                 labels.append((f"{slot.name}", slot.coords))
 
-        for index, slot in enumerate(self.board_unknown):
-            labels.append(
-                (slot, screen_coords.BOARD_LOC[self.unknown_slots[index]].get_coords()))
+        labels.extend(
+            (slot, screen_coords.BOARD_LOC[self.unknown_slots[index]].get_coords())
+            for index, slot in enumerate(self.board_unknown)
+        )
         self.message_queue.put(("LABEL", labels))

@@ -17,8 +17,13 @@ def create_lobby(client_info: tuple) -> bool:
     payload: dict[str, int] = {"queueId": 1090}  # Ranked TFT is 1100
     payload: dict[str, int] = json.dumps(payload)
     try:
-        status = requests.post(client_info[1] + "/lol-lobby/v2/lobby/", payload,
-                               auth=HTTPBasicAuth('riot', client_info[0]), timeout=10, verify=False)
+        status = requests.post(
+            f"{client_info[1]}/lol-lobby/v2/lobby/",
+            payload,
+            auth=HTTPBasicAuth('riot', client_info[0]),
+            timeout=10,
+            verify=False,
+        )
         if status.status_code == 200:
             print("  Creating lobby")
             return True
@@ -30,8 +35,12 @@ def create_lobby(client_info: tuple) -> bool:
 def start_queue(client_info: tuple) -> bool:
     """Starts queue"""
     try:
-        status = requests.post(client_info[1] + "/lol-lobby/v2/lobby/matchmaking/search",
-                               auth=HTTPBasicAuth('riot', client_info[0]), timeout=10, verify=False)
+        status = requests.post(
+            f"{client_info[1]}/lol-lobby/v2/lobby/matchmaking/search",
+            auth=HTTPBasicAuth('riot', client_info[0]),
+            timeout=10,
+            verify=False,
+        )
         if status.status_code == 204:
             print("  Starting queue")
             return True
@@ -43,8 +52,12 @@ def start_queue(client_info: tuple) -> bool:
 def check_queue(client_info: tuple) -> bool:
     """Checks queue to see if we are searching"""
     try:
-        status = requests.get(client_info[1] + "/lol-lobby/v2/lobby/matchmaking/search-state",
-                              auth=HTTPBasicAuth('riot', client_info[0]), timeout=10, verify=False)
+        status = requests.get(
+            f"{client_info[1]}/lol-lobby/v2/lobby/matchmaking/search-state",
+            auth=HTTPBasicAuth('riot', client_info[0]),
+            timeout=10,
+            verify=False,
+        )
         return status.json()['searchState'] == 'Searching'
     except ConnectionError:
         return False
@@ -53,8 +66,12 @@ def check_queue(client_info: tuple) -> bool:
 def check_game_status(client_info: tuple) -> bool:
     """Checks to see if we are in a game"""
     try:
-        status = requests.get(client_info[1] + "/lol-gameflow/v1/session",
-                              auth=HTTPBasicAuth('riot', client_info[0]), timeout=10, verify=False)
+        status = requests.get(
+            f"{client_info[1]}/lol-gameflow/v1/session",
+            auth=HTTPBasicAuth('riot', client_info[0]),
+            timeout=10,
+            verify=False,
+        )
         return status.json()["phase"] == "InProgress"
     except ConnectionError:
         return False
@@ -62,15 +79,23 @@ def check_game_status(client_info: tuple) -> bool:
 
 def accept_queue(client_info: tuple) -> bool:
     """Accepts the queue"""
-    requests.post(client_info[1] + "/lol-matchmaking/v1/ready-check/accept",
-                  auth=HTTPBasicAuth('riot', client_info[0]), timeout=10, verify=False)
+    requests.post(
+        f"{client_info[1]}/lol-matchmaking/v1/ready-check/accept",
+        auth=HTTPBasicAuth('riot', client_info[0]),
+        timeout=10,
+        verify=False,
+    )
 
 
 def change_arena_skin(client_info: tuple) -> bool:
     """Changes arena skin to default, other arena skins have different coordinates"""
     try:
-        status = requests.delete(client_info[1] + "/lol-cosmetics/v1/selection/tft-map-skin",
-                                 auth=HTTPBasicAuth('riot', client_info[0]), timeout=10, verify=False)
+        status = requests.delete(
+            f"{client_info[1]}/lol-cosmetics/v1/selection/tft-map-skin",
+            auth=HTTPBasicAuth('riot', client_info[0]),
+            timeout=10,
+            verify=False,
+        )
         if status.status_code == 204:
             print("  Changed arena skin to default")
             return True
