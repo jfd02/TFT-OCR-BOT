@@ -145,6 +145,8 @@ class Game:
 
         self.arena.fix_bench_state()
         self.arena.bench_cleanup()
+        if self.round in game_assets.ANVIL_ROUNDS:
+            self.arena.clear_anvil()
         self.arena.spend_gold()
         self.arena.move_champions()
         self.arena.replace_unknown()
