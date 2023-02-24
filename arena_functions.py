@@ -48,10 +48,14 @@ def valid_champ(champ: str) -> str:
     if champ in game_assets.CHAMPIONS:
         return champ
 
-    for champion in game_assets.CHAMPIONS:
-        if SequenceMatcher(a=champion, b=champ).ratio() >= 0.7:
-            return champion
-    return ""
+    return next(
+        (
+            champion
+            for champion in game_assets.CHAMPIONS
+            if SequenceMatcher(a=champion, b=champ).ratio() >= 0.7
+        ),
+        "",
+    )
 
 def get_champ(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, shop_array: list) -> str:
     """Returns a tuple containing the shop position and champion name"""
@@ -100,10 +104,15 @@ def bench_occupied_check() -> list:
 
 def valid_item(item: str) -> str | None:
     """Checks if the item passed in arg one is valid"""
-    for valid_item_name in game_assets.ITEMS:
-        if valid_item_name in item or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7:
-            return valid_item_name
-    return None
+    return next(
+        (
+            valid_item_name
+            for valid_item_name in game_assets.ITEMS
+            if valid_item_name in item
+            or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7
+        ),
+        None,
+    )
 
 
 def get_items() -> list:
