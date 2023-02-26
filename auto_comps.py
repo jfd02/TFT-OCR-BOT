@@ -5,7 +5,7 @@ Some champion names is repeating because of different patches (but it's the same
 In-game champion names only in communitydragon
 """
 
-import game_assets      
+import game_assets
 import json
 import requests
 from difflib import SequenceMatcher
@@ -16,40 +16,45 @@ LOLCHESS_CHAMPIONS_URL = 'https://lolchess.gg/champions/'
 LOLCHESS_META_COMPS_URL = 'https://lolchess.gg/meta'
 DRAGON_URL = 'https://raw.communitydragon.org/latest/cdragon/tft/en_us.json'
 
-HARD_OVERRIDE_LIST = {'TFT7_Wukong':'Wukong'}
+HARD_OVERRIDE_LIST = {'TFT7_Wukong': 'Wukong'}
 SOFT_OVERRIDE_LIST = {'nomsycannoneerforbuilder': ('nomsy', 'Nomsy'),
                       'nomsyevokerforbuilder': ('nomsy', 'Nomsy'),
                       'nomsymageforbuilder': ('nomsy', 'Nomsy')}
 ITEMS_OVERRIDE_LIST = {'CrownofChampions': 'CrownOfChampions'}
 FINAL_CHAMP_NAMES_LIST = {'Nunu': 'Nunu & Willump'}
 LOLCHESS_BOARD_ARRANGE = [21, 22, 23, 24, 25, 26, 27, 14, 15, 16, 17, 18, 19, 20, 7, 8, 9, 10, 11, 12, 13, 0, 1, 2, 3, 4, 5, 6]
-JSON_TO_FIX = ["isReadOnly", "isChallengerComment", "currentSet", "isWithGuide", "isWithYoutuber", "setKey", "isLolchessggApp", "isDakggMobileApp",
-               "championStats", "championClasses", "championOrigins","items", "fromItems", "deck","deckUuid","deckMetaItems" ]
+JSON_TO_FIX = ["isReadOnly", "isChallengerComment", "currentSet", "isWithGuide", "isWithYoutuber", "setKey",
+               "isLolchessggApp", "isDakggMobileApp",
+               "championStats", "championClasses", "championOrigins", "items", "fromItems", "deck", "deckUuid",
+               "deckMetaItems", "extraData"]
 
-def Parse(input, fromwhere, to, startindex = 0):
+
+def Parse(input, fromwhere, to, startindex=0):
     index_from = input.find(fromwhere, startindex)
     if index_from != -1:
         index_to = input.find(to, index_from + 1)
         if index_to != -1:
-            return (int(index_from), input[index_from+len(fromwhere):index_to])
+            return (int(index_from), input[index_from + len(fromwhere):index_to])
     return (-1, None)
+
 
 def ParseMultiple(input, fromwhere, to):
     output = []
     index = 0
     while index != -1:
-        current = Parse(input,fromwhere, to, index)
+        current = Parse(input, fromwhere, to, index)
         index = current[0]
         if index != -1:
             output.append(current)
             index += len(fromwhere)
     return output
 
+
 # def __LoadLolChessCurrentSetVersion(input_str):
 #     return Parse(input_str, 'lolchess.gg/champions/set', '"')[1]
 
 def __LoadLoLChessPrices():
-    lolchess_url = LOLCHESS_CHAMPIONS_URL# + set_input+ '/'
+    lolchess_url = LOLCHESS_CHAMPIONS_URL  # + set_input+ '/'
     response = requests.get(lolchess_url)
     current_tft_set = response.url.split('/')[4][3:]
 
@@ -59,24 +64,26 @@ def __LoadLoLChessPrices():
     output_dictionary = {}
     for each_character in json_parsed:
         character_code = each_character['code']
-        character_name_ingame =  each_character['ingame_code']
+        character_name_ingame = each_character['ingame_code']
         character_price = int(each_character['cost'])
         if character_name_ingame not in output_dictionary:
-            output_dictionary[character_name_ingame] = (character_price,character_code)
+            output_dictionary[character_name_ingame] = (character_price, character_code)
     return [current_tft_set, output_dictionary]
 
-def __FixJson(input:str):
+
+def __FixJson(input: str):
     for each_json in JSON_TO_FIX:
-        input = input.replace(each_json+':', '"' + each_json + '":')
+        input = input.replace(each_json + ':', '"' + each_json + '":')
     return input
 
-def __LoadLolChessComps(input_str, set_str, comps_manager : CompsManager):
-    output_comps : dict = {}
-    url_start_string = "https://lolchess.gg/builder/set"+set_str+"?deck="
+
+def __LoadLolChessComps(input_str, set_str, comps_manager: CompsManager):
+    output_comps: dict = {}
+    url_start_string = "https://lolchess.gg/builder/set" + set_str + "?deck="
     parsed_links = ParseMultiple(input_str, url_start_string, '"')
-    champions_keys : dict= {}
-    items : dict = {}
-    comps_name : dict(str) = {}
+    champions_keys: dict = {}
+    items: dict = {}
+    comps_name: dict(str) = {}
     for each_link in parsed_links:
         is_good_comp = True
         response_each_link = requests.get(url_start_string + each_link[1])
@@ -102,7 +109,7 @@ def __LoadLolChessComps(input_str, set_str, comps_manager : CompsManager):
             for each_item in json_parsed["items"]:
                 item = json_parsed["items"][each_item]
                 id = item["id"]
-                name = item["name"].replace("'",'').replace('’', '').replace(' ', '')
+                name = item["name"].replace("'", '').replace('’', '').replace(' ', '')
                 items[id] = name
         counter = 0
         for each_slot in json_parsed["deck"]["slots"]:
@@ -119,12 +126,12 @@ def __LoadLolChessComps(input_str, set_str, comps_manager : CompsManager):
                 slot_champion_name_temp = champions_keys[slot_champion_name_temp]
                 is_good_champion = False
                 best_score = 0.0
-                best_possible : str = None
+                best_possible: str = None
                 for each_known_champ in comps_manager.champions:
                     if each_known_champ == slot_champion_name_temp:
                         is_good_champion = True
                         break
-                    ratio = SequenceMatcher(a = each_known_champ, b = slot_champion_name_temp).ratio()
+                    ratio = SequenceMatcher(a=each_known_champ, b=slot_champion_name_temp).ratio()
                     if ratio >= 0.7 and ratio > best_score:
                         best_score = ratio
                         best_possible = each_known_champ
@@ -132,13 +139,13 @@ def __LoadLolChessComps(input_str, set_str, comps_manager : CompsManager):
                     if best_possible is not None:
                         slot_champion_name_temp = best_possible
                         is_good_champion = True
-                    else: 
+                    else:
                         if slot_champion_name_temp in FINAL_CHAMP_NAMES_LIST:
                             slot_champion_name_temp = FINAL_CHAMP_NAMES_LIST[slot_champion_name_temp]
                             is_good_champion = True
                 if is_good_champion == False:
                     is_good_comp = False
-                for each_item in each_slot["items"]:
+                for each_item in each_slot.get("items", []):
                     normal_item = items[each_item]
                     if normal_item in ITEMS_OVERRIDE_LIST:
                         normal_item = ITEMS_OVERRIDE_LIST[normal_item]
@@ -171,7 +178,7 @@ def __LoadCommunityDragon():
     return output
 
 
-def LoadChampionsAndComps(comp_manager : CompsManager):
+def LoadChampionsAndComps(comp_manager: CompsManager):
     print('Loading champions and comps...')
     cached_path = os.path.join(os.path.curdir, 'cached_data')
     if os.path.isdir(cached_path) == False:
@@ -181,7 +188,7 @@ def LoadChampionsAndComps(comp_manager : CompsManager):
     set_current = lol_chess_tftnames_and_price[0]
     if os.path.isfile(cached_file_path + set_current + '.json'):
         print('Loading from cache file...')
-        with open (cached_file_path + set_current + '.json', 'r') as f:
+        with open(cached_file_path + set_current + '.json', 'r') as f:
             comp_manager.champions = json.loads(f.readline())
             comp_manager.SetCOMPSLoaded(json.loads(f.readline()))
     else:
@@ -196,39 +203,42 @@ def LoadChampionsAndComps(comp_manager : CompsManager):
                 if each in HARD_OVERRIDE_LIST:
                     final_code_name = HARD_OVERRIDE_LIST[each]
                 final_boardsize = dragon_info_names_and_boardsize[each][1]
-                comp_manager.champions[final_name] = {'Gold': final_price, 'Board Size' : final_boardsize}
+                comp_manager.champions[final_name] = {'Gold': final_price, 'Board Size': final_boardsize}
         lol_chess_comps = __LoadLolChessComps(response_meta_comps, set_current, comp_manager)
         for each_comp_name in lol_chess_comps:
             temp = {}
             for each_character in lol_chess_comps[each_comp_name]:
                 temp[each_character[0]] = {'board_position': each_character[1], 'items': each_character[2],
-                                            'level': 3,  'final_comp' : True   }
+                                           'level': 3, 'final_comp': True}
             comp_manager.comps_loaded.append((each_comp_name, temp))
         jsoned_champions = json.dumps(comp_manager.champions)
         jsoned_comps = json.dumps(comp_manager.comps_loaded)
-        with open (cached_file_path + set_current + '.json', 'w') as f:
+        with open(cached_file_path + set_current + '.json', 'w') as f:
             f.write(jsoned_champions + '\n')
             f.write(jsoned_comps)
-    print('Set: ' + set_current + ', loaded champions: ' + str(len(comp_manager.champions)) + ', comps: ' + str(len(comp_manager.comps_loaded)))
+    print('Set: ' + set_current + ', loaded champions: ' + str(len(comp_manager.champions)) + ', comps: ' + str(
+        len(comp_manager.comps_loaded)))
     for i in range(0, len(comp_manager.comps_loaded)):
         temp = ','.join(comp_manager.comps_loaded[i][1])
-        print( str(i) + ' - ' + comp_manager.comps_loaded[i][0] + ' [' + temp + ']')
+        print(str(i) + ' - ' + comp_manager.comps_loaded[i][0] + ' [' + temp + ']')
 
     inputed = ''
     temp_inputed = ''
     inputed_file_path = os.path.join(cached_path, 'inputed')
     if os.path.isfile(inputed_file_path):
-        with open (inputed_file_path, 'r') as f:
+        with open(inputed_file_path, 'r') as f:
             temp_inputed = f.read()
         if temp_inputed != '':
-            print ('Your last selection was: "' + temp_inputed + '", press Enter to use last selection, or type "n" and press Enter to make new selection')
+            print(
+                'Your last selection was: "' + temp_inputed + '", press Enter to use last selection, or type "n" and press Enter to make new selection')
             if input().lower() == 'n':
                 inputed = ''
             else:
                 inputed = temp_inputed
-    
+
     if inputed == '':
-        print('Select mode: \n-Press Enter to play random comps without sequence\n-Type "all" and press Enter to play all comps in sequence\n-Type "all_except 2 3 4"(for example) and press Enter to play all comps in sequence except selected\n-Type "1 2 3"(for example) and press Enter to play only selected comps in sequence (it will loop)')
+        print(
+            'Select mode: \n-Press Enter to play random comps without sequence\n-Type "all" and press Enter to play all comps in sequence\n-Type "all_except 2 3 4"(for example) and press Enter to play all comps in sequence except selected\n-Type "1 2 3"(for example) and press Enter to play only selected comps in sequence (it will loop)')
         inputed = input()
     if inputed == '':
         comp_manager.is_sequence_mode = False
@@ -254,6 +264,11 @@ def LoadChampionsAndComps(comp_manager : CompsManager):
             if each.isnumeric():
                 inted = int(each)
                 comp_manager.sequence.append(inted)
-    with open (inputed_file_path, 'w') as f:
+    with open(inputed_file_path, 'w') as f:
         f.write(inputed)
 
+
+if __name__ == "__main__":
+    comps_manager = CompsManager()
+    comps_manager.champions = {}
+    LoadChampionsAndComps(comps_manager)
