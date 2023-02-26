@@ -72,22 +72,26 @@ class Game:
         while game_functions.check_alive():
             self.round: str = game_functions.get_round()
 
-            if settings.FORFEIT:
-                if perf_counter() - self.start_time > self.forfeit_time:
-                    game_functions.forfeit()
-                    return
+            if (
+                settings.FORFEIT
+                and perf_counter() - self.start_time > self.forfeit_time
+            ):
+                game_functions.forfeit()
+                return
 
             if self.round != ran_round:
-                 print(f"\n[Comps] Stick to [{','.join(self.comps_manager.CURRENT_COMP()[1])}] ")
-            if self.round != ran_round and self.round in game_assets.CAROUSEL_ROUND:
-                self.carousel_round()
-                ran_round: str = self.round
-            elif self.round != ran_round and self.round in game_assets.PVE_ROUND:
-                self.pve_round()
-                ran_round: str = self.round
-            elif self.round != ran_round and self.round in game_assets.PVP_ROUND:
-                self.pvp_round()
-                ran_round: str = self.round
+                print(f"\n[Comps] Stick to [{','.join(self.comps_manager.CURRENT_COMP()[1])}] ")
+                if self.round in game_assets.CAROUSEL_ROUND:
+                    self.carousel_round()
+                    ran_round: str = self.round
+                elif self.round in game_assets.PVE_ROUND:
+                    game_functions.default_pos()
+                    self.pve_round()
+                    ran_round: str = self.round
+                elif self.round in game_assets.PVP_ROUND:
+                    game_functions.default_pos()
+                    self.pvp_round()
+                    ran_round: str = self.round
             sleep(0.5)
         self.message_queue.put("CLEAR")
         game_functions.exit_game()
@@ -102,6 +106,7 @@ class Game:
         self.arena.check_health()
         print("  Getting a champ from the carousel")
         game_functions.get_champ_carousel(self.round)
+        game_functions.default_pos()
 
     def pve_round(self) -> None:
         """Handles tasks for PVE rounds"""

@@ -9,6 +9,8 @@ from game import Game
 import settings
 import auto_comps
 from comps import CompsManager
+import os
+import sys
 
 def game_loop(ui_queue: multiprocessing.Queue, comps : CompsManager)  -> None:
     """Keeps the program running indefinetly by calling queue and game start in a loop"""

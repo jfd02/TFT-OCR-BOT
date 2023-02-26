@@ -45,13 +45,13 @@ class CompsManager:
             elif champion_data["level"] == 3:
                 champs_to_buy.extend([champion] * 9)
             else:
-                raise Exception("Comps.py | Champion level must be a valid level (1-3)")
+                raise ValueError("Comps.py | Champion level must be a valid level (1-3)")
         return champs_to_buy
 
 
     def get_unknown_slots(self) -> list:
         """Creates a list of slots on the board that don't have a champion from the team composition"""
-        container: list = []
-        for champion_data in self.CURRENT_COMP()[1]:
-            container.append(self.CURRENT_COMP()[1][champion_data]["board_position"])
+        container: list = [
+            champion_data["board_position"] for _, champion_data in self.CURRENT_COMP()[1].items()
+            ]
         return [n for n in range(27) if n not in container]

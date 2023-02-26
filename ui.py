@@ -31,11 +31,14 @@ class UI:
 
     def setup_window_size(self) -> None:
         """Setups window size"""
-        primary_monitor: None = None
-        for monitor in screeninfo.get_monitors():
-            if monitor.is_primary:
-                primary_monitor: None = monitor
-                break
+        primary_monitor: None = next(
+            (
+                monitor
+                for monitor in screeninfo.get_monitors()
+                if monitor.is_primary
+            ),
+            None,
+        )
 
         if primary_monitor is None:
             print("No primary monitor found... Using 1920x1080")
