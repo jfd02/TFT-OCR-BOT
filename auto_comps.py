@@ -4,6 +4,8 @@ Champion names are different in lolchess/communitydragon/tftactics
 Some champion names is repeating because of different patches (but it's the same champion), for example Nomsy
 In-game champion names only in communitydragon
 """
+import re
+from urllib import parse
 
 import game_assets
 import json
@@ -11,22 +13,15 @@ import requests
 from difflib import SequenceMatcher
 import os
 from comps import CompsManager
+from bs4 import BeautifulSoup
 
 LOLCHESS_CHAMPIONS_URL = 'https://lolchess.gg/champions/'
 LOLCHESS_META_COMPS_URL = 'https://lolchess.gg/meta'
 DRAGON_URL = 'https://raw.communitydragon.org/latest/cdragon/tft/en_us.json'
 
 HARD_OVERRIDE_LIST = {'TFT7_Wukong': 'Wukong'}
-SOFT_OVERRIDE_LIST = {'nomsycannoneerforbuilder': ('nomsy', 'Nomsy'),
-                      'nomsyevokerforbuilder': ('nomsy', 'Nomsy'),
-                      'nomsymageforbuilder': ('nomsy', 'Nomsy')}
-ITEMS_OVERRIDE_LIST = {'CrownofChampions': 'CrownOfChampions'}
-FINAL_CHAMP_NAMES_LIST = {'Nunu': 'Nunu & Willump'}
-LOLCHESS_BOARD_ARRANGE = [21, 22, 23, 24, 25, 26, 27, 14, 15, 16, 17, 18, 19, 20, 7, 8, 9, 10, 11, 12, 13, 0, 1, 2, 3, 4, 5, 6]
-JSON_TO_FIX = ["isReadOnly", "isChallengerComment", "currentSet", "isWithGuide", "isWithYoutuber", "setKey",
-               "isLolchessggApp", "isDakggMobileApp",
-               "championStats", "championClasses", "championOrigins", "items", "fromItems", "deck", "deckUuid",
-               "deckMetaItems", "extraData"]
+LOLCHESS_BOARD_ARRANGE = [21, 22, 23, 24, 25, 26, 27, 14, 15, 16, 17, 18, 19, 20, 7, 8, 9, 10, 11, 12, 13, 0, 1, 2, 3,
+                          4, 5, 6]
 
 
 def Parse(input, fromwhere, to, startindex=0):
@@ -71,92 +66,47 @@ def __LoadLoLChessPrices():
     return [current_tft_set, output_dictionary]
 
 
-def __FixJson(input: str):
-    for each_json in JSON_TO_FIX:
-        input = input.replace(each_json + ':', '"' + each_json + '":')
-    return input
-
-
 def __LoadLolChessComps(input_str, set_str, comps_manager: CompsManager):
-    output_comps: dict = {}
-    url_start_string = "https://lolchess.gg/builder/set" + set_str + "?deck="
+    output_comps = []
+    url_start_string = "https://lolchess.gg/builder" + "?deck="
     parsed_links = ParseMultiple(input_str, url_start_string, '"')
-    champions_keys: dict = {}
-    items: dict = {}
-    comps_name: dict(str) = {}
-    for each_link in parsed_links:
-        is_good_comp = True
-        response_each_link = requests.get(url_start_string + each_link[1])
-        json_in_text = Parse(response_each_link.text, "      window.simulator = ", "              }")
-        text_proceed = __FixJson(json_in_text[1].replace("'", '"'))[:-4] + '}'
-        json_parsed = json.loads(text_proceed)
-        slots = []
-        if len(comps_name) == 0:
-            for each_comp in json_parsed["deckMetaItems"]:
-                url = each_comp["url"]
-                name = each_comp["name_en"]
-                id = Parse(url, "deck=", "&")
-                comps_name[id[1]] = name
-        if len(champions_keys) == 0:
-            for each_champ_stat in json_parsed["championStats"]:
-                id = each_champ_stat["key"]
-                normal_name = each_champ_stat["champion"]["name"]
-                if id in SOFT_OVERRIDE_LIST:
-                    normal_name = SOFT_OVERRIDE_LIST[id][1]
-                    id = SOFT_OVERRIDE_LIST[id][0]
-                champions_keys[id] = normal_name
-        if len(items) == 0:
-            for each_item in json_parsed["items"]:
-                item = json_parsed["items"][each_item]
-                id = item["id"]
-                name = item["name"].replace("'", '').replace('’', '').replace(' ', '')
-                items[id] = name
+    deck_soup = BeautifulSoup(input_str, "lxml")
+    deck_list = []
+    for deck in deck_soup.select(".guide-meta__deck-box"):
+        nms = deck.select_one(".guide-meta__deck__column.name.mr-3").find(text=True).strip()
+        afs = deck.select_one(".open-builder>a").attrs['href']
+        deck_list.append((nms, afs))
+    for nms, afs in deck_list:
+        deck_keys = parse.parse_qs(parse.urlparse(afs).query)['deck'][0]
+        deck_response = requests.get("https://lolchess.gg/builder/set8?deck=" + deck_keys)
+        pattern = r'<script id="__NEXT_DATA__" type="application/json">\s*({[\s\S]*?})\s*</script>'
+        json_in_text = re.search(pattern, deck_response.text).group(1)
+        query_data = json.loads(json_in_text).get("props").get("pageProps").get("dehydratedState").get("queries")[
+            0].get("state").get("data").get("refs")
+        deck_slots = requests.get(f"https://tft.dakgg.io/api/v1/team-builders/{deck_keys}").json()
+        slots = {}
         counter = 0
-        for each_slot in json_parsed["deck"]["slots"]:
-            index = counter
-            counter += 1
+        for each_slot in deck_slots.get("teamBuilder", {}).get("slots", []):
+
             if each_slot is not None:
-                slot_items = []
-                slot_champion_name_temp = each_slot["champion"]
-                if slot_champion_name_temp in SOFT_OVERRIDE_LIST:
-                    slot_champion_name_temp = SOFT_OVERRIDE_LIST[slot_champion_name_temp][0]
-                if slot_champion_name_temp not in champions_keys:
-                    is_good_comp = False
-                    break
-                slot_champion_name_temp = champions_keys[slot_champion_name_temp]
-                is_good_champion = False
-                best_score = 0.0
-                best_possible: str = None
-                for each_known_champ in comps_manager.champions:
-                    if each_known_champ == slot_champion_name_temp:
-                        is_good_champion = True
-                        break
-                    ratio = SequenceMatcher(a=each_known_champ, b=slot_champion_name_temp).ratio()
-                    if ratio >= 0.7 and ratio > best_score:
-                        best_score = ratio
-                        best_possible = each_known_champ
-                if is_good_champion == False:
-                    if best_possible is not None:
-                        slot_champion_name_temp = best_possible
-                        is_good_champion = True
-                    else:
-                        if slot_champion_name_temp in FINAL_CHAMP_NAMES_LIST:
-                            slot_champion_name_temp = FINAL_CHAMP_NAMES_LIST[slot_champion_name_temp]
-                            is_good_champion = True
-                if is_good_champion == False:
-                    is_good_comp = False
-                for each_item in each_slot.get("items", []):
-                    normal_item = items[each_item]
-                    if normal_item in ITEMS_OVERRIDE_LIST:
-                        normal_item = ITEMS_OVERRIDE_LIST[normal_item]
-                    if normal_item not in game_assets.ITEMS and normal_item not in game_assets.FULL_ITEMS:
-                        is_good_comp = False
-                        break
-                    slot_items.append(normal_item)
-                slots.append((slot_champion_name_temp, LOLCHESS_BOARD_ARRANGE[index], slot_items))
-        if is_good_comp:
-            output_comps[comps_name[each_link[1]]] = slots
+                try:
+                    champion_name = \
+                    list(filter(lambda e: e['key'] == each_slot.get("champion"), query_data.get("champions")))[
+                        0]['name']
+                except:
+                    continue
+                slot_items = render_item(query_data.get("items"), each_slot.get("items", []))
+                slots[champion_name] = {'board_position': LOLCHESS_BOARD_ARRANGE[each_slot.get("index")], 'items': slot_items,
+                                        'level': 3, 'final_comp': True}
+            counter += 3
+
+        output_comps.append([nms, slots])
     return output_comps
+
+
+def render_item(ob, ids):
+    items = list(filter(lambda e: e['key'] in ids, ob))
+    return [i['name'].replace(" ", "").replace("'", "") for i in items]
 
 
 def __LoadCommunityDragon():
@@ -205,12 +155,7 @@ def LoadChampionsAndComps(comp_manager: CompsManager):
                 final_boardsize = dragon_info_names_and_boardsize[each][1]
                 comp_manager.champions[final_name] = {'Gold': final_price, 'Board Size': final_boardsize}
         lol_chess_comps = __LoadLolChessComps(response_meta_comps, set_current, comp_manager)
-        for each_comp_name in lol_chess_comps:
-            temp = {}
-            for each_character in lol_chess_comps[each_comp_name]:
-                temp[each_character[0]] = {'board_position': each_character[1], 'items': each_character[2],
-                                           'level': 3, 'final_comp': True}
-            comp_manager.comps_loaded.append((each_comp_name, temp))
+        comp_manager.comps_loaded = lol_chess_comps
         jsoned_champions = json.dumps(comp_manager.champions)
         jsoned_comps = json.dumps(comp_manager.comps_loaded)
         with open(cached_file_path + set_current + '.json', 'w') as f:

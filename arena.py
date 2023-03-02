@@ -205,7 +205,7 @@ class Arena:
             item_to_move: None = None
             for build_item in champ.build:
                 build_item_components: list = list(
-                    game_assets.FULL_ITEMS[build_item])
+                    game_assets.FULL_ITEMS.get(build_item, []))
                 if item in build_item_components:
                     item_to_move: None = item
                     build_item_components.remove(item_to_move)
