@@ -23,7 +23,6 @@ HARD_OVERRIDE_LIST = {'TFT7_Wukong': 'Wukong'}
 LOLCHESS_BOARD_ARRANGE = [21, 22, 23, 24, 25, 26, 27, 14, 15, 16, 17, 18, 19, 20, 7, 8, 9, 10, 11, 12, 13, 0, 1, 2, 3,
                           4, 5, 6]
 
-
 def Parse(input, fromwhere, to, startindex=0):
     index_from = input.find(fromwhere, startindex)
     if index_from != -1:
@@ -83,9 +82,13 @@ def __LoadLolChessComps(input_str, set_str, comps_manager: CompsManager):
         json_in_text = re.search(pattern, deck_response.text).group(1)
         query_data = json.loads(json_in_text).get("props").get("pageProps").get("dehydratedState").get("queries")[
             0].get("state").get("data").get("refs")
+        with open("cached_data/deck.json", "w") as f:
+            f.write(json.dumps(query_data))
         deck_slots = requests.get(f"https://tft.dakgg.io/api/v1/team-builders/{deck_keys}").json()
         slots = {}
         counter = 0
+        augments = deck_slots.get("teamBuilder", {}).get("augments", [])
+        real_augments = [arg.get("name") for arg in query_data.get("augments", []) if arg.get("key") in augments]
         for each_slot in deck_slots.get("teamBuilder", {}).get("slots", []):
 
             if each_slot is not None:
@@ -100,7 +103,7 @@ def __LoadLolChessComps(input_str, set_str, comps_manager: CompsManager):
                                         'level': 3, 'final_comp': True}
             counter += 3
 
-        output_comps.append([nms, slots])
+        output_comps.append([nms, slots, real_augments])
     return output_comps
 
 
@@ -217,3 +220,4 @@ if __name__ == "__main__":
     comps_manager = CompsManager()
     comps_manager.champions = {}
     LoadChampionsAndComps(comps_manager)
+    print(comps_manager)

@@ -2,7 +2,7 @@
 Handles the board / bench state inside of the game and
 other variables used by the bot to make decisions
 """
-
+import json
 from time import sleep
 import game_assets
 import mk_functions
@@ -315,17 +315,33 @@ class Arena:
         if arena_functions.get_gold() >= 4:
             mk_functions.buy_xp()
 
+
+    def load_aguments(self):
+        augments = self.comps_manager.CURRENT_COMP()[2]
+        return augments
+
     def pick_augment(self) -> None:
-        """Picks an augment from user defined augment priority list or defaults to first augment"""
+        """Picks an augment from comp specific augment list or defaults to first augment"""
         augments: list = []
+        try:
+            game_augments = self.load_aguments()
+            print(f"  Comp specific augments: {game_augments}")
+            for augment in augments:
+                print(f"  Choosing specified augment: {augment}")
+                mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
+                return
+        except:
+            pass
+
         for coords in screen_coords.AUGMENT_POS:
             augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
             augments.append(augment)
 
         for augment in augments:
+            """Picks an augment from user defined augment priority list or defaults to first augment"""
             for potential in game_assets.AUGMENTS:
                 if potential in augment:
-                    print(f"  Choosing augment: {augment}")
+                    print(f"  Choosing user augment: {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                     return
                     

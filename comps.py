@@ -7,6 +7,7 @@ class CompsManager:
         self.sequence_index : int = -1
         self.is_sequence_mode = False
         self.sequence : list = []
+        self.augments: list = []
         self.comps_loaded : list[str, dict[str, dict[str,]]] = []
         self.champions: dict[str, dict[str, int]] = {}
 
