@@ -9,4 +9,4 @@ Fork of https://github.com/jfd02/TFT-OCR-BOT (Get the installation instructions,
 ![preview](https://user-images.githubusercontent.com/67195196/206607219-ce2f6397-ff3b-4543-87e8-17f8ab61325b.png)
 
 ## PLANNED:
-- Dynamic augments for each comp
+- Dynamic augments for each comp (TESTING)
