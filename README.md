@@ -1,7 +1,7 @@
 Fork of https://github.com/jfd02/TFT-OCR-BOT (Get the installation instructions, but use the files from this repository)
 
 
-- Implemented auto comps loading from lolchess (champion, board pos, items)
+- Implemented auto comps loading from lolchess (champion, board pos, items, augments)
 - Fixed items adding (emblems, other items)
 - Added new items (set 8)
 - Various comps selection modes
