@@ -331,16 +331,16 @@ class Arena:
         for augment in augments:
             try:
                 for potential in game_augments:
-                    """Picks an augment from comp specific augments"""
+                    """Picks an augment from comp defined augments"""
                     if potential in augment:
-                        print(f"  Choosing comp specified augment: {augment}")
+                        print(f"  Choosing comp defined augment: {augment}")
                         mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                         return
             except:
                 for potential in game_assets.AUGMENTS:
                     """Picks an augment from user defined augments"""
                     if potential in augment:
-                        print(f"  Choosing user augment: {augment}")
+                        print(f"  Choosing user defined augment: {augment}")
                         mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                         return
                     
