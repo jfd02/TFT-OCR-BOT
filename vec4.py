@@ -10,9 +10,11 @@ Transformations related to the game position & game size happen here
 
 from dataclasses import dataclass
 
+
 @dataclass
 class GameWindow:
     """Struct that contains information about the game window size and position"""
+
     x_pos: int
     y_pos: int
     width: int
