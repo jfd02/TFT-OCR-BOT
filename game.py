@@ -106,7 +106,6 @@ class Game:
         self.arena.check_health()
         print("  Getting a champ from the carousel")
         game_functions.get_champ_carousel(self.round)
-        game_functions.default_pos()
 
     def pve_round(self) -> None:
         """Handles tasks for PVE rounds"""
@@ -144,7 +143,7 @@ class Game:
             self.arena.pick_augment()
             sleep(2.5)
         if self.round in ("2-1"):
-            """Level to 5 at 2-5"""
+            """Level to 4 at 2-1"""
             self.arena.buy_xp_round()
             print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in ("2-5"):
