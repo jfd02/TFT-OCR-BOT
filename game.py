@@ -155,8 +155,7 @@ class Game:
             """Level to 6 at 3-2"""
             while arena_functions.get_level() < 6:
                 self.arena.buy_xp_round()
-            else:
-                print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
+            print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in ("4-1"):
             """Level to 7 at 4-1"""
             while arena_functions.get_level() < 7:
