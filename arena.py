@@ -330,8 +330,7 @@ class Arena:
 
 
     def load_aguments(self):
-        augments = self.comps_manager.CURRENT_COMP()[2]
-        return augments
+        return self.comps_manager.CURRENT_COMP()[2]
 
     def pick_augment(self) -> None:
         """Picks an augment from comp specific/user defined augment list or defaults to first augment"""
