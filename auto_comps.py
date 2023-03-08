@@ -101,7 +101,7 @@ def __LoadLolChessComps(input_str, set_str, comps_manager: CompsManager):
                     champion_name = \
                     list(filter(lambda e: e['key'] == each_slot.get("champion"), query_data.get("champions")))[
                         0]['name']
-                except:
+                except Exception:
                     continue
                 slot_items = render_item(query_data.get("items"), each_slot.get("items", []))
                 slots[champion_name] = {'board_position': LOLCHESS_BOARD_ARRANGE[each_slot.get("index")], 'items': slot_items,
