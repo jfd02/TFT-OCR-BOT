@@ -348,7 +348,7 @@ class Arena:
                         print(f"  Choosing comp defined augment: {augment}")
                         mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                         return
-            except:
+            except Exception:
                 for potential in game_assets.AUGMENTS:
                     """Picks an augment from user defined augments"""
                     if potential in augment:
