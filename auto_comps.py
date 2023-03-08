@@ -79,7 +79,9 @@ def __LoadLolChessComps(input_str, set_str, comps_manager: CompsManager):
         deck_list.append((nms, afs))
     for nms, afs in deck_list:
         deck_keys = parse.parse_qs(parse.urlparse(afs).query)['deck'][0]
-        deck_response = requests.get("https://lolchess.gg/builder/set8?hl=en&deck=" + deck_keys)
+        deck_response = requests.get(
+            f"https://lolchess.gg/builder/set8?hl=en&deck={deck_keys}"
+        )
         pattern = r'<script id="__NEXT_DATA__" type="application/json">\s*({[\s\S]*?})\s*</script>'
         json_in_text = re.search(pattern, deck_response.text).group(1)
         query_data = json.loads(json_in_text).get("props").get("pageProps").get("dehydratedState").get("queries")[
