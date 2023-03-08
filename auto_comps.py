@@ -196,12 +196,8 @@ def LoadChampionsAndComps(comp_manager: CompsManager):
     elif inputed.startswith('all_except'):
         comp_manager.is_sequence_mode = True
         splitted = inputed.split(' ')
-        temp_except = []
-        for each in splitted:
-            if each.isnumeric():
-                inted = int(each)
-                temp_except.append(inted)
-        for i in range(0, len(comp_manager.comps_loaded)):
+        temp_except = [int(each) for each in splitted if each.isnumeric()]
+        for i in range(len(comp_manager.comps_loaded)):
             if i not in temp_except:
                 comp_manager.sequence.append(i)
     else:
