@@ -165,11 +165,12 @@ def LoadChampionsAndComps(comp_manager: CompsManager):
         with open(cached_file_path + set_current + '.json', 'w') as f:
             f.write(jsoned_champions + '\n')
             f.write(jsoned_comps)
-    print('Set: ' + set_current + ', loaded champions: ' + str(len(comp_manager.champions)) + ', comps: ' + str(
-        len(comp_manager.comps_loaded)))
-    for i in range(0, len(comp_manager.comps_loaded)):
+    print(
+        f'Set: {set_current}, loaded champions: {len(comp_manager.champions)}, comps: {len(comp_manager.comps_loaded)}'
+    )
+    for i in range(len(comp_manager.comps_loaded)):
         temp = ','.join(comp_manager.comps_loaded[i][1])
-        print(str(i) + ' - ' + comp_manager.comps_loaded[i][0] + ' [' + temp + ']')
+        print(f'{str(i)} - {comp_manager.comps_loaded[i][0]} [{temp}]')
 
     inputed = ''
     temp_inputed = ''
