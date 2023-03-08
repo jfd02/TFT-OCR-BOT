@@ -83,7 +83,7 @@ def __LoadLolChessComps(input_str, set_str, comps_manager: CompsManager):
             f"https://lolchess.gg/builder/set8?hl=en&deck={deck_keys}"
         )
         pattern = r'<script id="__NEXT_DATA__" type="application/json">\s*({[\s\S]*?})\s*</script>'
-        json_in_text = re.search(pattern, deck_response.text).group(1)
+        json_in_text = re.search(pattern, deck_response.text)[1]
         query_data = json.loads(json_in_text).get("props").get("pageProps").get("dehydratedState").get("queries")[
             1].get("state").get("data").get("refs")
         with open("cached_data/deck.json", "w") as f:
