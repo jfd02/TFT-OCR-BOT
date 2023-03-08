@@ -191,7 +191,7 @@ def LoadChampionsAndComps(comp_manager: CompsManager):
         comp_manager.is_sequence_mode = False
     elif inputed == 'all':
         comp_manager.is_sequence_mode = True
-        for i in range(0, len(comp_manager.comps_loaded)):
+        for i in range(len(comp_manager.comps_loaded)):
             comp_manager.sequence.append(i)
     elif inputed.startswith('all_except'):
         comp_manager.is_sequence_mode = True
