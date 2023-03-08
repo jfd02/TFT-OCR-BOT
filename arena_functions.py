@@ -48,10 +48,14 @@ def valid_champ(champ: str, comps : CompsManager) -> str:
     if champ in comps.champions:
         return champ
 
-    for champion in comps.champions:
-        if SequenceMatcher(a=champion, b=champ).ratio() >= 0.7:
-            return champion
-    return ""
+    return next(
+        (
+            champion
+            for champion in comps.champions
+            if SequenceMatcher(a=champion, b=champ).ratio() >= 0.7
+        ),
+        "",
+    )
 
 def get_champ(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, shop_array: list, comps : CompsManager) -> str:
     """Returns a tuple containing the shop position and champion name"""
