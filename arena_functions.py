@@ -103,10 +103,15 @@ def bench_occupied_check() -> list:
 
 def valid_item(item: str) -> str | None:
     """Checks if the item passed in arg one is valid"""
-    for valid_item_name in game_assets.ITEMS:
-        if valid_item_name in item or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7:
-            return valid_item_name
-    return None
+    return next(
+        (
+            valid_item_name
+            for valid_item_name in game_assets.ITEMS
+            if valid_item_name in item
+            or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7
+        ),
+        None,
+    )
 
 
 def get_items() -> list:
