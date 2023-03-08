@@ -123,15 +123,11 @@ def __LoadCommunityDragon():
     set_data_champions = json_parsed["setData"][2]["champions"]
     output = {}
     for each_champion in set_data_champions:
-        board_size = 1
         traits = each_champion["traits"]
-        for each_trait in traits:
-            if each_trait == 'Dragon':
-                board_size = 2
-                break
+        board_size = next((2 for each_trait in traits if each_trait == 'Dragon'), 1)
         name_tft = each_champion["apiName"]
-        ingame_name = each_champion["name"]
         if name_tft not in output:
+            ingame_name = each_champion["name"]
             output[name_tft] = (ingame_name, board_size)
     return output
 
