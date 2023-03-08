@@ -61,6 +61,8 @@ def __LoadLoLChessPrices():
         character_name_ingame = each_character['ingame_code']
         character_price = int(each_character['cost'])
         if character_name_ingame not in output_dictionary:
+            character_code = each_character['code']
+            character_price = int(each_character['cost'])
             output_dictionary[character_name_ingame] = (character_price, character_code)
     return [current_tft_set, output_dictionary]
 
