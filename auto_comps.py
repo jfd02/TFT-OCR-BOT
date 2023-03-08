@@ -77,18 +77,19 @@ def __LoadLolChessComps(input_str, set_str, comps_manager: CompsManager):
         deck_list.append((nms, afs))
     for nms, afs in deck_list:
         deck_keys = parse.parse_qs(parse.urlparse(afs).query)['deck'][0]
-        deck_response = requests.get("https://lolchess.gg/builder/set8?deck=" + deck_keys)
+        deck_response = requests.get("https://lolchess.gg/builder/set8?hl=en&deck=" + deck_keys)
         pattern = r'<script id="__NEXT_DATA__" type="application/json">\s*({[\s\S]*?})\s*</script>'
         json_in_text = re.search(pattern, deck_response.text).group(1)
         query_data = json.loads(json_in_text).get("props").get("pageProps").get("dehydratedState").get("queries")[
-            0].get("state").get("data").get("refs")
+            1].get("state").get("data").get("refs")
         with open("cached_data/deck.json", "w") as f:
             f.write(json.dumps(query_data))
         deck_slots = requests.get(f"https://tft.dakgg.io/api/v1/team-builders/{deck_keys}").json()
         slots = {}
         counter = 0
         augments = deck_slots.get("teamBuilder", {}).get("augments", [])
-        real_augments = [arg.get("name") for arg in query_data.get("augments", []) if arg.get("key") in augments]
+        real_augments = [arg.get("name") for arg in query_data.get(""
+                                                                   "", []) if arg.get("key") in augments]
         for each_slot in deck_slots.get("teamBuilder", {}).get("slots", []):
 
             if each_slot is not None:
