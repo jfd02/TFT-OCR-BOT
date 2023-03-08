@@ -14,12 +14,12 @@ class CompsManager:
     def SetCOMPSLoaded(self, input):
         self.comps_loaded = input
     def SelectNextComp(self):
-        sequence_len = len(self.sequence)
-        comps_size = len(self.comps_loaded)
         if self.is_sequence_mode == False:
+            comps_size = len(self.comps_loaded)
             self.index_current = random.randint(0, comps_size-1)
         else:
             self.sequence_index = self.sequence_index + 1
+            sequence_len = len(self.sequence)
             if (self.sequence_index >= sequence_len):
                 self.sequence_index = 0
             self.index_current = self.sequence[self.sequence_index]
