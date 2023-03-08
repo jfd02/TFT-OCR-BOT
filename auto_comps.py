@@ -180,12 +180,9 @@ def LoadChampionsAndComps(comp_manager: CompsManager):
             temp_inputed = f.read()
         if temp_inputed != '':
             print(
-                'Your last selection was: "' + temp_inputed + '", press Enter to use last selection, or type "n" and press Enter to make new selection')
-            if input().lower() == 'n':
-                inputed = ''
-            else:
-                inputed = temp_inputed
-
+                f'Your last selection was: "{temp_inputed}", press Enter to use last selection, or type "n" and press Enter to make new selection'
+            )
+            inputed = '' if input().lower() == 'n' else temp_inputed
     if inputed == '':
         print(
             'Select mode: \n-Press Enter to play random comps without sequence\n-Type "all" and press Enter to play all comps in sequence\n-Type "all_except 2 3 4"(for example) and press Enter to play all comps in sequence except selected\n-Type "1 2 3"(for example) and press Enter to play only selected comps in sequence (it will loop)')
