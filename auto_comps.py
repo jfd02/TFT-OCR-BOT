@@ -92,8 +92,8 @@ def __LoadLolChessComps(input_str, set_str, comps_manager: CompsManager):
         slots = {}
         counter = 0
         augments = deck_slots.get("teamBuilder", {}).get("augments", [])
-        real_augments = [arg.get("name") for arg in query_data.get(""
-                                                                   "", []) if arg.get("key") in augments]
+        real_augments = [arg.get("name") for arg in query_data.get('augments', [])
+                         if arg.get("key") in augments]
         for each_slot in deck_slots.get("teamBuilder", {}).get("slots", []):
 
             if each_slot is not None:
