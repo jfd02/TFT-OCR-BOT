@@ -335,26 +335,17 @@ class Arena:
     def pick_augment(self) -> None:
         """Picks an augment from comp specific/user defined augment list or defaults to first augment"""
         augments: list = []
-        game_augments = self.load_aguments()
+        comp_augments = self.load_aguments()
         for coords in screen_coords.AUGMENT_POS:
             augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
             augments.append(augment)
 
         for augment in augments:
-            try:
-                for potential in game_augments:
-                    """Picks an augment from comp defined augments"""
-                    if potential in augment:
-                        print(f"  Choosing comp defined augment: {augment}")
-                        mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
-                        return
-            except Exception:
-                for potential in game_assets.AUGMENTS:
-                    """Picks an augment from user defined augments"""
-                    if potential in augment:
-                        print(f"  Choosing user defined augment: {augment}")
-                        mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
-                        return
+            for potential in comp_augments+game_assets.AUGMENTS:
+                if potential in augment:
+                    print(f"  Choosing augment: {augment}")
+                    mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
+                    return
                     
         if self.augment_roll:
             print("  Rolling for augment")
