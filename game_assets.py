@@ -186,7 +186,6 @@ AUGMENTS: list[str] = [
     "Verdant Veil",
     "First Aid Kit",
     "Rich Get Richer+",
-    "Combat Training",
     "Meditation",
     "Axiom Arc",
 ]
