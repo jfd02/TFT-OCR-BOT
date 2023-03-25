@@ -80,7 +80,7 @@ def __LoadLolChessComps(input_str, set_str, comps_manager: CompsManager):
     for nms, afs in deck_list:
         deck_keys = parse.parse_qs(parse.urlparse(afs).query)['deck'][0]
         deck_response = requests.get(
-            f"https://lolchess.gg/builder/set8?hl=en&deck={deck_keys}"
+            f"https://lolchess.gg/builder/set8.5?hl=en&deck={deck_keys}"
         )
         pattern = r'<script id="__NEXT_DATA__" type="application/json">\s*({[\s\S]*?})\s*</script>'
         json_in_text = re.search(pattern, deck_response.text)[1]
@@ -209,10 +209,3 @@ def LoadChampionsAndComps(comp_manager: CompsManager):
                 comp_manager.sequence.append(inted)
     with open(inputed_file_path, 'w') as f:
         f.write(inputed)
-
-
-if __name__ == "__main__":
-    comps_manager = CompsManager()
-    comps_manager.champions = {}
-    LoadChampionsAndComps(comps_manager)
-    print(comps_manager)
