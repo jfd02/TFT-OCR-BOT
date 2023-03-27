@@ -5,57 +5,57 @@ Items are in camel case and a-Z
 """
 
 COMP = {
-    "Ashe": {
-        "board_position": 0,
-        "items": ["GuinsoosRageblade", "LastWhisper", "GiantSlayer"],
+    "Vayne": {
+        "board_position": 5,
+        "items": ["InfinityEdge", "LastWhisper", "GiantSlayer"],
         "level": 3,
         "final_comp": True,
     },
-    "Ezreal": {
+    "Twisted Fate": {
         "board_position": 6,
-        "items": ["BlueBuff", "GiantSlayer", "JeweledGauntlet"],
+        "items": ["JeweledGauntlet", "StatikkShiv", "HextechGunblade"],
+        "level": 3,
+        "final_comp": False
+    },
+    "Kayle": {
+        "board_position": 13,
+        "items": [],
         "level": 3,
         "final_comp": True
     },
-    "Gangplank": {
-        "board_position": 15,
+    "Annie": {
+        "board_position": 22,
         "items": [],
         "level": 3,
         "final_comp": True,
     },
-    "Malphite": {
-        "board_position": 22,
-        "items": ["ZzRotPortal"],
+    "Yasuo": {
+        "board_position": 23,
+        "items": ["Bloodthirster", "TitansResolve"],
         "level": 3,
         "final_comp": True,
     },
-    "Renekton": {
+    "Nilah": {
         "board_position": 24,
-        "items": ["WarmogsArmor", "DragonsClaw", "Redemption"],
+        "items": ["LocketoftheIronSolari", "LocketoftheIronSolari", "IonicSpark"],
         "level": 3,
         "final_comp": True,
     },
-    "LeeSin": {
+    "Gangplank": {
         "board_position": 25,
         "items": [],
         "level": 3,
         "final_comp": True
     },
-    "Yasuo": {
+    "Fiddlesticks": {
+        "board_position": 25,
+        "items": [],
+        "level": 3,
+        "final_comp": True
+    },
+    "Fiora": {
         "board_position": 26,
-        "items": ["Bloodthirster", "TitansResolve"],
-        "level": 3,
-        "final_comp": True,
-    },
-    "Zed": {
-        "board_position": 18,
-        "items": ["EdgeofNight", "RunaansHurricane", "LastWhisper"],
-        "level": 3,
-        "final_comp": True,
-    },
-    "Mordekaiser": {
-        "board_position": 19,
-        "items": ["RabadonsDeathcap", "HextechGunblade", "Morellonomicon"],
+        "items": [],
         "level": 3,
         "final_comp": True,
     }
@@ -136,13 +136,13 @@ def champions_to_buy() -> list:
         elif champion_data["level"] == 3:
             champs_to_buy.extend([champion] * 9)
         else:
-            raise ValueError("Comps.py | Champion level must be a valid level (1-3)")
+            raise Exception("Comps.py | Champion level must be a valid level (1-3)")
     return champs_to_buy
 
 
 def get_unknown_slots() -> list:
     """Creates a list of slots on the board that don't have a champion from the team composition"""
-    container: list = [
-        champion_data["board_position"] for _, champion_data in COMP.items()
-    ]
+    container: list = []
+    for _, champion_data in COMP.items():
+        container.append(champion_data["board_position"])
     return [n for n in range(27) if n not in container]
