@@ -23,7 +23,7 @@ ELUSIVE_ITEMS: set[str] = {"AceEmblem", "AegisEmblem", "BrawlerEmblem", "PRIMESe
                            "HackerEmblem", "LaserCorpsEmblem", "PranksterEmblem", 
                            "RiftwalkerEmblem", "StarGuardianEmblem", "TheUndergroundEmblem"}
 
-GADGETEEN_ITEMS: set[str] = {"InductionPoweredWarmogsArmor", "JumpStartedSpearofShojin", "GadgeteensTitansResolve",
+GADGETEEN_ITEMS: set[str] = {"InductionPoweredWarmogsArmor", "JumpStartedSpearofShojin", 
                              "MagnetizedIonicSpark", "HandofNondeterministicJustice", "OVERFLOWERROR//GiantSlayer",
                              "ChainswordBloodthirster", "ShroudofEvenStillerness", "OverclockedSunfireCape"}
 

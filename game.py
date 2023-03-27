@@ -94,7 +94,9 @@ class Game:
                     ran_round: str = self.round
             sleep(0.5)
         self.message_queue.put("CLEAR")
+        sleep(0.3)
         game_functions.exit_game()
+        sleep(1)
         game_functions.victory_exit()
 
     def carousel_round(self) -> None:
