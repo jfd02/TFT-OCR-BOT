@@ -78,8 +78,15 @@ def default_pos() -> None:
 
 def forfeit() -> None:
     """Forfeits the game"""
-    mk_functions.press_esc()
-    mk_functions.left_click(screen_coords.SURRENDER_LOC.get_coords())
+    mk_functions.press_enter()
+    sleep(0.2)
+    mk_functions.press_slash()
+    sleep(0.2)
+    mk_functions.press_f()
+    sleep(0.2)
+    mk_functions.press_f()
+    sleep(0.2)
+    mk_functions.press_enter()
     sleep(0.1)
     mk_functions.left_click(screen_coords.SURRENDER_TWO_LOC.get_coords())
     sleep(1)
