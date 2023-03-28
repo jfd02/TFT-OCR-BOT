@@ -60,7 +60,7 @@ if __name__ == "__main__":
     game_thread = multiprocessing.Process(target=game_loop, args=(message_queue,comps_manager))
 
     print("TFT OCR | https://github.com/jfd02/TFT-OCR-BOT")
-    #checks if auto_comp files exist and deletes them
+    """checks if auto_comp files exist and deletes them"""
     if(os.path.isfile("cached_data\cached8.5.json")):
         os.remove("cached_data\cached8.5.json")
         print("Old comp files sucessfully deleted")
