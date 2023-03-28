@@ -96,7 +96,7 @@ class Game:
         self.message_queue.put("CLEAR")
         sleep(0.3)
         game_functions.exit_game()
-        sleep(1)
+        sleep(0.3)
         game_functions.victory_exit()
 
     def carousel_round(self) -> None:
@@ -152,22 +152,24 @@ class Game:
             """Level to 5 at 2-5"""
             while arena_functions.get_level() < 5:
                 self.arena.buy_xp_round()
-            print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
+                print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in ("3-2"):
             """Level to 6 at 3-2"""
             while arena_functions.get_level() < 6:
                 self.arena.buy_xp_round()
-            print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
+                print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in ("4-1"):
             """Level to 7 at 4-1"""
             while arena_functions.get_level() < 7:
                 self.arena.buy_xp_round()
-            print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
+                print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in ("5-1"):
             """Level to 8 at 5-1"""
             while arena_functions.get_level() < 8:
                 self.arena.buy_xp_round()
-            print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
+                print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
+        else:
+            pass
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items")
             game_functions.pickup_items()

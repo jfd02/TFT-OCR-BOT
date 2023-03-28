@@ -121,6 +121,7 @@ def get_client() -> tuple:
             print("  Client not open! Trying again in 10 seconds.")
             sleep(10)
     print("  Client found")
+    sleep(5)
     return (remoting_auth_token, server_url)
 
 
