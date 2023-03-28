@@ -38,7 +38,7 @@ if __name__ == "__main__":
                                "Gnar": {"Gold": 3, "Board Size": 1}, "Twisted Fate": {"Gold": 4, "Board Size": 1},
                                "Mordekaiser": {"Gold": 5, "Board Size": 1}, "Annie": {"Gold": 2, "Board Size": 1},
                                "Fiora": {"Gold": 2, "Board Size": 1}, "Alistar": {"Gold": 3, "Board Size": 1},
-                               "Aphelios": {"Gold": 5, "Board Size": 1}, "Viego": {"Gold": 4, "Board Size": 1},
+                               "Garen": {"Gold": 4, "Board Size": 1}, "Viego": {"Gold": 4, "Board Size": 1},
                                "Kayle": {"Gold": 1, "Board Size": 1}, "Vi": {"Gold": 2, "Board Size": 1},
                                "Samira": {"Gold": 4, "Board Size": 1}, "Sona": {"Gold": 3, "Board Size": 1},
                                "Lulu": {"Gold": 1, "Board Size": 1}, "Shen": {"Gold": 3, "Board Size": 1},
@@ -60,6 +60,14 @@ if __name__ == "__main__":
     game_thread = multiprocessing.Process(target=game_loop, args=(message_queue,comps_manager))
 
     print("TFT OCR | https://github.com/jfd02/TFT-OCR-BOT")
+    #checks if auto_comp files exist and deletes them
+    if(os.path.isfile("cached_data\cached8.5.json")):
+        os.remove("cached_data\cached8.5.json")
+        print("Old comp files sucessfully deleted")
+    if(os.path.isfile("cached_data\deck.json")):
+        os.remove("cached_data\deck.json")
+    if(os.path.isfile("cached_data\inputed")):
+        os.remove("cached_data\inputed")
     print("Close this window to terminate the overlay window & program")
     auto_comps.LoadChampionsAndComps(comps_manager)
     game_thread.start()
