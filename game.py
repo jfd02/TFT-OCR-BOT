@@ -77,7 +77,10 @@ class Game:
                 return
 
             if self.round != ran_round:
-                if self.round in game_assets.CAROUSEL_ROUND:
+                if self.round in game_assets.SECOND_ROUND:
+                    self.second_round()
+                    ran_round: str = self.round
+                elif self.round in game_assets.CAROUSEL_ROUND:
                     self.carousel_round()
                     ran_round: str = self.round
                 elif self.round in game_assets.PVE_ROUND:
@@ -91,6 +94,14 @@ class Game:
             sleep(0.5)
         self.message_queue.put("CLEAR")
         game_functions.exit_game()
+
+    def second_round(self) -> None:
+        """Move unknown champion to board after first carousel"""
+        print(f"\n[Second Round] {self.round}")
+        self.message_queue.put("CLEAR")
+        self.arena.bench[0] = "?"
+        self.arena.move_unknown()
+        self.end_round_tasks()
 
     def carousel_round(self) -> None:
         """Handles tasks for carousel rounds"""
