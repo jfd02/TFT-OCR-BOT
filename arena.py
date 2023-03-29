@@ -271,7 +271,7 @@ class Arena:
     def tacticians_crown_check(self) -> None:
         """Checks if the item from carousel is tacticians crown"""
         mk_functions.move_mouse(screen_coords.ITEM_POS[0][0].get_coords())
-        sleep(2)
+        sleep(0.5)
         item: str = ocr.get_text(screenxy=screen_coords.ITEM_POS[0][1].get_coords(), scale=3, psm=13,
                             whitelist=ocr.ALPHABET_WHITELIST)
         item: str = arena_functions.valid_item(item)
