@@ -19,7 +19,7 @@ LOLCHESS_CHAMPIONS_URL = 'https://lolchess.gg/champions/'
 LOLCHESS_META_COMPS_URL = 'https://lolchess.gg/meta'
 DRAGON_URL = 'https://raw.communitydragon.org/latest/cdragon/tft/en_us.json'
 
-HARD_OVERRIDE_LIST = {'TFT7_Wukong': 'Wukong'}
+HARD_OVERRIDE_LIST = {'Nunu': 'Nunu & Willump', 'BelVeth': "Bel'Veth"}
 LOLCHESS_BOARD_ARRANGE = [21, 22, 23, 24, 25, 26, 27, 14, 15, 16, 17, 18, 19, 20, 7, 8, 9, 10, 11, 12, 13, 0, 1, 2, 3,
                           4, 5, 6]
 
@@ -100,7 +100,7 @@ def __LoadLolChessComps(input_str, set_str, comps_manager: CompsManager):
                 try:
                     champion_name = \
                     list(filter(lambda e: e['key'] == each_slot.get("champion"), query_data.get("champions")))[
-                        0]['name']
+                        0]['name'].replace("BelVeth", "Bel'Veth")
                 except Exception:
                     continue
                 slot_items = render_item(query_data.get("items"), each_slot.get("items", []))
