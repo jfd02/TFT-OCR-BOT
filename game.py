@@ -127,8 +127,6 @@ class Game:
             sleep(1.5)
             self.arena.fix_unknown()
             self.arena.tacticians_crown_check()
-        elif self.round == "4-7":
-            game_functions.select_shop()
 
         self.arena.fix_bench_state()
         self.arena.spend_gold()
