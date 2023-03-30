@@ -56,11 +56,6 @@ def check_alive() -> bool:    # Refactor this function to use API
     )
 
 
-def select_shop() -> None:
-    """Clicks the take all button on special round"""
-    mk_functions.left_click(screen_coords.TAKE_ALL_BUTTON.get_coords())
-
-
 def exit_game() -> None:
     """Exits the game"""
     mk_functions.left_click(screen_coords.EXIT_NOW_LOC.get_coords())

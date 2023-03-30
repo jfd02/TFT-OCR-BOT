@@ -19,7 +19,7 @@ COMBINED_ITEMS: set[str] = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLar
 
 ELUSIVE_ITEMS: set[str] = {"AceEmblem", "AegisEmblem", "BrawlerEmblem",
                            "PRIMESelector", "SpellslingerEmblem", "CivilianEmblem",
-                           "ReconEmblem", "StarGuardianEmblem", "TheUndergroundEmblem",
+                           "InfiniTeamEmblem", "StarGuardianEmblem", "TheUndergroundEmblem",
                            "SureshotEmblem", "DefenderEmblem", "MechaPRIMEEmblem",
                            "GadgeteenEmblem", "HackerEmblem", "PranksterEmblem"}
 
@@ -50,65 +50,65 @@ ITEMS: set[str] = COMBINED_ITEMS.union(ELUSIVE_ITEMS).union(
     GADGETEEN_ITEMS).union(ORNN_ITEMS).union(RADIANT_ITEMS)
 
 CHAMPIONS: dict[str, dict[str, int]] = {
+    "Aatrox": {"Gold": 4, "Board Size": 1},
     "Alistar": {"Gold": 3, "Board Size": 1},
     "Annie": {"Gold": 2, "Board Size": 1},
-    "Aphelios": {"Gold": 5, "Board Size": 1},
     "Ashe": {"Gold": 1, "Board Size": 1},
-    "AurelionSol": {"Gold": 4, "Board Size":1},
+    "Aurelion Sol": {"Gold": 4, "Board Size":1},
     "Belveth": {"Gold": 4, "Board Size": 1},
     "Blitzcrank": {"Gold": 1, "Board Size": 1},
     "Camille": {"Gold": 2, "Board Size": 1},
-    "Chogath": {"Gold": 3, "Board Size": 1},
     "Draven": {"Gold": 2, "Board Size": 1},
     "Ekko": {"Gold": 4, "Board Size": 1},
     "Ezreal": {"Gold": 2, "Board Size": 1},
     "Fiddlesticks": {"Gold": 5, "Board Size": 1},
     "Fiora": {"Gold": 2, "Board Size": 1},
-    "Galio": {"Gold": 1, "Board Size": 1},
     "Gangplank": {"Gold": 1, "Board Size": 1},
+    "Garen": {"Gold": 4, "Board Size": 1},
+    "Gnar": {"Gold": 3, "Board Size": 1},
     "Janna": {"Gold": 5, "Board Size": 1},
     "Jax": {"Gold": 3, "Board Size": 1},
+    "Jhin": {"Gold": 4, "Board Size": 1},
     "Jinx": {"Gold": 2, "Board Size": 1},
     "Kaisa": {"Gold": 3, "Board Size": 1},
     "Kayle": {"Gold": 1, "Board Size": 1},
     "Leblanc": {"Gold": 3, "Board Size": 1},
     "LeeSin": {"Gold": 2, "Board Size": 1},
     "Leona": {"Gold": 5, "Board Size": 1},
+    "Lucian": {"Gold": 1, "Board Size": 1},
     "Lulu": {"Gold": 1, "Board Size": 1},
     "Lux": {"Gold": 1, "Board Size": 1},
     "Malphite": {"Gold": 2, "Board Size": 1},
-    "MissFortune": {"Gold": 4, "Board Size": 1},
+    "Miss Fortune": {"Gold": 4, "Board Size": 1},
     "Mordekaiser": {"Gold": 5, "Board Size": 1},
+    "Morgana": {"Gold": 3, "Board Size": 1},
     "Nasus": {"Gold": 1, "Board Size": 1},
+    "Neeko": {"Gold": 4, "Board Size": 1},
     "Nilah": {"Gold": 3, "Board Size": 1},
     "Nunu": {"Gold": 5, "Board Size": 1},
+    "Pantheon": {"Gold": 1, "Board Size": 1},
     "Poppy": {"Gold": 1, "Board Size": 1},
+    "Pyke": {"Gold": 2, "Board Size": 1},
     "Rammus": {"Gold": 3, "Board Size": 1},
     "Rell": {"Gold": 2, "Board Size": 1},
     "Renekton": {"Gold": 1, "Board Size": 1},
     "Riven": {"Gold": 3, "Board Size": 1},
     "Samira": {"Gold": 4, "Board Size": 1},
-    "Sejuani": {"Gold": 4, "Board Size": 1},
-    "Senna": {"Gold": 3, "Board Size": 1},
-    "Sett": {"Gold": 4, "Board Size": 1},
+    "Shen": {"Gold": 3, "Board Size": 1},
     "Sivir": {"Gold": 2, "Board Size": 1},
     "Sona": {"Gold": 3, "Board Size": 1},
-    "Soraka": {"Gold": 4, "Board Size": 1},
     "Sylas": {"Gold": 1, "Board Size": 1},
     "Syndra": {"Gold": 5, "Board Size": 1},
-    "Taliyah": {"Gold": 4, "Board Size": 1},
-    "Talon": {"Gold": 1, "Board Size": 1},
+    "Twisted Fate": {"Gold": 4, "Board Size": 1},
+    "Ultimate Ezreal": {"Gold": 5, "Board Size": 1},
     "Urgot": {"Gold": 5, "Board Size": 1},
     "Vayne": {"Gold": 3, "Board Size": 1},
-    "Velkoz": {"Gold": 3, "Board Size": 1},
+    "Vex": {"Gold": 3, "Board Size": 1},
     "Vi": {"Gold": 2, "Board Size": 1},
     "Viego": {"Gold": 4, "Board Size": 1},
+    "Warwick": {"Gold": 4, "Board Size": 1},
     "Wukong": {"Gold": 1, "Board Size": 1},
-    "Yasuo": {"Gold": 2, "Board Size": 1},
-    "Yuumi": {"Gold": 2, "Board Size": 1},
-    "Zac": {"Gold": 4, "Board Size": 1},
-    "Zed": {"Gold": 4, "Board Size": 1},
-    "Zoe": {"Gold": 3, "Board Size": 1}}
+    "Yasuo": {"Gold": 2, "Board Size": 1}}
 
 ROUNDS: set[str] = {"1-1", "1-2", "1-3", "1-4",
                     "2-1", "2-2", "2-3", "2-4", "2-5", "2-6", "2-7",
@@ -118,9 +118,11 @@ ROUNDS: set[str] = {"1-1", "1-2", "1-3", "1-4",
                     "6-1", "6-2", "6-3", "6-4", "6-5", "6-6", "6-7",
                     "7-1", "7-2", "7-3", "7-4", "7-5", "7-6", "7-7"}
 
+SECOND_ROUND: set[str] = {"1-2"}
+
 CAROUSEL_ROUND: set[str] = {"1-1", "2-4", "3-4", "4-4", "5-4", "6-4", "7-4"}
 
-PVE_ROUND: set[str] = {"1-2", "1-3", "1-4", "2-7", "3-7", "4-7", "5-7", "6-7", "7-7"}
+PVE_ROUND: set[str] = {"1-3", "1-4", "2-7", "3-7", "4-7", "5-7", "6-7", "7-7"}
 
 PVP_ROUND: set[str] = {"2-1", "2-2", "2-3", "2-5", "2-6",
                        "3-1", "3-2", "3-3", "3-5", "3-6",
@@ -131,7 +133,7 @@ PVP_ROUND: set[str] = {"2-1", "2-2", "2-3", "2-5", "2-6",
 
 PICKUP_ROUNDS: set[str] = {"2-1", "3-1", "4-1", "5-1", "6-1", "7-1"}
 
-ANVIL_ROUNDS: set[str] = {"5-1", "6-1", "7-1"}
+ANVIL_ROUNDS: set[str] = {"2-1", "2-5", "3-1", "3-5", "4-1", "4-5", "5-1", "5-5", "6-1" "6-5", "7-1", "7-5"}
 
 AUGMENT_ROUNDS: set[str] = {"2-1", "3-2", "4-2"}
 
