@@ -30,11 +30,11 @@ def pickup_items() -> None:  # Refacor this function to make it more clear whats
         if index == 7:  # Don't need to sleep on final click
             return
         if index == 0:
-            sleep(1.4)
+            sleep(1.2)
         if index % 2 == 0:
-            sleep(2.1)
+            sleep(2.0)
         else:
-            sleep(1.4)
+            sleep(1.2)
 
 
 def get_champ_carousel(tft_round: str) -> None:
@@ -54,11 +54,6 @@ def check_alive() -> bool:    # Refactor this function to use API
         )
         != 'CONTINUE'
     )
-
-
-def select_shop() -> None:
-    """Clicks the take all button on special round"""
-    mk_functions.left_click(screen_coords.TAKE_ALL_BUTTON.get_coords())
 
 
 def exit_game() -> None:
