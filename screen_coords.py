@@ -76,7 +76,7 @@ BUY_LOC: list[Vec2] = [
 ]
 
 ITEM_PICKUP_LOC: list[Vec2] = [
-    Vec2(1480, 611),
+    Vec2(1455, 611),
     Vec2(396, 544),
     Vec2(1424, 486),
     Vec2(459, 440),
@@ -147,5 +147,3 @@ HEALTH_LOC: Vec2 = Vec2(1897, 126)
 SURRENDER_LOC: Vec2 = Vec2(771, 843)
 
 SURRENDER_TWO_LOC: Vec2 = Vec2(832, 489)
-
-TAKE_ALL_BUTTON: Vec2 = Vec2(1352, 940)
