@@ -91,7 +91,7 @@ class Arena:
             if isinstance(champion, str):
                 print(f"  Moving {champion} to board")
                 mk_functions.left_click(screen_coords.BENCH_LOC[index].get_coords())
-                sleep(0.3)
+                sleep(0.4)
                 mk_functions.left_click(
                     screen_coords.BOARD_LOC[self.unknown_slots[len(self.board_unknown)]].get_coords())
                 self.bench[index] = None
