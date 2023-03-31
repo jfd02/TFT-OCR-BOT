@@ -81,7 +81,10 @@ class Game:
 
             if self.round != ran_round:
                 print(f"\n[Comps] Stick to [{','.join(self.comps_manager.CURRENT_COMP()[1])}] ")
-                if self.round in game_assets.CAROUSEL_ROUND:
+                if self.round in game_assets.SECOND_ROUND:
+                    self.second_round()
+                    ran_round: str = self.round
+                elif self.round in game_assets.CAROUSEL_ROUND:
                     self.carousel_round()
                     ran_round: str = self.round
                 elif self.round in game_assets.PVE_ROUND:
@@ -99,6 +102,14 @@ class Game:
         sleep(0.3)
         game_functions.victory_exit()
 
+    def second_round(self) -> None:
+        """Move unknown champion to board after first carousel"""
+        print(f"\n[Second Round] {self.round}")
+        self.message_queue.put("CLEAR")
+        self.arena.bench[0] = "?"
+        self.arena.move_unknown()
+        self.end_round_tasks()
+    
     def carousel_round(self) -> None:
         """Handles tasks for carousel rounds"""
         print(f"\n[Carousel Round] {self.round}")
@@ -123,8 +134,6 @@ class Game:
             sleep(1.5)
             self.arena.fix_unknown()
             self.arena.tacticians_crown_check()
-        elif self.round == "4-7":
-            game_functions.select_shop()
 
         self.arena.fix_bench_state()
         self.arena.spend_gold()
@@ -181,11 +190,11 @@ class Game:
         self.arena.replace_unknown()
         if self.arena.final_comp:
             self.arena.final_comp_check()
-        self.arena.bench_cleanup()
 
         if self.round in game_assets.ITEM_PLACEMENT_ROUNDS:
             sleep(1)
             self.arena.place_items()
+        self.arena.bench_cleanup()
         self.end_round_tasks()
 
     def end_round_tasks(self) -> None:
