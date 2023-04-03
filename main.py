@@ -85,5 +85,6 @@ if __name__ == "__main__":
                 print('Type yes or no')
                 continue
     print("Close this window to terminate the overlay window & program")
+    auto_comps.LoadChampionsAndComps(comps_manager)
     game_thread.start()
     overlay.ui_loop()
