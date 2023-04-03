@@ -39,6 +39,7 @@ class UI:
             ),
             None,
         )
+
         if primary_monitor is None:
             print("No primary monitor found... Using 1920x1080")
             self.root.geometry("1920x1080")

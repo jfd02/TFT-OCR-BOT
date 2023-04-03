@@ -121,6 +121,7 @@ def get_client() -> tuple:
             print("  Client not open! Trying again in 10 seconds.")
             sleep(10)
     print("  Client found")
+    sleep(10)
     return (remoting_auth_token, server_url)
 
 
@@ -145,7 +146,7 @@ def queue() -> None:
     while in_queue:
         if time % 60 == 0:
             create_lobby(client_info)
-            sleep(5)
+            sleep(3)
             start_queue(client_info)
         accept_queue(client_info)
         if check_game_status(client_info):

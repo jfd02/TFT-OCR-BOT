@@ -1,5 +1,5 @@
 """
-Contains static item & champion data
+Contains static item
 """
 
 COMBINED_ITEMS: set[str] = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod",
@@ -8,115 +8,57 @@ COMBINED_ITEMS: set[str] = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLar
                             "BlueBuff", "BrambleVest", "MascotEmblem", "ChaliceofPower",
                             "Deathblade", "HeartEmblem", "DragonsClaw", "EdgeofNight",
                             "FrozenHeart", "GargoyleStoneplate", "GiantSlayer", "HandofJustice",
-                            "HextechGunblade", "InfinityEdge", "IonicSpark", "JeweledGauntlet",
-                            "LastWhisper", "LocketoftheIronSolari", "AnimaEmblem", "ADMINEmblem",
-                            "Morellonomicon", "Quicksilver", "RabadonsDeathcap", "OxForceEmblem",
-                            "RapidFirecannon", "Redemption", "RunaansHurricane", "DuelistEmblem",
-                            "ShroudofStillness", "SpearofShojin", "StatikkShiv", "SunfireCape",
-                            "TacticiansCrown", "ThiefsGloves", "TitansResolve", "WarmogsArmor",
-                            "ZekesHerald", "Zephyr", "ZzRotPortal", "RecurveBow",
-                            "LaserCorpsEmblem", "GuinsoosRageblade"}
+                            "HextechGunblade", "InfinityEdge", "InfiniTeamEmblem", "IonicSpark", 
+                            "JeweledGauntlet", "LastWhisper", "LocketoftheIronSolari", 
+                            "AnimaSquadEmblem", "ADMINEmblem", "Morellonomicon", "Quicksilver", 
+                            "RabadonsDeathcap", "OxForceEmblem", "RapidFirecannon", "Redemption", 
+                            "RunaansHurricane", "DuelistEmblem","ShroudofStillness", "SpearofShojin", 
+                            "StatikkShiv", "SunfireCape","TacticiansCrown", "ThiefsGloves", 
+                            "TitansResolve", "WarmogsArmor", "ZekesHerald", "Zephyr", 
+                            "ZzRotPortal", "RecurveBow", "GuinsoosRageblade"}
 
-ELUSIVE_ITEMS: set[str] = {"AceEmblem", "AegisEmblem", "BrawlerEmblem",
-                           "PRIMESelector", "SpellslingerEmblem", "CivilianEmblem",
-                           "InfiniTeamEmblem", "StarGuardianEmblem", "TheUndergroundEmblem",
-                           "SureshotEmblem", "DefenderEmblem", "MechaPRIMEEmblem",
-                           "GadgeteenEmblem", "HackerEmblem", "PranksterEmblem"}
+ELUSIVE_ITEMS: set[str] = {"AceEmblem", "AegisEmblem", "BrawlerEmblem", "PRIMESelector", 
+                           "SpellslingerEmblem", "StarGuardianEmblem", "SureshotEmblem", 
+                           "DefenderEmblem", "MechaPRIMEEmblem", "GadgeteenEmblem", 
+                           "HackerEmblem", "LaserCorpsEmblem", "PranksterEmblem", 
+                           "RiftwalkerEmblem", "StarGuardianEmblem", "TheUndergroundEmblem"}
 
-GADGETEEN_ITEMS: set[str] = {"InductionPoweredWarmogsArmor", "JumpStartedSpearofShojin", "SpringLoadedRapidFirecannon",
+GADGETEEN_ITEMS: set[str] = {"InductionPoweredWarmogsArmor", "JumpStartedSpearofShojin", 
                              "MagnetizedIonicSpark", "HandofNondeterministicJustice", "OVERFLOWERROR//GiantSlayer",
-                             "ChainswordBloodthirster"}
+                             "ChainswordBloodthirster", "ShroudofEvenStillerness", "OverclockedSunfireCape"}
 
 ORNN_ITEMS: set[str] = {"AnimaVisage", "DeathsDefiance", "EternalWinter",
                         "GoldCollector", "InfinityForce",
                         "Manazane", "ObsidianCleaver", "RaduinsSanctum",
                         "RocketPropelledFist", "ZhonyasParadox"}
 
-RADIANT_ITEMS: set[str] = {"Absolution", "BlessedBloodthirster",
-                           "BlueBlessing", "BrinkofDawn", "ChaliceofCharity",
-                           "CovalentSpark", "DemonSlayer", "DragonsWill",
-                           "DvarapalaStoneplate", "EternalWhisper", "FistofFairness",
-                           "FrozenHeartOfGold", "GlamorousGauntlet", "GuinsoosReckoning",
-                           "HextechLifeblade", "LocketofTargonPrime", "LuminousDeathblade",
-                           "Mistral", "MoreMoreellonomicon", "Quickestsilver",
-                           "RabadonsAscendedDeathcap", "RadiantRedemption", "RapidLightcannon",
-                           "RascalsGloves", "RosethornVest", "RunaansTempest",
-                           "ShroudofReverance", "SpearofHirana", "StatikkFavor",
-                           "SunlightCape", "TitansVow", "UrfAngelsStaff",
-                           "WarmogsPride", "ZekesHarmony", "ZenithEdge",
+RADIANT_ITEMS: set[str] = {"BulwarksOath", "UrfAngelsStaff", "BlessedBloodthirster", 
+                           "BlueBlessing", "RosethornVest", "ChaliceofCharity", 
+                           "LuminousDeathblade", "DragonsWill", "BrinkofDawn", 
+                           "DvarapalaStoneplate", "DemonSlayer", "GuinsoosReckoning", 
+                           "FistofFairness", "HextechLifeblade", "ZenithEdge", 
+                           "CovalentSpark", "GlamorousGauntlet", "EternalWhisper", 
+                           "LocketofTargonPrime", "Moremoreellonomicon", "Quickestsilver", 
+                           "RabadonsAscendedDeathcap", "RapidLightcannon", "Absolution", 
+                           "RunnansTempest", "ShroudofReverance", "SpearofHiranna", 
+                           "StatikkFavor", "Stridebreaker", "SunlightCape", "RascalsGloves", 
+                           "TitansVow", "WarmogsPride", "ZekesHarmony", "Mistral", 
                            "ZzRotsInvitation"}
 
 ITEMS: set[str] = COMBINED_ITEMS.union(ELUSIVE_ITEMS).union(
     GADGETEEN_ITEMS).union(ORNN_ITEMS).union(RADIANT_ITEMS)
 
-CHAMPIONS: dict[str, dict[str, int]] = {
-    "Aatrox": {"Gold": 4, "Board Size": 1},
-    "Alistar": {"Gold": 3, "Board Size": 1},
-    "Annie": {"Gold": 2, "Board Size": 1},
-    "Ashe": {"Gold": 1, "Board Size": 1},
-    "Aurelion Sol": {"Gold": 4, "Board Size":1},
-    "Belveth": {"Gold": 4, "Board Size": 1},
-    "Blitzcrank": {"Gold": 1, "Board Size": 1},
-    "Camille": {"Gold": 2, "Board Size": 1},
-    "Draven": {"Gold": 2, "Board Size": 1},
-    "Ekko": {"Gold": 4, "Board Size": 1},
-    "Ezreal": {"Gold": 2, "Board Size": 1},
-    "Fiddlesticks": {"Gold": 5, "Board Size": 1},
-    "Fiora": {"Gold": 2, "Board Size": 1},
-    "Gangplank": {"Gold": 1, "Board Size": 1},
-    "Garen": {"Gold": 4, "Board Size": 1},
-    "Gnar": {"Gold": 3, "Board Size": 1},
-    "Janna": {"Gold": 5, "Board Size": 1},
-    "Jax": {"Gold": 3, "Board Size": 1},
-    "Jhin": {"Gold": 4, "Board Size": 1},
-    "Jinx": {"Gold": 2, "Board Size": 1},
-    "Kaisa": {"Gold": 3, "Board Size": 1},
-    "Kayle": {"Gold": 1, "Board Size": 1},
-    "Leblanc": {"Gold": 3, "Board Size": 1},
-    "LeeSin": {"Gold": 2, "Board Size": 1},
-    "Leona": {"Gold": 5, "Board Size": 1},
-    "Lucian": {"Gold": 1, "Board Size": 1},
-    "Lulu": {"Gold": 1, "Board Size": 1},
-    "Lux": {"Gold": 1, "Board Size": 1},
-    "Malphite": {"Gold": 2, "Board Size": 1},
-    "Miss Fortune": {"Gold": 4, "Board Size": 1},
-    "Mordekaiser": {"Gold": 5, "Board Size": 1},
-    "Morgana": {"Gold": 3, "Board Size": 1},
-    "Nasus": {"Gold": 1, "Board Size": 1},
-    "Neeko": {"Gold": 4, "Board Size": 1},
-    "Nilah": {"Gold": 3, "Board Size": 1},
-    "Nunu": {"Gold": 5, "Board Size": 1},
-    "Pantheon": {"Gold": 1, "Board Size": 1},
-    "Poppy": {"Gold": 1, "Board Size": 1},
-    "Pyke": {"Gold": 2, "Board Size": 1},
-    "Rammus": {"Gold": 3, "Board Size": 1},
-    "Rell": {"Gold": 2, "Board Size": 1},
-    "Renekton": {"Gold": 1, "Board Size": 1},
-    "Riven": {"Gold": 3, "Board Size": 1},
-    "Samira": {"Gold": 4, "Board Size": 1},
-    "Shen": {"Gold": 3, "Board Size": 1},
-    "Sivir": {"Gold": 2, "Board Size": 1},
-    "Sona": {"Gold": 3, "Board Size": 1},
-    "Sylas": {"Gold": 1, "Board Size": 1},
-    "Syndra": {"Gold": 5, "Board Size": 1},
-    "Twisted Fate": {"Gold": 4, "Board Size": 1},
-    "Ultimate Ezreal": {"Gold": 5, "Board Size": 1},
-    "Urgot": {"Gold": 5, "Board Size": 1},
-    "Vayne": {"Gold": 3, "Board Size": 1},
-    "Vex": {"Gold": 3, "Board Size": 1},
-    "Vi": {"Gold": 2, "Board Size": 1},
-    "Viego": {"Gold": 4, "Board Size": 1},
-    "Warwick": {"Gold": 4, "Board Size": 1},
-    "Wukong": {"Gold": 1, "Board Size": 1},
-    "Yasuo": {"Gold": 2, "Board Size": 1}}
+ITEMS_WITHOUT_COMBINED: set[str] = ELUSIVE_ITEMS.union(
+    GADGETEEN_ITEMS).union(ORNN_ITEMS).union(RADIANT_ITEMS)
+
 
 ROUNDS: set[str] = {"1-1", "1-2", "1-3", "1-4",
-                    "2-1", "2-2", "2-3", "2-4", "2-5", "2-6", "2-7",
-                    "3-1", "3-2", "3-3", "3-4", "3-5", "3-6", "3-7",
-                    "4-1", "4-2", "4-3", "4-4", "4-5", "4-6", "4-7",
-                    "5-1", "5-2", "5-3", "5-4", "5-5", "5-6", "5-7",
-                    "6-1", "6-2", "6-3", "6-4", "6-5", "6-6", "6-7",
-                    "7-1", "7-2", "7-3", "7-4", "7-5", "7-6", "7-7"}
+          "2-1", "2-2", "2-3", "2-4", "2-5", "2-6", "2-7",
+          "3-1", "3-2", "3-3", "3-4", "3-5", "3-6", "3-7",
+          "4-1", "4-2", "4-3", "4-4", "4-5", "4-6", "4-7",
+          "5-1", "5-2", "5-3", "5-4", "5-5", "5-6", "5-7",
+          "6-1", "6-2", "6-3", "6-4", "6-5", "6-6", "6-7",
+          "7-1", "7-2", "7-3", "7-4", "7-5", "7-6", "7-7"}
 
 SECOND_ROUND: set[str] = {"1-2"}
 
@@ -125,20 +67,21 @@ CAROUSEL_ROUND: set[str] = {"1-1", "2-4", "3-4", "4-4", "5-4", "6-4", "7-4"}
 PVE_ROUND: set[str] = {"1-3", "1-4", "2-7", "3-7", "4-7", "5-7", "6-7", "7-7"}
 
 PVP_ROUND: set[str] = {"2-1", "2-2", "2-3", "2-5", "2-6",
-                       "3-1", "3-2", "3-3", "3-5", "3-6",
-                       "4-1", "4-2", "4-3", "4-5", "4-6",
-                       "5-1", "5-2", "5-3", "5-5", "5-6",
-                       "6-1", "6-2", "6-3", "6-5", "6-6",
-                       "7-1", "7-2", "7-3", "7-5", "7-6"}
+             "3-1", "3-2", "3-3", "3-5", "3-6",
+             "4-1", "4-2", "4-3", "4-5", "4-6",
+             "5-1", "5-2", "5-3", "5-5", "5-6",
+             "6-1", "6-2", "6-3", "6-5", "6-6",
+             "7-1", "7-2", "7-3", "7-5", "7-6"}
 
 PICKUP_ROUNDS: set[str] = {"2-1", "3-1", "4-1", "5-1", "6-1", "7-1"}
 
-ANVIL_ROUNDS: set[str] = {"2-1", "2-5", "3-1", "3-5", "4-1", "4-5", "5-1", "5-5", "6-1" "6-5", "7-1", "7-5"}
+ANVIL_ROUNDS: set[str] = {"2-1", "2-5", "3-1", "3-5", "4-1", "4-5", "5-1", "5-5", "6-1", "6-5", "7-1", "7-5"}
 
 AUGMENT_ROUNDS: set[str] = {"2-1", "3-2", "4-2"}
 
-ITEM_PLACEMENT_ROUNDS: set[str] = {"2-2", "3-2", "4-2", "5-2",
-                                   "6-2", "7-2", "2-5", "3-5", "4-5", "5-5", "6-5", "7-5"}
+ITEM_PLACEMENT_ROUNDS: set[str] = {"2-1", "2-5", "2-7",
+             "3-2", "3-5", "4-2", "4-5", "5-2", "5-5", 
+             "5-7", "6-2", "6-5", "7-2", "7-5", "7-7"}
 
 FINAL_COMP_ROUND = "4-5"
 
@@ -162,6 +105,7 @@ FULL_ITEMS = {"ArchangelsStaff": ("NeedlesslyLargeRod", "TearoftheGoddess"),
               "HandofJustice": ("SparringGloves", "TearoftheGoddess"),
               "HextechGunblade": ("BFSword", "NeedlesslyLargeRod"),
               "InfinityEdge": ("BFSword", "SparringGloves"),
+              "InfiniTeamEmblem": ("BFSword", "Spatula"),
               "IonicSpark": ("NeedlesslyLargeRod", "NegatronCloak"),
               "JeweledGauntlet": ("NeedlesslyLargeRod", "SparringGloves"),
               "LastWhisper": ("RecurveBow", "SparringGloves"),
@@ -189,12 +133,47 @@ FULL_ITEMS = {"ArchangelsStaff": ("NeedlesslyLargeRod", "TearoftheGoddess"),
               "ZzRotPortal": ("GiantsBelt", "RecurveBow")
               }
 
-
-def champion_board_size(champion: str) -> int:
-    """Takes a string (champion name) and returns board size of champion"""
-    return CHAMPIONS[champion]["Board Size"]
-
-
-def champion_gold_cost(champion: str) -> int:
-    """Takes a string (champion name) and returns gold of champion"""
-    return CHAMPIONS[champion]["Gold"]
+# No logic for certain augments meaning the bot won't know what to do if they are included in here
+# (Anything that changes gameplay or adds something to the bench).
+AUGMENTS: list[str] = [
+    "Featherweights",
+    "Combat Training",
+    "Celestial Blessing",
+    "Knife's Edge",
+    "First Aid Kit",
+    "Contempt for the Weak",
+    "Laser Focus",
+    "Corps Focus",
+    "Rising Spell Force",
+    "Raider's Spoils",
+    "Flaming Ricochet",
+    "Get Paid",
+    "Flurry",
+    "Invigorate",
+    "Reign of Anger",
+    "Cull the Meek",
+    "Rock Solid",
+    "Guardian Spirit",
+    "Cybernetic Implants",
+    "Stand United",
+    "Electrocharge",
+    "Cybernetic Uplink",
+    "Cybernetic Shell",
+    "Tri Force",
+    "Metabolic Accelerator",
+    "Second Wind",
+    "Luden's Echo",
+    "Last Stand",
+    "Ascension",
+    "Tiny Titans",
+    "Sunfire Board",
+    "Wise Spending",
+    "Component Grab Bag+",
+    "Thrill of the Hunt",
+    "Preparation",
+    "Hustler",
+    "Windfall++",
+    "Verdant Veil",
+    "Rich Get Richer+",
+    "Axiom Arc",
+]

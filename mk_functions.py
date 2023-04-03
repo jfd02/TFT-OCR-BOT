@@ -47,3 +47,15 @@ def reroll() -> None:
 def press_esc() -> None:
     """Presses escape key"""
     pydirectinput.press("esc")
+
+def press_enter() -> None:
+    """Presses enter key"""
+    pydirectinput.press("enter")
+
+def press_slash() -> None:
+    """Presses slash key"""
+    pydirectinput.press("/")
+
+def press_f() -> None:
+    """Presses f key"""
+    pydirectinput.press("f")

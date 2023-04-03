@@ -48,6 +48,9 @@ CHAMP_NAME_POS: list[Vec4] = [
     Vec4(GameWindow(808, 5, 912, 24), use_screen_offset=False),
 ]
 
+
+
+
 GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 
 EXIT_NOW_POS: Vec4 = Vec4(GameWindow(771, 541, 890, 564))
@@ -73,13 +76,13 @@ BUY_LOC: list[Vec2] = [
 ]
 
 ITEM_PICKUP_LOC: list[Vec2] = [
-    Vec2(1440, 611),
-    Vec2(406, 544),
-    Vec2(1412, 486),
-    Vec2(469, 440),
-    Vec2(1380, 381),
+    Vec2(1455, 611),
+    Vec2(396, 544),
+    Vec2(1424, 486),
+    Vec2(459, 440),
+    Vec2(1382, 381),
     Vec2(644, 323),
-    Vec2(1297, 262),
+    Vec2(1324, 262),
     Vec2(590, 215),
 ]
 
@@ -130,6 +133,8 @@ BOARD_LOC: list[Vec2] = [
 CAROUSEL_LOC: Vec2 = Vec2(964, 644)
 
 EXIT_NOW_LOC: Vec2 = Vec2(830, 551)
+
+VICTORY_CONTINUE_LOC: Vec2 = Vec2(955, 640)
 
 BUY_XP_LOC: Vec2 = Vec2(364, 964)
 
