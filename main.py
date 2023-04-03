@@ -9,7 +9,7 @@ from game import Game
 import settings
 import auto_comps
 from comps import CompsManager
-import os
+import os, time
 import sys
 
 def game_loop(ui_queue: multiprocessing.Queue, comps : CompsManager)  -> None:
@@ -60,7 +60,30 @@ if __name__ == "__main__":
     game_thread = multiprocessing.Process(target=game_loop, args=(message_queue,comps_manager))
 
     print("TFT OCR | https://github.com/jfd02/TFT-OCR-BOT")
+    yes_choices = ['yes', 'y']
+    no_choices = ['no', 'n']
+    comp_input = ''
+
+    if(os.path.isfile("cached_data\cached8.5.json")):
+        print(
+            'Champions and comps already exist. Last modified: %s' % time.ctime(os.path.getmtime("cached_data\cached8.5.json"))
+            )
+        print('Do you want the latest comps?(y/n)')
+        while True:
+            comp_input = input()
+            if comp_input.lower() in yes_choices:
+                os.remove("cached_data\cached8.5.json")
+                print('Old comp files sucessfully deleted!')
+                if(os.path.isfile("cached_data\deck.json")):
+                    os.remove("cached_data\deck.json")
+                if(os.path.isfile("cached_data\inputed")):
+                    os.remove("cached_data\inputed")
+                break
+            elif comp_input.lower() in no_choices:
+                break
+            else:
+                print('Type yes or no')
+                continue
     print("Close this window to terminate the overlay window & program")
-    auto_comps.LoadChampionsAndComps(comps_manager)
     game_thread.start()
     overlay.ui_loop()
