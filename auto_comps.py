@@ -6,6 +6,7 @@ In-game champion names only in communitydragon
 """
 
 import json
+import os, time
 import os
 import pathlib
 import re
@@ -15,6 +16,31 @@ import requests
 from bs4 import BeautifulSoup
 
 from comps import CompsManager
+
+yes_choices = ['yes', 'y']
+no_choices = ['no', 'n']
+comp_input = ''
+
+if(os.path.isfile("cached_data\cached8.5.json")):
+    print(
+        'Champions and comps already exist. Last modified: %s' % time.ctime(os.path.getmtime("cached_data\cached8.5.json"))
+          )
+    print('Do you want the latest comps?(y/n)')
+    while True:
+        comp_input = input()
+        if comp_input.lower() in yes_choices:
+            os.remove("cached_data\cached8.5.json")
+            print('Old comp files sucessfully deleted!')
+            if(os.path.isfile("cached_data\deck.json")):
+                os.remove("cached_data\deck.json")
+            if(os.path.isfile("cached_data\inputed")):
+                os.remove("cached_data\inputed")
+            break
+        elif comp_input.lower() in no_choices:
+            break
+        else:
+            print('Type yes or no')
+            continue
 
 LOLCHESS_CHAMPIONS_URL = "https://lolchess.gg/champions/"
 LOLCHESS_META_COMPS_URL = "https://lolchess.gg/meta"
