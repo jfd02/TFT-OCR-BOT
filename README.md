@@ -1,4 +1,4 @@
-Fork of https://github.com/jfd02/TFT-OCR-BOT (Get the installation instructions, but use the files from this repository)
+Fork of https://github.com/jfd02/TFT-OCR-BOT
 
 ![main](https://i.imgur.com/roX0N3C.png)
 
