@@ -162,7 +162,7 @@ def __LoadLolChessComps(
                             lambda e: e["key"] == each_slot.get("champion"),
                             query_data.get("champions"),
                         ),
-                    )[0]["name"].replace("BelVeth", "Bel'Veth")
+                    )[0]["name"].replace("BelVeth", "Bel'Veth").replace("Nunu", "Nunu & Willump")
                 except Exception:
                     continue
                 slot_items = render_item(
