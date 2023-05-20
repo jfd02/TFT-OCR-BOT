@@ -33,6 +33,7 @@ class Arena:
         self.final_comp = False
         self.level = 0
         self.augment_roll = True
+        self.tacticians_crown = True
         self.spam_roll = False
 
     def fix_bench_state(self) -> None:
@@ -183,6 +184,11 @@ class Arena:
         for index, _ in enumerate(self.items):
             if self.items[index] is not None:
                 self.add_item_to_champs(index)
+        if self.tacticians_crown: #checks for Tacticians Crown througout game
+            if 'TacticiansCrown' in self.items:
+                print("  Tacticians Crown on bench, adding extra slot to board")
+                self.board_size -= 1
+                self.tacticians_crown = False
 
     def add_item_to_champs(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
@@ -281,6 +287,7 @@ class Arena:
             if "TacticiansCrown" in item:
                 print("  Tacticians Crown on bench, adding extra slot to board")
                 self.board_size -= 1
+                self.tacticians_crown = False
             else:
                 print(f"{item} is not TacticiansCrown")
         except TypeError:

@@ -190,20 +190,24 @@ class Game:
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items")
             game_functions.pickup_items()
+        if self.round == "4-3":
+            sleep(0.5)
+            game_functions.pickup_items()
+            self.arena.place_items()
 
         self.arena.fix_bench_state()
         self.arena.bench_cleanup()
         if self.round in game_assets.ANVIL_ROUNDS:
             self.arena.clear_anvil()
-        if self.round in game_assets.ITEM_PLACEMENT_ROUNDS:
-            sleep(1)
-            self.arena.place_items()
         self.arena.spend_gold()
         self.arena.move_champions()
         self.arena.replace_unknown()
         if self.arena.final_comp:
             self.arena.final_comp_check()
 
+        if self.round in game_assets.ITEM_PLACEMENT_ROUNDS:
+            sleep(1)
+            self.arena.place_items()
         self.arena.bench_cleanup()
         self.end_round_tasks()
 
