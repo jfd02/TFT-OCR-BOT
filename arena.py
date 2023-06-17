@@ -299,7 +299,7 @@ class Arena:
     def spend_gold(self) -> None:
         """Spends gold every round"""
         first_run = True
-        min_gold = 24 if self.spam_roll else 12
+        min_gold = 24 if self.spam_roll else 50
         while first_run or arena_functions.get_gold() >= min_gold:
             if not first_run:
                 if arena_functions.get_level() != 9:
