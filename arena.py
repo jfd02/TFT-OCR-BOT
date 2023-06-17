@@ -299,7 +299,7 @@ class Arena:
     def spend_gold(self) -> None:
         """Spends gold every round"""
         first_run = True
-        min_gold = 24 if self.spam_roll else 50
+        min_gold = 24 if self.spam_roll else 12
         while first_run or arena_functions.get_gold() >= min_gold:
             if not first_run:
                 if arena_functions.get_level() != 9:
@@ -362,6 +362,7 @@ class Arena:
             mk_functions.left_click(screen_coords.AUGMENT_ROLL_ONE.get_coords())
             mk_functions.left_click(screen_coords.AUGMENT_ROLL_TWO.get_coords())
             mk_functions.left_click(screen_coords.AUGMENT_ROLL_THREE.get_coords())
+            self.augment_roll = False
             self.pick_augment()
 
         print("  [!] No priority or backup augment found, undefined behavior may occur for the rest of the round")
