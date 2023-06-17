@@ -36,6 +36,9 @@ class Arena:
         self.tacticians_crown = True
         self.spam_roll = False
 
+        if self.augment_roll == False:
+            self.augment_roll = True
+
     def fix_bench_state(self) -> None:
         """Iterates through bench and fixes invalid slots"""
         bench_occupied: list = arena_functions.bench_occupied_check()
@@ -348,7 +351,7 @@ class Arena:
             augments.append(augment)
 
         for augment in augments:
-            for potential in comp_augments+game_assets.AUGMENTS:
+            for potential in game_assets.AUGMENTS:
                 if potential in augment:
                     print(f"  Choosing augment: {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
@@ -356,8 +359,9 @@ class Arena:
                     
         if self.augment_roll:
             print("  Rolling for augment")
-            mk_functions.left_click(screen_coords.AUGMENT_ROLL.get_coords())
-            self.augment_roll = False
+            mk_functions.left_click(screen_coords.AUGMENT_ROLL_ONE.get_coords())
+            mk_functions.left_click(screen_coords.AUGMENT_ROLL_TWO.get_coords())
+            mk_functions.left_click(screen_coords.AUGMENT_ROLL_THREE.get_coords())
             self.pick_augment()
 
         print("  [!] No priority or backup augment found, undefined behavior may occur for the rest of the round")

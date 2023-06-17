@@ -127,7 +127,7 @@ def __LoadLolChessComps(
     for nms, afs in deck_list:
         deck_keys = parse.parse_qs(parse.urlparse(afs).query)["deck"][0]
         deck_response = requests.get(
-            f"https://lolchess.gg/builder/set8.5?hl=en&deck={deck_keys}",
+            f"https://lolchess.gg/builder/set9?hl=en&deck={deck_keys}",
         )
         pattern = r'<script id="__NEXT_DATA__" type="application/json">\s*({[\s\S]*?})\s*</script>'
         json_in_text = re.search(pattern, deck_response.text)[1]
@@ -183,7 +183,7 @@ def __LoadLolChessComps(
 
 def render_item(ob: list, ids: list) -> list:
     items = list(filter(lambda e: e["key"] in ids, ob))
-    return [i["name"].replace(" ", "").replace("'", "") for i in items]
+    return [i["name"].replace(" ", "").replace("'", "").replace("\u2019", "") for i in items]
 
 
 def __LoadCommunityDragon() -> dict:

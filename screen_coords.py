@@ -56,14 +56,16 @@ GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 EXIT_NOW_POS: Vec4 = Vec4(GameWindow(771, 541, 890, 564))
 
 AUGMENT_POS: list[Vec4] = [
-    Vec4(GameWindow(423, 535, 675, 582)),
-    Vec4(GameWindow(835, 525, 1086, 582)),
-    Vec4(GameWindow(1231, 527, 1506, 583)),
+    Vec4(GameWindow(423, 510, 675, 582)),
+    Vec4(GameWindow(835, 510, 1086, 582)),
+    Vec4(GameWindow(1231, 510, 1506, 583)),
 ]
 
 AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
 
-AUGMENT_ROLL: Vec2 = Vec2(960, 875)
+AUGMENT_ROLL_ONE: Vec2 = Vec2(552, 865)
+AUGMENT_ROLL_TWO: Vec2 = Vec2(960, 865)
+AUGMENT_ROLL_THREE: Vec2 = Vec2(1365, 865)
 
 VICTORY_POS: Vec4 = Vec4(GameWindow(916, 630, 1008, 652))
 
