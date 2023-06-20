@@ -109,6 +109,7 @@ class Game:
         self.message_queue.put("CLEAR")
         self.arena.bench[0] = "?"
         self.arena.move_unknown()
+        self.arena.region_augment()
         self.end_round_tasks()
     
     def carousel_round(self) -> None:
@@ -127,14 +128,15 @@ class Game:
         self.message_queue.put("CLEAR")
         sleep(0.5)
         if self.round in game_assets.AUGMENT_ROUNDS:
-            sleep(0.3)
+            sleep(2)
             self.arena.pick_augment()
             # Can't purchase champions for a short period after choosing augment
             sleep(2)
+            self.arena.augment_roll = True
         if self.round == "1-3":
             sleep(1.5)
             self.arena.fix_unknown()
-            self.arena.tacticians_crown_check()
+            #self.arena.tacticians_crown_check()
 
         self.arena.fix_bench_state()
         self.arena.spend_gold()
@@ -152,9 +154,10 @@ class Game:
         sleep(0.5)
         start_time = datetime.now()
         if self.round in game_assets.AUGMENT_ROUNDS:
-            sleep(2.5)
+            sleep(2)
             self.arena.pick_augment()
-            sleep(2.5)
+            sleep(2)
+            self.arena.augment_roll = True
         if self.round in ("2-1"):
             """Level to 4 at 2-1"""
             self.arena.buy_xp_round()
@@ -166,8 +169,6 @@ class Game:
                 if ((datetime.now() - start_time).total_seconds() > 5): # check seconds passed
                     break # break out of loop if stuck
             print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
-            game_functions.pickup_items()
-            self.arena.place_items()
         if self.round in ("3-2"):
             """Level to 6 at 3-2"""
             while arena_functions.get_level() < 6:
@@ -192,10 +193,11 @@ class Game:
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items")
             game_functions.pickup_items()
-        if self.round == "4-5":
-            sleep(0.5)
-            game_functions.pickup_items()
-            self.arena.place_items()
+
+        if self.round in game_assets.REGION_ROUNDS:
+            if  self.arena.marus_omegnum == True:
+                game_functions.pickup_items()
+
 
         self.arena.fix_bench_state()
         self.arena.bench_cleanup()

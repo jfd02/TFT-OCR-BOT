@@ -33,12 +33,26 @@ class Arena:
         self.final_comp = False
         self.level = 0
         self.augment_roll = True
+        self.marus_omegnum = False
         self.tacticians_crown = True
         self.spam_roll = False
 
-        if self.augment_roll == False:
-            self.augment_roll = True
 
+    def region_augment(self) -> None:
+        """Checks if region augment is Marus Omegnum (tacticians crown)"""
+        mk_functions.right_click(screen_coords.REGION_AUGMENT_LOC.get_coords())
+        sleep(1)
+        region: str = ocr.get_text(screenxy=screen_coords.REGION_AUGMENT_POS.get_coords(), scale=3, psm=7)
+        try:
+            if "Marus Omegnum" in region:
+                print(f"  Region Augment: {region}. Picking up Tacticians Crown at round 2-5 or 4-5")
+                self.marus_omegnum = True
+            else:
+                print(f"  Region Augment: {region}")
+        except TypeError:
+            print("  Region Augment could not be read if Marus Omegnum")
+
+    
     def fix_bench_state(self) -> None:
         """Iterates through bench and fixes invalid slots"""
         bench_occupied: list = arena_functions.bench_occupied_check()
