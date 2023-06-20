@@ -82,7 +82,10 @@ class Game:
 
             if self.round != ran_round:
                 print(f"\n[Comps] Stick to [{','.join(self.comps_manager.CURRENT_COMP()[1])}] ")
-                if self.round in game_assets.SECOND_ROUND:
+                if self.round in game_assets.PORTAL_ROUND:
+                    self.portal_round()
+                    ran_round: str = self.round
+                elif self.round in game_assets.SECOND_ROUND:
                     self.second_round()
                     ran_round: str = self.round
                 elif self.round in game_assets.CAROUSEL_ROUND:
@@ -102,6 +105,14 @@ class Game:
         game_functions.exit_game()
         sleep(0.3)
         game_functions.victory_exit()
+    
+    def portal_round(self) -> None:
+        """Waits for Region Augment decision"""
+        print(f"\n[Portal Round] {self.round}")
+        self.message_queue.put("CLEAR")
+        self.arena.check_health()
+        print("  Waiting for Region Augment")
+        game_functions.default_pos()
 
     def second_round(self) -> None:
         """Move unknown champion to board after first carousel"""
@@ -109,9 +120,10 @@ class Game:
         self.message_queue.put("CLEAR")
         self.arena.bench[0] = "?"
         self.arena.move_unknown()
+        sleep(2)
         self.arena.region_augment()
         self.end_round_tasks()
-    
+
     def carousel_round(self) -> None:
         """Handles tasks for carousel rounds"""
         print(f"\n[Carousel Round] {self.round}")
