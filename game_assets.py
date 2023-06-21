@@ -178,3 +178,17 @@ AUGMENTS: list[str] = [
     "Giant Grab Bag",
     "Cybernetic Leech III",
 ]
+
+PORTALS: list[str] = [
+    "Marus Omegnum",
+    "Ecliptic Vaults",
+    "Petricite Forest",
+    "Scuttle Puddle",
+    "The Lavender Sea",
+    "The University",
+    "Jayce's Workshop",
+    "Glasc Industries",
+    "The Sump",
+    "The Rupture",
+    "Stillwater Hold",
+]

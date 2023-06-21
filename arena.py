@@ -38,6 +38,27 @@ class Arena:
         self.spam_roll = False
 
 
+    def portal_vote(self) -> None:
+        """Votes for portal from user defined portal priority list or defaults to first portal"""
+        portals: list = []
+        for coords in screen_coords.PORTALS_POS:
+            portal: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
+            portals.append(portal)
+
+        for portal in portals:
+            for potential in game_assets.PORTALS:
+                if potential in portal:
+                    print(f"  Voted for: {portal}")
+                    mk_functions.left_click(screen_coords.PORTALS_LOC[portals.index(portal)].get_coords())
+                    sleep(0.7)
+                    mk_functions.left_click(screen_coords.PORTALS_VOTES[portals.index(portal)].get_coords())
+                    return
+
+        print(f"  [!] No priority or backup region found, choosing first portal")
+        mk_functions.left_click(screen_coords.PORTALS_LOC[0].get_coords())
+        sleep(0.7)
+        mk_functions.left_click(screen_coords.PORTALS_VOTES[0].get_coords())
+                
     def region_augment(self) -> None:
         """Checks if region augment is Marus Omegnum (tacticians crown)"""
         mk_functions.right_click(screen_coords.REGION_AUGMENT_LOC.get_coords())
@@ -50,7 +71,7 @@ class Arena:
             else:
                 print(f"  Region Augment: {region}")
         except TypeError:
-            print("  Region Augment could not be read if Marus Omegnum")
+            print("  Region Augment could not be read")
 
     
     def fix_bench_state(self) -> None:

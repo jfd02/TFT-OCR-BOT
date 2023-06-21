@@ -67,6 +67,16 @@ AUGMENT_ROLL_ONE: Vec2 = Vec2(552, 865)
 AUGMENT_ROLL_TWO: Vec2 = Vec2(960, 865)
 AUGMENT_ROLL_THREE: Vec2 = Vec2(1365, 865)
 
+PORTALS_POS: list[Vec4] = [
+    Vec4(GameWindow(63, 333, 262, 375)),
+    Vec4(GameWindow(63, 424, 262, 465)),
+    Vec4(GameWindow(63, 514, 262, 555)),
+]
+
+PORTALS_LOC: list[Vec2] = [Vec2(32, 345), Vec2(32, 440), Vec2(32, 526)]
+
+PORTALS_VOTES: list[Vec2] = [Vec2(354, 469), Vec2(354, 560), Vec2(354, 648)]
+
 REGION_AUGMENT_LOC: Vec2 = Vec2(500, 350)
 
 REGION_AUGMENT_POS: Vec4 = Vec4(GameWindow(660, 285, 845, 340))

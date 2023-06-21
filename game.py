@@ -84,6 +84,7 @@ class Game:
                 print(f"\n[Comps] Stick to [{','.join(self.comps_manager.CURRENT_COMP()[1])}] ")
                 if self.round in game_assets.PORTAL_ROUND:
                     self.portal_round()
+                    game_functions.default_pos()
                     ran_round: str = self.round
                 elif self.round in game_assets.SECOND_ROUND:
                     self.second_round()
@@ -110,9 +111,9 @@ class Game:
         """Waits for Region Augment decision"""
         print(f"\n[Portal Round] {self.round}")
         self.message_queue.put("CLEAR")
-        self.arena.check_health()
-        print("  Waiting for Region Augment")
-        game_functions.default_pos()
+        sleep(0.5)
+        print("  Voting for a portal")
+        self.arena.portal_vote()
 
     def second_round(self) -> None:
         """Move unknown champion to board after first carousel"""
