@@ -117,6 +117,7 @@ class Game:
     def second_round(self) -> None:
         """Move unknown champion to board after first carousel"""
         print(f"\n[Second Round] {self.round}")
+        sleep(0.7)
         self.message_queue.put("CLEAR")
         self.arena.bench[0] = "?"
         self.arena.move_unknown()
