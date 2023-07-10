@@ -32,7 +32,7 @@ def pickup_items() -> None:  # Refacor this function to make it more clear whats
         if index == 0:
             sleep(1.2)
         if index % 2 == 0:
-            sleep(2)
+            sleep(2.0)
         else:
             sleep(1.2)
 
@@ -61,6 +61,11 @@ def exit_game() -> None:
     mk_functions.left_click(screen_coords.EXIT_NOW_LOC.get_coords())
 
 
+def victory_exit() -> None:
+    """Exits the game after victory"""
+    mk_functions.left_click(screen_coords.VICTORY_CONTINUE_LOC.get_coords())
+
+
 def default_pos() -> None:
     """Moves the mouse to a default position to ensure no data is being blocked from OCR"""
     mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
@@ -68,8 +73,15 @@ def default_pos() -> None:
 
 def forfeit() -> None:
     """Forfeits the game"""
-    mk_functions.press_esc()
-    mk_functions.left_click(screen_coords.SURRENDER_LOC.get_coords())
+    mk_functions.press_enter()
+    sleep(0.2)
+    mk_functions.press_slash()
+    sleep(0.2)
+    mk_functions.press_f()
+    sleep(0.2)
+    mk_functions.press_f()
+    sleep(0.2)
+    mk_functions.press_enter()
     sleep(0.1)
     mk_functions.left_click(screen_coords.SURRENDER_TWO_LOC.get_coords())
     sleep(1)

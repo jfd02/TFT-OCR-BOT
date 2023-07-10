@@ -48,19 +48,38 @@ CHAMP_NAME_POS: list[Vec4] = [
     Vec4(GameWindow(808, 5, 912, 24), use_screen_offset=False),
 ]
 
+
+
+
 GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 
 EXIT_NOW_POS: Vec4 = Vec4(GameWindow(771, 541, 890, 564))
 
 AUGMENT_POS: list[Vec4] = [
-    Vec4(GameWindow(423, 535, 675, 582)),
-    Vec4(GameWindow(835, 525, 1086, 582)),
-    Vec4(GameWindow(1231, 527, 1506, 583)),
+    Vec4(GameWindow(423, 510, 675, 582)),
+    Vec4(GameWindow(835, 510, 1086, 582)),
+    Vec4(GameWindow(1231, 510, 1506, 583)),
 ]
 
 AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
 
-AUGMENT_ROLL: Vec2 = Vec2(960, 875)
+AUGMENT_ROLL_ONE: Vec2 = Vec2(552, 865)
+AUGMENT_ROLL_TWO: Vec2 = Vec2(960, 865)
+AUGMENT_ROLL_THREE: Vec2 = Vec2(1365, 865)
+
+PORTALS_POS: list[Vec4] = [
+    Vec4(GameWindow(63, 333, 262, 375)),
+    Vec4(GameWindow(63, 424, 262, 465)),
+    Vec4(GameWindow(63, 514, 262, 555)),
+]
+
+PORTALS_LOC: list[Vec2] = [Vec2(32, 345), Vec2(32, 440), Vec2(32, 526)]
+
+PORTALS_VOTES: list[Vec2] = [Vec2(354, 469), Vec2(354, 560), Vec2(354, 648)]
+
+REGION_AUGMENT_LOC: Vec2 = Vec2(500, 350)
+
+REGION_AUGMENT_POS: Vec4 = Vec4(GameWindow(660, 285, 845, 340))
 
 VICTORY_POS: Vec4 = Vec4(GameWindow(916, 630, 1008, 652))
 
@@ -73,13 +92,13 @@ BUY_LOC: list[Vec2] = [
 ]
 
 ITEM_PICKUP_LOC: list[Vec2] = [
-    Vec2(1440, 611),
-    Vec2(406, 544),
-    Vec2(1412, 486),
-    Vec2(469, 440),
-    Vec2(1380, 381),
-    Vec2(644, 323),
-    Vec2(1297, 262),
+    Vec2(1480, 611),
+    Vec2(396, 544),
+    Vec2(1424, 486),
+    Vec2(445, 440),
+    Vec2(1382, 381),
+    Vec2(640, 323),
+    Vec2(1324, 262),
     Vec2(590, 215),
 ]
 
@@ -130,6 +149,8 @@ BOARD_LOC: list[Vec2] = [
 CAROUSEL_LOC: Vec2 = Vec2(964, 644)
 
 EXIT_NOW_LOC: Vec2 = Vec2(830, 551)
+
+VICTORY_CONTINUE_LOC: Vec2 = Vec2(955, 640)
 
 BUY_XP_LOC: Vec2 = Vec2(364, 964)
 
