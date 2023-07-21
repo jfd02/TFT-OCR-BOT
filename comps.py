@@ -5,97 +5,76 @@ Items are in camel case and a-Z
 """
 
 COMP = {
-    "Vayne": {
-        "board_position": 5,
-        "items": ["InfinityEdge", "LastWhisper", "GiantSlayer"],
-        "level": 3,
-        "final_comp": True,
-    },
-    "Twisted Fate": {
+    "Azir": {
         "board_position": 6,
-        "items": ["JeweledGauntlet", "StatikkShiv", "HextechGunblade"],
-        "level": 3,
-        "final_comp": False
-    },
-    "Kayle": {
-        "board_position": 13,
-        "items": [],
-        "level": 3,
+        "items": ["TitansResolve","EdgeofNight","Bloodthirster"],
+        "level": 2,
         "final_comp": True
     },
-    "Annie": {
-        "board_position": 22,
-        "items": [],
-        "level": 3,
-        "final_comp": True,
-    },
-    "Yasuo": {
-        "board_position": 23,
-        "items": ["Bloodthirster", "TitansResolve"],
-        "level": 3,
-        "final_comp": True,
-    },
-    "Nilah": {
-        "board_position": 24,
-        "items": ["LocketoftheIronSolari", "LocketoftheIronSolari", "IonicSpark"],
-        "level": 3,
-        "final_comp": True,
-    },
-    "Gangplank": {
-        "board_position": 25,
-        "items": [],
-        "level": 3,
-        "final_comp": True
-    },
-    "Fiddlesticks": {
-        "board_position": 25,
-        "items": [],
-        "level": 3,
-        "final_comp": True
-    },
-    "Fiora": {
+    "Jarven IV": {
         "board_position": 26,
-        "items": [],
+        "items": ["SunfireCape","DragonsClaw","WarmogsArmor"],
         "level": 3,
-        "final_comp": True,
+        "final_comp": True
+    },
+    "Taliyah": {
+        "board_position": 0,
+        "items": [],
+        "level": 2,
+        "final_comp": True
+    },
+    "Teemo": {
+        "board_position": 4,
+        "items": [],
+        "level": 2,
+        "final_comp": True
+    },
+    "Swain": {
+        "board_position": 25,
+        "items": [],
+        "level": 2,
+        "final_comp": True
+    },
+    "Garen": {
+        "board_position": 24,
+        "items": [],
+        "level": 2,
+        "final_comp": True
+    },
+    "Lux": {
+        "board_position": 5,
+        "items": [],
+        "level": 2,
+        "final_comp": True
+    },
+    "Nasus": {
+        "board_position": 27,
+        "items": [],
+        "level": 2,
+        "final_comp": True
     }
 }
-"""
-Team composition used by the bot
-Comps come from https://tftactics.gg/tierlist/team-comps
-Items are in camel case and a-Z
-"""
-
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
 # (Anything that changes gameplay or adds something to the bench).
 AUGMENTS: list[str] = [
-    "Featherweight",
-    "Combat Training",
-    "Tiny Legends",
-    "Celestial Blessing",
-    "Knife's Edge",
-    "First Aid",
-    "Shadow Jutsu",
-    "Contempt for the Weak",
-    "Laser Focus",
-    "Corps Focus",
-    "Siphoning Winds",
-    "Spirit of the Exile",
-    "Rising Spell Force",
-    "Raider's Spoils",
-    "Flaming Ricochet",
-    "Get Paid",
-    "Flurry",
-    "Invigorate",
-    "Reign of Anger",
-    "Cull the Meek",
-    "Rock Solid",
-    "Guardian Spirit",
-    "Cybernetic Implants",
-    "Stand United",
+    "Gotta Go Fast",
+    "Tiny Power",
+    "Shurima's Legacy",
+    "Featherweights",
+    "Reconnaissance Team",
     "Electrocharge",
+    "Quickdraw Soul",
+    "InfiniTeam",
+    "Big Friend",
+    "First Aid Kit",
+    "Stand United",
+    "Urf's Grab Bag",
+    "Component Grab Bag",
+    "Thrill of the Hunt",
+    "Better Together",
     "Cybernetic Uplink",
+    "Cybernetic Implants",
     "Celestial Blessing",
     "Cybernetic Shell",
     "Weakspot",
@@ -110,14 +89,11 @@ AUGMENTS: list[str] = [
     "Sunfire Board",
     "Wise Spending",
     "Component Grab Bag+",
-    "Featherweights",
-    "Thrill of the Hunt",
     "Preparation",
     "Blue Battery",
     "Hustler",
     "Windfall++",
     "Verdant Veil",
-    "First Aid Kit",
     "Rich Get Richer+",
     "Combat Training",
     "Meditation",
