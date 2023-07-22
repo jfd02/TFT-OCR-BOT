@@ -11,7 +11,7 @@ COMP = {
         "level": 2,
         "final_comp": True
     },
-    "Jarven IV": {
+    "Jarvan IV": {
         "board_position": 26,
         "items": ["Redemption","DragonsClaw","WarmogsArmor"],
         "level": 3,
