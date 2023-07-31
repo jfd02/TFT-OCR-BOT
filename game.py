@@ -111,7 +111,7 @@ class Game:
         """Waits for Region Augment decision"""
         print(f"\n[Portal Round] {self.round}")
         self.message_queue.put("CLEAR")
-        sleep(0.5)
+        sleep(2.5)
         print("  Voting for a portal")
         self.arena.portal_vote()
 
@@ -210,7 +210,11 @@ class Game:
 
         if self.round in game_assets.REGION_ROUNDS:
             if  self.arena.marus_omegnum == True:
-                game_functions.pickup_items()
+                self.arena.region_augment_pickup()
+                if self.round in ("2-6"):
+                    self.arena.region_augment_pickup()
+                    sleep(2)
+                    self.arena.board_size -= 1
 
 
         self.arena.fix_bench_state()

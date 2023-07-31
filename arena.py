@@ -54,7 +54,7 @@ class Arena:
                     mk_functions.left_click(screen_coords.PORTALS_VOTES[portals.index(portal)].get_coords())
                     return
 
-        print(f"  [!] No priority or backup region found, choosing first portal")
+        print(f"  [!] No priority or backup region found, voting for first portal")
         mk_functions.left_click(screen_coords.PORTALS_LOC[0].get_coords())
         sleep(0.7)
         mk_functions.left_click(screen_coords.PORTALS_VOTES[0].get_coords())
@@ -66,12 +66,18 @@ class Arena:
         region: str = ocr.get_text(screenxy=screen_coords.REGION_AUGMENT_POS.get_coords(), scale=3, psm=7)
         try:
             if "Marus Omegnum" in region:
-                print(f"  Region Augment: {region}. Picking up Tacticians Crown at round 2-5 or 4-5")
+                print(f"  Region Augment: {region}. Picking up Tacticians Crown at round 2-5 and 4-5")
                 self.marus_omegnum = True
             else:
                 print(f"  Region Augment: {region}")
         except TypeError:
             print("  Region Augment could not be read")
+
+    def region_augment_pickup(self) -> None:
+        """Checks if region augment is Marus Omegnum (tacticians crown)"""
+        mk_functions.right_click(screen_coords.AUGMENT_PICKUP_LOC.get_coords())
+        print("Picking up Tacticians Crown")
+        sleep(1)
 
     
     def fix_bench_state(self) -> None:
@@ -386,7 +392,7 @@ class Arena:
             augments.append(augment)
 
         for augment in augments:
-            for potential in game_assets.AUGMENTS:
+            for potential in comp_augments:
                 if potential in augment:
                     print(f"  Choosing augment: {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())

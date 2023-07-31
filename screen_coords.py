@@ -92,15 +92,14 @@ BUY_LOC: list[Vec2] = [
 ]
 
 ITEM_PICKUP_LOC: list[Vec2] = [
-    Vec2(1480, 611),
-    Vec2(396, 544),
-    Vec2(1424, 486),
-    Vec2(445, 440),
-    Vec2(1382, 381),
-    Vec2(640, 323),
-    Vec2(1324, 262),
-    Vec2(590, 215),
+    Vec2(1459, 605),
+    Vec2(1293, 313),
+    Vec2(1093, 235),
+    Vec2(683, 309),
+    Vec2(461, 655),
 ]
+
+AUGMENT_PICKUP_LOC: Vec2 = Vec2(700, 215)
 
 BENCH_LOC: list[Vec2] = [
     Vec2(425, 777),

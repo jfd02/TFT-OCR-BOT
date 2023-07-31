@@ -166,6 +166,7 @@ def __LoadLolChessComps(
                         "Ryze: Demacia", "Ryze").replace("Ryze: Freljord", "Ryze").replace("Ryze: Ionia", "Ryze").replace(
                         "Ryze: Noxus", "Ryze").replace("Ryze: Piltover", "Ryze").replace("Ryze: ShadowIsles", "Ryze").replace(
                         "Ryze: Shurima", "Ryze").replace("Ryze: Targon", "Ryze").replace("Ryze: Zaun", "Ryze")
+                    star = each_slot.get("star", [])
                 except Exception:
                     continue
                 slot_items = render_item(
@@ -175,7 +176,7 @@ def __LoadLolChessComps(
                 slots[champion_name] = {
                     "board_position": LOLCHESS_BOARD_ARRANGE[each_slot.get("index")],
                     "items": slot_items,
-                    "level": 3,
+                    "level": star,
                     "final_comp": True,
                 }
             counter += 3
