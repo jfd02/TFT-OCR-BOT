@@ -336,7 +336,8 @@ ASALocalRun/
 .vscode
 test2222.py
 dump_comps.py
+main.bat
+RUN.lnk
 cached_data/cached9.json
 cached_data/deck.json
 cached_data/inputed
-
