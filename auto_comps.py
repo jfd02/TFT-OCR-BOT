@@ -163,8 +163,9 @@ def __LoadLolChessComps(
                             query_data.get("champions"),
                         ),
                     )[0]["name"].replace("BelVeth", "Bel'Veth").replace("Ryze: BandleCity", "Ryze").replace(
-                        "Ryze: Demacia", "Ryze").replace("Ryze: Freljord", "Ryze").replace("Ryze: Ionia", "Ryze").replace(
-                        "Ryze: Noxus", "Ryze").replace("Ryze: Piltover", "Ryze").replace("Ryze: ShadowIsles", "Ryze").replace(
+                        "Ryze: Demacia", "Ryze").replace("Ryze: Freljord", "Ryze").replace(
+                        "Ryze: Ionia", "Ryze").replace("Ryze: Noxus", "Ryze").replace(
+                        "Ryze: Piltover", "Ryze").replace("Ryze: ShadowIsles", "Ryze").replace(
                         "Ryze: Shurima", "Ryze").replace("Ryze: Targon", "Ryze").replace("Ryze: Zaun", "Ryze")
                     star = each_slot.get("star", [])
                 except Exception:

@@ -14,17 +14,17 @@ class CompsManager:
     def SetCOMPSLoaded(self, input):
         self.comps_loaded = input
     def SelectNextComp(self):
-        if self.is_sequence_mode == False:
+        if self.is_sequence_mode is False:
             comps_size = len(self.comps_loaded)
             self.index_current = random.randint(0, comps_size-1)
         else:
             self.sequence_index = self.sequence_index + 1
             sequence_len = len(self.sequence)
-            if (self.sequence_index >= sequence_len):
+            if self.sequence_index >= sequence_len:
                 self.sequence_index = 0
             self.index_current = self.sequence[self.sequence_index]
         print(f"[!] {self.CURRENT_COMP()[0]} [{','.join(self.CURRENT_COMP()[1])}] comp is selected")
-            
+
     def CURRENT_COMP(self):
         return self.comps_loaded[self.index_current]
 

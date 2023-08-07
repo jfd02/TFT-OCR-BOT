@@ -3,14 +3,14 @@ Where the bot execution starts & contains the game loop that keeps the bot runni
 """
 
 import multiprocessing
+import os
+import time
 from ui import UI
 import auto_queue
 from game import Game
 import settings
 import auto_comps
 from comps import CompsManager
-import os, time
-import sys
 
 def game_loop(ui_queue: multiprocessing.Queue, comps : CompsManager)  -> None:
     """Keeps the program running indefinetly by calling queue and game start in a loop"""
@@ -21,10 +21,10 @@ def game_loop(ui_queue: multiprocessing.Queue, comps : CompsManager)  -> None:
 
 if __name__ == "__main__":
     if settings.LEAGUE_CLIENT_PATH is None:
-        raise Exception(
+        raise ValueError(
             "No league client path specified. Please set the path in settings.py")
     comps_manager = CompsManager()
-    comps_manager.champions = {"Tristana": {"Gold": 1, "Board Size": 1}, "Irelia": {"Gold": 1, "Board Size": 1}, 
+    comps_manager.champions = {"Tristana": {"Gold": 1, "Board Size": 1}, "Irelia": {"Gold": 1, "Board Size": 1},
                                 "Aatrox": {"Gold": 5, "Board Size": 1}, "Ahri": {"Gold": 5, "Board Size": 1}, 
                                 "Akshan": {"Gold": 3, "Board Size": 1}, "Ashe": {"Gold": 2, "Board Size": 1}, 
                                 "Azir": {"Gold": 4, "Board Size": 1}, "Bel'Veth": {"Gold": 5, "Board Size": 1}, 
@@ -64,26 +64,24 @@ if __name__ == "__main__":
     yes_choices = ['yes', 'y']
     no_choices = ['no', 'n']
 
-    if(os.path.isfile("cached_data\cached9.json")):
-        print(
-            'Champions and comps already exist. Last modified: %s' % time.ctime(os.path.getmtime("cached_data\cached9.json"))
-            )
+    if os.path.isfile("cached_data/cached9.json"):
+        print('Champions and comps already exist. Last modified: %s' % time.ctime(os.path.getmtime("cached_data/cached9.json")))
         while True:
             comp_input = input('Do you want to update comps? (y/n) ')
             if comp_input.lower() in yes_choices:
-                os.remove("cached_data\cached9.json")
+                os.remove("cached_data/cached9.json")
                 print('Old comp files sucessfully deleted!')
-                if(os.path.isfile("cached_data\deck.json")):
-                    os.remove("cached_data\deck.json")
-                if(os.path.isfile("cached_data\inputed")):
-                    os.remove("cached_data\inputed")
+                if os.path.isfile("cached_data/deck.json"):
+                    os.remove("cached_data/deck.json")
+                if os.path.isfile("cached_data/inputed"):
+                    os.remove("cached_data/inputed")
                 break
             elif comp_input.lower() in no_choices:
                 break
             else:
                 print('Type yes or no')
                 continue
-    
+
     print("Close this window to terminate the overlay window & program")
     auto_comps.LoadChampionsAndComps(comps_manager)
     game_thread.start()

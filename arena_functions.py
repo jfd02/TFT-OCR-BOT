@@ -124,4 +124,3 @@ def get_items() -> list:
         item_bench.append(valid_item(item))
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
     return item_bench
-    

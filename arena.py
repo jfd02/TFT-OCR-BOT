@@ -2,7 +2,6 @@
 Handles the board / bench state inside of the game and
 other variables used by the bot to make decisions
 """
-import json
 from time import sleep
 import game_assets
 import mk_functions
@@ -12,7 +11,6 @@ import ocr
 import game_functions
 import arena_functions
 from comps import CompsManager
-import comps
 
 class Arena:
     """Arena class that handles game logic such as board and bench state"""
@@ -54,11 +52,11 @@ class Arena:
                     mk_functions.left_click(screen_coords.PORTALS_VOTES[portals.index(portal)].get_coords())
                     return
 
-        print(f"  [!] No priority or backup region found, voting for first portal")
+        print("  [!] No priority or backup region found, voting for first portal")
         mk_functions.left_click(screen_coords.PORTALS_LOC[0].get_coords())
         sleep(0.7)
         mk_functions.left_click(screen_coords.PORTALS_VOTES[0].get_coords())
-                
+
     def region_augment(self) -> None:
         """Checks if region augment is Marus Omegnum (tacticians crown)"""
         mk_functions.right_click(screen_coords.REGION_AUGMENT_LOC.get_coords())
@@ -79,7 +77,7 @@ class Arena:
         print("Picking up Tacticians Crown")
         sleep(1)
 
-    
+
     def fix_bench_state(self) -> None:
         """Iterates through bench and fixes invalid slots"""
         bench_occupied: list = arena_functions.bench_occupied_check()
@@ -119,7 +117,8 @@ class Arena:
     def move_known(self, champion: Champion) -> None:
         """Moves champion to the board"""
         print(f"  Moving {champion.name} to board")
-        destination: tuple = screen_coords.BOARD_LOC[self.comps_manager.CURRENT_COMP()[1][champion.name]["board_position"]].get_coords()
+        destination: tuple = screen_coords.BOARD_LOC[self.comps_manager.CURRENT_COMP()[1][champion.name]
+                                                     ["board_position"]].get_coords()
         mk_functions.left_click(champion.coords)
         sleep(0.18)
         mk_functions.left_click(destination)
@@ -340,7 +339,7 @@ class Arena:
     def spend_gold(self) -> None:
         """Spends gold every round"""
         first_run = True
-        min_gold = 24 if self.spam_roll else 50
+        min_gold = 8 if self.spam_roll else 12
         while first_run or arena_functions.get_gold() >= min_gold:
             if not first_run:
                 if arena_functions.get_level() != 9:
@@ -381,6 +380,7 @@ class Arena:
 
 
     def load_aguments(self):
+        """Augments from lolchess.gg"""
         return self.comps_manager.CURRENT_COMP()[2]
 
     def pick_augment(self) -> None:
@@ -397,7 +397,7 @@ class Arena:
                     print(f"  Choosing augment: {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                     return
-                    
+
         if self.augment_roll:
             print("  Rolling for augment")
             mk_functions.left_click(screen_coords.AUGMENT_ROLL_ONE.get_coords())

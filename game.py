@@ -2,7 +2,7 @@
 Handles tasks that happen each game round
 """
 
-from datetime import datetime 
+from datetime import datetime
 from time import sleep, perf_counter
 import random
 import multiprocessing
@@ -68,7 +68,7 @@ class Game:
 
     def game_loop(self) -> None:
         """Loop that runs while the game is active, handles calling the correct tasks for round and exiting game"""
-        
+
         ran_round: str = None
         while game_functions.check_alive():
             self.round: str = game_functions.get_round()
@@ -106,7 +106,7 @@ class Game:
         game_functions.exit_game()
         sleep(0.3)
         game_functions.victory_exit()
-    
+
     def portal_round(self) -> None:
         """Waits for Region Augment decision"""
         print(f"\n[Portal Round] {self.round}")
@@ -180,28 +180,28 @@ class Game:
             """Level to 5 at 2-5"""
             while arena_functions.get_level() < 5:
                 self.arena.buy_xp_round()
-                if ((datetime.now() - start_time).total_seconds() > 5): # check seconds passed
+                if (datetime.now() - start_time).total_seconds() > 5: # check seconds passed
                     break # break out of loop if stuck
             print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in ("3-2"):
             """Level to 6 at 3-2"""
             while arena_functions.get_level() < 6:
                 self.arena.buy_xp_round()
-                if ((datetime.now() - start_time).total_seconds() > 5): # check seconds passed
+                if (datetime.now() - start_time).total_seconds() > 5: # check seconds passed
                     break # break out of loop if stuck
             print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in ("4-1"):
             """Level to 7 at 4-1"""
             while arena_functions.get_level() < 7:
                 self.arena.buy_xp_round()
-                if ((datetime.now() - start_time).total_seconds() > 5): # check seconds passed
+                if (datetime.now() - start_time).total_seconds() > 5: # check seconds passed
                     break # break out of loop if stuck
             print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in ("5-1"):
             """Level to 8 at 5-1"""
             while arena_functions.get_level() < 8:
                 self.arena.buy_xp_round()
-                if ((datetime.now() - start_time).total_seconds() > 5): # check seconds passed
+                if (datetime.now() - start_time).total_seconds() > 5: # check seconds passed
                     break # break out of loop if stuck
             print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in game_assets.PICKUP_ROUNDS:
@@ -209,7 +209,7 @@ class Game:
             game_functions.pickup_items()
 
         if self.round in game_assets.REGION_ROUNDS:
-            if  self.arena.marus_omegnum == True:
+            if  self.arena.marus_omegnum is True:
                 self.arena.region_augment_pickup()
                 if self.round in ("2-6"):
                     self.arena.region_augment_pickup()

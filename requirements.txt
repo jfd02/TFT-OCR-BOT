@@ -1,11 +1,11 @@
-numpy==1.25.0
+numpy==1.25.1
 opencv_python==4.8.0.74
 Pillow==10.0.0
 PyDirectInput==1.0.4
 pytesseract==0.3.10
 requests==2.31.0
 screeninfo==0.8.1
-urllib3==2.0.3
+urllib3==2.0.4
 pypiwin32==223
 beautifulsoup4==4.12.2
-lxml==4.9.2
+lxml==4.9.3

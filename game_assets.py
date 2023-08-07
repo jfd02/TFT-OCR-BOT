@@ -21,7 +21,7 @@ ELUSIVE_ITEMS: set[str] = {"BastionEmblem","BruiserEmblem","DeadeyeEmblem","Frel
                             "GunnerEmblem","InvokerEmblem","PiltoverEmblem","RogueEmblem",
                             "StrategistEmblem","TargonEmblem","VoidEmblem","ZaunEmblem"}
 
-GADGETEEN_ITEMS: set[str] = {"InductionPoweredWarmogsArmor", "JumpStartedSpearofShojin", 
+GADGETEEN_ITEMS: set[str] = {"InductionPoweredWarmogsArmor", "JumpStartedSpearofShojin",
                              "MagnetizedIonicSpark", "HandofNondeterministicJustice", "OVERFLOWERROR//GiantSlayer",
                              "ChainswordBloodthirster", "ShroudofEvenStillerness", "OverclockedSunfireCape"}
 
@@ -30,7 +30,7 @@ ORNN_ITEMS: set[str] = {"AnimaVisage","DeathsDefiance","EternalWinter",
                         "Manazane","ObsidianCleaver","RaduinsSanctum",
                         "RocketPropelledFist","ZhonyasParadox"}
 
-RADIANT_ITEMS: set[str] = {"BulwarksOath", "UrfAngelsStaff", "BlessedBloodthirster", 
+RADIANT_ITEMS: set[str] = {"BulwarksOath", "UrfAngelsStaff", "BlessedBloodthirster",
                            "BlueBlessing", "RosethornVest", "ChaliceofCharity", 
                            "LuminousDeathblade", "DragonsWill", "BrinkofDawn", 
                            "DvarapalaStoneplate", "DemonSlayer", "GuinsoosReckoning", 
@@ -70,14 +70,14 @@ PVP_ROUND: set[str] = {"2-1", "2-2", "2-3", "2-5", "2-6",
 
 PICKUP_ROUNDS: set[str] = {"2-1", "3-1", "4-1", "5-1", "6-1", "7-1"}
 
-ANVIL_ROUNDS: set[str] = {"2-1", "3-1", "3-2", "4-1", "4-2", "5-1", "6-1", "7-1"}
+ANVIL_ROUNDS: set[str] = {"2-1", "2-5", "3-1", "3-5", "4-1", "4-5", "5-1", "5-5", "6-1", "6-5", "7-1", "7-5"}
 
 AUGMENT_ROUNDS: set[str] = {"2-1", "3-2", "4-2"}
 
-REGION_ROUNDS: set[str] = {"2-6", "4-6"}
+REGION_ROUNDS: set[str] = {"2-5", "4-5"}
 
-ITEM_PLACEMENT_ROUNDS: set[str] = {"2-1", "2-6", "2-7",
-             "3-2", "3-5", "4-2", "4-6", "5-2", "5-5", 
+ITEM_PLACEMENT_ROUNDS: set[str] = {"2-1", "2-5", "2-7",
+             "3-2", "3-5", "4-2", "4-5", "5-2", "5-5", 
              "5-7", "6-2", "6-5", "7-2", "7-5", "7-7"}
 
 FINAL_COMP_ROUND = "4-5"
