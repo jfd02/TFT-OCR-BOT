@@ -6,11 +6,11 @@ from typing import Any
 import cv2
 import numpy as np
 from PIL import ImageGrab
-import pytesseract
+from tesserocr import PyTessBaseAPI
 import settings
 
-pytesseract.pytesseract.tesseract_cmd = settings.TESSERACT_PATH
-
+tessdata_path = settings.TESSERACT_TESSDATA_PATH
+api = PyTessBaseAPI(path=tessdata_path)
 
 ALPHABET_WHITELIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 ROUND_WHITELIST = "0123456789-"
@@ -46,8 +46,12 @@ def get_text(screenxy: tuple, scale: int, psm: int, whitelist: str = "") -> str:
     array = image_array(resize)
     grayscale = image_grayscale(array)
     thresholding = image_thresholding(grayscale)
-    return pytesseract.image_to_string(thresholding,
-                                       config=f'--psm {psm} -c tessedit_char_whitelist={whitelist}').strip()
+    with PyTessBaseAPI(path=tessdata_path) as api:
+        api.SetVariable("tessedit_char_whitelist", whitelist)
+        api.SetPageSegMode(psm)
+        api.SetImageBytes(thresholding.tobytes(),thresholding.shape[1], thresholding.shape[0],1,thresholding.shape[1])
+        text = api.GetUTF8Text()
+    return text.strip()
 
 
 def get_text_from_image(image: ImageGrab.Image, whitelist: str = "") -> str:
@@ -56,5 +60,9 @@ def get_text_from_image(image: ImageGrab.Image, whitelist: str = "") -> str:
     array = image_array(resize)
     grayscale = image_grayscale(array)
     thresholding = image_thresholding(grayscale)
-    return pytesseract.image_to_string(thresholding,
-                                       config=f'--psm 7 -c tessedit_char_whitelist={whitelist}').strip()
+    with PyTessBaseAPI(path=tessdata_path) as api:
+        api.SetVariable("tessedit_char_whitelist", whitelist)
+        api.SetPageSegMode(7)
+        api.SetImageBytes(thresholding.tobytes(),thresholding.shape[1], thresholding.shape[0],1,thresholding.shape[1])
+        text = api.GetUTF8Text()
+    return text.strip()
