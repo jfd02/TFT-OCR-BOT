@@ -10,7 +10,6 @@ from tesserocr import PyTessBaseAPI
 import settings
 
 tessdata_path = settings.TESSERACT_TESSDATA_PATH
-api = PyTessBaseAPI(path=tessdata_path)
 
 ALPHABET_WHITELIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 ROUND_WHITELIST = "0123456789-"
