@@ -17,7 +17,7 @@
    - Please note that the version must be 2.6.0 to be compatible with tesseract 5.3.1
    - Select the installation file for either 3.10 or 3.11 based on the Python version you are currently using
    - The file name should be either tesserocr-2.6.0-cp311-cp311-win_amd64.whl or its corresponding to cp310.
-5. Run install.bat
+5. Run install.py
 6. Configure settings.py so the league client path is correct
 7. Disable all in-game overlays
 8. Run the main.py file
