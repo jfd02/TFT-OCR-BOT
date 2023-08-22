@@ -13,6 +13,9 @@ rem Check if tesserocr install file exists
 if exist tesserocr-2.6.0-cp311-cp311-win_amd64.whl (
     call :colortheword "Found requirements.txt file. Installing dependencies..." 2
     pip install tesserocr-2.6.0-cp311-cp311-win_amd64.whl
+) else if exist tesserocr-2.6.0-cp310-cp310-win_amd64.whl (
+    call :colortheword "Found requirements.txt file. Installing dependencies..." 2
+    pip install tesserocr-2.6.0-cp310-cp310-win_amd64.whl
 ) else (
     call :colortheword "tesserocr installation file not found." 4
 )

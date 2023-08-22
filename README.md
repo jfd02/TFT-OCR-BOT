@@ -10,17 +10,17 @@
 1. Install Python 3.11.4 from https://www.python.org/downloads/windows/
    - Note that Python 3.11.4 cannot be used on Windows 7 or earlier.
 2. Clone the repository or download it from here https://github.com/jfd02/TFT-OCR-BOT/archive/refs/heads/main.zip
-3. Open Command Prompt and change the current directory to the folder where main.py is located 
-4. Run 'pip install -r requirements.txt' in Command Prompt
-5. Install tesseract 5.3.1.20230401 using the Windows installer available at: https://github.com/UB-Mannheim/tesseract/wiki
+3. Install tesseract 5.3.1.20230401 using the Windows installer available at: https://github.com/UB-Mannheim/tesseract/wiki
    - Note the tesseract path from the installation.
    - Set Tesseract tessdata folder path in settings.py file (probably already correct)
-6. Download tesserocr v2.6.0 at: https://github.com/simonflueckiger/tesserocr-windows_build/releases
-7. Open Command Prompt and change the current directory to the folder where tesserocr-2.6.0-cp311-cp311-win_amd64.whl is located
-8. Run 'pip install tesserocr-2.6.0-cp311-cp311-win_amd64.whl' in Command Prompt
-7. Configure settings.py so the league client path is correct
-8. Disable all in-game overlays
-9. Run the main.py file
+4. Download tesserocr v2.6.0 to the bot folder via: https://github.com/simonflueckiger/tesserocr-windows_build/releases
+   - Please note that the version must be 2.6.0 to be compatible with tesseract 5.3.1
+   - Select the installation file for either 3.10 or 3.11 based on the Python version you are currently using
+   - The file name should be either tesserocr-2.6.0-cp311-cp311-win_amd64.whl or its corresponding to cp310.
+5. Run install.bat
+6. Configure settings.py so the league client path is correct
+7. Disable all in-game overlays
+8. Run the main.py file
 
 ## FEATURES:
 ![main](https://i.imgur.com/1bXOmag.png)
