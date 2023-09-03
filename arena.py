@@ -227,11 +227,10 @@ class Arena:
         for index, _ in enumerate(self.items):
             if self.items[index] is not None:
                 self.add_item_to_champs(index)
-        if self.tacticians_crown: #checks for Tacticians Crown througout game
-            if 'TacticiansCrown' in self.items:
-                print("  Tacticians Crown on bench, adding extra slot to board")
-                self.board_size -= 1
-                self.tacticians_crown = False
+        if 'TacticiansCrown' in self.items and self.tacticians_crown:
+            print("  Tacticians Crown on bench, adding extra slot to board")
+            self.board_size -= 1
+            self.tacticians_crown = False
 
     def add_item_to_champs(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""

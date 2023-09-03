@@ -208,13 +208,12 @@ class Game:
             print("  Picking up items")
             game_functions.pickup_items()
 
-        if self.round in game_assets.REGION_ROUNDS:
-            if  self.arena.marus_omegnum is True:
+        if self.round in game_assets.REGION_ROUNDS and self.arena.marus_omegnum is True:
+            self.arena.region_augment_pickup()
+            if self.round in ("2-6"):
                 self.arena.region_augment_pickup()
-                if self.round in ("2-6"):
-                    self.arena.region_augment_pickup()
-                    sleep(2)
-                    self.arena.board_size -= 1
+                sleep(2)
+                self.arena.board_size -= 1
 
 
         self.arena.fix_bench_state()
