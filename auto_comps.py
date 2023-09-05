@@ -124,12 +124,12 @@ def __LoadLolChessComps(
         )
         afs = deck.select_one(".open-builder>a").attrs["href"]
         deck_list.append((nms, afs))
+    pattern = r'<script id="__NEXT_DATA__" type="application/json">\s*({[\s\S]*?})\s*</script>'
     for nms, afs in deck_list:
         deck_keys = parse.parse_qs(parse.urlparse(afs).query)["deck"][0]
         deck_response = requests.get(
             f"https://lolchess.gg/builder/set9?hl=en&deck={deck_keys}",
         )
-        pattern = r'<script id="__NEXT_DATA__" type="application/json">\s*({[\s\S]*?})\s*</script>'
         json_in_text = re.search(pattern, deck_response.text)[1]
         query_data = (
             json.loads(json_in_text)
@@ -146,7 +146,6 @@ def __LoadLolChessComps(
         deck_slots = requests.get(
             f"https://tft.dakgg.io/api/v1/team-builders/{deck_keys}",
         ).json()
-        slots = {}
         counter = 0
         augments = deck_slots.get("teamBuilder", {}).get("augments", [])
         real_augments = [
@@ -154,6 +153,7 @@ def __LoadLolChessComps(
             for arg in query_data.get("augments", [])
             if arg.get("key") in augments
         ]
+        slots = {}
         for each_slot in deck_slots.get("teamBuilder", {}).get("slots", []):
             if each_slot is not None:
                 try:
@@ -234,9 +234,9 @@ def LoadChampionsAndComps(comp_manager: CompsManager) -> None:
         print(f"{str(i)} - {comp_manager.comps_loaded[i][0]} [{temp}]")
 
     inputed = ""
-    temp_inputed = ""
     inputed_file_path = os.path.join(cached_path, "inputed")
     if os.path.isfile(inputed_file_path):
+        temp_inputed = ""
         if temp_inputed := pathlib.Path(inputed_file_path).read_text(encoding="utf-8"):
             print(
                 f'Your last selection was: "{temp_inputed}", press Enter to use last selection, or type "n" and press Enter to make new selection',
