@@ -32,6 +32,7 @@ class Arena:
         self.level = 0
         self.augment_roll = True
         self.marus_omegnum = False
+        self.stillwater = False
         self.tacticians_crown = True
         self.spam_roll = False
 
@@ -66,6 +67,9 @@ class Arena:
             if "Marus Omegnum" in region:
                 print(f"  Region Augment: {region}. Picking up Tacticians Crown at round 2-5 and 4-5")
                 self.marus_omegnum = True
+            if "Stillwater Hold" in region:
+                print(f"  Region Augment: {region}. Disabling Augment selection")
+                self.stillwater = True
             else:
                 print(f"  Region Augment: {region}")
         except TypeError:
@@ -338,7 +342,7 @@ class Arena:
     def spend_gold(self) -> None:
         """Spends gold every round"""
         first_run = True
-        min_gold = 8 if self.spam_roll else 12
+        min_gold = 24 if self.spam_roll else 56
         while first_run or arena_functions.get_gold() >= min_gold:
             if not first_run:
                 if arena_functions.get_level() != 9:

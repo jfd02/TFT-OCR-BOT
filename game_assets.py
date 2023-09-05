@@ -174,6 +174,8 @@ AUGMENTS: list[str] = [
 ]
 
 PORTALS: list[str] = [
+    "Marus Omegnum",
+    "Stillwater Hold",
     "Ecliptic Vaults",
     "Petricite Forest",
     "The Lavender Sea",
@@ -182,5 +184,4 @@ PORTALS: list[str] = [
     "Glasc Industries",
     "The Sump",
     "The Rupture",
-    "Marus Omegnum",
 ]

@@ -53,7 +53,7 @@ CHAMP_NAME_POS: list[Vec4] = [
 
 GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 
-EXIT_NOW_POS: Vec4 = Vec4(GameWindow(771, 541, 890, 564))
+EXIT_NOW_POS: Vec4 = Vec4(GameWindow(910, 566, 1018, 584))
 
 AUGMENT_POS: list[Vec4] = [
     Vec4(GameWindow(423, 510, 675, 582)),
@@ -96,7 +96,6 @@ ITEM_PICKUP_LOC: list[Vec2] = [
     Vec2(1293, 313),
     Vec2(1093, 235),
     Vec2(683, 309),
-    Vec2(461, 655),
 ]
 
 AUGMENT_PICKUP_LOC: Vec2 = Vec2(700, 215)
@@ -147,7 +146,7 @@ BOARD_LOC: list[Vec2] = [
 
 CAROUSEL_LOC: Vec2 = Vec2(964, 644)
 
-EXIT_NOW_LOC: Vec2 = Vec2(830, 551)
+EXIT_NOW_LOC: Vec2 = Vec2(962, 575)
 
 VICTORY_CONTINUE_LOC: Vec2 = Vec2(955, 640)
 
