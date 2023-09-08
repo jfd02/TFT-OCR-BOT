@@ -306,7 +306,7 @@ class Arena:
         print("  Found a champ to add an item to before dying.")
         item = self.items[item_index]
         if item in game_assets.ORNN_ITEMS:
-            if len(champ.items) < 3:
+            if champ.does_need_items():
                 mk_functions.left_click(
                     screen_coords.ITEM_POS[item_index][0].get_coords())
                 mk_functions.left_click(champ.coords)
@@ -314,7 +314,7 @@ class Arena:
                 champ.completed_items.append(item)
                 self.items[self.items.index(item)] = None
         if item in game_assets.FULL_ITEMS:
-            if len(champ.items) < 3:
+            if champ.does_need_items():
                 mk_functions.left_click(
                     screen_coords.ITEM_POS[item_index][0].get_coords())
                 mk_functions.left_click(champ.coords)
@@ -322,6 +322,8 @@ class Arena:
                 champ.completed_items.append(item)
                 self.items[self.items.index(item)] = None
         if len(champ.current_building) != 0:
+            print("  ADD ITEMS BEFORE DYING:")
+            print(f"     {champ.name} is building {len(champ.current_building)} items.")
             mk_functions.left_click(
                 screen_coords.ITEM_POS[item_index][0].get_coords())
             mk_functions.left_click(champ.coords)
