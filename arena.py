@@ -269,8 +269,8 @@ class Arena:
                     return
 
     def add_thiefs_gloves_to_random_itemless_champ(self) -> None:
-        """Makes Thieves Gloves if possible and gives them to a champ with no items."""
-        print("  Attempting to add Thieves Gloves to a random itemless champ.")
+        """Makes Thiefs Gloves if possible and gives them to a champ with no items."""
+        print("  Attempting to add Thiefs Gloves to a random itemless champ.")
         gloves_index_1 = -1
         gloves_index_2 = -1
         for index, _ in enumerate(self.items):
@@ -504,7 +504,7 @@ class Arena:
         health: int = arena_functions.get_health()
         if (health <= 15):
             print(f"  Health <= 15 - Health: {health}")
-            self.add_thieves_gloves_to_random_itemless_champ()
+            self.add_thiefs_gloves_to_random_itemless_champ()
             return True
         return False
 

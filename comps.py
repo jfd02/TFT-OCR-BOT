@@ -78,7 +78,7 @@ COMP = {
         "final_comp": False
     },
     "Sona": {
-        "board_position": 7,
+        "board_position": 8,
         "items": ["StatikkShiv","BlueBuff"],
         "level": 3,
         "final_comp": False
