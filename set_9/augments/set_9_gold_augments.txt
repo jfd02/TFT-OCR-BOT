@@ -1,0 +1,578 @@
+SET 9 GOLD AUGMENTS
+
+A Cut Above
+Gain a Deathblade. Champions with Deathblade have a 33% chance to drop 1 gold on kill.
+
+
+Adrenaline Rush
+Your Juggernaut units deal 10% extra damage, increased to 25% for the rest of combat when they fall below 50% Health. Gain 2 Juggernauts.
+
+
+All Natural II
+Your units with no items equipped gain 150 Health and heal for 2% of their max Health each second.
+
+
+All That Shimmers
+Gain a Shimmerscale Item armory that offers 3 options. Shimmerscale items aid gold generation.
+
+
+Ancient Archives I
+Gain 1 Tome of Traits and 4 gold.
+
+
+Ascension
+After 15 seconds of combat, your units deal 50% more damage.
+
+
+Balanced Budget II
+At the start of the next 4 rounds, gain 6 gold
+
+
+Bastion Crest
+Gain a Bastion Emblem and a Kassadin.
+
+
+Battle Ready II
+Your team deals 8% more damage and takes 8% less damage.
+
+
+Big Grab Bag
+Gain 2 random components, 8 gold, and a Reforger.
+
+
+Bruiser Crest
+Gain a Bruiser Emblem and a Vi.
+
+
+Built Different II
+Your units with no Traits active gain 200-425 Health and 40-60% Attack Speed (based on current Stage).
+
+
+Buried Treasures II
+At the start of the next 3 rounds, gain a random item component.
+
+
+Buried Treasures II(Legend)
+At the start of the next 3 rounds, gain a random item component.
+
+
+Capricious Forge
+Gain a Blacksmith's Gloves, which equips two temporary Ornn Artifacts each round.
+
+
+Caretaker's Favor
+Gain a component anvil when you reach level 5, 6, 7, and 8.
+
+
+Challenger Crest
+Gain a Challenger Emblem and a Warwick.
+
+
+Chemtech Enhancements
+Your Chem Modded units gain 500 Health. Allies that start combat adjacent to them gain 100 Health. Gain 2 Zaun units.
+
+
+Combat Caster
+Your units gain a 90-170 (based on current Stage) health shield for 6 seconds after casting their spell.
+
+
+Contagion
+At the start of combat, the highest health enemy unit is afflicted with Contagion, which increases their damage taken by 20%. On death, Contagion spreads to the nearest 2 enemies. Contagion can stack.
+
+
+Cybernetic Bulk II
+Your champions holding an item gain 350 health.
+
+
+Cybernetic Leech II
+Your units holding an item gain 120 Health and 18% Omnivamp.
+
+
+Deadeye Crest
+Gain a Deadeye Emblem and an Ashe.
+
+
+Dedication
+The first time you field at least 4 distinct units of the same trait in a player combat, gain an Emblem for that trait.
+
+
+Defensive Dash
+Combat Start and on takedown: Your Challenger units gain a 75-225 health shield for 2.5 seconds (based on current Stage). Gain 2 Challenger units.
+
+
+Demacia Crest
+Gain a Demacia Emblem and a Galio.
+
+
+Demonflare
+Gain a Swain. Your strongest Swain deals 3% increased damage per 100 max Health.
+
+
+Double Trouble II
+When you field exactly 2 copies of a champion, they both gain 33% Attack Damage and 33 Ability Power, Armor, and Magic Resist. When you 3-star, gain a 2-star copy.
+
+
+Dueling Gunners
+Your Gunner units gain 8% Attack Speed, plus 2% per Gunner stack. Gain 2 Gunners.
+
+
+Early Education
+Your champions permanently gain 1 Ability Power whenever they kill an enemy. Champions start with 15 bonus Ability Power.
+
+
+Endurance Training
+Your champions permanently gain 18 Health every time they kill an enemy. Champions start with 100 bonus Health.
+
+
+Escort Quest
+Gain a Training Dummy. Each round, if it survives combat, gain 3 gold.
+
+
+Final Grab Bag II
+Gain 2 random components, 12 gold, and a Magentic Remover.
+
+
+Freljord Heart
+Your team counts as having 1 additional Freljord. Gain an Ashe.
+
+
+Frequent Flier
+After you refresh your shop 8 times, your refreshes cost 1 for the rest of the game.
+
+
+Gargantuan Resolve
+Gain a Titan's Resolve. Your Titan's Resolves can continue stacking to 35 instead of 25.
+
+
+Gifts from the Fallen
+Your units gain 4% Attack Damage, 4 Ability Power, 4 Armor, and 4 Magic Resist. When one of your units dies, all your units gain these stats again.
+
+
+Glacial Breeze
+When your Freljordian Storm strikes, your units are shielded for 15% of their maximum Health and gain 8% Attack Speed. Gain 2 Freljord units.
+
+
+Gotta Go Fast!!! II
+Your units generate 25% more Mana and move 40% faster.
+
+
+Gunner Crest
+Gain a Gunner Emblem and a Jinx.
+
+
+Harmacist II
+Your units heal for 15% of the damage they deal, and they convert 25% of excess healing to true damage on their next attack.
+
+
+Haunted Shell
+If Shadow Isles is active, your units gain 13 Armor and Magic Resistance for the rest of combat each time an ally dies. Gain 2 Shadow Isles units.
+
+
+Healing Orbs II
+When an enemy dies, the nearest allied unit is healed for 500.
+
+
+Hustler
+Instead of having no interest, you get 3 golds at the beginning of player combat rounds.
+
+
+Idealism
+Gain a Hand of Justice. Champions with a Hand of Justice deal 13% increased damage.
+
+
+Indomitable Will
+When your units score a Takedown they shed all negative effects and become immune to Crowd Control for 6 seconds.
+
+
+Infusion
+Your team restores 20 Mana every 5 seconds.
+
+
+Invoker Crest
+Gain an Invoker Emblem and a Soraka.
+
+
+Ionia Crest
+Gain a Ionia Emblem and a Sett.
+
+
+Item Grab Bag II
+Gain a random completed item, a random component, and 5 gold.
+
+
+It Pays to Learn II
+Gain 16 XP and 12 gold.
+
+
+Jeweled Lotus
+Magic and true damage from your units' Abilities can critically strike. Your units additionally gain 40% Critical Strike Chance.
+
+
+Jeweled Lotus(Legend)
+Your units' Abilities can critically strike. Your units gain 40% Critical Strike chance.
+
+
+Job Well Done
+Gain a Completed Item Anvil and a Component Anvil.
+
+
+Juggernaut Crest
+Gain an Juggernaut Emblem and a Sett.
+
+
+Knowledge Download II
+Gain 22 Exp.
+
+
+Know Your Enemy
+Your units deal 12% increased damage. If you and your opponent have any of the same traits activated, they deal 20% increased damage instead.
+
+
+Last Stand
+The first time you would be eliminated or reduced to 1 Health, instead remain alive. After this effect triggers, your units permanently gain 180 Health, 18 Armor and Magic Resist, and 18% Omnivamp.
+
+
+Library Card
+Gain a Tome of Traits and a Component Anvil
+
+
+Long Distance Pals II
+Combat start: Your two furthest champions form a bond, sharing 25% of their Armor, Magic Resist, Attack Damage, and Ability Power with each other.
+
+
+Loving Invocation
+Your team gains 2 Ability Power until the end of combat each time your Invoker units cast their Abilities. Gain 2 Invokers.
+
+
+Magic Wand
+Gain a Needlessly Large Rod. Your units gain 20% Ability Power.
+
+
+Mana Burn
+Gain a Shroud of Stillness. All enemies take 2% of their maximum health as true damage each second until the first time they cast their spell. No longer damages units without mana.
+
+
+Martyr
+Whenever one of your units dies, all allies heal for 10% of Maximum health
+
+
+Medium Forge
+Gain a Completed Item Anvil and 7 Gold.
+
+
+Metabolic Accelerator
+Your Tactician moves faster and heals 2 Health after a PvP round.
+
+
+Metabolic Accelerator(Legend)
+Your Tactician moves faster and heals 2 Health after a PvP round.
+
+
+Money Money!
+Gain 16 gold. In 4 turns, gain 16 gold again.
+
+
+Morning Light
+When your Bastion units drop below 50% Health, they heal for 40% of their maximum Health over 4 seconds. Gain 2 Bastion units.
+
+
+Not Today
+Gain an Edge of Night. Allies holding Edge of Night gain 35% Attack Speed.
+
+
+Noxus Crest
+Gain a Noxus Emblem and a Swain.
+
+
+Overcharged Manafont
+Combat Start: Your Sorcerer units gain 10 mana. The first time each Sorcerer gets a take down each combat, they gain 20 mana. Gain 2 Sorcerers.
+
+
+Pandora's Items II
+Gain 2 random components. Round Start: items on your bench are randomized (excluding Tactician's Crown, Spatula, and consumables).
+
+
+Pandora's Items II(Legend)
+Gain 1 random completed item(s). At the start of each round, items on your bench are randomized (excluding Tactician's Crown, Spatula, and consumables).
+
+
+?Parting Gifts
+?When a unit dies, they pass a temporary copy of one of their items to the nearest ally with open slots and shield them for 40% of their maximum Health.
+
+
+Patient Study
+After player combat, gain 2 XP if you won or 3 XP if you lost. You can now reach Level 10.
+
+
+Patient Study II(Legend)
+After player combat, gain 2 XP if you won or 4 XP if you lost. You can now reach Level 10.
+
+
+Perfected Repetition
+Each time your Multicaster units deal ability damage, they gain 6%% Ability power (Max: 90%%) until the end of combat. Gain 2 Multicasters.
+
+
+Petricite Shackles
+Your Demacians deal 15% more damage, increased to 22% against Noxians and enemies with 100 or more maximum Mana. Gain 3 Demacians.
+
+
+Piltover Heart
+Your team counts as having 1 additional Piltover. Gain a Vi.
+
+
+Portable Forge
+Open an Armory and choose 1 of 2 unique Artifacts crafted by Ornn.
+
+
+Portable Forge
+Open an Armory and choose 1 of 3 unique Artifacts crafted by Ornn.
+
+
+Portable Forge
+Open an Armory and choose 1 of 4 unique Artifacts crafted by Ornn.
+
+
+Portable Forge(Legend)
+Open an Armory and choose 1 of 3 unique Artifacts crafted by Ornn.
+
+
+Pumping Up II
+Your units gain 10% Attack Speed. Each round, increase this by 1%.
+
+
+Pumping Up II(Legend)
+Your units gain 5% Attack Speed. Each round, increase this by 1%.
+
+
+Return on Investment
+After you refresh your shop 20 times, gain a Tactician's Crown.
+
+
+Ravenous Hunter
+Gain a Warwick. When your strongest Warwick takes or deals damage, he gains 5% Attack Damage and 5 Ability Power, Armor, and Magic Resist, stacking up to 40 times.
+
+
+Rich Get Richer
+Gain 12 gold. Your maximum interest is increased to 7.
+
+
+Rich Get Richer+
+Gain 18 gold. Your maximum interest is increased to 7.
+
+
+Rich Get Richer(Legend)
+Gain 12 gold. Your maximum interest is increased to 7.
+
+
+Riftwalk
+Before casting, your strongest Kassadin gains 32 AP and blinks to the furthest enemy within 3 hexes, but his spell no longer disarms or shields. His mana cost is reduced by 30.
+
+
+Rogue Crest
+Gain a Rogue Emblem and a Zed.
+
+
+Rolling for Days II
+Gain 15 free Shop refreshes. These Shop refreshes carry over between round.
+
+
+Salvage Bin
+Gain a random completed item now, and a component after @NumRounds@ player combats. Selling champions breaks apart their full items into components (excluding Tactician's Crown).
+
+
+Salvage Bin+
+Gain a random completed item now, and a component after @NumRounds@ player combats. Selling champions breaks apart their full items into components (excluding Tactician's Crown).
+
+
+Scoped Weapons I
+Your units that start combat in the back 2 rows gain +2 Attack Range and 15% Attack Speed.
+
+
+Scrappy Inventions
+At the start of combat, maximum of 5 components on your champions turn into temporary items for the rest of combat. At the start of the next 2 stages, gain a component.
+
+
+Sentinel's Spirit
+While in spirit form, your Ionia units gain 15% Attack Speed and shield themselves for 15% of their maximum Health. Gain 3 Ionians.
+
+
+Shadow Isles Crest
+Gain a Shadow Isles Emblem, a Maokai, and 1 gold.
+
+
+Shimmering Inventors
+Your Piltover units gain 7% Bonus Damage every 10 gold you have (Max: 40%), and have a 33% chance to drop 1 gold at round start. Gain an Ekko.
+
+
+Shoplifting
+After your first shop refresh each turn, gain the highest cost champion for free.
+
+
+Shurima Crest
+Gain a Shurima Emblem and a Taliyah.
+
+
+Shurima's Legacy
+Once assembled, your Sun Disc attacks enemies for 160-800 Magic Damage every 2 seconds (based on current Stage). Gain 3 Shurimans.
+
+
+Silver Ticket
+Each time your Shop is refreshed, you have a 30% chance to gain a free refresh.
+
+
+Slayer Crest
+Gain a Slayer Emblem and a Kled.
+
+
+Slayer's Resolve
+When your Slayer units take or deal damage, they gain 2 Armor and Magic Resistance for the rest of combat (This can stack up to 25 times). Gain 2 Slayers.
+
+
+Sleight of Hand
+Gain a Thiefs Gloves. Your allies holding Thiefs Gloves gain 30% Attack Speed.
+
+
+Social Distancing II
+Units that begin combat with no adjacent allies gain 18% Attack Damage and Ability Power.
+
+
+Sorcerer Crest
+Gain a Sorcerer Emblem and a Swain.
+
+
+Spoils of War II
+When you kill an enemy unit, there's a 30% chance to drop loot.
+
+
+Spoils of War II(Legend)
+When you kill an enemy unit, there's a 35% chance to drop more loot.
+
+
+Stable Evolution
+Your Void units gain 60 Health and 6% Attack Damage and Ability Power for each star level they have. Gain 3 Void units.
+
+
+Stars are Born
+The first tier 1 unit and tier 2 unit you buy are upgraded to 2-star. Gain a 3 gold.
+
+
+Stars are Born(Legend)
+The first tier 1 unit and tier 2 unit you buy are upgraded to 2 star. Gain 6 gold.
+
+
+Stellacorn's Blessing
+While you have the Targon trait activated, your units gain 45% Attack Speed for 4 seconds after being healed or shielded. Gain 2 Targonians.
+
+
+Strategist Heart
+Your team counts as having 1 additional Strategist. Gain a Swain.
+
+
+Suppressing Fire
+The target of your Deadeye units' shared attack is stunned for 8 seconds. Gain 2 Deadeyes.
+
+
+Tactical Superiority
+Your units gain 5% Attack Damage and Ability Power for each of their traits you have activated, doubled when you field a Strategist. Gain 2 Strategists.
+
+
+Targon Heart
+Your team counts as having 1 additional Targon. Gain a Soraka.
+
+
+The Boss
+Gain a Sett. The first time your strongest Sett falls below 60% Health, he takes a break to do sit-ups. Each sit-up heals him 10% of his max Health and grants 45% Attack Speed and AP.
+
+
+Three's a Crowd
+Your units gain 111 health for each Tier-3 unique unit you field.
+
+
+Three's Company
+Gain 4 random Tier 3 champions.
+
+
+Tiny Power II
+Your units gain 10% Attack Damage, Ability Power, and Attack Speed.
+
+
+Titanic Strength
+Bruisers gain % increased Attack Damage equal to 1.5% of their maximum Health. Gain 2 Bruisers.
+
+
+Tons of Stats!
+Your team gains 35 Health, 5% Attack Damage, 5 Ability Power, 5 Armor, 5 Magic Resist, 5% Attack Speed, and 5 Mana.
+
+
+Total Domination
+Attacks and Abilities of your Noxus units execute enemies below 8% of their maximum Health, increased by +1% for each player you've Conquered. Gain 3 Noxians.
+
+
+Trade Sector
+Gain a free Shop refresh each round.
+
+
+Trade Sector(Legend)
+Gain a free shop refresh every turn
+
+
+Training Reward II
+Gain 13 Gold and a Champion Duplicator.
+
+
+Transfusion II
+Your team gains 40 Health, plus 3 Health per missing Tactician Health.
+
+
+Transfusion II(Legend)
+Your team gains 40 Health, plus 3 Health per missing Tactician Health.
+
+
+Two Healthy
+Your units gain 111 health for each Tier-2 unique unit you field.
+
+
+Unburdened II
+Your units without items equipped gain 55% Attack Speed.
+
+
+Unified Resistance II
+If you have 3 or more units in the same row at the start of combat, they all gain 30 Armor and Magic Resist.
+
+
+Unstable Yordle Delivery
+Round Start: Gain a random Yordle or 1-5 gold (based on current Stage). Gain 3 Yordles.
+
+
+Vampiric Blades
+Your team gains 10% Omnivamp. Your Rogue units gain 20% instead. Gain 2 Rogues.
+
+
+Void Heart
+Your team counts as having 1 additional Void. Gain a Kassadin.
+
+
+Well-Earned Comforts II
+Your units gain 90 Health for each item equipped.
+
+
+What Doesn't Kill You
+After losing your combat, gain 2 gold. Every 5 losses, gain a random component.
+
+
+Winds of War
+Gain a Galio. Your strongest Galio's spell is larger, and enemies hit take magic damage equal to 8% of their max Health each second.
+
+
+You Have My Bow
+Gain a Recurve Bow. Your units gain 15% Attack Speed.
+
+
+You Have My Sword
+Gain a B.F. Sword. Your units gain 18% Attack Damage.
+
+
+Zaun Crest
+Gain a Zaun Emblem and a Warwick.
+
+

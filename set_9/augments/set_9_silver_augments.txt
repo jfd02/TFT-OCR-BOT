@@ -1,0 +1,325 @@
+SET 9 SILVER AUGMENTS
+
+AFK
+You cannot perform actions for the next 3 rounds. Afterwards, gain 20 gold.
+
+
+AFK(Legend)
+You cannot perform actions for the next 3 rounds. Afterwards, gain 20 gold.
+
+
+All Natural I
+Your Champions with no items equipped gain 120 Health and heal for 1% of their max Health each second.
+
+
+Army Building
+Gain a Lesser Champion Duplicator. This happens a second time after 7 player combats.
+
+
+Balanced Budget I
+At the start of the next 4 rounds, gain 4 gold.
+
+Bastion Heart
+Your team counts as having 1 additional Bastion. Gain a Kassadin.
+
+
+Battle Ready I
+Your team deals 5% more damage and takes 5% less damage.
+
+
+Blood Money
+Gain 1 gold per 3 Health your Tactician loses.
+
+
+Branching Out
+Gain a random Emblem and a Reforger.
+
+
+Branching Out(Legend)
+Gain a random Emblem and a Reforger.
+
+
+Bronze Ticket
+Every 4 Shop refreshes, gain a free refresh.
+
+
+Bruiser Heart
+Your team counts as having 1 additional Bruiser. Gain a Vi.
+
+
+Buried Treasures I
+At the start of the next 2 rounds, gain a random item component.
+
+
+Buried Treasures I(Legend)
+At the start of the next 2 rounds, gain a random item component.
+
+
+Caretaker's Ally
+Each time you level up, gain the same random Tier 2 champion.
+
+
+Challenger Heart
+Your team counts as having 1 additional Challenger. Gain a Warwick.
+
+
+Component Buffet
+Gain a random component. Whenever you would get a random component, instead gain a component anvil.
+
+
+Consistency
+Gain double win and loss streak gold.
+
+
+Cutting Corners
+Leveling up costs 3 XP less. You can now reach Level 10.
+
+
+Cutting Corners (Legend)
+Leveling up costs 3 XP less. You can now reach Level 10.
+
+
+Cybernetic Bulk I
+Your champions holding an item gain 250 health.
+
+
+Cybernetic Leech I
+Your units holding an item gain 80 Health and 13% Omnivamp.
+
+
+Deadeye Heart
+Your team counts as having 1 additional Deadeye. Gain an Ashe.
+
+
+Demacia Heart
+Your team counts as having 1 additional Demacian. Gain a Kayle
+
+
+Final Grab Bag
+Gain a random components, 10 gold, and a Reforger.
+
+
+Gotta Go Fast!!! I
+Your units generate 10% more Mana and move 20% faster.
+
+
+Gunner Heart
+Your team counts as having 1 additional Gunner. Gain a Jinx.
+
+
+Harmacist I
+Your units heal for 10% of the damage they deal, and they convert 20% of excess healing to true damage on their next attack.
+
+
+Healing Orbs I
+When an enemy dies, the nearest allied unit is healed for 300.
+
+
+Inconsistency
+If your streak is less than 2, gain 2 gold.
+
+
+Indomitable Will
+When your units score a Takedown they shed all negative effects and become immune to Crowd Control for 10 seconds.
+
+
+Invoker Heart
+Your team counts as having 1 additional Invoker. Gain a Soraka.
+
+
+Iron Assets
+Gain a Component Anvil and 2 Gold.
+
+
+Item Grab Bag I
+Gain 1 random completed item.
+
+
+It Pays to Learn I
+Gain 10 XP and 8 gold.
+
+
+Jeweled Lotus I
+Combat Start: Your strongest unit gains 40% critical strike chance and their spells can critically strike.
+
+
+Jeweled Lotus I(Legend)
+Combat Start: Your strongest unit gains 15% critical strike chance and their spells can critically strike.
+
+
+Job's Done
+Gain 2 Component Anvils.
+
+
+Juggernaut Heart
+Your team counts as having 1 additional Juggernaut. Gain a Sett.
+
+
+Knowledge Download I
+Gain 12 Exp.
+
+
+Lategame Specialist
+When you reach Level 9, gain 44 gold.
+
+
+Latent Forge
+Gain an Ornn Item Anvil after 8 player combats.
+
+
+Latent Forge(Legend)
+Gain an Ornn Item Anvil after 7 player combats.
+
+
+Missed Connections
+Gain a copy of each Tier One champion.
+
+
+Money!
+Gain 10 gold. In 4 turns, gain 10 gold again.
+
+
+On a Roll
+Whenever you star-up a champion, gain a free reroll. Gain 2 gold.
+
+
+On a Roll(Legend)
+Whenever you 2* a unit, gain a free reroll and 2 gold.
+
+
+One Twos Three
+Gain 1 Tier one unit, 2 Tier two units, and 1 Tier three unit.
+
+
+One, Twos, Three(Legend)
+Gain 1 Tier one unit, 2 Tier two units, and 1 Tier three unit.
+
+
+One, Two, Five!
+Gain 1 random component, 2 Gold, and 1 random Tier 5 champion(s).
+
+
+Pandora's Bench
+Gain 2 gold. At the start of every round, champions on the 3 rightmost bench slots transform into random champions of the same cost.
+
+
+Pandora's Items
+Gain a random component. Round Start: items on your bench are randomized (excluding Tactician's Crown, Spatula, and consumables).
+
+
+Pandora's Items(Legend)
+Gain a random component. At the start of each round, items on your bench are randomized (excluding Tactician's Crown, Spatula, and consumables).
+
+
+Partial Ascension
+After 15 seconds, your units deal 33% more damage.
+
+
+Pumping Up I
+Your units gain 8% Attack Speed. Each round, increase this by 0.5%.
+
+
+Pumping Up I(Legend)
+Your units gain 5% Attack Speed. Each round, increase this by 0.5%.
+
+
+Recombobulator
+Champions on your board permanently transform into random champions 1 Tier higher. Gain @NumRemovers@ Magnetic Removers.
+
+
+Red Buff
+Your units' attacks burn their targets for 8% of their maximum Health over 5 seconds and reduce their targets' healing received by 50%.
+
+
+Risky Moves
+Your Tactician loses 20 Health, but after 7 Player combats, gain 30 Gold.
+
+
+Rogue Heart
+Your team counts as having 1 additional Rogue. Gain a Zed.
+
+
+Rolling for Days I
+Gain 10 free Shop refreshes. These Shop refreshes carry over between round.
+
+
+Shadow Isles Heart
+Your team counts as having 1 additional Shadow Isles. Gain a Viego and 1 gold.
+
+
+Silver Spoon
+Gain 10 XP.
+
+
+Slayer Heart
+Your team counts as having 1 additional Slayer. Gain a Kled.
+
+
+Small Forge
+Gain a Component Anvil and 4 gold.
+
+
+Social Distancing I
+Units that begin combat with no adjacent allies gain 12% Attack Damage and Ability Power.
+
+
+Sorcerer Heart
+Your team counts as having 1 additional Sorcerer. Gain a Swain.
+
+
+Spoils of War I
+When you kill an enemy unit, there's a 20% chance to drop loot.
+
+
+Spoils of War I(Legend)
+When you kill an enemy unit, there's a 25% chance to drop loot.
+
+
+Tiny Grab Bag
+Gain a random component, 4 gold, a Magnetic Remover.
+
+
+Tiny Titans
+Your Tactician heals 30 Health, grows larger, and has 130 maximum Health.
+
+
+Tiny Power I
+Your units gain 7% Attack Damage, Ability Power, and Attack Speed.
+
+
+Tiny Titans(Legend)
+Your Tactician heals 30 Health, grows larger, and has 130 maximum Health.
+
+
+Transfusion I(Legend)
+Your team gains 20 Health, plus 2 Health per missing Tactician Health.
+
+
+Training Reward I
+Gain 5 Gold and a Lesser Champion Duplicator.
+
+
+Transfusion I
+Your team gains 20 Health, plus 2 Health per missing Tactician Health.
+
+
+Unburdened I
+Your units without items equipped gain 30% Attack Speed.
+
+
+Unified Resistance I
+If you have 3 or more units in the same row at the start of combat, they all gain 18 Armor and Magic Resist.
+
+
+Well-Earned Comforts I
+Your units gain 60 Health for each item equipped.
+
+
+Young and Wild and Free
+You can always move freely on Carousel rounds. Gain a random component.
+
+
+Zaun Heart
+Your team counts as having 1 additional Zaun. Gain a Warwick.
+
+

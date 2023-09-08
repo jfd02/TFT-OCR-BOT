@@ -1,0 +1,410 @@
+SET 9 PRISMATIC AUGMENTS
+
+Ancient Archives II
+Gain 2 Tome of Traits and 3 gold.
+
+
+Ancient Archives II(Legend)
+Gain 2 Tome of Traits and 8 gold.
+
+
+Balanced Budget III
+At the start of the next 4 rounds, gain 11 gold.
+
+
+Bastion Crown
+Gain a Bastion Emblem, a Sunfire Cape, and a Taric.
+
+
+Battle Ready III
+Your team deals 12% more damage and takes 12% less damage.
+
+
+Binary Airdrop
+Your champions equipped with 2 items temporarily gain a random completed item at the start of combat. Gain @ItemComponents@ random item components.
+
+
+Birthday Present
+Gain a 2-star champion and 2 gold every time you level up. The champion's tier is your level minus 4 (min: Tier 1).
+
+
+Blinding Speed
+Gain a Rapid Firecannon and a Guinsoo's Rageblade, a Magnetic Remover.
+
+
+Bruiser Crown
+Gain a Bruiser Emblem, a Redemption, and a Rek'Sai.
+
+
+Built Different III
+Your units with no Traits active gain 270-600 Health and 50-70% Attack Speed (based on current Stage).
+
+
+Buried Treasures III
+At the start of the next 5 rounds, gain a random item component.
+
+
+Buried Treasures III(Legend)
+At the start of the next 5 rounds, gain a random item component.
+
+
+Caretaker's Chosen
+As you level, gain more powerful items. At level 4 - gain a Component Anvil, at level 6 - gain a Completed Item Anvil, at level 8 - open a radiant item armory.
+
+
+Caretaker's Chosen(Legend)
+When you reach Level 5, open an Armory and choose 1 of 5 unique Radiant items. At level 7, gain this effect again, and gain an Item Remover.
+
+
+Challenger Crown
+Gain a Challenger Emblem, a Hand of Justice, and a Kalista.
+
+
+Cruel Pact
+Buying XP costs 5 Health instead of gold. Heal 2 Health before each player combat.
+
+
+Cursed Crown
+Gain +2 maximum team size, but take 100% increased player damage.
+
+
+Cybernetic Bulk III
+Your champions holding an item gain 500 health.
+
+
+Cybernetic Leech III
+Your units holding an item gain 225 Health and 25% Omnivamp.
+
+
+Deadeye Crown
+Gain a Deadeye Emblem, a Guinsoo's Rageblade, and an Akshan.
+
+
+Demacia Crown
+Gain a Demacia Emblem, a Recurve Bow, and a Garen.
+
+
+Double Trouble III
+When you field exactly 2 copies of a champion, they both gain 44% Attack Damage and 44 Ability Power, Armor, and Magic Resist. When you 3-star, gain a 2-star copy.
+
+
+Endless Horde
+Gain +3 maximum team size, but your units can only hold 1 item and their total health is reduced by 20%. Gain 6 gold.
+
+
+Endless Horde+
+(Only on 4-2) Gain team size equal to half your level. Your units can only hold 1 item. Gain 9 Gold.
+
+
+Final Ascension
+Your units deal 18% more damage. After 15 seconds, this effect triples.
+
+
+Final Reserves
+The first time you would be eliminated or reduced to 1 Health, instead remain alive. After this effect triggers, at the beginning of your next planning phase gain 80 XP and 40 Gold.
+
+
+Freljord Soul
+Your team counts as having 1 additional Freljord. Gain an Archangel's Staff and a Lissandra.
+
+
+Giant Grab Bag
+Gain 3 random components, 10 gold, and a Lesser Champion Duplicator.
+
+
+Gifts From Above
+At the start of combat, your champion with the least items equips 5.0 temporary completed item.
+
+
+Golden Ticket
+Each time your Shop is refreshed, you have a 50% chance to gain a free refresh.
+
+
+Gotta Go Fast!!! III
+Your units generate 35% more Mana and move 50% faster.
+
+
+Gunner Crown
+Gain a Gunner Emblem, a Runann's Hurricane, and a Jayce.
+
+
+Harmacist III
+Your units heal for 25% of the damage they deal, and they convert 30% of excess healing to true damage on their next attack.
+
+
+Hedge Fund
+You have no interest cap. Gain 22 gold.
+
+
+Hedge Fund+
+You have no interest cap. Gain 32 gold.
+
+
+Hedge Fund++
+You have no interest cap. Gain 44 gold.
+
+
+Hedge Fund(Legend)
+You have no interest cap. Gain 20 gold.
+
+
+High End Sector
+Gain 1 gold per round. When you level up, gain a number of free shop refreshes equal to your level.
+
+
+High End Sector(Legend)
+Each round, gain a free Shop refresh and 3 gold
+
+
+Impenetrable Bulwark
+Gain a Bramble Vest and a Dragon's Claw, a Magnetic Remover.
+
+
+Infernal Contract
+Your max level is 7. Gain 85 Gold.
+
+
+Invoker Crown
+Gain a Invoker Emblem, a Jeweled Gauntlet, and a Karma.
+
+
+Ionia Crown
+Gain an Ionia Emblem, a Guardbreaker, and a Karma.
+
+
+Item Grab Bag III
+Gain 2 random full items and 8 Gold.
+
+
+It Pays to Learn III
+Gain 20 XP and 16 gold.
+
+
+Jeweled Lotus III
+Your units' Abilities can critically strike. Your units gain 45% Critical Strike chance.
+
+
+Jeweled Lotus III(Legend)
+Your units' Abilities can critically strike. Your units gain 55% Critical Strike chance.
+
+
+Juggernaut Crown
+Gain an Juggernaut Emblem, a Bloodthirster, and a Darius.
+
+
+Knowledge Download III
+Gain 36 Exp.
+
+
+Large Forge
+Gain an Ornn Item Anvil and a Component Item Anvil.
+
+
+Level Up!
+When you buy XP, gain an additional 3. Gain 2 immediately. You can now reach level 10.
+
+
+Level Up! (Legend)
+When you buy XP, gain an additional 3. Gain 2 immediately. You can now reach level 10.
+
+
+Living Forge
+Gain an Ornn Item Anvil now and after every 10 player combats.
+
+
+Living Forge(Legend)
+Gain a random Ornn artifact now and after every 10 player combats.
+
+
+Lucky Gloves
+Thief's Gloves will always give your champions ideal items. Gain 3 Sparring Gloves.
+
+
+March of Progress
+Gain 3 XP now, and bonus XP equal to your level at the start of every player combat round. You can no longer use gold to level up.
+
+
+Masterful Job
+Gain an Ornn Item Anvil and a Completed Item Anvil.
+
+
+Money Money Money!
+Gain 25 gold. In 4 turns, gain 25 gold again.
+
+
+Multicaster Soul
+Your team counts as having 1 additional Multicaster. Gain a Jeweled Gauntlet and a Vel'Koz.
+
+
+Noxus Crown
+Gain a Noxus Emblem, a Sparring Gloves, and a Darius.
+
+
+Overwhelming Force
+Gain a Deathblade and an Infinity Edge, a Magnetic Remover.
+
+
+Pandora's Box
+Gain a random Radiant item. Round Start: items on your bench are randomized (excluding Tactician's Crown, Spatula, and consumables).
+
+
+Pandora's Box(Legend)
+Gain a random Radiant item. At the start of each round, items on your bench are randomized (excluding Tactician's Crown, Spatula, and consumables).
+
+
+Parting Gifts
+When a unit dies, they pass a temporary copy of one of their items to the nearest ally with open slots and shield them for 35% of their maximum Health.
+
+
+Phreaky Friday
+Gain an Infinity Force. After 5 Player combats, gain a second Infinity Force.
+
+
+Phreaky Friday+
+Gain an Infinity Force. After 3 Player combats, gain a second Infinity Force.
+
+
+Piltover Soul
+Your team counts as having 1 additional Piltover. Gain a Giant Slayer and a Jayce.
+
+
+Pumping Up III
+Your units gain 12% Attack Speed. Each round, increase this by 2%.
+
+
+Pumping Up III(Legend)
+Your units gain 12% Attack Speed. Each round, increase this by 2%.
+
+
+Radiant Relics
+Open an Armory and choose 1 of 5 unique Radiant items.
+
+
+Rogue Crown
+Gain a Rogue Emblem, a Hand of Justice, and a Katarina.
+
+
+Rolling for Days III
+Gain 25 free Shop refreshes. These Shop refreshes carry over between round.
+
+
+Roll The Dice
+Gain a Radiant Thieves Gloves.
+
+
+Seeing Double III
+Gain 2 random items made from 2 of the same component and 4 gold.
+
+
+Shadow Isles Crown
+Gain a Shadow Isles Emblem, a Tear of the Goddess, and a Kalista.
+
+
+Shopping Spree
+Gain 1 gold per round. When you level up, gain a number of free shop refreshes equal to your level, which carry over between rounds.
+
+
+Shurima Crown
+Gain a Shurima Emblem, a Protector’s Vow, and a Akshan.
+
+
+Slayer Crown
+Gain a Slayer Emblem, a Titan’s Resolve, and a Kled.
+
+
+Social Distancing III
+Units that begin combat with no adjacent allies gain 25% Attack Damage and Ability Power.
+
+
+Sorcerer Crown
+Gain a Sorcerer Emblem, a Spear of Shojin, and a Vel'Koz.
+
+
+Spoils of War III
+When you kill an enemy unit, there's a 40% chance to drop amazing loot.
+
+
+Spoils of War III(Legend)
+When you kill an enemy unit, there's a 45% chance to drop amazing loot.
+
+
+Starter Kit
+Gain a Tier 4 champion, and a 2-star Tier 1 champion that shares a trait with them. At the next 1 stages, gain the Tier 4 champion again.
+
+
+Starter Kit(Legend)
+Gain a Tier 4 champion, an item they can use, and a 2-star Tier 1 champion that shares a trait with them. At the next 2 stages, gain the Tier 4 champion again.
+
+
+Strategist Soul
+Your team counts as having 1 additional Strategist. Gain a Chalice of Power and a Swain.
+
+
+Tactician's Tools
+Gain two Spatulas.
+
+
+Targon Soul
+Your team counts as having 1 additional Targon. Gain a Redemption and a Taric.
+
+
+The Golden Egg
+Gain a massive golden egg that hatches in 11 turns. Victorious player combats accelerate the hatch timer by an additional turn.
+
+
+Think Fast
+Shop refreshes are free until the end of this round. Traits and other augments do not benefit from these free shops. Gain 3 gold.
+
+
+Tiniest Titan
+Your tactician is small and speedy, heals 2 Health after a PVP round, and grants 2 Gold per round.
+
+
+Tiniest Titan(Legend)
+Your tactician is small and speedy, heals 2 Health after a PVP round, and grants 2 Gold per round.
+
+
+Tiny Power III
+Your units gain 16% Attack Damage, Ability Power, and Attack Speed.
+
+
+Training Reward III
+Gain 18 Gold and a Champion Duplicator.
+
+
+Transfusion III
+Your team gains 50 Health, plus 5 Health per missing Tactician Health.
+
+
+Unleashed Arcana
+Gain a Jeweled Gauntlet and a Rabadon's Deathcap, a Magnetic Remover.
+
+
+Urf's Grab Bag
+Gain 2 random components, a Champion Duplicator, and a Spatula.
+
+
+Void Soul
+Gain a Void Emblem, Zz'Rot Portal and a Rek'Sai.
+
+
+Wandering Trainer
+Gain 4 gold and a Training Dummy. It has 3 random emblems equipped, which cannot be removed.
+
+
+Well-Earned Comforts III
+Your units gain 120 Health and 10% Attack Speed for each item equipped.
+
+
+Wellness Trust
+Round Start: Gain 3 gold. If you have at least 40 gold, your Tactician heals 2 Health.
+
+
+What The Forge
+All Completed items you own or receive are reforged into random Ornn Artifacts (excluding Tactician's Crown and Emblems). Units gain 160 Health per equipped Artifact.
+
+
+Zaun Crown
+Gain a Zaun Emblem, a Guardbreaker, and an Ekko.
+
+
