@@ -72,7 +72,7 @@ class Arena:
 
     def move_known(self, champion: Champion) -> None:
         """Moves champion to the board"""
-        print(f"  Moving {champion.name} to board")
+        print(f"    Moving {champion.name} to board")
         destination: tuple = screen_coords.BOARD_LOC[comps.COMP[champion.name]["board_position"]].get_coords()
         mk_functions.left_click(champion.coords)
         sleep(0.1)
@@ -88,7 +88,7 @@ class Arena:
         """Moves unknown champion to the board"""
         for index, champion in enumerate(self.bench):
             if isinstance(champion, str):
-                print(f"  Moving {champion} to board")
+                print(f"    Moving {champion} to board")
                 mk_functions.left_click(screen_coords.BENCH_LOC[index].get_coords())
                 sleep(0.1)
                 mk_functions.left_click(
@@ -423,15 +423,15 @@ class Arena:
         """Checks if current health is below 30 and conditionally activates spam roll"""
         health: int = arena_functions.get_health()
         if health > 0:
-            print(f"  Health: {health}")
+            print(f"    Health: {health}")
             if not self.spam_roll and health < 30:
-                print("    Health under 30, spam roll activated")
+                print("      Health under 30, spam roll activated")
                 self.spam_roll = True
             if not self.spam_roll_to_zero and health < 13:
                 print("      Health under 13, spam roll to zero activated")
                 self.spam_roll_to_zero = True
         else:
-            print("  Health check failed")
+            print("    Health check failed")
 
     def get_label(self) -> None:
         """Gets labels used to display champion name UI on window"""
