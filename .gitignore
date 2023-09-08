@@ -334,3 +334,6 @@ ASALocalRun/
 .localhistory/
 *.pyproj
 .vscode
+
+#Tesserocr
+*.whl
