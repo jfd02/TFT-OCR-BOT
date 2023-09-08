@@ -333,6 +333,7 @@ class Arena:
 
     def pick_augment(self) -> None:
         """Picks an augment from user defined augment priority list or defaults to first augment"""
+        sleep(5)
         augments: list = []
         for coords in screen_coords.AUGMENT_POS:
             augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
