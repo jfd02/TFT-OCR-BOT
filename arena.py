@@ -183,9 +183,45 @@ class Arena:
         """Iterates through items and tries to add them to champion"""
         self.items = arena_functions.get_items()
         print(f"  Items: {list(filter((None).__ne__, self.items))}")
-        for index, _ in enumerate(self.items):
-            if self.items[index] is not None:
-                self.add_item_to_champs(index)
+
+        self.check_if_we_should_spam_sparring_gloves()
+
+        will_try_to_place_item = True
+        item_count = 0
+        # Place items until we fail to place an item once.
+        while (will_try_to_place_item):
+            item_count += 1
+            print(f"  Looking for item #{item_count} to place:")
+            item_amount_at_start = self.count_items_on_bench()
+            for index, _ in enumerate(self.items):
+                if self.items[index] is not None:
+                    item = self.items[index]
+                    if item in game_assets.ORNN_ITEMS:
+                        print(f"    Found an Ornn Item: {item}")
+                        self.add_item_to_champs(index)
+                        if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
+                            will_try_to_place_item = False
+                        if self.check_if_we_should_spam_items_before_dying():
+                            if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
+                                will_try_to_place_item = False
+                    if item in game_assets.FULL_ITEMS:
+                        print(f"    Found a Completed Item: {item}")
+                        self.add_item_to_champs(index)
+                        if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
+                            will_try_to_place_item = False
+                        if self.check_if_we_should_spam_items_before_dying():
+                            if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
+                                will_try_to_place_item = False
+            for index, _ in enumerate(self.items):
+                if self.items[index] is not None:
+                    self.add_item_to_champs(index)
+                    if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
+                        will_try_to_place_item = False
+                    if self.check_if_we_should_spam_items_before_dying():
+                        if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
+                            will_try_to_place_item = False
+            if will_try_to_place_item == False:
+                print("    No longer placing items this round.")
 
     def add_item_to_champs(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
@@ -465,3 +501,21 @@ class Arena:
             print(f"    Started Item Amount: {item_amount_at_start}")
             print(f"      Current Item Amount: {i}")
             return True
+
+    def check_if_we_should_spam_sparring_gloves(self) -> 'bool':
+        """Checks if our health is at 15 or less and then calls the function to spam thief's gloves."""
+        health: int = arena_functions.get_health()
+        if (health <= 15):
+            print(f"  Health <= 15 - Health: {health}")
+            self.add_thieves_gloves_to_random_itemless_champ()
+            return True
+        return False
+
+    def check_if_we_should_spam_items_before_dying(self) -> 'bool':
+        """Checks if our health is at 15 or less and then calls the function spam items before dying"""
+        health: int = arena_functions.get_health()
+        if health <= 15:
+            print(f"    Health <= 15 - Health: {health}")
+            self.add_item_to_champs_before_dying(index)
+            return True
+        return False
