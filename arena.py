@@ -198,7 +198,7 @@ class Arena:
                         self.add_item_to_champs(index)
                         if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                             will_try_to_place_item = False
-                        if self.check_if_we_should_spam_items_before_dying():
+                        if self.check_if_we_should_spam_items_before_dying(index):
                             if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                                 will_try_to_place_item = False
                     if item in game_assets.FULL_ITEMS:
@@ -206,7 +206,7 @@ class Arena:
                         self.add_item_to_champs(index)
                         if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                             will_try_to_place_item = False
-                        if self.check_if_we_should_spam_items_before_dying():
+                        if self.check_if_we_should_spam_items_before_dying(index):
                             if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                                 will_try_to_place_item = False
             for index, _ in enumerate(self.items):
@@ -214,7 +214,7 @@ class Arena:
                     self.add_item_to_champs(index)
                     if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                         will_try_to_place_item = False
-                    if self.check_if_we_should_spam_items_before_dying():
+                    if self.check_if_we_should_spam_items_before_dying(index):
                         if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                             will_try_to_place_item = False
             if will_try_to_place_item == False:
@@ -508,7 +508,7 @@ class Arena:
             return True
         return False
 
-    def check_if_we_should_spam_items_before_dying(self) -> 'bool':
+    def check_if_we_should_spam_items_before_dying(self, index: int) -> 'bool':
         """Checks if our health is at 15 or less and then calls the function spam items before dying"""
         health: int = arena_functions.get_health()
         if health <= 15:
