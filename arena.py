@@ -158,10 +158,7 @@ class Arena:
         """Sells unknown champions"""
         for index, champion in enumerate(self.bench):
             if champion == "?" or isinstance(champion, str):
-                if champion.name not None:
-                    print(f"  1Selling unknown champion: {champion} - Name: {champion.name}")
-                else:
-                    print(f"  1Selling unknown champion: {champion}")
+                print(f"  1Selling unknown champion: {champion}")
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                 self.bench[index] = None
             elif isinstance(champion, Champion):
@@ -490,7 +487,7 @@ class Arena:
         """Returns the number of items on the bench."""
         item_amount = 0
         for i in self.items:
-            if i not None:
+            if i is not None:
                 item_amount += 1
         return item_amount
 
