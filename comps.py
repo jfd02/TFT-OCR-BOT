@@ -7,97 +7,150 @@ Items are in camel case and a-Z
 COMP = {
     "Azir": {
         "board_position": 6,
-        "items": ["GuinsoosRageblade","HextechGunblade","StatikkShiv"],
-        "level": 2,
+        "items": ["GuinsoosRageblade","HextechGunblade","StatikkShiv","RapidFirecannon","Guardbreaker","GiantSlayer"],
+        "level": 3,
+        "final_comp": True
+    },
+    "Nasus": {
+        "board_position": 24,
+        "items": ["Redemption","DragonsClaw","BrambleVest","GargoyleStoneplate","WarmogsArmor"],
+        "level": 3,
         "final_comp": True
     },
     "Jarvan IV": {
         "board_position": 26,
-        "items": ["Redemption","DragonsClaw","WarmogsArmor"],
+        "items": ["ProtectorsVow"],
         "level": 3,
         "final_comp": True
     },
+    "KSante": {
+        "board_position": 9,
+        "items": [],
+        "level": 1,
+        "final_comp": True
+    },
     "Taliyah": {
-        "board_position": 0,
+        "board_position": 9,
         "items": [],
         "level": 2,
         "final_comp": True
     },
     "Teemo": {
-        "board_position": 4,
+        "board_position": 3,
         "items": [],
         "level": 2,
         "final_comp": True
     },
     "Swain": {
-        "board_position": 25,
-        "items": [],
-        "level": 2,
-        "final_comp": True
-    },
-    "Garen": {
-        "board_position": 24,
+        "board_position": 22,
         "items": [],
         "level": 2,
         "final_comp": True
     },
     "Lux": {
-        "board_position": 5,
-        "items": [],
-        "level": 2,
+        "board_position": 0,
+        "items": ["BlueBuff","JeweledGauntlet"],
+        "level": 3,
         "final_comp": True
     },
-    "Nasus": {
-        "board_position": 27,
-        "items": [],
+    "Renekton": {
+        "board_position": 16,
+        "items": ["BrambleVest","DragonsClaw"],
         "level": 2,
-        "final_comp": True
+        "final_comp": False
+    },
+    "Vi": {
+        "board_position": 14,
+        "items": ["BrambleVest","DragonsClaw"],
+        "level": 2,
+        "final_comp": False
+    },
+    "Cassiopeia": {
+        "board_position": 7,
+        "items": ["GuinsoosRageblade","HextechGunblade","JeweledGauntlet"],
+        "level": 3,
+        "final_comp": False
+    },
+    "Sona": {
+        "board_position": 7,
+        "items": ["StatikkShiv","BlueBuff"],
+        "level": 3,
+        "final_comp": False
     }
 }
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
 # (Anything that changes gameplay or adds something to the bench).
 AUGMENTS: list[str] = [
-    "Gotta Go Fast",
-    "Tiny Power",
-    "Shurima's Legacy",
-    "Featherweights",
-    "Reconnaissance Team",
-    "Electrocharge",
-    "Quickdraw Soul",
-    "InfiniTeam",
-    "Big Friend",
-    "First Aid Kit",
-    "Stand United",
-    "Urf's Grab Bag",
-    "Component Grab Bag",
-    "Thrill of the Hunt",
-    "Better Together",
-    "Cybernetic Uplink",
-    "Cybernetic Implants",
-    "Celestial Blessing",
-    "Cybernetic Shell",
-    "Weakspot",
-    "Tri Force",
-    "Gadget Expert",
-    "Metabolic Accelerator",
-    "Second Wind",
-    "Luden's Echo",
-    "Last Stand",
-    "Ascension",
+    "Battle Ready I",
+    "Bronze Ticket",
+    "Cybernetic Bulk I",
+    "Cybernetic Leech I",
+    "Gotta Go Fast!!! I",
+    "Healing Orbs I",
+    "Money!",
+    "Partial Ascension",
+    "Pumping Up I",
+    "Red Buff",
+    "Social Distancing I",
     "Tiny Titans",
-    "Sunfire Board",
-    "Wise Spending",
-    "Component Grab Bag+",
-    "Preparation",
-    "Blue Battery",
-    "Hustler",
-    "Windfall++",
-    "Verdant Veil",
-    "Rich Get Richer+",
-    "Combat Training",
-    "Meditation",
-    "Axiom Arc",
+    "Unified Resistance I",
+
+    "Ascension",
+    "Balanced Budget II",
+    "Battle Ready II",
+    "Big Grab Bag",
+    "Buried Treasures II",
+    "Caretaker's Favor",
+    "Cybernetic Bulk II",
+    "Cybernetic Leech II",
+    "Early Education",
+    "Endurance Training",
+    "Final Grab Bag II",
+    "Gifts from the Fallen",
+    "Gotta Go Fast!!! II",
+    "Healing Orbs II",
+    "Infusion",
+    "Item Grab Bag II",
+    "It Pays to Learn II",
+    "Jeweled Lotus",
+    "Knowledge Download II",
+    "Know Your Enemy",
+    "Last Stand",
+    "Magic Wand"
+    "Martyr",
+    "Money Money!",
+    "Patient Study",
+    "Pumping Up II",
+    "Salvage Bin",
+    "Salvage Bin+",
+    "Scrappy Inventions",
+    "Shurima Crest",
+    "Shurima's Legacy",
+    "Social Distancing II",
+    "Sorcerer Crest",
+    "Strategist Heart",
+    "Tactical Superiority",
+    "Tiny Power II",
+    "Tons of Stats!",
+    "Unified Resistance II",
+    "What Doesn't Kill You",
+    "You Have My Bow",
+
+    "Battle Ready III",
+    "Blinding Speed",
+    "Cybernetic Leech III",
+    "Final Ascension",
+    "Impenetrable Bulwak",
+    "Lucky Gloves",
+    "Pumping Up III",
+    "Shurima Crown",
+    "Social Distancing III",
+    "Strategist Soul",
+    "Tiniest Titan",
+    "Unified Resistance III",
+    "Unleashed Arcana",
+    "Wandering Trainer"
 ]
 
 
