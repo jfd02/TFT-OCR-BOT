@@ -6,6 +6,8 @@ from time import sleep, perf_counter
 import random
 import multiprocessing
 import win32gui
+
+import arena_functions
 import settings
 import game_assets
 import game_functions
@@ -142,6 +144,8 @@ class Game:
         print(f"\n[PvP Round] {self.round}")
         self.message_queue.put("CLEAR")
         sleep(0.5)
+        print("  Checking health at the beginning of PvP Round, so I know how much health I have before shopping.")
+        self.arena.check_health()
         if self.round in game_assets.AUGMENT_ROUNDS:
             sleep(1)
             self.arena.pick_augment()
@@ -163,7 +167,7 @@ class Game:
             self.arena.final_comp_check()
         self.arena.bench_cleanup()
 
-        if self.round in game_assets.ITEM_PLACEMENT_ROUNDS:
+        if self.round in game_assets.ITEM_PLACEMENT_ROUNDS or arena_functions.get_health() <= 15:
             sleep(1)
             self.arena.place_items()
         self.end_round_tasks()
