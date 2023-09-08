@@ -158,12 +158,15 @@ class Arena:
         """Sells unknown champions"""
         for index, champion in enumerate(self.bench):
             if champion == "?" or isinstance(champion, str):
-                print("  Selling unknown champion")
+                if champion.name not None:
+                    print(f"  1Selling unknown champion: {champion} - Name: {champion.name}")
+                else:
+                    print(f"  1Selling unknown champion: {champion}")
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                 self.bench[index] = None
             elif isinstance(champion, Champion):
                 if champion.name not in self.champs_to_buy and champion.name in self.board_names:
-                    print("  Selling unknown champion")
+                    print(f"  2Selling unknown champion: {champion} - Name: {champion.name}")
                     mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                     self.bench[index] = None
 
