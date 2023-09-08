@@ -174,6 +174,7 @@ class Game:
 
     def end_round_tasks(self) -> None:
         """Common tasks across rounds that happen at the end"""
+        print(f"  Running end round tasks:")
         self.arena.check_health()
         self.arena.get_label()
         game_functions.default_pos()

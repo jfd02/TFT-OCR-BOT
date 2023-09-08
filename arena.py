@@ -271,7 +271,7 @@ class Arena:
                     print(f"  Completed {builditem[0]}")
                     return
 
-    def add_thieves_gloves_to_random_itemless_champ(self) -> None:
+    def add_thiefs_gloves_to_random_itemless_champ(self) -> None:
         """Makes Thieves Gloves if possible and gives them to a champ with no items."""
         print("  Attempting to add Thieves Gloves to a random itemless champ.")
         gloves_index_1 = -1
