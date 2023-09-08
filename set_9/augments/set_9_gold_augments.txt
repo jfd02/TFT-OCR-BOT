@@ -77,7 +77,7 @@ Your units gain a 90-170 (based on current Stage) health shield for 6 seconds af
 
 
 Contagion
-At the start of combat, the highest health enemy unit is afflicted with Contagion, which increases their damage taken by 20%. On death, Contagion spreads to the nearest 2 enemies. Contagion can stack.
+At the start of combat, the highest health enemy unit is afflicted with Contagion, which increases their damage taken by 20%. Every 5 seconds or on death, Contagion spreads to the nearest 2 enemies. Contagion can stack.
 
 
 Cybernetic Bulk II

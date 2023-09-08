@@ -47,6 +47,12 @@ COMP = {
         "level": 2,
         "final_comp": True
     },
+    "Garen": {
+        "board_position": 23,
+        "items": [],
+        "level": 2,
+        "final_comp": True
+    },
     "Lux": {
         "board_position": 0,
         "items": ["BlueBuff","JeweledGauntlet"],
