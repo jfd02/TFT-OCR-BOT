@@ -449,3 +449,19 @@ class Arena:
             for index, slot in enumerate(self.board_unknown)
         )
         self.message_queue.put(("LABEL", labels))
+
+    def count_items_on_bench(self) -> 'int':
+        """Returns the number of items on the bench."""
+        item_amount = 0
+        for i in self.items:
+            if i not None:
+                item_amount += 1
+        return item_amount
+
+    def is_same_amount_or_more_items_on_bench(self, item_amount_at_start: int) -> 'bool':
+        """Returns a boolean representing if the current amount of items on the bench is greater than or equal to the given amount."""
+        i = self.count_items_on_bench()
+        if (i >= item_amount_at_start):
+            print(f"    Started Item Amount: {item_amount_at_start}")
+            print(f"      Current Item Amount: {i}")
+            return True
