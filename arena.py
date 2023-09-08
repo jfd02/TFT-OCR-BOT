@@ -32,6 +32,7 @@ class Arena:
         self.level = 0
         self.augment_roll = True
         self.spam_roll = False
+        self.spam_roll_to_zero = False
 
     def fix_bench_state(self) -> None:
         """Iterates through bench and fixes invalid slots"""
@@ -287,7 +288,11 @@ class Arena:
     def spend_gold(self) -> None:
         """Spends gold every round"""
         first_run = True
-        min_gold = 24 if self.spam_roll else 50
+        min_gold = 54
+        if self.spam_roll:
+            min_gold = 25
+        if self.spam_roll_to_zero:
+            min_gold = 6
         while first_run or arena_functions.get_gold() >= min_gold:
             if not first_run:
                 if arena_functions.get_level() != 9:
@@ -357,6 +362,9 @@ class Arena:
             if not self.spam_roll and health < 30:
                 print("    Health under 30, spam roll activated")
                 self.spam_roll = True
+            if not self.spam_roll_to_zero and health < 13:
+                print("      Health under 13, spam roll to zero activated")
+                self.spam_roll_to_zero = True
         else:
             print("  Health check failed")
 
