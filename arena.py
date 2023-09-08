@@ -235,6 +235,66 @@ class Arena:
                     print(f"  Completed {builditem[0]}")
                     return
 
+    def add_thieves_gloves_to_random_itemless_champ(self) -> None:
+        """Makes Thieves Gloves if possible and gives them to a champ with no items."""
+        print("  Attempting to add Thieves Gloves to a random itemless champ.")
+        gloves_index_1 = -1
+        gloves_index_2 = -1
+        for index, _ in enumerate(self.items):
+            if (self.items[index] == "SparringGloves"):
+                if gloves_index_1 == -1:
+                    gloves_index_1 = index
+                if gloves_index_1 != -1 and gloves_index_2 == -1:
+                    gloves_index_2 = index
+        for champ in self.board:
+            if champ.completed_items == 0 and champ.current_building == 0 and gloves_index_1 != -1 and gloves_index_2 != -1 and gloves_index_1 != gloves_index_2:
+                mk_functions.left_click(
+                    screen_coords.ITEM_POS[gloves_index_1][0].get_coords())
+                mk_functions.left_click(champ.coords)
+                print(f"    Placed {item} on {champ.name}")
+                self.items[self.items.index(item)] = None
+                mk_functions.left_click(
+                    screen_coords.ITEM_POS[gloves_index_2][0].get_coords())
+                mk_functions.left_click(champ.coords)
+                print(f"    Placed {item} on {champ.name}")
+                self.items[self.items.index(item)] = None
+
+    def add_item_to_champs_before_dying(self, item_index: int) -> None:
+        """Iterates through champions in the board and checks if the champion needs items"""
+        print("    Adding items to champs before dying.")
+        for champ in self.board:
+            if champ.does_need_items() and self.items[item_index] is not None:
+                self.add_item_before_dying(item_index, champ)
+
+    def add_item_before_dying(self, item_index: int, champ: Champion) -> None:
+        """Takes the remaining full items and gives them to champs that already have items.
+            Then takes remaining component items and tries to give them to champs that already have items.
+        """
+        print("  Found a champ to add an item to before dying.")
+        item = self.items[item_index]
+        if item in game_assets.ORNN_ITEMS:
+            if len(champ.items) < 3:
+                mk_functions.left_click(
+                    screen_coords.ITEM_POS[item_index][0].get_coords())
+                mk_functions.left_click(champ.coords)
+                print(f"    Placed {item} on {champ.name}")
+                champ.completed_items.append(item)
+                self.items[self.items.index(item)] = None
+        if item in game_assets.FULL_ITEMS:
+            if len(champ.items) < 3:
+                mk_functions.left_click(
+                    screen_coords.ITEM_POS[item_index][0].get_coords())
+                mk_functions.left_click(champ.coords)
+                print(f"    Placed {item} on {champ.name}")
+                champ.completed_items.append(item)
+                self.items[self.items.index(item)] = None
+        if len(champ.current_building) != 0:
+            mk_functions.left_click(
+                screen_coords.ITEM_POS[item_index][0].get_coords())
+            mk_functions.left_click(champ.coords)
+            print(f"    Placed {item} on {champ.name}")
+            self.items[self.items.index(item)] = None
+
     def fix_unknown(self) -> None:
         """Checks if the item passed in arg one is valid"""
         sleep(0.25)
