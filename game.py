@@ -8,6 +8,8 @@ import multiprocessing
 import win32gui
 
 import arena_functions
+import mk_functions
+import screen_coords
 import settings
 import game_assets
 import game_functions
@@ -62,6 +64,7 @@ class Game:
         game_functions.default_pos()
         while game_functions.get_round() != "1-1":
             sleep(1)
+        print("Starting match...")
         self.start_time: float = perf_counter()
         self.game_loop()
 
@@ -81,15 +84,21 @@ class Game:
             if self.round != ran_round:
                 if self.round in game_assets.SECOND_ROUND:
                     self.second_round()
+                    #self.identify_champions_on_board()
+                    self.identify_champions_on_bench()
                     ran_round: str = self.round
                 elif self.round in game_assets.CAROUSEL_ROUND:
                     self.carousel_round()
                     ran_round: str = self.round
                 elif self.round in game_assets.PVE_ROUND:
+                    #self.identify_champions_on_board()
+                    self.identify_champions_on_bench()
                     game_functions.default_pos()
                     self.pve_round()
                     ran_round: str = self.round
                 elif self.round in game_assets.PVP_ROUND:
+                    #self.identify_champions_on_board()
+                    self.identify_champions_on_bench()
                     game_functions.default_pos()
                     self.pvp_round()
                     ran_round: str = self.round
@@ -178,3 +187,31 @@ class Game:
         self.arena.check_health()
         self.arena.get_label()
         game_functions.default_pos()
+
+    def identify_champions_on_board(self):
+        print("  Double checking the champions on the board.")
+        for index, board_space in enumerate(self.arena.board):
+            if isinstance(board_space, Champion):
+                print(f"  [!]Board space {index} is occupied by a unit, but we don't know which unit!")
+                # Right click the unit to make the unit's info appear on the right side of the screen.
+                mk_functions.right_click(board_space.coords)
+                sleep(0.1)
+                champ: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
+                                          scale=3, psm=13, whitelist="")
+                if arena_functions.valid_champ(champ) != None:
+                    self.arena.board[index] = champ
+
+    def identify_champions_on_bench(self):
+        print("  Double checking the champions on the bench.")
+        bench_occupied: list = arena_functions.bench_occupied_check()
+        for index, bench_space in enumerate(self.arena.bench):
+            # check is this bench space is labeled "?"
+            if bench_space is None and bench_occupied[index]:
+                print(f"  [!]Bench space {index} is occupied by a unit, but we don't know which unit!")
+                # Right click the unit to make the unit's info appear on the right side of the screen.
+                mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
+                sleep(0.1)
+                champ: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
+                                          scale=3, psm=13, whitelist="")
+                if arena_functions.valid_champ(champ) != None:
+                    self.arena.bench[index] = champ
