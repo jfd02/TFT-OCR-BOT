@@ -48,7 +48,8 @@ def get_text(screenxy: tuple, scale: int, psm: int, whitelist: str = "") -> str:
     with PyTessBaseAPI(path=tessdata_path) as api:
         api.SetVariable("tessedit_char_whitelist", whitelist)
         api.SetPageSegMode(psm)
-        api.SetImageBytes(thresholding.tobytes(),thresholding.shape[1], thresholding.shape[0],1,thresholding.shape[1])
+        api.SetImageBytes(thresholding.tobytes(), thresholding.shape[1], thresholding.shape[0], 1,
+                          thresholding.shape[1])
         text = api.GetUTF8Text()
     return text.strip()
 
@@ -62,6 +63,7 @@ def get_text_from_image(image: ImageGrab.Image, whitelist: str = "") -> str:
     with PyTessBaseAPI(path=tessdata_path) as api:
         api.SetVariable("tessedit_char_whitelist", whitelist)
         api.SetPageSegMode(7)
-        api.SetImageBytes(thresholding.tobytes(),thresholding.shape[1], thresholding.shape[0],1,thresholding.shape[1])
+        api.SetImageBytes(thresholding.tobytes(), thresholding.shape[1], thresholding.shape[0], 1,
+                          thresholding.shape[1])
         text = api.GetUTF8Text()
     return text.strip()

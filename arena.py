@@ -71,7 +71,7 @@ class Arena:
                 champion
                 for champion in self.bench
                 if isinstance(champion, Champion)
-                and champion.name not in self.board_names
+                   and champion.name not in self.board_names
             ),
             None,
         )
@@ -116,7 +116,7 @@ class Arena:
 
     def move_champions(self) -> None:
         """Moves champions to the board"""
-        self.level: int = arena_functions.get_level()
+        self.level: int = arena_functions.get_level_via_https_request()
         while self.level > self.board_size:
             champion: Champion | None = self.have_champion()
             if champion is not None:
@@ -129,11 +129,11 @@ class Arena:
                 for champion in shop:
                     gold: int = arena_functions.get_gold()
                     valid_champ: bool = (
-                        champion[1] in game_assets.CHAMPIONS and
-                        game_assets.champion_gold_cost(champion[1]) <= gold and
-                        game_assets.champion_board_size(champion[1]) == 1 and
-                        champion[1] not in self.champs_to_buy and
-                        champion[1] not in self.board_unknown
+                            champion[1] in game_assets.CHAMPIONS and
+                            game_assets.champion_gold_cost(champion[1]) <= gold and
+                            game_assets.champion_board_size(champion[1]) == 1 and
+                            champion[1] not in self.champs_to_buy and
+                            champion[1] not in self.board_unknown
                     )
 
                     if valid_champ:
@@ -185,7 +185,7 @@ class Arena:
     def place_items(self) -> None:
         """Iterates through items and tries to add them to champion"""
         self.items = arena_functions.get_items()
-        print(f"  Items: {list(filter((None).__ne__, self.items))}")
+        print(f"  Items: {list(filter(None.__ne__, self.items))}")
 
         self.check_if_we_should_make_lucky_gloves()
         self.check_if_we_should_spam_sparring_gloves()
@@ -193,7 +193,7 @@ class Arena:
         will_try_to_place_item = True
         item_count = 0
         # Place items until we fail to place an item once.
-        while (will_try_to_place_item):
+        while will_try_to_place_item:
             item_count += 1
             print(f"  Looking for item #{item_count} to place:")
             item_amount_at_start = self.count_items_on_bench()
@@ -293,13 +293,13 @@ class Arena:
             mk_functions.left_click(
                 screen_coords.ITEM_POS[gloves_index_1][0].get_coords())
             mk_functions.left_click(champ.coords)
-            print(f"    Placed {item} on {champ.name}")
-            self.items[self.items.index(item)] = None
+            print(f"    Placed {self.items[gloves_index_1]} on {champ.name}")
+            self.items[gloves_index_1] = None
             mk_functions.left_click(
                 screen_coords.ITEM_POS[gloves_index_2][0].get_coords())
             mk_functions.left_click(champ.coords)
-            print(f"    Placed {item} on {champ.name}")
-            self.items[self.items.index(item)] = None
+            print(f"    Placed {self.items[gloves_index_2]} on {champ.name}")
+            self.items[gloves_index_2] = None
             return True
         return False
 
@@ -368,9 +368,9 @@ class Arena:
         """Checks the board and replaces champions not in final comp"""
         for slot in self.bench:
             if (
-                isinstance(slot, Champion)
-                and slot.final_comp
-                and slot.name not in self.board_names
+                    isinstance(slot, Champion)
+                    and slot.final_comp
+                    and slot.name not in self.board_names
             ):
                 for champion in self.board:
                     if not champion.final_comp and champion.size == slot.size:
@@ -385,7 +385,7 @@ class Arena:
         mk_functions.move_mouse(screen_coords.ITEM_POS[0][0].get_coords())
         sleep(0.5)
         item: str = ocr.get_text(screenxy=screen_coords.ITEM_POS[0][1].get_coords(), scale=3, psm=13,
-                            whitelist=ocr.ALPHABET_WHITELIST)
+                                 whitelist=ocr.ALPHABET_WHITELIST)
         item: str = arena_functions.valid_item(item)
         try:
             if "TacticiansCrown" in item:
@@ -406,7 +406,7 @@ class Arena:
             min_gold = 6
         while first_run or arena_functions.get_gold() >= min_gold:
             if not first_run:
-                if arena_functions.get_level() != 9:
+                if arena_functions.get_level_via_https_request() != 9:
                     mk_functions.buy_xp()
                     print("  Purchasing XP")
                 mk_functions.reroll()
@@ -415,8 +415,8 @@ class Arena:
             print(f"  Shop: {shop}")
             for champion in shop:
                 if (champion[1] in self.champs_to_buy and
-                    arena_functions.get_gold() - game_assets.CHAMPIONS[champion[1]]["Gold"] >= 0
-                 ):
+                        arena_functions.get_gold() - game_assets.CHAMPIONS[champion[1]]["Gold"] >= 0
+                ):
                     none_slot: int = arena_functions.empty_slot()
                     if none_slot != -1:
                         mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
@@ -460,7 +460,8 @@ class Arena:
 
         if self.augment_roll:
             print("  Rolling for augment")
-            mk_functions.left_click(screen_coords.AUGMENT_ROLL.get_coords())
+            for reroll_button in screen_coords.AUGMENT_ROLL:
+                mk_functions.left_click(reroll_button.get_coords())
             self.augment_roll = False
             self.pick_augment()
 
@@ -507,17 +508,19 @@ class Arena:
         # Create label for how much it costs to refresh the shop.
         labels.append((f"{arena_functions.get_cost_to_refresh_shop()}", screen_coords.REFRESH_LOC.get_coords()))
         # Create label for the current win/loss streak.
-        labels.append((f"{arena_functions.get_win_loss_streak()}", screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_LOC.get_coords()))
+        labels.append(
+            (f"{arena_functions.get_win_loss_streak()}", screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_LOC.get_coords()))
         # Create label for the remaining time in this phase.
-        labels.append((f"{arena_functions.get_seconds_remaining()}", screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords()))
+        labels.append((f"{arena_functions.get_seconds_remaining()}",
+                       screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords()))
         # Create label for the current stage and round we are in.
         labels.append((f"{game_functions.get_round()}", screen_coords.ROUND_LOC.get_coords()))
         # Create label for the current xp / total needed xp.
-        labels.append((f"{arena_functions.get_current_xp_and_total_needed_xp()}", screen_coords.TACTICIAN_XP_FRACTION_POS.get_coords()))
+        labels.append((f"{arena_functions.get_current_xp_and_total_needed_xp()}",
+                       screen_coords.TACTICIAN_XP_FRACTION_POS.get_coords()))
         self.message_queue.put(("LABEL", labels))
 
-
-    def count_items_on_bench(self) -> 'int':
+    def count_items_on_bench(self) -> int:
         """Returns the number of items on the bench."""
         item_amount = 0
         for i in self.items:
@@ -525,7 +528,7 @@ class Arena:
                 item_amount += 1
         return item_amount
 
-    def is_same_amount_or_more_items_on_bench(self, item_amount_at_start: int) -> 'bool':
+    def is_same_amount_or_more_items_on_bench(self, item_amount_at_start: int) -> bool:
         """Returns a boolean representing if the current amount of items on the bench is greater than or equal to the given amount."""
         i = self.count_items_on_bench()
         if (i >= item_amount_at_start):
@@ -533,7 +536,7 @@ class Arena:
             print(f"      Current Item Amount: {i}")
             return True
 
-    def check_if_we_should_spam_sparring_gloves(self) -> 'bool':
+    def check_if_we_should_spam_sparring_gloves(self) -> bool:
         """Checks if our health is at 15 or less and then calls the function to spam thief's gloves."""
         health: int = arena_functions.get_health()
         if (health <= 15):
@@ -544,7 +547,7 @@ class Arena:
                         return True
         return False
 
-    def check_if_we_should_spam_items_before_dying(self, index: int) -> 'bool':
+    def check_if_we_should_spam_items_before_dying(self, index: int) -> bool:
         """Checks if our health is at 15 or less and then calls the function spam items before dying"""
         health: int = arena_functions.get_health()
         if health <= 15:
@@ -553,7 +556,7 @@ class Arena:
             return True
         return False
 
-    def check_if_we_should_make_lucky_gloves(self) -> 'bool':
+    def check_if_we_should_make_lucky_gloves(self) -> bool:
         """If we have the Lucky Gloves augment, place thief's gloves on a champion that doesn't build items."""
         if "Lucky Gloves" in self.augments:
             no_build_champ = self.get_random_final_comp_champ_on_board_with_no_build()

@@ -113,7 +113,7 @@ def valid_item(item: str) -> str | None:
             valid_item_name
             for valid_item_name in game_assets.ITEMS
             if valid_item_name in item
-            or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7
+               or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7
         ),
         None,
     )
@@ -125,7 +125,7 @@ def get_items() -> list:
     for positions in screen_coords.ITEM_POS:
         mk_functions.move_mouse(positions[0].get_coords())
         item: str = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=13,
-                            whitelist=ocr.ALPHABET_WHITELIST)
+                                 whitelist=ocr.ALPHABET_WHITELIST)
         item_bench.append(valid_item(item))
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
     return item_bench
@@ -133,7 +133,8 @@ def get_items() -> list:
 
 def get_level_via_ocr() -> int:
     """Returns the level of the tactician"""
-    level: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_LEVEL_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    level: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_LEVEL_POS.get_coords(), scale=3, psm=7,
+                              whitelist="0123456789")
     try:
         return int(level)
     except ValueError:
@@ -142,7 +143,8 @@ def get_level_via_ocr() -> int:
 
 def get_cost_to_buy_xp() -> int:
     """Returns the cost to buy xp for the tactician"""
-    xp_cost: str = ocr.get_text(screenxy=screen_coords.BUY_XP_COST_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    xp_cost: str = ocr.get_text(screenxy=screen_coords.BUY_XP_COST_POS.get_coords(), scale=3, psm=7,
+                                whitelist="0123456789")
     try:
         return int(xp_cost)
     except ValueError:
@@ -151,7 +153,8 @@ def get_cost_to_buy_xp() -> int:
 
 def get_seconds_remaining() -> int:
     """Returns how many seconds are remaining before the next phase of this round."""
-    seconds: str = ocr.get_text(screenxy=screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    seconds: str = ocr.get_text(screenxy=screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_POS.get_coords(), scale=3,
+                                psm=7, whitelist="0123456789")
     try:
         return int(seconds)
     except ValueError:
@@ -160,7 +163,8 @@ def get_seconds_remaining() -> int:
 
 def get_win_loss_streak() -> int:
     """Returns the number of the win streak or the loss streak."""
-    streak: str = ocr.get_text(screenxy=screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    streak: str = ocr.get_text(screenxy=screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_POS.get_coords(), scale=3, psm=7,
+                               whitelist="0123456789")
     try:
         return int(streak)
     except ValueError:
@@ -169,7 +173,8 @@ def get_win_loss_streak() -> int:
 
 def get_cost_to_refresh_shop() -> int:
     """Returns how much gold it costs to refresh the shop."""
-    cost: str = ocr.get_text(screenxy=screen_coords.SHOP_REFRESH_COST_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    cost: str = ocr.get_text(screenxy=screen_coords.SHOP_REFRESH_COST_POS.get_coords(), scale=3, psm=7,
+                             whitelist="0123456789")
     try:
         return int(cost)
     except ValueError:
@@ -177,8 +182,10 @@ def get_cost_to_refresh_shop() -> int:
 
 
 def get_current_xp_and_total_needed_xp() -> int:
-    """Returns how much xp the player current has towards their next level and the total amount of xp they need to get that level."""
-    current_xp_and_total_needed_xp: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_XP_FRACTION_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    """Returns how much xp the player current has towards their next level
+    and the total amount of xp they need to get that level."""
+    current_xp_and_total_needed_xp: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_XP_FRACTION_POS.get_coords(),
+                                                       scale=3, psm=7, whitelist="0123456789")
     try:
         return int(current_xp_and_total_needed_xp)
     except ValueError:

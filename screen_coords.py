@@ -78,7 +78,7 @@ AUGMENT_POS: list[Vec4] = [
 # Where the mouse will click when the player needs
 AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
 
-# Where the mouse will click to reroll the augments the player can choose from.
+# Where the mouse will click to re-roll the augments the player can choose from.
 AUGMENT_ROLL: list[Vec2] = [Vec2(554, 875), Vec2(960, 875), Vec2(1366, 875)]
 
 VICTORY_POS: Vec4 = Vec4(GameWindow(916, 630, 1008, 652))
