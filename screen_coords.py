@@ -32,12 +32,14 @@ ITEM_POS: list[list] = [
     [Vec2(457, 628), Vec4(GameWindow(559, 670, 797, 701))],
 ]
 
+# The area covering the numbers at the top of the screen that designate what round it is (e.g. 2-1, 3-4).
 ROUND_POS: Vec4 = Vec4(GameWindow(767, 10, 870, 31))
 
 ROUND_POS_ONE: Vec4 = Vec4(GameWindow(2, 0, 42, 21), use_screen_offset=False)
 
 ROUND_POS_TWO: Vec4 = Vec4(GameWindow(57, 1, 96, 21), use_screen_offset=False)
 
+# The area (at the bottom of the screen) covering the names of all the units that can be bought in the shop.
 SHOP_POS: Vec4 = Vec4(GameWindow(481, 1039, 1476, 1070))
 
 CHAMP_NAME_POS: list[Vec4] = [
@@ -48,18 +50,23 @@ CHAMP_NAME_POS: list[Vec4] = [
     Vec4(GameWindow(808, 5, 912, 24), use_screen_offset=False),
 ]
 
+# The area covering how much gold the player has to spend.
 GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 
 EXIT_NOW_POS: Vec4 = Vec4(GameWindow(771, 541, 890, 564))
 
+# The area representing the title of the augments the player can choose from.
 AUGMENT_POS: list[Vec4] = [
     Vec4(GameWindow(423, 535, 675, 582)),
     Vec4(GameWindow(835, 525, 1086, 582)),
     Vec4(GameWindow(1231, 527, 1506, 583)),
 ]
 
+# Where the mouse will click when the player needs
 AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
 
+# Where the mouse will click to reroll the augments the player can choose from.
+#AUGMENT_ROLL: list[Vec2] = [Vec2(), Vec2(960, 875), Vec2()]
 AUGMENT_ROLL: Vec2 = Vec2(960, 875)
 
 VICTORY_POS: Vec4 = Vec4(GameWindow(916, 630, 1008, 652))
@@ -72,6 +79,7 @@ BUY_LOC: list[Vec2] = [
     Vec2(1375, 992),
 ]
 
+# Where the mouse will click to move the tactician on the board to pick up items.
 ITEM_PICKUP_LOC: list[Vec2] = [
     Vec2(1440, 611),
     Vec2(406, 544),
@@ -127,18 +135,50 @@ BOARD_LOC: list[Vec2] = [
     Vec2(1251, 423),
 ]
 
+# Where the mouse will click during carousel round so that the tactician picks up at least one champion.
 CAROUSEL_LOC: Vec2 = Vec2(964, 644)
 
+# Where the mouse will click when the game is over and we want to exit the game.
 EXIT_NOW_LOC: Vec2 = Vec2(830, 551)
 
+# Where the mouse will click when we need to buy XP.
 BUY_XP_LOC: Vec2 = Vec2(364, 964)
 
+# Where the mouse will click when we need to refresh the shop.
 REFRESH_LOC: Vec2 = Vec2(364, 1039)
 
+# Where the mouse will place itself when it has no actions to perform.
 DEFAULT_LOC: Vec2 = Vec2(60, 222)
 
+# The crossed swords button at the top right of the screen.
 HEALTH_LOC: Vec2 = Vec2(1897, 126)
 
+# Where the mouse will click to press the "Surrender" button in the Esc menu.
 SURRENDER_LOC: Vec2 = Vec2(771, 843)
 
+# Where the mouse will click to press the confirmation button that we want to surrender.
 SURRENDER_TWO_LOC: Vec2 = Vec2(832, 489)
+
+# The social media looking button beneath the crossed swords button.
+OPPONENT_HEALTH_BUTTON_LOC: Vec2 = Vec2(1896, 166)
+
+# The number for how much it costs to refresh the shop.
+SHOP_REFRESH_COST_POS: Vec4 = Vec4(GameWindow(296, 1036, 312, 1052))
+
+# The number for how much the player is win streaking or loss streak
+WIN_STREAK_LOSS_STREAK_AMOUNT_POS: Vec4 = Vec4(GameWindow(1000, 876, 1014, 902))
+
+# The number for how much health the tactian has, located in the same menu as the damage dealt charts.
+TACTICIAN_HEALTH_IN_DMG_CHART_POS: Vec4 = Vec4(GameWindow(1786, 210, 1822, 238))
+
+# The number of seconds remaining before the next step of the game happens, located at the top of the screen.
+SECONDS_REMAINING_UNTIL_NEXT_STEP_POS: Vec4 = Vec4(GameWindow(1134, 8, 1152, 30))
+
+# The number for how much it costs to buy XP.
+BUY_XP_COST_LOC: Vec4 = Vec4(GameWindow(294, 962, 312, 984))
+
+# The area covering the number that is the tactician's level.
+TACTICIAN_LEVEL_LOC: Vec4 = Vec4(GameWindow(316, 880, 332, 902))
+
+# The area covering the XP the tactician has and the total it needs to level up.
+TACTICIAN_XP_FRACTION_LOC: Vec4 = Vec4(GameWindow(402, 886, 442, 906))
