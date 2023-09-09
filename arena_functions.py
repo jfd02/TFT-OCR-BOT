@@ -159,7 +159,7 @@ def get_seconds_remaining() -> int:
 
 
 def get_win_loss_streak() -> int:
-    """Returns how many seconds are remaining before the next phase of this round."""
+    """Returns the number of the win streak or the loss streak."""
     streak: str = ocr.get_text(screenxy=screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
     try:
         return int(streak)
@@ -168,9 +168,18 @@ def get_win_loss_streak() -> int:
 
 
 def get_cost_to_refresh_shop() -> int:
-    """Returns how many seconds are remaining before the next phase of this round."""
+    """Returns how much gold it costs to refresh the shop."""
     cost: str = ocr.get_text(screenxy=screen_coords.SHOP_REFRESH_COST_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
     try:
         return int(cost)
+    except ValueError:
+        return -1
+
+
+def get_current_xp_and_total_needed_xp() -> int:
+    """Returns how much xp the player current has towards their next level and the total amount of xp they need to get that level."""
+    current_xp_and_total_needed_xp: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_XP_FRACTION_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    try:
+        return int(current_xp_and_total_needed_xp)
     except ValueError:
         return -1
