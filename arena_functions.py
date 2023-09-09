@@ -90,7 +90,10 @@ def empty_slot() -> int:
 
 
 def bench_occupied_check() -> list:
-    """Returns a list of booleans that map to each bench slot indicating if its occupied"""
+    """Returns a list of booleans that map to each bench slot indicating if it's occupied by a unit.
+        Does this by looping through the screen coordinates defined as where health bars would appear,
+        and checking if that position matches the specific color of health bars.
+    """
     bench_occupied: list = []
     for positions in screen_coords.BENCH_HEALTH_POS:
         screen_capture = ImageGrab.grab(bbox=positions.get_coords())
