@@ -22,12 +22,15 @@ class Arena:
         self.message_queue = message_queue
         self.board_size = 0
         self.bench: list[None] = [None, None, None, None, None, None, None, None, None]
+        # All the champs that are on the field.
         self.board: list = []
         self.board_unknown: list = []
         self.unknown_slots: list = comps.get_unknown_slots()
         self.champs_to_buy: list = comps.champions_to_buy()
         self.board_names: list = []
         self.items: list = []
+        # All the augments that the player currently has.
+        self.augments: list = []
         self.final_comp = False
         self.level = 0
         self.augment_roll = True
@@ -181,6 +184,7 @@ class Arena:
         self.items = arena_functions.get_items()
         print(f"  Items: {list(filter((None).__ne__, self.items))}")
 
+        self.check_if_we_should_make_lucky_gloves()
         self.check_if_we_should_spam_sparring_gloves()
 
         will_try_to_place_item = True
@@ -268,7 +272,7 @@ class Arena:
                     print(f"  Completed {builditem[0]}")
                     return
 
-    def add_thiefs_gloves_to_random_itemless_champ(self) -> None:
+    def add_thiefs_gloves_to_champ(self, champ: Champion) -> 'bool':
         """Makes Thiefs Gloves if possible and gives them to a champ with no items."""
         print("  Attempting to add Thiefs Gloves to a random itemless champ.")
         gloves_index_1 = -1
@@ -279,18 +283,19 @@ class Arena:
                     gloves_index_1 = index
                 if gloves_index_1 != -1 and gloves_index_2 == -1:
                     gloves_index_2 = index
-        for champ in self.board:
-            if champ.completed_items == 0 and champ.current_building == 0 and gloves_index_1 != -1 and gloves_index_2 != -1 and gloves_index_1 != gloves_index_2:
-                mk_functions.left_click(
-                    screen_coords.ITEM_POS[gloves_index_1][0].get_coords())
-                mk_functions.left_click(champ.coords)
-                print(f"    Placed {item} on {champ.name}")
-                self.items[self.items.index(item)] = None
-                mk_functions.left_click(
-                    screen_coords.ITEM_POS[gloves_index_2][0].get_coords())
-                mk_functions.left_click(champ.coords)
-                print(f"    Placed {item} on {champ.name}")
-                self.items[self.items.index(item)] = None
+        if gloves_index_1 != -1 and gloves_index_2 != -1 and gloves_index_1 != gloves_index_2:
+            mk_functions.left_click(
+                screen_coords.ITEM_POS[gloves_index_1][0].get_coords())
+            mk_functions.left_click(champ.coords)
+            print(f"    Placed {item} on {champ.name}")
+            self.items[self.items.index(item)] = None
+            mk_functions.left_click(
+                screen_coords.ITEM_POS[gloves_index_2][0].get_coords())
+            mk_functions.left_click(champ.coords)
+            print(f"    Placed {item} on {champ.name}")
+            self.items[self.items.index(item)] = None
+            return True
+        return False
 
     def add_item_to_champs_before_dying(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
@@ -365,6 +370,7 @@ class Arena:
                     if not champion.final_comp and champion.size == slot.size:
                         print(f"  Replacing {champion.name} with {slot.name}")
                         self.remove_champion(champion)
+                        champion.print_all_class_variables()
                         self.move_known(slot)
                         break
 
@@ -443,6 +449,7 @@ class Arena:
                 if potential in augment:
                     print(f"  Choosing augment {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
+                    self.augments.append(augment)
                     return
 
         if self.augment_roll:
@@ -506,8 +513,10 @@ class Arena:
         health: int = arena_functions.get_health()
         if (health <= 15):
             print(f"  Health <= 15 - Health: {health}")
-            self.add_thiefs_gloves_to_random_itemless_champ()
-            return True
+            for champ in self.board:
+                if champ.completed_items == 0 and champ.current_building == 0:
+                    if self.add_thiefs_gloves_to_champ(champ):
+                        return True
         return False
 
     def check_if_we_should_spam_items_before_dying(self, index: int) -> 'bool':
@@ -518,3 +527,18 @@ class Arena:
             self.add_item_to_champs_before_dying(index)
             return True
         return False
+
+    def check_if_we_should_make_lucky_gloves(self) -> 'bool':
+        """If we have the Lucky Gloves augment, place thief's gloves on a champion that doesn't build items."""
+        if "Lucky Gloves" in self.augments:
+            no_build_champ = self.get_random_final_comp_champ_on_board_with_no_build()
+            if (no_build_champ is not None):
+                if self.add_thiefs_gloves_to_champ(no_build_champ):
+                    return True
+        return False
+
+    def get_random_final_comp_champ_on_board_with_no_build(self) -> Champion | None:
+        for champ in self.board:
+            if champ.build is None:
+                return champ
+        return None
