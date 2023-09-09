@@ -164,7 +164,7 @@ class Game:
             self.arena.pick_augment()
             sleep(2.5)
         if self.round in ("2-1", "2-5"):
-            self.arena.buy_xp_round()
+            arena_functions.buy_xp_round()
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items")
             game_functions.pickup_items()

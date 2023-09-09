@@ -11,6 +11,7 @@ import screen_coords
 import ocr
 import game_assets
 import mk_functions
+from champion import Champion
 from vec4 import Vec4
 
 
@@ -190,3 +191,35 @@ def get_current_xp_and_total_needed_xp() -> int:
         return int(current_xp_and_total_needed_xp)
     except ValueError:
         return -1
+
+
+def get_current_amount_of_units_on_board() -> int:
+    """Returns the ocr'd number rendered on the board by the game that is how many units the player has on the board."""
+    current_unit_amount: str = ocr.get_text(
+        screenxy=screen_coords.CURRENT_AMOUNT_OF_CHAMPIONS_ON_BOARD_POS.get_coords(),
+        scale=3, psm=7, whitelist="0123456789")
+    try:
+        return int(current_unit_amount)
+    except ValueError:
+        return -1
+
+
+def get_max_amount_of_units_on_board() -> int:
+    """Returns the ocr'd number rendered on the board by the game that is
+       the max amount of units the player could have on their board."""
+    max_unit_amount: str = ocr.get_text(screenxy=screen_coords.MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_POS.get_coords(),
+                                        scale=3, psm=7, whitelist="0123456789")
+    try:
+        return int(max_unit_amount)
+    except ValueError:
+        return -1
+
+
+def buy_xp_round() -> None:
+    """Buys XP if gold is equals or over 4"""
+    if get_gold() >= 4:
+        mk_functions.buy_xp()
+
+
+def print_item_placed_on_champ(item: str, champ: Champion):
+    print(f"    Placed {item} on {champ.name}")

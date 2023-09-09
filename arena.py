@@ -77,7 +77,7 @@ class Arena:
                 champion
                 for champion in self.bench
                 if isinstance(champion, Champion)
-                   and champion.name not in self.board_names
+                and champion.name not in self.board_names
             ),
             None,
         )
@@ -251,7 +251,7 @@ class Arena:
                 mk_functions.left_click(
                     screen_coords.ITEM_POS[item_index][0].get_coords())
                 mk_functions.left_click(champ.coords)
-                self.print_item_placed_on_champ(item, champ)
+                arena_functions.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 champ.build.remove(item)
                 self.items[self.items.index(item)] = None
@@ -270,7 +270,7 @@ class Arena:
                 mk_functions.left_click(
                     screen_coords.ITEM_POS[item_index][0].get_coords())
                 mk_functions.left_click(champ.coords)
-                self.print_item_placed_on_champ(item, champ)
+                arena_functions.print_item_placed_on_champ(item, champ)
                 self.items[self.items.index(item)] = None
         else:
             for builditem in champ.current_building:
@@ -281,7 +281,7 @@ class Arena:
                     champ.completed_items.append(builditem[0])
                     champ.current_building.clear()
                     self.items[self.items.index(item)] = None
-                    self.print_item_placed_on_champ(item, champ)
+                    arena_functions.print_item_placed_on_champ(item, champ)
                     print(f"  Completed {builditem[0]}")
                     return
 
@@ -328,7 +328,7 @@ class Arena:
                 mk_functions.left_click(
                     screen_coords.ITEM_POS[item_index][0].get_coords())
                 mk_functions.left_click(champ.coords)
-                self.print_item_placed_on_champ(item, champ)
+                arena_functions.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 self.items[self.items.index(item)] = None
         if item in game_assets.FULL_ITEMS:
@@ -336,7 +336,7 @@ class Arena:
                 mk_functions.left_click(
                     screen_coords.ITEM_POS[item_index][0].get_coords())
                 mk_functions.left_click(champ.coords)
-                self.print_item_placed_on_champ(item, champ)
+                arena_functions.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 self.items[self.items.index(item)] = None
         if len(champ.current_building) != 0:
@@ -345,7 +345,7 @@ class Arena:
             mk_functions.left_click(
                 screen_coords.ITEM_POS[item_index][0].get_coords())
             mk_functions.left_click(champ.coords)
-            self.print_item_placed_on_champ(item, champ)
+            arena_functions.print_item_placed_on_champ(item, champ)
             self.items[self.items.index(item)] = None
 
     def fix_unknown(self) -> None:
@@ -417,7 +417,7 @@ class Arena:
                     mk_functions.buy_xp()
                     print("  Purchasing XP")
                 mk_functions.reroll()
-                print("  Rerolling shop")
+                print("  Re-rolling shop")
             shop: list = arena_functions.get_shop()
             print(f"  Shop: {shop}")
             for champion in shop:
@@ -443,11 +443,6 @@ class Arena:
                             print(f"    Purchased {champion[1]}")
                             self.champs_to_buy.remove(champion[1])
             first_run = False
-
-    def buy_xp_round(self) -> None:
-        """Buys XP if gold is equals or over 4"""
-        if arena_functions.get_gold() >= 4:
-            mk_functions.buy_xp()
 
     def pick_augment(self) -> None:
         """Picks an augment from user defined augment priority list or defaults to first augment"""
@@ -517,7 +512,8 @@ class Arena:
         labels.append((f"{arena_functions.get_cost_to_refresh_shop()}", screen_coords.REFRESH_LOC.get_coords(), 5, 20))
         # Create label for the current win/loss streak.
         labels.append(
-            (f"{arena_functions.get_win_loss_streak()}", screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_LOC.get_coords(), 5, 20))
+            (f"{arena_functions.get_win_loss_streak()}",
+             screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_LOC.get_coords(), 5, 20))
         # Create label for the remaining time in this phase.
         labels.append((f"{arena_functions.get_seconds_remaining()}",
                        screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords(), 5, 20))
@@ -525,7 +521,13 @@ class Arena:
         labels.append((f"{game_functions.get_round()}", screen_coords.ROUND_LOC.get_coords(), 5, 20))
         # Create label for the current xp / total needed xp.
         labels.append((f"{arena_functions.get_current_xp_and_total_needed_xp()}",
-                       screen_coords.TACTICIAN_XP_FRACTION_POS.get_coords(), 5, 20))
+                       screen_coords.TACTICIAN_XP_FRACTION_LOC.get_coords(), 5, 20))
+        # Create label for the current units.
+        labels.append((f"{arena_functions.get_current_amount_of_units_on_board()}",
+                       screen_coords.CURRENT_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC.get_coords(), 5, 20))
+        # Create label for the max units.
+        labels.append((f"{arena_functions.get_max_amount_of_units_on_board()}",
+                       screen_coords.MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC.get_coords(), 5, 20))
         self.message_queue.put(("LABEL", labels))
 
     def count_items_on_bench(self) -> int:
@@ -542,7 +544,7 @@ class Arena:
         is greater than or equal to the given amount.
         """
         i = self.count_items_on_bench()
-        if (i >= item_amount_at_start):
+        if i >= item_amount_at_start:
             print(f"    Started Item Amount: {item_amount_at_start}")
             print(f"      Current Item Amount: {i}")
             return True
@@ -581,9 +583,6 @@ class Arena:
             if champ.build is None:
                 return champ
         return None
-
-    def print_item_placed_on_champ(self, item: str, champ: Champion):
-        print(f"    Placed {item} on {champ.name}")
 
     def identify_champions_on_board(self):
         print("  Double-checking the champions on the board.")
