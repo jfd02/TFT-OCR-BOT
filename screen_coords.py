@@ -174,8 +174,11 @@ TACTICIAN_HEALTH_IN_DMG_CHART_POS: Vec4 = Vec4(GameWindow(1786, 210, 1822, 238))
 # The number of seconds remaining before the next step of the game happens, located at the top of the screen.
 SECONDS_REMAINING_UNTIL_NEXT_STEP_POS: Vec4 = Vec4(GameWindow(1134, 8, 1152, 30))
 
-# The number for how much it costs to buy XP.
+# The area covering the number for how much it costs to buy XP.
 BUY_XP_COST_POS: Vec4 = Vec4(GameWindow(294, 962, 312, 984))
+
+# The central position for how much it costs to buy XP.
+BUY_XP_COST_LOC: Vec2 = Vec2(303, 973)
 
 # The area covering the number that is the tactician's level.
 TACTICIAN_LEVEL_POS: Vec4 = Vec4(GameWindow(316, 880, 332, 902))

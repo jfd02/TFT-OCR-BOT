@@ -502,6 +502,10 @@ class Arena:
         labels.append((f"{arena_functions.get_level_via_ocr()}", screen_coords.TACTICIAN_LEVEL_LOC).get_coords())
         # Create label for current gold.
         labels.append((f"{arena_functions.get_gold()}", screen_coords.GOLD_LOC).get_coords())
+        # Create label for how much it costs to buy XP.
+        labels.append((f"{arena_functions.get_cost_to_buy_xp()}", screen_coords.BUY_XP_COST_LOC).get_coords())
+        # Create label for how much it costs to refresh the shop.
+        labels.append((f"{arena_functions.get_cost_to_refresh_shop()}", screen_coords.REFRESH_LOC).get_coords())
         self.message_queue.put(("LABEL", labels))
 
     def count_items_on_bench(self) -> 'int':
