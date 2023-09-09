@@ -26,7 +26,7 @@ COMP = {
     "KSante": {
         "board_position": 9,
         "items": [],
-        "level": 1,
+        "level": 2,
         "final_comp": True
     },
     "Taliyah": {
