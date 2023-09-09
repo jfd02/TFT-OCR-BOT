@@ -44,8 +44,10 @@ class Arena:
             if slot is None and bench_occupied[index]:
                 self.bench[index] = "?"
             if isinstance(slot, str) and not bench_occupied[index]:
+                print(f"  [!]fix_bench_state slot isinstance str - slot:{slot}")
                 self.bench[index] = None
             if isinstance(slot, Champion) and not bench_occupied[index]:
+                print(f"  [!]fix_bench_state slot isinstance Champion - slot:{slot}")
                 self.bench[index] = None
 
     def bought_champion(self, name: str, slot: int) -> None:
