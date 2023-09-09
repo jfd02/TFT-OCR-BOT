@@ -77,7 +77,7 @@ class Arena:
                 champion
                 for champion in self.bench
                 if isinstance(champion, Champion)
-                and champion.name not in self.board_names
+                   and champion.name not in self.board_names
             ),
             None,
         )
@@ -596,7 +596,8 @@ class Arena:
                 sleep(0.1)
                 champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
                                                scale=3, psm=13, whitelist="")
-                if arena_functions.valid_champ(champ_name) is not None:
+                champ_name = arena_functions.get_valid_champ(champ_name)
+                if arena_functions.is_valid_champ(champ_name):
                     self.bench[index] = Champion(name=champ_name,
                                                  coords=screen_coords.BENCH_LOC[index].get_coords(
                                                  ),
@@ -616,14 +617,14 @@ class Arena:
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
                 print("      Right-clicking the unit to make its info appear.")
                 mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
-                print("      Sleeping for 0.1 seconds.")
-                sleep(0.2)
+                print("      Sleeping for 0.5 seconds.")
+                sleep(0.5)
                 champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
                                                scale=3, psm=13, whitelist="")
                 print(f"      Champ: {champ_name}")
                 print("      I hope the info box appeared because I already tried to grab the info.")
-                if arena_functions.valid_champ(champ_name) is not None:
-                    print(f"      Determined this was a valid champ. Champ: {champ_name}")
+                champ_name = arena_functions.get_valid_champ(champ_name)
+                if arena_functions.is_valid_champ(champ_name):
                     self.bench[index] = Champion(name=champ_name,
                                                  coords=screen_coords.BENCH_LOC[index].get_coords(
                                                  ),

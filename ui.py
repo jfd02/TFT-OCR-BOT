@@ -64,7 +64,7 @@ class UI:
                 for labels in message[1]:
                     label = tk.Label(self.root, text=f"{labels[0]}", bg=self.transparent, fg=self.champ_text,
                                      font=("Yu Gothic UI Semibold", 13), bd=0)
-                    label.place(x=labels[1][0] - labels[2], y=labels[1][1] + labels[3])
+                    label.place(x= int(labels[1][0]) - labels[2], y= int(labels[1][1]) + labels[3])
                     self.label_container.append(label)
 
         self.root.after(ms=1, func=self.consume_text)

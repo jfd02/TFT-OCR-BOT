@@ -89,20 +89,20 @@ class Game:
                 if self.round in game_assets.SECOND_ROUND:
                     self.second_round()
                     # self.identify_champions_on_board()
-                    self.identify_champions_on_bench()
+                    self.arena.identify_champions_on_bench()
                     ran_round: str = self.round
                 elif self.round in game_assets.CAROUSEL_ROUND:
                     self.carousel_round()
                     ran_round: str = self.round
                 elif self.round in game_assets.PVE_ROUND:
                     # self.identify_champions_on_board()
-                    self.identify_champions_on_bench()
+                    self.arena.identify_champions_on_bench()
                     game_functions.default_pos()
                     self.pve_round()
                     ran_round: str = self.round
                 elif self.round in game_assets.PVP_ROUND:
                     # self.identify_champions_on_board()
-                    self.identify_champions_on_bench()
+                    self.arena.identify_champions_on_bench()
                     game_functions.default_pos()
                     self.pvp_round()
                     ran_round: str = self.round

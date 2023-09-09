@@ -45,26 +45,31 @@ def get_gold() -> int:
         return 0
 
 
-def valid_champ(champ: str) -> str:
+def get_valid_champ(champ_name: str) -> str:
     """Matches champion string to a valid champion name string and returns it"""
-    if champ in game_assets.CHAMPIONS:
-        return champ
-
+    if champ_name in game_assets.CHAMPIONS:
+        return champ_name
     return next(
         (
             champion
             for champion in game_assets.CHAMPIONS
-            if SequenceMatcher(a=champion, b=champ).ratio() >= 0.7
+            if SequenceMatcher(a=champion, b=champ_name).ratio() >= 0.7
         ),
         "",
     )
+
+def is_valid_champ(champ_name: str) -> bool:
+    if champ_name in game_assets.CHAMPIONS:
+        print(f"      Confirmed that {champ_name} is a valid champ.")
+        return True
+    return False
 
 
 def get_champ(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, shop_array: list) -> str:
     """Returns a tuple containing the shop position and champion name"""
     champ: str = screen_capture.crop(name_pos.get_coords())
     champ: str = ocr.get_text_from_image(image=champ, whitelist="")
-    shop_array.append((shop_pos, valid_champ(champ)))
+    shop_array.append((shop_pos, get_valid_champ(champ)))
 
 
 def get_shop() -> list:
