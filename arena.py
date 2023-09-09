@@ -484,18 +484,24 @@ class Arena:
     def set_labels(self) -> None:
         """Gets labels used to display champion name UI on window"""
         labels: list = [
+            # Create labels for units on the bench.
             (f"{slot.name}", slot.coords)
             for slot in self.bench
             if isinstance(slot, Champion)
         ]
+        # Create labels for units on the board.
         for slot in self.board:
             if isinstance(slot, Champion):
                 labels.append((f"{slot.name}", slot.coords))
-
+        # Create labels for unknown units on the board.
         labels.extend(
             (slot, screen_coords.BOARD_LOC[self.unknown_slots[index]].get_coords())
             for index, slot in enumerate(self.board_unknown)
         )
+        # Create label for level of the tactician.
+        labels.append((f"{arena_functions.get_level_via_ocr()}", screen_coords.TACTICIAN_LEVEL_LOC).get_coords())
+        # Create label for current gold.
+        labels.append((f"{arena_functions.get_gold()}", screen_coords.GOLD_LOC).get_coords())
         self.message_queue.put(("LABEL", labels))
 
     def count_items_on_bench(self) -> 'int':

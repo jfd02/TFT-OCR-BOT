@@ -180,6 +180,9 @@ BUY_XP_COST_POS: Vec4 = Vec4(GameWindow(294, 962, 312, 984))
 # The area covering the number that is the tactician's level.
 TACTICIAN_LEVEL_POS: Vec4 = Vec4(GameWindow(316, 880, 332, 902))
 
+# The center location of the number that is the tactician's level.
+TACTICIAN_LEVEL_LOC: Vec2 = Vec2(324, 891)
+
 # The area covering the XP the tactician has and the total it needs to level up.
 TACTICIAN_XP_FRACTION_POS: Vec4 = Vec4(GameWindow(402, 886, 442, 906))
 

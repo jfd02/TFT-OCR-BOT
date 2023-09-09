@@ -11,7 +11,7 @@ class Champion:
     def __init__(self, name: str, coords: tuple, build, slot: int, size: int, final_comp: bool) -> None:
         # The units name.
         self.name: str = name
-        # Where the unit is located on the bench or board in coordinates.
+        # Where the unit is located on the bench or board in Vec2 coordinates.
         self.coords: tuple = coords
         # All the items the unit is designated to build.
         self.build = build
