@@ -229,7 +229,7 @@ class Arena:
             if item_count > 15:
                 print("    The while loop god out of control.")
                 will_try_to_place_item = False
-            if will_try_to_place_item == False:
+            if not will_try_to_place_item:
                 print("    No longer placing items this round.")
 
     def add_item_to_champs(self, item_index: int) -> None:
@@ -276,17 +276,17 @@ class Arena:
                     champ.completed_items.append(builditem[0])
                     champ.current_building.clear()
                     self.items[self.items.index(item)] = None
-                self.print_item_placed_on_champ(item, champ)
+                    self.print_item_placed_on_champ(item, champ)
                     print(f"  Completed {builditem[0]}")
                     return
 
-    def add_thiefs_gloves_to_champ(self, champ: Champion) -> 'bool':
+    def add_thiefs_gloves_to_champ(self, champ: Champion) -> bool:
         """Makes Thiefs Gloves if possible and gives them to a champ with no items."""
         print("  Attempting to add Thiefs Gloves to a random itemless champ.")
         gloves_index_1 = -1
         gloves_index_2 = -1
         for index, _ in enumerate(self.items):
-            if (self.items[index] == "SparringGloves"):
+            if self.items[index] == "SparringGloves":
                 if gloves_index_1 == -1:
                     gloves_index_1 = index
                 if gloves_index_1 != -1 and gloves_index_2 == -1:
@@ -532,7 +532,10 @@ class Arena:
         return item_amount
 
     def is_same_amount_or_more_items_on_bench(self, item_amount_at_start: int) -> bool:
-        """Returns a boolean representing if the current amount of items on the bench is greater than or equal to the given amount."""
+        """
+        Returns a boolean representing if the current amount of items on the bench
+        is greater than or equal to the given amount.
+        """
         i = self.count_items_on_bench()
         if (i >= item_amount_at_start):
             print(f"    Started Item Amount: {item_amount_at_start}")
@@ -542,7 +545,7 @@ class Arena:
     def check_if_we_should_spam_sparring_gloves(self) -> bool:
         """Checks if our health is at 15 or less and then calls the function to spam thief's gloves."""
         health: int = arena_functions.get_health()
-        if (health <= 15):
+        if health <= 15:
             print(f"  Health <= 15 - Health: {health}")
             for champ in self.board:
                 if champ.completed_items == 0 and champ.current_building == 0:
@@ -563,7 +566,7 @@ class Arena:
         """If we have the Lucky Gloves augment, place thief's gloves on a champion that doesn't build items."""
         if "Lucky Gloves" in self.augments:
             no_build_champ = self.get_random_final_comp_champ_on_board_with_no_build()
-            if (no_build_champ is not None):
+            if no_build_champ is not None:
                 if self.add_thiefs_gloves_to_champ(no_build_champ):
                     return True
         return False

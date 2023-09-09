@@ -217,6 +217,7 @@ class Game:
                 sleep(0.1)
                 champ: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
                                           scale=3, psm=13, whitelist="")
+                print(f"    Champ: {champ}")
                 print("    I hope the info box appeared because I already tried to grab the info.")
                 if arena_functions.valid_champ(champ) != None:
                     print(f"    Determined this was a valid champ. Champ: {champ}")
