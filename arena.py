@@ -512,6 +512,8 @@ class Arena:
         labels.append((f"{arena_functions.get_seconds_remaining()}", screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC).get_coords())
         # Create label for the current stage and round we are in.
         labels.append((f"{game_functions.get_round()}", screen_coords.ROUND_LOC).get_coords())
+        # Create label for the current xp / total needed xp.
+        labels.append((f"{arena_functions.get_current_xp_and_total_needed_xp()}", screen_coords.TACTICIAN_XP_FRACTION_POS).get_coords())
         self.message_queue.put(("LABEL", labels))
 
     def count_items_on_bench(self) -> 'int':

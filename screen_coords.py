@@ -203,6 +203,9 @@ TACTICIAN_LEVEL_LOC: Vec2 = Vec2(324, 891)
 # The area covering the XP the tactician has and the total it needs to level up.
 TACTICIAN_XP_FRACTION_POS: Vec4 = Vec4(GameWindow(402, 886, 442, 906))
 
+# The area covering the XP the tactician has and the total it needs to level up.
+TACTICIAN_XP_FRACTION_LOC: Vec2 = Vec2(422, 896)
+
 # When a unit is selected, the name of the unit displayed in the menu on the right side of the screen.
 SELECTED_UNIT_NAME_POS: Vec4 = Vec4(GameWindow(1708, 322, 1808, 338))
 
