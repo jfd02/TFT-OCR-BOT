@@ -185,7 +185,7 @@ class Game:
         """Common tasks across rounds that happen at the end"""
         print(f"  Running end round tasks:")
         self.arena.check_health()
-        self.arena.get_label()
+        self.arena.set_labels()
         game_functions.default_pos()
 
     def identify_champions_on_board(self):

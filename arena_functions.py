@@ -14,7 +14,7 @@ import mk_functions
 from vec4 import Vec4
 
 
-def get_level() -> int:
+def get_level_via_https_request() -> int:
     """Returns the level for the tactician"""
     try:
         response = requests.get(
@@ -131,7 +131,7 @@ def get_items() -> list:
     return item_bench
 
 
-def get_level() -> int:
+def get_level_via_ocr() -> int:
     """Returns the level of the tactician"""
     level: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_LEVEL_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
     try:

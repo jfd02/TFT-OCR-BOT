@@ -24,6 +24,7 @@ class Arena:
         self.bench: list[None] = [None, None, None, None, None, None, None, None, None]
         # All the spaces of the board. Can be an instance of a Champion or None.
         self.board: list = []
+        # All the spaces on the board that have a unit, but we don't know what that unit is.
         self.board_unknown: list = []
         self.unknown_slots: list = comps.get_unknown_slots()
         self.champs_to_buy: list = comps.champions_to_buy()
@@ -480,7 +481,7 @@ class Arena:
         else:
             print("    Health check failed")
 
-    def get_label(self) -> None:
+    def set_labels(self) -> None:
         """Gets labels used to display champion name UI on window"""
         labels: list = [
             (f"{slot.name}", slot.coords)
