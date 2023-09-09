@@ -31,12 +31,18 @@ ITEM_POS: list[list] = [
     [Vec2(396, 582), Vec4(GameWindow(497, 625, 735, 655))],
     [Vec2(457, 628), Vec4(GameWindow(559, 670, 797, 701))],
 ]
+# The area covering the numbers at the top of the screen that designate what round it is (e.g. 2-1, 3-4).
+ROUND_LOC: Vec2 = Vec2(818, 20)
 
 # The area covering the numbers at the top of the screen that designate what round it is (e.g. 2-1, 3-4).
 ROUND_POS: Vec4 = Vec4(GameWindow(767, 10, 870, 31))
 
+# The area covering the first number at the top of the screen that designate what round it is (e.g. 2-1, 3-4).
+# The coordinates represent the position relative to ROUND_POS.
 ROUND_POS_ONE: Vec4 = Vec4(GameWindow(2, 0, 42, 21), use_screen_offset=False)
 
+# The area covering the second number at the top of the screen that designate what round it is (e.g. 2-1, 3-4).
+# The coordinates represent the position relative to ROUND_POS.
 ROUND_POS_TWO: Vec4 = Vec4(GameWindow(57, 1, 96, 21), use_screen_offset=False)
 
 # The area (at the bottom of the screen) covering the names of all the units that can be bought in the shop.
