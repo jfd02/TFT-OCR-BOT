@@ -156,3 +156,12 @@ def get_seconds_remaining() -> int:
         return int(seconds)
     except ValueError:
         return -1
+
+
+def get_win_loss_streak() -> int:
+    """Returns how many seconds are remaining before the next phase of this round."""
+    streak: str = ocr.get_text(screenxy=screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    try:
+        return int(streak)
+    except ValueError:
+        return -1
