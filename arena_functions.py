@@ -57,6 +57,7 @@ def valid_champ(champ: str) -> str:
         "",
     )
 
+
 def get_champ(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, shop_array: list) -> str:
     """Returns a tuple containing the shop position and champion name"""
     champ: str = screen_capture.crop(name_pos.get_coords())
@@ -129,6 +130,7 @@ def get_items() -> list:
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
     return item_bench
 
+
 def get_level() -> int:
     """Returns the gold for the tactician"""
     level: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_LEVEL_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
@@ -136,3 +138,12 @@ def get_level() -> int:
         return int(level)
     except ValueError:
         return 0
+
+
+def get_cost_to_buy_xp() -> int:
+    """Returns the gold for the tactician"""
+    xp_cost: str = ocr.get_text(screenxy=screen_coords.BUY_XP_COST_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    try:
+        return int(xp_cost)
+    except ValueError:
+        return 10
