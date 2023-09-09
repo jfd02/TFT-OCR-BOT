@@ -4,6 +4,8 @@ other variables used by the bot to make decisions
 """
 
 from time import sleep
+
+import game
 import game_assets
 import mk_functions
 import screen_coords
@@ -40,6 +42,7 @@ class Arena:
 
     def fix_bench_state(self) -> None:
         """Iterates through bench and fixes invalid slots"""
+        self.identify_champions_on_bench()
         bench_occupied: list = arena_functions.bench_occupied_check()
         for index, slot in enumerate(self.bench):
             if slot is None and bench_occupied[index]:
@@ -49,7 +52,9 @@ class Arena:
                 self.bench[index] = None
             if isinstance(slot, Champion) and not bench_occupied[index]:
                 # surely this should never happen?
-                print(f"  [!]fix_bench_state slot isinstance Champion\n    slot:{slot}")
+                print(f"  [!!!]fix_bench_state slot isinstance Champion")
+                print(f"         slot:{slot}")
+                print(f"         unit name:{slot.name}")
                 self.bench[index] = None
 
     def bought_champion(self, name: str, slot: int) -> None:
@@ -171,7 +176,7 @@ class Arena:
             elif isinstance(champion, Champion):
                 if champion.name not in self.champs_to_buy and champion.name in self.board_names:
                     # Make this fix the champion instead of being unknown?
-                    print(f"  2Selling unknown champion: {champion} - Name: {champion.name}")
+                    print(f"  Champion not in champs_to_buy: {champion} - Name: {champion.name}")
                     mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                     self.bench[index] = None
 
@@ -181,7 +186,7 @@ class Arena:
         for index, champion in enumerate(self.bench):
             if champion is None:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
-        sleep(1)
+        sleep(0.2)
         mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
 
     def place_items(self) -> None:
@@ -316,7 +321,7 @@ class Arena:
         """Takes the remaining full items and gives them to champs that already have items.
             Then takes remaining component items and tries to give them to champs that already have items.
         """
-        print("  Found a champ to add an item to before dying.")
+        # print("  Found a champ to add an item to before dying.")
         item = self.items[item_index]
         if item in game_assets.ORNN_ITEMS:
             if champ.does_need_items():
@@ -579,3 +584,49 @@ class Arena:
 
     def print_item_placed_on_champ(self, item: str, champ: Champion):
         print(f"    Placed {item} on {champ.name}")
+
+    def identify_champions_on_board(self):
+        print("  Double-checking the champions on the board.")
+        for index, board_space in enumerate(self.board):
+            if isinstance(board_space, Champion):
+                print(f"  [!]Board space {index} is occupied by a unit, but we don't know which unit!")
+                # Right-click the unit to make the unit's info appear on the right side of the screen.
+                mk_functions.right_click(board_space.coords)
+                sleep(0.1)
+                champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
+                                               scale=3, psm=13, whitelist="")
+                if arena_functions.valid_champ(champ_name) is not None:
+                    self.bench[index] = Champion(name=champ_name,
+                                                 coords=screen_coords.BENCH_LOC[index].get_coords(
+                                                 ),
+                                                 build=comps.COMP[champ_name]["items"].copy(),
+                                                 slot=index,
+                                                 size=game_assets.CHAMPIONS[champ_name]["Board Size"],
+                                                 final_comp=comps.COMP[champ_name]["final_comp"])
+
+    def identify_champions_on_bench(self):
+        print("  Double-checking the champions on the bench.")
+        bench_occupied: list = arena_functions.bench_occupied_check()
+        for index, bench_space in enumerate(self.bench):
+            # check is this bench space is labeled "?"
+            if bench_space is None and bench_occupied[index]:
+                print(f"  [!]Bench space {index} is occupied by a unit, but we don't know which unit!")
+                print(f"       Bench Occupied: {bench_occupied[index]}")
+                # Right-click the unit to make the unit's info appear on the right side of the screen.
+                print("      Right-clicking the unit to make its info appear.")
+                mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
+                print("      Sleeping for 0.1 seconds.")
+                sleep(0.2)
+                champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
+                                               scale=3, psm=13, whitelist="")
+                print(f"      Champ: {champ_name}")
+                print("      I hope the info box appeared because I already tried to grab the info.")
+                if arena_functions.valid_champ(champ_name) is not None:
+                    print(f"      Determined this was a valid champ. Champ: {champ_name}")
+                    self.bench[index] = Champion(name=champ_name,
+                                                 coords=screen_coords.BENCH_LOC[index].get_coords(
+                                                 ),
+                                                 build=comps.COMP[champ_name]["items"].copy(),
+                                                 slot=index,
+                                                 size=game_assets.CHAMPIONS[champ_name]["Board Size"],
+                                                 final_comp=comps.COMP[champ_name]["final_comp"])

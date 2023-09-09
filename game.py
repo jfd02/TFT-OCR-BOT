@@ -14,6 +14,7 @@ import settings
 import game_assets
 import game_functions
 import ocr
+import comps
 from arena import Arena
 from champion import Champion
 from vec4 import Vec4
@@ -190,37 +191,3 @@ class Game:
         self.arena.check_health()
         self.arena.set_labels()
         game_functions.default_pos()
-
-    def identify_champions_on_board(self):
-        print("  Double-checking the champions on the board.")
-        for index, board_space in enumerate(self.arena.board):
-            if isinstance(board_space, Champion):
-                print(f"  [!]Board space {index} is occupied by a unit, but we don't know which unit!")
-                # Right-click the unit to make the unit's info appear on the right side of the screen.
-                mk_functions.right_click(board_space.coords)
-                sleep(0.1)
-                champ: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
-                                          scale=3, psm=13, whitelist="")
-                if arena_functions.valid_champ(champ) is not None:
-                    self.arena.board[index] = champ
-
-    def identify_champions_on_bench(self):
-        print("  Double-checking the champions on the bench.")
-        bench_occupied: list = arena_functions.bench_occupied_check()
-        for index, bench_space in enumerate(self.arena.bench):
-            # check is this bench space is labeled "?"
-            if bench_space is None and bench_occupied[index]:
-                print(f"  [!]Bench space {index} is occupied by a unit, but we don't know which unit!")
-                print(f"       Bench Occupied: {bench_occupied[index]}")
-                # Right-click the unit to make the unit's info appear on the right side of the screen.
-                print("    Right-clicking the unit to make its info appear.")
-                mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
-                print("    Sleeping for 0.1 seconds.")
-                sleep(0.1)
-                champ: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
-                                          scale=3, psm=13, whitelist="")
-                print(f"    Champ: {champ}")
-                print("    I hope the info box appeared because I already tried to grab the info.")
-                if arena_functions.valid_champ(champ) is not None:
-                    print(f"    Determined this was a valid champ. Champ: {champ}")
-                    self.arena.bench[index] = champ

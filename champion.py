@@ -37,7 +37,7 @@ class Champion:
         print(f"\t\tLocation in Coordinates: {self.coords}")
         print(f"\t\tItems The Unit is Designated to Build: {self.build}")
         print(f"\t\tLocation on the Board: {self.index}")
-        print(f"\t\tSize: {self.size}")
+        print(f"\t\tAmount of Spaces This Unit Takes Up on the Board: {self.size}")
         print(f"\t\tCompleted Items: {self.completed_items}")
         print(f"\t\tComponent Items: {self.current_building}")
         print(f"\t\tFinal Comp? {self.final_comp}")
