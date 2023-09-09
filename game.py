@@ -209,10 +209,15 @@ class Game:
             # check is this bench space is labeled "?"
             if bench_space is None and bench_occupied[index]:
                 print(f"  [!]Bench space {index} is occupied by a unit, but we don't know which unit!")
+                print(f"       Bench Occupied: {bench_occupied[index]}")
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
+                print("    Right-clicking the unit to make its info appear.")
                 mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
+                print("    Sleeping for 0.1 seconds.")
                 sleep(0.1)
                 champ: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
                                           scale=3, psm=13, whitelist="")
+                print("    I hope the info box appeared because I already tried to grab the info.")
                 if arena_functions.valid_champ(champ) != None:
+                    print(f"    Determined this was a valid champ. Champ: {champ}")
                     self.arena.bench[index] = champ

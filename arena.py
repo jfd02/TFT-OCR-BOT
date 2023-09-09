@@ -45,10 +45,11 @@ class Arena:
             if slot is None and bench_occupied[index]:
                 self.bench[index] = "?"
             if isinstance(slot, str) and not bench_occupied[index]:
-                print(f"  [!]fix_bench_state slot isinstance str - slot:{slot}")
+                print(f"  [!]fix_bench_state slot isinstance str\n    slot:{slot}")
                 self.bench[index] = None
             if isinstance(slot, Champion) and not bench_occupied[index]:
-                print(f"  [!]fix_bench_state slot isinstance Champion - slot:{slot}")
+                # surely this should never happen?
+                print(f"  [!]fix_bench_state slot isinstance Champion\n    slot:{slot}")
                 self.bench[index] = None
 
     def bought_champion(self, name: str, slot: int) -> None:
@@ -169,6 +170,7 @@ class Arena:
                 self.bench[index] = None
             elif isinstance(champion, Champion):
                 if champion.name not in self.champs_to_buy and champion.name in self.board_names:
+                    # Make this fix the champion instead of being unknown?
                     print(f"  2Selling unknown champion: {champion} - Name: {champion.name}")
                     mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                     self.bench[index] = None
@@ -192,11 +194,11 @@ class Arena:
 
         will_try_to_place_item = True
         item_count = 0
+        item_amount_at_start = self.count_items_on_bench()
         # Place items until we fail to place an item once.
         while will_try_to_place_item:
             item_count += 1
             print(f"  Looking for item #{item_count} to place:")
-            item_amount_at_start = self.count_items_on_bench()
             for index, _ in enumerate(self.items):
                 if self.items[index] is not None:
                     item = self.items[index]
@@ -244,7 +246,7 @@ class Arena:
                 mk_functions.left_click(
                     screen_coords.ITEM_POS[item_index][0].get_coords())
                 mk_functions.left_click(champ.coords)
-                print(f"  Placed {item} on {champ.name}")
+                self.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 champ.build.remove(item)
                 self.items[self.items.index(item)] = None
@@ -263,7 +265,7 @@ class Arena:
                 mk_functions.left_click(
                     screen_coords.ITEM_POS[item_index][0].get_coords())
                 mk_functions.left_click(champ.coords)
-                print(f"  Placed {item} on {champ.name}")
+                self.print_item_placed_on_champ(item, champ)
                 self.items[self.items.index(item)] = None
         else:
             for builditem in champ.current_building:
@@ -274,7 +276,7 @@ class Arena:
                     champ.completed_items.append(builditem[0])
                     champ.current_building.clear()
                     self.items[self.items.index(item)] = None
-                    print(f"  Placed {item} on {champ.name}")
+                self.print_item_placed_on_champ(item, champ)
                     print(f"  Completed {builditem[0]}")
                     return
 
@@ -321,7 +323,7 @@ class Arena:
                 mk_functions.left_click(
                     screen_coords.ITEM_POS[item_index][0].get_coords())
                 mk_functions.left_click(champ.coords)
-                print(f"    Placed {item} on {champ.name}")
+                self.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 self.items[self.items.index(item)] = None
         if item in game_assets.FULL_ITEMS:
@@ -329,7 +331,7 @@ class Arena:
                 mk_functions.left_click(
                     screen_coords.ITEM_POS[item_index][0].get_coords())
                 mk_functions.left_click(champ.coords)
-                print(f"    Placed {item} on {champ.name}")
+                self.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 self.items[self.items.index(item)] = None
         if len(champ.current_building) != 0:
@@ -338,7 +340,7 @@ class Arena:
             mk_functions.left_click(
                 screen_coords.ITEM_POS[item_index][0].get_coords())
             mk_functions.left_click(champ.coords)
-            print(f"    Placed {item} on {champ.name}")
+            self.print_item_placed_on_champ(item, champ)
             self.items[self.items.index(item)] = None
 
     def fix_unknown(self) -> None:
@@ -453,7 +455,8 @@ class Arena:
         for augment in augments:
             for potential in comps.AUGMENTS:
                 if potential in augment:
-                    print(f"  Choosing augment {augment}")
+                    print(f"  Choosing augment.")
+                    print(f"    Augment: {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                     self.augments.append(augment)
                     return
@@ -570,3 +573,6 @@ class Arena:
             if champ.build is None:
                 return champ
         return None
+
+    def print_item_placed_on_champ(self, item: str, champ: Champion):
+        print(f"    Placed {item} on {champ.name}")
