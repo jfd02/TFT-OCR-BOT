@@ -23,7 +23,8 @@ if __name__ == "__main__":
     overlay: UI = UI(message_queue)
     game_thread = multiprocessing.Process(target=game_loop, args=(message_queue,))
 
-    print("TFT OCR | https://github.com/jfd02/TFT-OCR-BOT")
+    print("Original TFT OCR | https://github.com/jfd02/TFT-OCR-BOT")
+    print("Forked TFT OCR | https://github.com/SaxAnton/MY-TFT-OCR-BOT")
     print("Close this window to terminate the overlay window & program")
     game_thread.start()
     overlay.ui_loop()
