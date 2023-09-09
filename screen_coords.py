@@ -165,14 +165,22 @@ OPPONENT_HEALTH_BUTTON_LOC: Vec2 = Vec2(1896, 166)
 # The number for how much it costs to refresh the shop.
 SHOP_REFRESH_COST_POS: Vec4 = Vec4(GameWindow(296, 1036, 312, 1052))
 
-# The number for how much the player is win streaking or loss streak
+# The area covering the number for how much the player is win streaking or loss streak
 WIN_STREAK_LOSS_STREAK_AMOUNT_POS: Vec4 = Vec4(GameWindow(1000, 876, 1014, 902))
+
+# The central position of the number for how much the player is win streaking or loss streak
+WIN_STREAK_LOSS_STREAK_AMOUNT_LOC: Vec2 = Vec2(1007, 889)
 
 # The number for how much health the tactian has, located in the same menu as the damage dealt charts.
 TACTICIAN_HEALTH_IN_DMG_CHART_POS: Vec4 = Vec4(GameWindow(1786, 210, 1822, 238))
 
-# The number of seconds remaining before the next step of the game happens, located at the top of the screen.
+# The area of the number of seconds remaining before the next step of the game happens, located at the top of the
+# screen.
 SECONDS_REMAINING_UNTIL_NEXT_STEP_POS: Vec4 = Vec4(GameWindow(1134, 8, 1152, 30))
+
+# The center point position number of seconds remaining before the next step of the game happens, located at the top
+# of the screen.
+SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC: Vec2 = Vec2(1143, 19)
 
 # The area covering the number for how much it costs to buy XP.
 BUY_XP_COST_POS: Vec4 = Vec4(GameWindow(294, 962, 312, 984))

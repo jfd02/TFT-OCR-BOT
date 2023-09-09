@@ -506,6 +506,10 @@ class Arena:
         labels.append((f"{arena_functions.get_cost_to_buy_xp()}", screen_coords.BUY_XP_COST_LOC).get_coords())
         # Create label for how much it costs to refresh the shop.
         labels.append((f"{arena_functions.get_cost_to_refresh_shop()}", screen_coords.REFRESH_LOC).get_coords())
+        # Create label for the current win/loss streak.
+        labels.append((f"{arena_functions.get_win_loss_streak()}", screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_LOC).get_coords())
+        # Create label for the remaining time in this phase.
+        labels.append((f"{arena_functions.get_seconds_remaining()}", screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC).get_coords())
         self.message_queue.put(("LABEL", labels))
 
     def count_items_on_bench(self) -> 'int':
