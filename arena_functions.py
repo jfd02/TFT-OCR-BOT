@@ -128,3 +128,11 @@ def get_items() -> list:
         item_bench.append(valid_item(item))
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
     return item_bench
+
+def get_level() -> int:
+    """Returns the gold for the tactician"""
+    level: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_LEVEL_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    try:
+        return int(level)
+    except ValueError:
+        return 0
