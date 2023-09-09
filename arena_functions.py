@@ -132,7 +132,7 @@ def get_items() -> list:
 
 
 def get_level() -> int:
-    """Returns the gold for the tactician"""
+    """Returns the level of the tactician"""
     level: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_LEVEL_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
     try:
         return int(level)
@@ -141,9 +141,18 @@ def get_level() -> int:
 
 
 def get_cost_to_buy_xp() -> int:
-    """Returns the gold for the tactician"""
+    """Returns the cost to buy xp for the tactician"""
     xp_cost: str = ocr.get_text(screenxy=screen_coords.BUY_XP_COST_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
     try:
         return int(xp_cost)
     except ValueError:
         return 10
+
+
+def get_seconds_remaining() -> int:
+    """Returns how many seconds are remaining before the next phase of this round."""
+    seconds: str = ocr.get_text(screenxy=screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    try:
+        return int(seconds)
+    except ValueError:
+        return -1
