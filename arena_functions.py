@@ -247,10 +247,10 @@ def get_center_position_of_item_orbs() -> [Vec2]:
     area_of_item_orbs = get_area_of_item_orbs()
     center_of_item_orbs = [Vec2]
     for item_orb in area_of_item_orbs:
-        x1 = item_orb[0]
-        y1 = item_orb[1]
-        x2 = item_orb[2]
-        y2 = item_orb[3]
+        x1 = item_orb.x_pos
+        y1 = item_orb.y_pos
+        x2 = item_orb.x_pos + item_orb.width
+        y2 = item_orb.y_pos + item_orb.height
         x_center = (x1 + x2) / 2
         y_center = (y1 + y2) / 2
         vec_2 = Vec2(x_center, y_center)
