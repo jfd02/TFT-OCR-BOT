@@ -175,10 +175,33 @@ TACTICIAN_HEALTH_IN_DMG_CHART_POS: Vec4 = Vec4(GameWindow(1786, 210, 1822, 238))
 SECONDS_REMAINING_UNTIL_NEXT_STEP_POS: Vec4 = Vec4(GameWindow(1134, 8, 1152, 30))
 
 # The number for how much it costs to buy XP.
-BUY_XP_COST_LOC: Vec4 = Vec4(GameWindow(294, 962, 312, 984))
+BUY_XP_COST_POS: Vec4 = Vec4(GameWindow(294, 962, 312, 984))
 
 # The area covering the number that is the tactician's level.
-TACTICIAN_LEVEL_LOC: Vec4 = Vec4(GameWindow(316, 880, 332, 902))
+TACTICIAN_LEVEL_POS: Vec4 = Vec4(GameWindow(316, 880, 332, 902))
 
 # The area covering the XP the tactician has and the total it needs to level up.
-TACTICIAN_XP_FRACTION_LOC: Vec4 = Vec4(GameWindow(402, 886, 442, 906))
+TACTICIAN_XP_FRACTION_POS: Vec4 = Vec4(GameWindow(402, 886, 442, 906))
+
+# When a unit is selected, the name of the unit displayed in the menu on the right side of the screen.
+SELECTED_UNIT_NAME_POS: Vec4 = Vec4(GameWindow(1708, 322, 1808, 338))
+
+# Where the mouse will click to lock the shop.
+LOCK_SHOP_BUTTON_LOC: Vec2 = Vec2(1451, 903)
+
+# Where the mouse will set itself to hover over the amount of gold the player has.
+GOLD_LOC: Vec2 = Vec2(912, 896)
+
+# All the values that can be seen hovering over the amount of gold the player has.
+# Total Income Possible
+# Passive Income
+# Interest (Max 5)
+# Win/Loss Streak
+# Gold per Win
+INCOME_STATEMENT_POS: list[Vec4] = [
+    Vec4(GameWindow(972, 714, 996, 738)),
+    Vec4(GameWindow(904, 752, 918, 772)),
+    Vec4(GameWindow(914, 774, 924, 794)),
+    Vec4(GameWindow(916, 798, 926, 814)),
+    Vec4(GameWindow(898, 820, 910, 838))
+]
