@@ -221,6 +221,9 @@ class Arena:
                     if self.check_if_we_should_spam_items_before_dying(index):
                         if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                             will_try_to_place_item = False
+            if item_count > 15:
+                print("    The while loop god out of control.")
+                will_try_to_place_item = False
             if will_try_to_place_item == False:
                 print("    No longer placing items this round.")
 
