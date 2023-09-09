@@ -15,6 +15,7 @@ import game_assets
 import game_functions
 import ocr
 from arena import Arena
+from champion import Champion
 from vec4 import Vec4
 from vec2 import Vec2
 
@@ -23,6 +24,7 @@ class Game:
     """Game class that handles game logic such as round tasks"""
 
     def __init__(self, message_queue: multiprocessing.Queue) -> None:
+        self.start_time = None
         self.message_queue = message_queue
         self.arena = Arena(self.message_queue)
         self.round = "0-0"
@@ -190,16 +192,16 @@ class Game:
         game_functions.default_pos()
 
     def identify_champions_on_board(self):
-        print("  Double checking the champions on the board.")
+        print("  Double-checking the champions on the board.")
         for index, board_space in enumerate(self.arena.board):
             if isinstance(board_space, Champion):
                 print(f"  [!]Board space {index} is occupied by a unit, but we don't know which unit!")
-                # Right click the unit to make the unit's info appear on the right side of the screen.
+                # Right-click the unit to make the unit's info appear on the right side of the screen.
                 mk_functions.right_click(board_space.coords)
                 sleep(0.1)
                 champ: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
                                           scale=3, psm=13, whitelist="")
-                if arena_functions.valid_champ(champ) != None:
+                if arena_functions.valid_champ(champ) is not None:
                     self.arena.board[index] = champ
 
     def identify_champions_on_bench(self):
@@ -219,6 +221,6 @@ class Game:
                                           scale=3, psm=13, whitelist="")
                 print(f"    Champ: {champ}")
                 print("    I hope the info box appeared because I already tried to grab the info.")
-                if arena_functions.valid_champ(champ) != None:
+                if arena_functions.valid_champ(champ) is not None:
                     print(f"    Determined this was a valid champ. Champ: {champ}")
                     self.arena.bench[index] = champ

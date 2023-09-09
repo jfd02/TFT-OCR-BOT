@@ -6,3 +6,11 @@ requests==2.31.0
 screeninfo==0.8.1
 urllib3==2.0.4
 pypiwin32==223
+
+setuptools~=65.5.0
+opencv-python~=4.8.0.74
+pip~=23.2.1
+pywin32~=306
+certifi~=2023.7.22
+idna~=3.4
+tesserocr~=2.6.0

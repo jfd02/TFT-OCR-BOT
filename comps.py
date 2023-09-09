@@ -7,13 +7,14 @@ Items are in camel case and a-Z
 COMP = {
     "Azir": {
         "board_position": 6,
-        "items": ["GuinsoosRageblade","HextechGunblade","StatikkShiv","RapidFirecannon","Guardbreaker","GiantSlayer"],
+        "items": ["GuinsoosRageblade", "HextechGunblade", "StatikkShiv", "RapidFirecannon", "Guardbreaker",
+                  "GiantSlayer"],
         "level": 3,
         "final_comp": True
     },
     "Nasus": {
         "board_position": 24,
-        "items": ["Redemption","DragonsClaw","BrambleVest","GargoyleStoneplate","WarmogsArmor"],
+        "items": ["Redemption", "DragonsClaw", "BrambleVest", "GargoyleStoneplate", "WarmogsArmor"],
         "level": 3,
         "final_comp": True
     },
@@ -55,31 +56,31 @@ COMP = {
     },
     "Lux": {
         "board_position": 0,
-        "items": ["BlueBuff","JeweledGauntlet"],
+        "items": ["BlueBuff", "JeweledGauntlet"],
         "level": 3,
         "final_comp": True
     },
     "Renekton": {
         "board_position": 16,
-        "items": ["BrambleVest","DragonsClaw"],
+        "items": ["BrambleVest", "DragonsClaw"],
         "level": 2,
         "final_comp": False
     },
     "Vi": {
         "board_position": 14,
-        "items": ["BrambleVest","DragonsClaw"],
+        "items": ["BrambleVest", "DragonsClaw"],
         "level": 2,
         "final_comp": False
     },
     "Cassiopeia": {
         "board_position": 7,
-        "items": ["GuinsoosRageblade","HextechGunblade","JeweledGauntlet"],
+        "items": ["GuinsoosRageblade", "HextechGunblade", "JeweledGauntlet"],
         "level": 3,
         "final_comp": False
     },
     "Sona": {
         "board_position": 8,
-        "items": ["StatikkShiv","BlueBuff"],
+        "items": ["StatikkShiv", "BlueBuff"],
         "level": 3,
         "final_comp": False
     }
