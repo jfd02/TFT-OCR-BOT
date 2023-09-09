@@ -22,7 +22,7 @@ class Arena:
         self.message_queue = message_queue
         self.board_size = 0
         self.bench: list[None] = [None, None, None, None, None, None, None, None, None]
-        # All the champs that are on the field.
+        # All the spaces of the board. Can be an instance of a Champion or None.
         self.board: list = []
         self.board_unknown: list = []
         self.unknown_slots: list = comps.get_unknown_slots()
