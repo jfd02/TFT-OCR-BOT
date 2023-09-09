@@ -6,6 +6,7 @@ from win32gui import SetWindowLong, GetWindowLong, SetLayeredWindowAttributes
 from win32con import WS_EX_LAYERED, WS_EX_TRANSPARENT, GWL_EXSTYLE
 import screeninfo
 
+
 class UI:
     """User interface class that handles drawing labels on the screen during gameplay"""
 
@@ -27,7 +28,7 @@ class UI:
     @classmethod
     def rgb_convert(cls, rgb: tuple) -> str:
         """Turns tuple rgb value into string for use by the UI"""
-        return "#%02x%02x%02x" % rgb # pylint: disable=consider-using-f-string
+        return "#%02x%02x%02x" % rgb  # pylint: disable=consider-using-f-string
 
     def setup_window_size(self) -> None:
         """Setups window size"""
@@ -64,7 +65,14 @@ class UI:
                 for labels in message[1]:
                     label = tk.Label(self.root, text=f"{labels[0]}", bg=self.transparent, fg=self.champ_text,
                                      font=("Yu Gothic UI Semibold", 13), bd=0)
-                    label.place(x= int(labels[1][0]) - labels[2], y= int(labels[1][1]) + labels[3])
+                    print(f"    consume_text:")
+                    print(f"      labels[0]: {labels[0]}")
+                    print(f"      labels[1]: {labels[1]}")
+                    print(f"      labels[1][0]: {labels[1][0]}")
+                    print(f"      labels[1][1]: {labels[1][1]}")
+                    print(f"      labels[2]: {labels[2]}")
+                    print(f"      labels[3]: {labels[3]}")
+                    label.place(x=labels[1][0] - labels[2], y=labels[1][1] + labels[3])
                     self.label_container.append(label)
 
         self.root.after(ms=1, func=self.consume_text)

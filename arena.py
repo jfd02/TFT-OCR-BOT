@@ -529,7 +529,7 @@ class Arena:
         labels.append((f"{arena_functions.get_max_amount_of_units_on_board()}",
                        screen_coords.MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC.get_coords(), 5, 20))
         # Create label for the item orbs.
-        labels.append((f"?", arena_functions.get_area_of_item_orbs(), 5, 20))
+        labels.append((f"?", arena_functions.get_center_position_of_item_orbs().get_coords(), 5, 20))
         self.message_queue.put(("LABEL", labels))
 
     def count_items_on_bench(self) -> int:
@@ -595,16 +595,25 @@ class Arena:
                 mk_functions.right_click(board_space.coords)
                 sleep(0.1)
                 champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
-                                               scale=3, psm=13, whitelist="")
+                                               scale=3, psm=13, whitelist=ocr.ALPHABET_WHITELIST)
                 champ_name = arena_functions.get_valid_champ(champ_name)
+                # Confirm this is an actual unit that can be used
                 if arena_functions.is_valid_champ(champ_name):
+                    # Set default values if we don't want to use this champ in our comp.
+                    items_to_build = []
+                    final_comp = False
+                    # If we actually plan on using this champ in our comp:
+                    if champ_name in comps.COMP:
+                        items_to_build = comps.COMP[champ_name]["items"].copy()
+                        final_comp = comps.COMP[champ_name]["final_comp"]
+                    # Create the Champion object.
                     self.bench[index] = Champion(name=champ_name,
                                                  coords=screen_coords.BENCH_LOC[index].get_coords(
                                                  ),
-                                                 build=comps.COMP[champ_name]["items"].copy(),
+                                                 build=items_to_build,
                                                  slot=index,
                                                  size=game_assets.CHAMPIONS[champ_name]["Board Size"],
-                                                 final_comp=comps.COMP[champ_name]["final_comp"])
+                                                 final_comp=final_comp)
 
     def identify_champions_on_bench(self):
         print("  Double-checking the champions on the bench.")
@@ -620,15 +629,24 @@ class Arena:
                 print("      Sleeping for 0.5 seconds.")
                 sleep(0.5)
                 champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
-                                               scale=3, psm=13, whitelist="")
+                                               scale=3, psm=13, whitelist=ocr.ALPHABET_WHITELIST)
                 print(f"      Champ: {champ_name}")
                 print("      I hope the info box appeared because I already tried to grab the info.")
                 champ_name = arena_functions.get_valid_champ(champ_name)
+                # Confirm this is an actual unit that can be used
                 if arena_functions.is_valid_champ(champ_name):
+                    # Set default values if we don't want to use this champ in our comp.
+                    items_to_build = []
+                    final_comp = False
+                    # If we actually plan on using this champ in our comp:
+                    if champ_name in comps.COMP:
+                        items_to_build = comps.COMP[champ_name]["items"].copy()
+                        final_comp = comps.COMP[champ_name]["final_comp"]
+                    # Create the Champion object.
                     self.bench[index] = Champion(name=champ_name,
                                                  coords=screen_coords.BENCH_LOC[index].get_coords(
                                                  ),
-                                                 build=comps.COMP[champ_name]["items"].copy(),
+                                                 build=items_to_build,
                                                  slot=index,
                                                  size=game_assets.CHAMPIONS[champ_name]["Board Size"],
-                                                 final_comp=comps.COMP[champ_name]["final_comp"])
+                                                 final_comp=final_comp)

@@ -87,7 +87,7 @@ def get_coordinates_of_text(screenxy: tuple, scale: int, psm: int, whitelist: st
             api.SetRectangle(box['x'], box['y'], box['w'], box['h'])
             ocr_result = api.GetUTF8Text()
             conf = api.MeanTextConf()
-            print(f"  Box[{i}]: x={box['x']}, y={box['x']}, w={box['x']}, h={box['x']}, "
+            print(f"  Box[{i}]: x={box['x']}, y={box['y']}, w={box['w']}, h={box['h']}, "
                   f"confidence: {conf}, text: {ocr_result}")
             area_of_text = Vec4(GameWindow(box['x'], box['y'], box['x'] + box['w'], box['y'] + box['h']))
             coordinates.append(area_of_text)
