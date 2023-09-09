@@ -241,3 +241,15 @@ INCOME_STATEMENT_POS: list[Vec4] = [
     Vec4(GameWindow(916, 798, 926, 814)),
     Vec4(GameWindow(898, 820, 910, 838))
 ]
+
+# The area of the first number drawn on the board that represents how many units are currently on the board.
+CURRENT_AMOUNT_OF_CHAMPIONS_ON_BOARD_POS: Vec4 = Vec4(GameWindow(894, 240, 984, 320))
+
+# The center of the first number drawn on the board that represents how many units are currently on the board.
+CURRENT_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC: Vec2 = Vec2(939, 280)
+
+# The area of the second number drawn on the board that represents the max number of units that can be on the board.
+MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_POS: Vec4 = Vec4(GameWindow(1064, 242, 1152, 316))
+
+# The center of the second number drawn on the board that represents the max number of units that can be on the board.
+MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC: Vec2 = Vec2(1108, 279)
