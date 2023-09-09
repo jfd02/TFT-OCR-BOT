@@ -252,3 +252,6 @@ MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_POS: Vec4 = Vec4(GameWindow(1064, 242, 1152, 31
 
 # The center of the second number drawn on the board that represents the max number of units that can be on the board.
 MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC: Vec2 = Vec2(1108, 279)
+
+# The area of the screen representing the entire board. Not perfect since the board isn't rendered top-down.
+BOARD_OF_ARENA_POS: Vec4 = Vec4(GameWindow(586, 222, 1350, 714))

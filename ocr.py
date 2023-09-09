@@ -5,9 +5,10 @@ Contains all code related to turning a screenshot into a string
 from typing import Any
 import cv2
 import numpy as np
-from PIL import ImageGrab
-from tesserocr import PyTessBaseAPI
+from PIL import ImageGrab, Image
+from tesserocr import PyTessBaseAPI, RIL
 import settings
+from vec4 import Vec4, GameWindow
 
 tessdata_path = settings.TESSERACT_TESSDATA_PATH
 
@@ -67,3 +68,27 @@ def get_text_from_image(image: ImageGrab.Image, whitelist: str = "") -> str:
                           thresholding.shape[1])
         text = api.GetUTF8Text()
     return text.strip()
+
+
+def get_coordinates_of_text(screenxy: tuple, scale: int, psm: int, whitelist: str = "") -> list[Vec4]:
+    screenshot = ImageGrab.grab(bbox=screenxy)
+    resized_screenshot = image_resize(screenshot, scale)
+    # data=pytesseract.image_to_boxes(resized_screenshot)
+    coordinates = [Vec4]
+    with PyTessBaseAPI() as api:
+        api.SetImage(resized_screenshot)
+        api.SetVariable("tessedit_char_whitelist", whitelist)
+        api.SetPageSegMode(psm)
+        boxes = api.GetComponentImages(RIL.TEXTLINE, True)
+        print(f'  Found {len(boxes)} text-line image components.')
+        for i, (im, box, _, _) in enumerate(boxes):
+            # im is a PIL image object
+            # box is a dict with x, y, w and h keys
+            api.SetRectangle(box['x'], box['y'], box['w'], box['h'])
+            ocr_result = api.GetUTF8Text()
+            conf = api.MeanTextConf()
+            print(f"  Box[{i}]: x={box['x']}, y={box['x']}, w={box['x']}, h={box['x']}, "
+                  f"confidence: {conf}, text: {ocr_result}")
+            area_of_text = Vec4(GameWindow(box['x'], box['y'], box['x'] + box['w'], box['y'] + box['h']))
+            coordinates.append(area_of_text)
+    return coordinates

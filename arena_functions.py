@@ -12,6 +12,7 @@ import ocr
 import game_assets
 import mk_functions
 from champion import Champion
+from vec2 import Vec2
 from vec4 import Vec4
 
 
@@ -223,3 +224,30 @@ def buy_xp_round() -> None:
 
 def print_item_placed_on_champ(item: str, champ: Champion):
     print(f"    Placed {item} on {champ.name}")
+
+
+def get_area_of_item_orbs() -> [Vec4]:
+    """Returns the coordinate positions of items if there are any on the board.
+       Does this by searching the whole board to see if there are any question marks."""
+    area_of_item_orbs: [Vec4] = ocr.get_coordinates_of_text(screenxy=screen_coords.AREA_OF_BOARD_POS.get_coords(),
+                                                            scale=3, psm=7, whitelist="?")
+    try:
+        return area_of_item_orbs
+    except ValueError:
+        return -1
+
+
+def get_center_position_of_item_orbs() -> [Vec2]:
+    """Returns the center coordinate positions of items if there are any on the board."""
+    area_of_item_orbs = get_area_of_item_orbs()
+    center_of_item_orbs = [Vec2]
+    for item_orb in area_of_item_orbs:
+        x1 = item_orb[0]
+        y1 = item_orb[1]
+        x2 = item_orb[2]
+        y2 = item_orb[3]
+        x_center = (x1 + x2) / 2
+        y_center = (y1 + y2) / 2
+        vec_2 = Vec2(x_center, y_center)
+        center_of_item_orbs.append(vec_2)
+    return center_of_item_orbs

@@ -528,6 +528,8 @@ class Arena:
         # Create label for the max units.
         labels.append((f"{arena_functions.get_max_amount_of_units_on_board()}",
                        screen_coords.MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC.get_coords(), 5, 20))
+        # Create label for the item orbs.
+        labels.append((f"?", arena_functions.get_area_of_item_orbs(), 5, 20))
         self.message_queue.put(("LABEL", labels))
 
     def count_items_on_bench(self) -> int:
