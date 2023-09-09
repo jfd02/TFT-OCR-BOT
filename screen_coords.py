@@ -59,7 +59,14 @@ CHAMP_NAME_POS: list[Vec4] = [
 # The area covering how much gold the player has to spend.
 GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 
-EXIT_NOW_POS: Vec4 = Vec4(GameWindow(771, 541, 890, 564))
+# The area of the number that represents what position the player placed (e.g. 1st, 2nd, 3rd, 4th, etc).
+POSITION_WE_PLACED_POS: Vec4 = Vec4(GameWindow(836, 410, 868, 452))
+
+# The area of the button that appears when you lose the game allowing you to return to the client.
+EXIT_NOW_POS: Vec4 = Vec4(GameWindow(862, 555, 1070, 593))
+
+# The area of the button that appears when you lose the game allowing you to keep watching the game.
+KEEP_WATCHING_POS: Vec4 = Vec4(GameWindow(862, 634, 1070, 672))
 
 # The area representing the title of the augments the player can choose from.
 AUGMENT_POS: list[Vec4] = [
@@ -144,8 +151,14 @@ BOARD_LOC: list[Vec2] = [
 # Where the mouse will click during carousel round so that the tactician picks up at least one champion.
 CAROUSEL_LOC: Vec2 = Vec2(964, 644)
 
-# Where the mouse will click when the game is over and we want to exit the game.
-EXIT_NOW_LOC: Vec2 = Vec2(830, 551)
+# The center of the number that represents what position the player placed (e.g. 1st, 2nd, 3rd, 4th, etc).
+POSITION_WE_PLACED_LOC: Vec2 = Vec2(851, 431)
+
+# Where the mouse will click when the game is over, and we want to exit the game.
+EXIT_NOW_LOC: Vec2 = Vec2(962, 576)
+
+# Where the mouse will click when the game is over, and we want to keep watching.
+KEEP_WATCHING_LOC: Vec2 = Vec2(962, 656)
 
 # Where the mouse will click when we need to buy XP.
 BUY_XP_LOC: Vec2 = Vec2(364, 964)
