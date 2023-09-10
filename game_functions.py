@@ -34,9 +34,12 @@ def move_to_items_orbs_on_board():
         print("      The OCR didn't register any items on the board.")
     for item_orb_vec2 in item_orb_vec2_list:
         print(f"      item_orb_vec2: {item_orb_vec2}")
+        print(f"        Coordinates: {item_orb_vec2.get_coords()}")
         #labels.append((f"?", item_orb_vec2.get_coords(), 0, 0))
         mk_functions.right_click(item_orb_vec2.get_coords())
         sleep(2)
+    # Move the tactician back to their pedestal after looting items.
+    mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
     #self.message_queue.put(("LABEL", labels))
 
 
