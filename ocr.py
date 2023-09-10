@@ -74,7 +74,8 @@ def get_coordinates_of_text(screenxy: tuple, scale: int, psm: int, whitelist: st
     screenshot = ImageGrab.grab(bbox=screenxy)
     resized_screenshot = image_resize(screenshot, scale)
     # data=pytesseract.image_to_boxes(resized_screenshot)
-    coordinates = [Vec4]
+    # Don't instantiate lists like this: coordinates = [Vec4]
+    coordinates = []
     with PyTessBaseAPI(path=tessdata_path) as api:
         api.SetImage(resized_screenshot)
         api.SetVariable("tessedit_char_whitelist", whitelist)

@@ -245,12 +245,14 @@ def get_area_of_item_orbs() -> [Vec4]:
 def get_center_position_of_item_orbs() -> [Vec2]:
     """Returns the center coordinate positions of items if there are any on the board."""
     area_of_item_orbs = get_area_of_item_orbs()
-    center_of_item_orbs = [Vec2]
+    # Don't instantiate lists like this: center_of_item_orbs = [Vec2]
+    center_of_item_orbs = []
     for item_orb in area_of_item_orbs:
-        x1 = item_orb.x_pos
-        y1 = item_orb.y_pos
-        x2 = item_orb.x_pos + item_orb.width
-        y2 = item_orb.y_pos + item_orb.height
+        vec4 = item_orb.get_coords()
+        x1 = vec4[0]
+        y1 = vec4[1]
+        x2 = vec4[0] + vec4[2]
+        y2 = vec4[1] + vec4[3]
         x_center = (x1 + x2) / 2
         y_center = (y1 + y2) / 2
         vec_2 = Vec2(x_center, y_center)
