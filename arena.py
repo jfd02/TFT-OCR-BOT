@@ -131,7 +131,7 @@ class Arena:
             self.bench[index] = None
 
     def unknown_in_bench(self) -> bool:
-
+        """Returns True if there is a spot on the bench taken up and that spot is not recognized as a champion/unit."""
         return any(isinstance(slot, str) for slot in self.bench)
 
     def move_champions(self) -> None:
@@ -616,16 +616,16 @@ class Arena:
         for index, board_space in enumerate(self.board):
             if isinstance(board_space, Champion):
                 print(f"  [!]Board space {index} is occupied by a unit, but we don't know which unit!")
-                print(f"       Board Space Occupied: {board_space}")
+                # print(f"       Board Space Occupied: {board_space}")
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
-                print(f"       Right-clicking the unit to make its info appear.")
+                # print(f"       Right-clicking the unit to make its info appear.")
                 mk_functions.right_click(board_space.coords)
-                print(f"       Sleeping for 0.1 seconds.")
+                # print(f"       Sleeping for 0.1 seconds.")
                 sleep(0.1)
                 champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
                                                scale=3, psm=13, whitelist=ocr.ALPHABET_WHITELIST)
                 print(f"       Champ: {champ_name}")
-                print(f"       I hope the info box appeared because I already tried to grab the info.")
+                # print(f"       I hope the info box appeared because I already tried to grab the info.")
                 champ_name = arena_functions.get_valid_champ(champ_name)
                 # Confirm this is an actual unit that can be used
                 if arena_functions.is_valid_champ(champ_name):
@@ -652,16 +652,16 @@ class Arena:
             # check is this bench space is labeled "?"
             if bench_space is None and bench_occupied[index]:
                 print(f"  [!]Bench space {index} is occupied by a unit, but we don't know which unit!")
-                print(f"       Bench Occupied: {bench_occupied[index]}")
+                # print(f"       Bench Occupied: {bench_occupied[index]}")
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
-                print(f"       Right-clicking the unit to make its info appear.")
+                # print(f"       Right-clicking the unit to make its info appear.")
                 mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
-                print(f"       Sleeping for 0.1 seconds.")
+                # print(f"       Sleeping for 0.1 seconds.")
                 sleep(0.1)
                 champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
                                                scale=3, psm=13, whitelist=ocr.ALPHABET_WHITELIST)
                 print(f"       Champ: {champ_name}")
-                print(f"       I hope the info box appeared because I already tried to grab the info.")
+                # print(f"       I hope the info box appeared because I already tried to grab the info.")
                 champ_name = arena_functions.get_valid_champ(champ_name)
                 # Confirm this is an actual unit that can be used
                 if arena_functions.is_valid_champ(champ_name):
