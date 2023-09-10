@@ -9,6 +9,7 @@ import game
 import game_assets
 import mk_functions
 import screen_coords
+from Lib.random import Random
 from champion import Champion
 import comps
 import ocr
@@ -28,6 +29,7 @@ class Arena:
         self.board: list = []
         # All the spaces on the board that have a unit, but we don't know what that unit is.
         self.board_unknown: list = []
+        # All the spaces on the board that we haven't designated to put a unit from our comp on.
         self.unknown_slots: list = comps.get_unknown_slots()
         self.champs_to_buy: list = comps.champions_to_buy()
         self.board_names: list = []
@@ -85,7 +87,15 @@ class Arena:
     def move_known(self, champion: Champion) -> None:
         """Moves champion to the board"""
         print(f"    Moving {champion.name} to board")
-        destination: tuple = screen_coords.BOARD_LOC[comps.COMP[champion.name]["board_position"]].get_coords()
+        board_position = -1
+        # If the unit is in our comp. Put it in its designated spot on the board.
+        if champion in comps.COMP:
+            board_position = comps.COMP[champion.name]["board_position"]
+        # Otherwise, put it in a random spot on the board that our wanted units won't use.
+        # Might accidentally replace an unwanted unit with this one.
+        else:
+            board_position = Random.choice(self.unknown_slots)
+        destination: tuple = screen_coords.BOARD_LOC[board_position].get_coords()
         mk_functions.left_click(champion.coords)
         sleep(0.1)
         mk_functions.left_click(destination)
@@ -93,7 +103,7 @@ class Arena:
         self.board.append(champion)
         self.board_names.append(champion.name)
         self.bench[champion.index] = None
-        champion.index = comps.COMP[champion.name]["board_position"]
+        champion.index = board_position
         self.board_size += champion.size
 
     def move_unknown(self) -> None:
