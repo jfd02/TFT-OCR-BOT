@@ -15,9 +15,9 @@ class Champion:
         self.coords: tuple = coords
         # All the items the unit is designated to build.
         self.build = build
-        # The position on the board where the unit is designated in comps.py to be placed.
+        # The position on the board (or bench?) where the unit is designated in comps.py to be placed.
         self.index: int = slot
-        # The previously empty slot on the bench the purchased unit was moved to.
+        # The 'amount of units' this unit counts as, because sometimes a unit counts as 2 of your total possible units.
         self.size: int = size
         # The list of completed items the unit has.
         self.completed_items: list = []
