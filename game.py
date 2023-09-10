@@ -166,8 +166,9 @@ class Game:
         if self.round in ("2-1", "2-5"):
             arena_functions.buy_xp_round()
         if self.round in game_assets.PICKUP_ROUNDS:
-            print("  Picking up items")
-            game_functions.pickup_items()
+            print("  Picking up items:")
+            game_functions.move_to_items_orbs_on_board()
+            #game_functions.pickup_items()
 
         self.arena.fix_bench_state()
         self.arena.bench_cleanup()

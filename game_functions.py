@@ -4,6 +4,8 @@ Functions used by the Game class to retrieve relevant data
 
 from time import sleep
 from PIL import ImageGrab
+
+import arena_functions
 import screen_coords
 import ocr
 import game_assets
@@ -21,6 +23,17 @@ def get_round() -> str:
     round_one = screen_capture.crop(screen_coords.ROUND_POS_ONE.get_coords())
     game_round: str = ocr.get_text_from_image(image=round_one, whitelist=ocr.ROUND_WHITELIST)
     return game_round
+
+
+def move_to_items_orbs_on_board():
+    print("    Trying to move directly to the item orbs:")
+    #labels = []
+    for item_orb_vec2 in arena_functions.get_center_position_of_item_orbs():
+        print(f"      item_orb_vec2: {item_orb_vec2}")
+        #labels.append((f"?", item_orb_vec2.get_coords(), 0, 0))
+        mk_functions.right_click(item_orb_vec2.get_coords())
+        sleep(2)
+    #self.message_queue.put(("LABEL", labels))
 
 
 def pickup_items() -> None:  # Refacor this function to make it more clear whats happening
