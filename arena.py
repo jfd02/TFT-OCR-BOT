@@ -31,6 +31,7 @@ class Arena:
         # All the spaces on the board that we haven't designated to put a unit from our comp on.
         self.unknown_slots: list = comps.get_unknown_slots()
         self.champs_to_buy: list = comps.champions_to_buy()
+        # A list of the names of all units on the board (not the bench), including duplicates.
         self.board_names: list = []
         self.items: list = []
         # All the augments that the player currently has.
@@ -71,21 +72,21 @@ class Arena:
         sleep(0.5)
         self.fix_bench_state()
 
-    def have_champion(self) -> Champion | None:
+    def get_next_champion_on_bench(self) -> Champion | None:
         """Checks the bench to see if champion exists"""
         return next(
             (
                 champion
                 for champion in self.bench
                 if isinstance(champion, Champion)
-                   and champion.name not in self.board_names
+                and champion.name not in self.board_names
             ),
             None,
         )
 
     def move_known(self, champion: Champion) -> None:
         """Moves champion to the board"""
-        print(f"    Moving {champion.name} to board")
+        print(f"    Moving known unit {champion.name} to board.")
         board_position = -1
         # If the unit is in our comp. Put it in its designated spot on the board.
         if champion in comps.COMP:
@@ -104,12 +105,13 @@ class Arena:
         self.bench[champion.index] = None
         champion.index = board_position
         self.board_size += champion.size
+        print(f"      Moved {champion.name} to {board_position}.")
 
     def move_unknown(self) -> None:
         """Moves unknown champion to the board"""
         for index, champion in enumerate(self.bench):
             if isinstance(champion, str):
-                print(f"    Moving {champion} to board")
+                print(f"    Moving unknown unit {champion} to board")
                 mk_functions.left_click(screen_coords.BENCH_LOC[index].get_coords())
                 sleep(0.1)
                 mk_functions.left_click(
@@ -121,6 +123,7 @@ class Arena:
 
     def sell_bench(self) -> None:
         """Sells all of the champions on the bench"""
+        print(f"    Selling all the units on the bench.")
         for index, _ in enumerate(self.bench):
             mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
             self.bench[index] = None
@@ -133,7 +136,7 @@ class Arena:
         """Moves champions to the board"""
         self.level: int = arena_functions.get_level_via_https_request()
         while self.level > self.board_size:
-            champion: Champion | None = self.have_champion()
+            champion: Champion | None = self.get_next_champion_on_bench()
             if champion is not None:
                 self.move_known(champion)
             elif self.unknown_in_bench():
@@ -166,9 +169,10 @@ class Arena:
                     return
 
     def replace_unknown(self) -> None:
-        """Replaces unknown champion"""
-        champion: Champion | None = self.have_champion()
+        """Replaces an unknown champion on the board with a known champion from the bench."""
+        champion: Champion | None = self.get_next_champion_on_bench()
         if len(self.board_unknown) > 0 and champion is not None:
+            print(f"    Replacing an unknown champion with {champion.name}.")
             mk_functions.press_e(screen_coords.BOARD_LOC[self.unknown_slots[len(
                 self.board_unknown) - 1]].get_coords())
             self.board_unknown.pop()
@@ -358,7 +362,7 @@ class Arena:
             self.items[self.items.index(item)] = None
 
     def fix_unknown(self) -> None:
-        """Checks if the item passed in arg one is valid"""
+        """Removes the first unknown unit that is on the board."""
         sleep(0.25)
         mk_functions.press_e(
             screen_coords.BOARD_LOC[self.unknown_slots[0]].get_coords())
@@ -366,9 +370,13 @@ class Arena:
         self.board_size -= 1
 
     def remove_champion(self, champion: Champion) -> None:
-        """Checks if the item passed in arg one is valid"""
+        """Removes all instances of the given Champion from the bench if it is on the bench.
+           Removes the given Champion from the list of units to purchase.
+           Removes one instance of the given Champion from the board."""
+        print(f"    Looking to remove {champion} from the bench, board, and list of champs to buy.")
         for index, slot in enumerate(self.bench):
             if isinstance(slot, Champion) and slot.name == champion.name:
+                print(f"      Removing {champion} from the bench.")
                 mk_functions.press_e(slot.coords)
                 self.bench[index] = None
 
@@ -390,7 +398,7 @@ class Arena:
             ):
                 for champion in self.board:
                     if not champion.final_comp and champion.size == slot.size:
-                        print(f"  Replacing {champion.name} with {slot.name}")
+                        print(f"  Replacing non-final-comp {champion.name} with {slot.name}")
                         self.remove_champion(champion)
                         champion.print_all_class_variables()
                         self.move_known(slot)

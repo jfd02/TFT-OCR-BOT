@@ -21,7 +21,7 @@ COMP = {
     "Jarvan IV": {
         "board_position": 26,
         "items": ["ProtectorsVow"],
-        "level": 3,
+        "level": 2,
         "final_comp": True
     },
     "KSante": {
@@ -57,7 +57,7 @@ COMP = {
     "Lux": {
         "board_position": 0,
         "items": ["BlueBuff", "JeweledGauntlet"],
-        "level": 3,
+        "level": 2,
         "final_comp": True
     },
     "Renekton": {
@@ -75,13 +75,13 @@ COMP = {
     "Cassiopeia": {
         "board_position": 7,
         "items": ["GuinsoosRageblade", "HextechGunblade", "JeweledGauntlet"],
-        "level": 3,
+        "level": 2,
         "final_comp": False
     },
     "Sona": {
         "board_position": 8,
         "items": ["StatikkShiv", "BlueBuff"],
-        "level": 3,
+        "level": 2,
         "final_comp": False
     }
 }
