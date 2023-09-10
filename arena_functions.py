@@ -235,7 +235,7 @@ def get_area_of_item_orbs() -> [Vec4]:
     """Returns the coordinate positions of items if there are any on the board.
        Does this by searching the whole board to see if there are any question marks."""
     area_of_item_orbs: [Vec4] = ocr.get_coordinates_of_text(screenxy=screen_coords.BOARD_OF_ARENA_POS.get_coords(),
-                                                            scale=3, psm=7, whitelist="?")
+                                                            scale=3, psm=7, whitelist="")
     try:
         return area_of_item_orbs
     except ValueError:

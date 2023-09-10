@@ -26,9 +26,13 @@ def get_round() -> str:
 
 
 def move_to_items_orbs_on_board():
+    """Attempts to move the tactician to any item orbs that are on the board."""
     print("    Trying to move directly to the item orbs:")
     #labels = []
-    for item_orb_vec2 in arena_functions.get_center_position_of_item_orbs():
+    item_orb_vec2_list = arena_functions.get_center_position_of_item_orbs()
+    if item_orb_vec2_list.count() == 0:
+        print("      The OCR didn't register any items on the board.")
+    for item_orb_vec2 in item_orb_vec2_list:
         print(f"      item_orb_vec2: {item_orb_vec2}")
         #labels.append((f"?", item_orb_vec2.get_coords(), 0, 0))
         mk_functions.right_click(item_orb_vec2.get_coords())
@@ -36,7 +40,7 @@ def move_to_items_orbs_on_board():
     #self.message_queue.put(("LABEL", labels))
 
 
-def pickup_items() -> None:  # Refacor this function to make it more clear whats happening
+def pickup_items() -> None:  # Refactor this function to make it more clear what's happening
     """Picks up items from the board after PVP round"""
     for index, coords in enumerate(screen_coords.ITEM_PICKUP_LOC):
         mk_functions.right_click(coords.get_coords())
