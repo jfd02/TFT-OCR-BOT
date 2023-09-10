@@ -87,7 +87,7 @@ def get_shop() -> list:
     return shop
 
 
-def empty_slot() -> int:
+def empty_bench_slot() -> int:
     """Finds the first empty spot on the bench"""
     for slot, positions in enumerate(screen_coords.BENCH_HEALTH_POS):
         screen_capture = ImageGrab.grab(bbox=positions.get_coords())

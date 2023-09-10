@@ -89,11 +89,13 @@ class Arena:
         print(f"    Moving known unit {champion.name} to board.")
         board_position = -1
         # If the unit is in our comp. Put it in its designated spot on the board.
-        if champion in comps.COMP:
+        if champion.name in comps.COMP:
+            print("      Selecting the designated board space because the unit is in our comp.")
             board_position = comps.COMP[champion.name]["board_position"]
         # Otherwise, put it in a random spot on the board that our wanted units won't use.
         # Might accidentally replace an unwanted unit with this one.
         else:
+            print("      Selecting a random board space because the unit isn't in our comp.")
             board_position = random.choice(self.unknown_slots)
         destination: tuple = screen_coords.BOARD_LOC[board_position].get_coords()
         mk_functions.left_click(champion.coords)
@@ -155,7 +157,7 @@ class Arena:
                     )
 
                     if valid_champ:
-                        none_slot: int = arena_functions.empty_slot()
+                        none_slot: int = arena_functions.empty_bench_slot()
                         mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
                         sleep(0.2)
                         self.bench[none_slot] = f"{champion[1]}"
@@ -245,7 +247,7 @@ class Arena:
                         if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                             will_try_to_place_item = False
             if item_count > 15:
-                print("    The while loop god out of control.")
+                print("    The while loop got out of control.")
                 will_try_to_place_item = False
             if not will_try_to_place_item:
                 print("    No longer placing items this round.")
@@ -441,7 +443,7 @@ class Arena:
                 if (champion[1] in self.champs_to_buy and
                         arena_functions.get_gold() - game_assets.CHAMPIONS[champion[1]]["Gold"] >= 0
                 ):
-                    none_slot: int = arena_functions.empty_slot()
+                    none_slot: int = arena_functions.empty_bench_slot()
                     if none_slot != -1:
                         mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
                         print(f"    Purchased {champion[1]}")
@@ -454,7 +456,7 @@ class Arena:
                         game_functions.default_pos()
                         sleep(0.5)
                         self.fix_bench_state()
-                        none_slot = arena_functions.empty_slot()
+                        none_slot = arena_functions.empty_bench_slot()
                         sleep(0.5)
                         if none_slot != -1:
                             print(f"    Purchased {champion[1]}")
@@ -520,34 +522,34 @@ class Arena:
             for index, slot in enumerate(self.board_unknown)
         )
         # Create label for level of the tactician.
-        labels.append((f"{arena_functions.get_level_via_ocr()}", screen_coords.TACTICIAN_LEVEL_LOC.get_coords(), 5, 20))
+        labels.append((f"{arena_functions.get_level_via_ocr()}", screen_coords.TACTICIAN_LEVEL_LOC.get_coords(), 0, 0))
         # Create label for current gold.
-        labels.append((f"{arena_functions.get_gold()}", screen_coords.GOLD_LOC.get_coords(), 5, 20))
+        labels.append((f"{arena_functions.get_gold()}", screen_coords.GOLD_LOC.get_coords(), 0, 0))
         # Create label for how much it costs to buy XP.
-        labels.append((f"{arena_functions.get_cost_to_buy_xp()}", screen_coords.BUY_XP_COST_LOC.get_coords(), 5, 20))
+        labels.append((f"{arena_functions.get_cost_to_buy_xp()}", screen_coords.BUY_XP_COST_LOC.get_coords(), 0, 0))
         # Create label for how much it costs to refresh the shop.
-        labels.append((f"{arena_functions.get_cost_to_refresh_shop()}", screen_coords.REFRESH_LOC.get_coords(), 5, 20))
+        labels.append((f"{arena_functions.get_cost_to_refresh_shop()}", screen_coords.REFRESH_LOC.get_coords(), 0, 0))
         # Create label for the current win/loss streak.
         labels.append(
             (f"{arena_functions.get_win_loss_streak()}",
-             screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_LOC.get_coords(), 5, 20))
+             screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_LOC.get_coords(), 0, 0))
         # Create label for the remaining time in this phase.
         labels.append((f"{arena_functions.get_seconds_remaining()}",
-                       screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords(), 5, 20))
+                       screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords(), 0, 0))
         # Create label for the current stage and round we are in.
-        labels.append((f"{game_functions.get_round()}", screen_coords.ROUND_LOC.get_coords(), 5, 20))
+        labels.append((f"{game_functions.get_round()}", screen_coords.ROUND_LOC.get_coords(), 0, 0))
         # Create label for the current xp / total needed xp.
         labels.append((f"{arena_functions.get_current_xp_and_total_needed_xp()}",
-                       screen_coords.TACTICIAN_XP_FRACTION_LOC.get_coords(), 5, 20))
-        # Create label for the current units.
+                       screen_coords.TACTICIAN_XP_FRACTION_LOC.get_coords(), 0, 0))
+        # Create label for the current amount of units on the board.
         labels.append((f"{arena_functions.get_current_amount_of_units_on_board()}",
-                       screen_coords.CURRENT_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC.get_coords(), 5, 20))
-        # Create label for the max units.
+                       screen_coords.CURRENT_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC.get_coords(), 0, 0))
+        # Create label for the max units amount of units we can have on the board.
         labels.append((f"{arena_functions.get_max_amount_of_units_on_board()}",
-                       screen_coords.MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC.get_coords(), 5, 20))
+                       screen_coords.MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC.get_coords(), 0, 0))
         # Create label for the item orbs.
         for item_orb_vec2 in arena_functions.get_center_position_of_item_orbs():
-            labels.append((f"?", item_orb_vec2.get_coords(), 5, 0))
+            labels.append((f"?", item_orb_vec2.get_coords(), 0, 0))
         self.message_queue.put(("LABEL", labels))
 
     def count_items_on_bench(self) -> int:
@@ -630,13 +632,14 @@ class Arena:
                         items_to_build = comps.COMP[champ_name]["items"].copy()
                         final_comp = comps.COMP[champ_name]["final_comp"]
                     # Create the Champion object.
-                    self.bench[index] = Champion(name=champ_name,
+                    self.board[index] = Champion(name=champ_name,
                                                  coords=screen_coords.BENCH_LOC[index].get_coords(
                                                  ),
                                                  build=items_to_build,
                                                  slot=index,
                                                  size=game_assets.CHAMPIONS[champ_name]["Board Size"],
                                                  final_comp=final_comp)
+                    
 
     def identify_champions_on_bench(self):
         print("  Double-checking the champions on the bench.")
