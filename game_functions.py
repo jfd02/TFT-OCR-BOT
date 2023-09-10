@@ -30,7 +30,7 @@ def move_to_items_orbs_on_board():
     print("    Trying to move directly to the item orbs:")
     #labels = []
     item_orb_vec2_list = arena_functions.get_center_position_of_item_orbs()
-    if item_orb_vec2_list.count() == 0:
+    if len(item_orb_vec2_list) == 0:
         print("      The OCR didn't register any items on the board.")
     for item_orb_vec2 in item_orb_vec2_list:
         print(f"      item_orb_vec2: {item_orb_vec2}")

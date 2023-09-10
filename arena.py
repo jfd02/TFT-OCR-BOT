@@ -79,7 +79,7 @@ class Arena:
                 champion
                 for champion in self.bench
                 if isinstance(champion, Champion)
-                   and champion.name not in self.board_names
+                and champion.name not in self.board_names
             ),
             None,
         )
@@ -131,7 +131,7 @@ class Arena:
             self.bench[index] = None
 
     def unknown_in_bench(self) -> bool:
-        """Sells all of the champions on the bench"""
+
         return any(isinstance(slot, str) for slot in self.bench)
 
     def move_champions(self) -> None:
