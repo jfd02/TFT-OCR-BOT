@@ -79,7 +79,7 @@ class Arena:
                 champion
                 for champion in self.bench
                 if isinstance(champion, Champion)
-                and champion.name not in self.board_names
+                   and champion.name not in self.board_names
             ),
             None,
         )
@@ -246,7 +246,7 @@ class Arena:
                     if self.check_if_we_should_spam_items_before_dying(index):
                         if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                             will_try_to_place_item = False
-            if item_count > 15:
+            if item_count > 10:
                 print("    The while loop got out of control.")
                 will_try_to_place_item = False
             if not will_try_to_place_item:
@@ -386,9 +386,14 @@ class Arena:
                                          self.champs_to_buy))  # Remove all instances of champion in champs_to_buy
 
         mk_functions.press_e(champion.coords)
-        self.board_names.remove(champion.name)
-        self.board_size -= champion.size
-        self.board.remove(champion)
+        if champion.name in self.board_names:
+            self.board_names.remove(champion.name)
+        if champion in self.board:
+            self.board_size -= champion.size
+            self.board.remove(champion)
+        if champion in self.board and champion.name not in self.board_names:
+            print(f"      [!] Unit {champion} is registered as in self.board, but its name is not registered as in "
+                  f"self.board_names.")
 
     def final_comp_check(self) -> None:
         """Checks the board and replaces champions not in final comp"""
@@ -639,7 +644,6 @@ class Arena:
                                                  slot=index,
                                                  size=game_assets.CHAMPIONS[champ_name]["Board Size"],
                                                  final_comp=final_comp)
-                    
 
     def identify_champions_on_bench(self):
         print("  Double-checking the champions on the bench.")

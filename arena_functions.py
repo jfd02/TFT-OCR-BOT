@@ -60,7 +60,7 @@ def get_valid_champ(champ_name: str) -> str:
 
 def is_valid_champ(champ_name: str) -> bool:
     if champ_name in game_assets.CHAMPIONS:
-        print(f"      Confirmed that {champ_name} is a valid champ.")
+        print(f"       Confirmed that {champ_name} is a valid champ.")
         return True
     return False
 
