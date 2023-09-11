@@ -152,6 +152,7 @@ class Game:
         self.arena.spend_gold()
         self.arena.move_champions()
         self.arena.replace_unknown()
+        self.arena.replace_units_not_in_our_comp()
         if self.arena.final_comp:
             self.arena.final_comp_check()
         self.arena.bench_cleanup()
@@ -183,6 +184,7 @@ class Game:
         self.arena.spend_gold()
         self.arena.move_champions()
         self.arena.replace_unknown()
+        self.arena.replace_units_not_in_our_comp()
         if self.arena.final_comp:
             self.arena.final_comp_check()
         self.arena.bench_cleanup()

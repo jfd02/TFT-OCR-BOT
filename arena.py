@@ -80,7 +80,20 @@ class Arena:
                 champion
                 for champion in self.bench
                 if isinstance(champion, Champion)
-                and champion.name not in self.board_names
+                   and champion.name not in self.board_names
+            ),
+            None,
+        )
+
+    def get_next_unit_from_our_comp_on_bench(self) -> Champion | None:
+        """Checks to see if a unit from our comp is on the bench."""
+        return next(
+            (
+                champion
+                for champion in self.bench
+                if isinstance(champion, Champion)
+                   and champion.name not in self.board_names
+                   and champion.name in comps.COMP
             ),
             None,
         )
@@ -183,6 +196,19 @@ class Arena:
             self.board_unknown.pop()
             self.board_size -= 1
             self.move_known(champion)
+
+    def replace_units_not_in_our_comp(self) -> None:
+        """Replaces a unit on the board with a unit from the bench that is in our comp."""
+        champion: Champion | None = self.get_next_unit_from_our_comp_on_bench()
+        if champion is None:
+            return
+        for unit in self.board:
+            if isinstance(unit, Champion):
+                if unit.name not in comps.COMP:
+                    print(f"    Replacing {unit.name} with {champion.name} because {unit.name} is not in our comp.")
+                    mk_functions.press_e(unit.coords)
+                    self.board_size -= 1
+                    self.move_known(champion)
 
     def bench_cleanup(self) -> None:
         """Sells unknown champions"""
