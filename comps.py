@@ -3,11 +3,11 @@ Team composition used by the bot
 Comps come from https://tftactics.gg/tierlist/team-comps
 Items are in camel case and a-Z
 """
-import set_9.comps.azir_nasus_lux_jarvan
+import set_9.comps
 
-COMP = set_9.comps.azir_nasus_lux_jarvan.COMP
+COMP = set_9.comps.ekko_katarina_lissandra_icy_rogues.COMP
 
-AUGMENTS = set_9.comps.azir_nasus_lux_jarvan.AUGMENTS
+AUGMENTS = set_9.comps.ekko_katarina_lissandra_icy_rogues.AUGMENTS
 
 def champions_to_buy() -> list:
     """Creates a list of champions to buy during the game"""
