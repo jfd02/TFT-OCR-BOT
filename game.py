@@ -202,7 +202,11 @@ class Game:
         game_functions.default_pos()
 
     def print_arena_values(self):
-        #print(f"    Board: {self.arena.board}")
+        unit_names_on_entire_board = []
+        for unit in self.arena.bench:
+            if unit is not None and isinstance(unit, Champion):
+                unit_names_on_entire_board.append(unit.name)
+        print(f"    Board: {unit_names_on_entire_board}")
         print(f"    Board Size: {self.arena.board_size}")
         print(f"    Board Names: {self.arena.board_names}")
         print(f"    Board Unknown: {self.arena.board_unknown}")
