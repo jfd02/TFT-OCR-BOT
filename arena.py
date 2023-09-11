@@ -22,6 +22,7 @@ class Arena:
     # pylint: disable=too-many-instance-attributes,too-many-public-methods
     def __init__(self, message_queue) -> None:
         self.message_queue = message_queue
+        # How many units we are currently fielding.
         self.board_size = 0
         self.bench: list[None] = [None, None, None, None, None, None, None, None, None]
         # All the spaces of the board. Can be an instance of a Champion or None.
@@ -29,7 +30,7 @@ class Arena:
         # All the spaces on the board that have a unit, but we don't know what that unit is.
         self.board_unknown: list = []
         # All the spaces on the board that we haven't designated to put a unit from our comp on.
-        self.unknown_slots: list = comps.get_unknown_slots()
+        self.slots_for_non_comp_units: list = comps.get_unknown_slots()
         self.champs_to_buy: list = comps.champions_to_buy()
         # A list of the names of all units on the board (not the bench), including duplicates.
         self.board_names: list = []
@@ -96,7 +97,7 @@ class Arena:
         # Might accidentally replace an unwanted unit with this one.
         else:
             print("      Selecting a random board space because the unit isn't in our comp.")
-            board_position = random.choice(self.unknown_slots)
+            board_position = random.choice(self.slots_for_non_comp_units)
         destination: tuple = screen_coords.BOARD_LOC[board_position].get_coords()
         mk_functions.left_click(champion.coords)
         sleep(0.1)
@@ -117,7 +118,7 @@ class Arena:
                 mk_functions.left_click(screen_coords.BENCH_LOC[index].get_coords())
                 sleep(0.1)
                 mk_functions.left_click(
-                    screen_coords.BOARD_LOC[self.unknown_slots[len(self.board_unknown)]].get_coords())
+                    screen_coords.BOARD_LOC[self.slots_for_non_comp_units[len(self.board_unknown)]].get_coords())
                 self.bench[index] = None
                 self.board_unknown.append(champion)
                 self.board_size += 1
@@ -175,7 +176,7 @@ class Arena:
         champion: Champion | None = self.get_next_champion_on_bench()
         if len(self.board_unknown) > 0 and champion is not None:
             print(f"    Replacing an unknown champion with {champion.name}.")
-            mk_functions.press_e(screen_coords.BOARD_LOC[self.unknown_slots[len(
+            mk_functions.press_e(screen_coords.BOARD_LOC[self.slots_for_non_comp_units[len(
                 self.board_unknown) - 1]].get_coords())
             self.board_unknown.pop()
             self.board_size -= 1
@@ -367,7 +368,7 @@ class Arena:
         """Removes the first unknown unit that is on the board."""
         sleep(0.25)
         mk_functions.press_e(
-            screen_coords.BOARD_LOC[self.unknown_slots[0]].get_coords())
+            screen_coords.BOARD_LOC[self.slots_for_non_comp_units[0]].get_coords())
         self.board_unknown.pop(0)
         self.board_size -= 1
 
@@ -523,7 +524,7 @@ class Arena:
                 labels.append((f"{slot.name}", slot.coords, 15, 30))
         # Create labels for unknown units on the board.
         labels.extend(
-            (slot, screen_coords.BOARD_LOC[self.unknown_slots[index]].get_coords(), 15, 30)
+            (slot, screen_coords.BOARD_LOC[self.slots_for_non_comp_units[index]].get_coords(), 15, 30)
             for index, slot in enumerate(self.board_unknown)
         )
         # Create label for level of the tactician.
@@ -615,7 +616,8 @@ class Arena:
         print("  Double-checking the champions on the board.")
         for index, board_space in enumerate(self.board):
             if isinstance(board_space, Champion):
-                print(f"  [!]Board space {index} is occupied by a unit, but we don't know which unit!")
+                print(f"  [!]Board space: {board_space} at index: {index} is occupied by a unit,"
+                      f" but we don't know which unit!")
                 # print(f"       Board Space Occupied: {board_space}")
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
                 # print(f"       Right-clicking the unit to make its info appear.")

@@ -81,7 +81,7 @@ def get_coordinates_of_text(screenxy: tuple, scale: int, psm: int, whitelist: st
         api.SetVariable("tessedit_char_whitelist", whitelist)
         api.SetPageSegMode(psm)
         boxes = api.GetComponentImages(RIL.TEXTLINE, True)
-        print(f'  Found {len(boxes)} text-line image components.')
+        # print(f'  Found {len(boxes)} text-line image components.')
         for i, (im, box, _, _) in enumerate(boxes):
             # im is a PIL image object
             # box is a dict with x, y, w and h keys
