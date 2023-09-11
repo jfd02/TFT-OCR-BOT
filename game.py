@@ -79,7 +79,7 @@ class Game:
             # Display the seconds remaining for this phase in real time.
             self.time: int = arena_functions.get_seconds_remaining()
             labels = [(f"{arena_functions.get_seconds_remaining()}",
-                       screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords(), 0, 0)]
+                       screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords(), 20, -10)]
             self.message_queue.put(("LABEL", labels))
 
             if (
