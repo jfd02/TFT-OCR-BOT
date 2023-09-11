@@ -1,3 +1,7 @@
+"""
+Items are in camel case and a-Z
+"""
+
 COMP = {
     "Azir": {
         "board_position": 6,
@@ -74,6 +78,12 @@ COMP = {
     },
     "Sona": {
         "board_position": 8,
+        "items": [],
+        "level": 2,
+        "final_comp": False
+    },
+    "Orianna": {
+        "board_position": 12,
         "items": ["StatikkShiv", "BlueBuff"],
         "level": 2,
         "final_comp": False

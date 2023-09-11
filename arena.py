@@ -365,7 +365,6 @@ class Arena:
 
     def add_item_to_champs_before_dying(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
-        print("    Adding items to champs before dying.")
         for champ in self.board:
             if champ.does_need_items() and self.items[item_index] is not None:
                 self.add_item_before_dying(item_index, champ)
@@ -576,12 +575,12 @@ class Arena:
         # Create label for the current win/loss streak.
         labels.append(
             (f"{arena_functions.get_win_loss_streak()}",
-             screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_LOC.get_coords(), -20, -10))
+             screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_LOC.get_coords(), -25, -10))
         # Create label for the remaining time in this phase.
         labels.append((f"{arena_functions.get_seconds_remaining()}",
                        screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords(), 10, 20))
         # Create label for the current stage and round we are in.
-        labels.append((f"{game_functions.get_round()}", screen_coords.ROUND_LOC.get_coords(), 5, -10))
+        labels.append((f"{game_functions.get_round()}", screen_coords.ROUND_LOC.get_coords(), 10, -10))
         # Create label for the current xp / total needed xp.
         labels.append((f"{arena_functions.get_current_xp_and_total_needed_xp()}",
                        screen_coords.TACTICIAN_XP_FRACTION_LOC.get_coords(), 20, 5))
@@ -619,7 +618,6 @@ class Arena:
         """Checks if our health is at 15 or less and then calls the function to spam thief's gloves."""
         health: int = arena_functions.get_health()
         if health <= 15:
-            print(f"  Health <= 15 - Health: {health}")
             for champ in self.board:
                 if champ.completed_items == 0 and champ.current_building == 0:
                     if self.add_thiefs_gloves_to_champ(champ):
@@ -630,7 +628,6 @@ class Arena:
         """Checks if our health is at 15 or less and then calls the function spam items before dying"""
         health: int = arena_functions.get_health()
         if health <= 15:
-            print(f"    Health <= 15 - Health: {health}")
             self.add_item_to_champs_before_dying(index)
             return True
         return False
