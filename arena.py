@@ -9,6 +9,7 @@ import random
 import game_assets
 import mk_functions
 import screen_coords
+from ansi_colors import AnsiColors
 from champion import Champion
 import comps
 import ocr
@@ -52,11 +53,12 @@ class Arena:
             if slot is None and bench_occupied[index]:
                 self.bench[index] = "?"
             if isinstance(slot, str) and not bench_occupied[index]:
-                print(f"  [!]fix_bench_state slot isinstance str\n    slot:{slot}")
+                print(
+                    AnsiColors.RED_REGULAR + f"  [!]fix_bench_state slot isinstance str\n    slot:{slot}" + AnsiColors.RESET)
                 self.bench[index] = None
             if isinstance(slot, Champion) and not bench_occupied[index]:
                 # surely this should never happen?
-                print(f"  [!!!]fix_bench_state slot isinstance Champion")
+                print(AnsiColors.YELLOW_REGULAR + f"  [!!!]fix_bench_state slot isinstance Champion" + AnsiColors.RESET)
                 print(f"         slot:{slot}")
                 print(f"         unit name:{slot.name}")
                 self.bench[index] = None
@@ -81,7 +83,7 @@ class Arena:
                 champion
                 for champion in self.bench
                 if isinstance(champion, Champion)
-                and champion.name not in self.board_names
+                   and champion.name not in self.board_names
             ),
             None,
         )
@@ -93,8 +95,8 @@ class Arena:
                 champion
                 for champion in self.bench
                 if isinstance(champion, Champion)
-                and champion.name not in self.board_names
-                and champion.name in comps.COMP
+                   and champion.name not in self.board_names
+                   and champion.name in comps.COMP
             ),
             None,
         )
@@ -120,8 +122,8 @@ class Arena:
         self.board.append(champion)
         self.board_names.append(champion.name)
         if champion.index >= len(self.bench):
-            print(f"      [!] The index {champion.index} of unit {champion.name} "
-                  f"is larger than the length of the bench.")
+            print(AnsiColors.RED_REGULAR + f"      [!] The index {champion.index} of unit {champion.name} "
+                                           f"is larger than the length of the bench." + AnsiColors.RESET)
         else:
             self.bench[champion.index] = None
         champion.index = board_position
@@ -427,8 +429,8 @@ class Arena:
             self.board_size -= champion.size
             self.board.remove(champion)
         if champion in self.board and champion.name not in self.board_names:
-            print(f"      [!] Unit {champion} is registered as in self.board, but its name is not registered as in "
-                  f"self.board_names.")
+            print(AnsiColors.RED_REGULAR + f"      [!] Unit {champion} is registered as in self.board, "
+                                           f"but its name is not registered as in self.board_names." + AnsiColors.RESET)
 
     def final_comp_check(self) -> None:
         """Checks the board and replaces champions not in final comp"""
@@ -527,7 +529,8 @@ class Arena:
             self.augment_roll = False
             self.pick_augment()
 
-        print("  [!] No priority or backup augment found, undefined behavior may occur for the rest of the round")
+        print(AnsiColors.YELLOW_REGULAR + "  [!] No priority or backup augment found, "
+                                          "undefined behavior may occur for the rest of the round" + AnsiColors.RESET)
         mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
 
     def check_health(self) -> None:
@@ -680,13 +683,13 @@ class Arena:
                         items_to_build = comps.COMP[champ_name]["items"].copy()
                         final_comp = comps.COMP[champ_name]["final_comp"]
                     # Create the Champion object.
-                    self.board[unit_board_position] = Champion(name=champ_name,
-                                                 coords=screen_coords.BOARD_LOC[unit_board_position].get_coords(
-                                                 ),
-                                                 build=items_to_build,
-                                                 slot=unit_board_position,
-                                                 size=game_assets.CHAMPIONS[champ_name]["Board Size"],
-                                                 final_comp=final_comp)
+                    self.board[board_index] = Champion(name=champ_name,
+                                                       coords=screen_coords.BOARD_LOC[unit_board_position].get_coords(
+                                                       ),
+                                                       build=items_to_build,
+                                                       slot=unit_board_position,
+                                                       size=game_assets.CHAMPIONS[champ_name]["Board Size"],
+                                                       final_comp=final_comp)
 
     def identify_champions_on_bench(self):
         print("  Double-checking the champions on the bench.")
@@ -694,7 +697,8 @@ class Arena:
         for index, bench_space in enumerate(self.bench):
             # check is this bench space is labeled "?"
             if bench_space is None and bench_occupied[index]:
-                print(f"  [!]Bench space {index} is occupied by a unit, but we don't know which unit!")
+                print(AnsiColors.YELLOW_REGULAR + f"  [!]Bench space {index} is occupied by a unit, "
+                                                  f"but we don't know which unit!" + AnsiColors.RESET)
                 # print(f"       Bench Occupied: {bench_occupied[index]}")
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
                 # print(f"       Right-clicking the unit to make its info appear.")
