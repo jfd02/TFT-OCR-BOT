@@ -17,14 +17,32 @@ COMBINED_ITEMS: set[str] = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLar
                             "ThiefsGloves", "TitansResolve", "WarmogsArmor", "ZekesHerald",
                             "Zephyr", "ZzRotPortal"}
 
-ELUSIVE_ITEMS: set[str] = {"BastionEmblem", "BruiserEmblem", "DeadeyeEmblem", "FreljordEmblem",
-                           "GunnerEmblem", "InvokerEmblem", "PiltoverEmblem", "RogueEmblem",
-                           "StrategistEmblem", "TargonEmblem", "VoidEmblem", "ZaunEmblem"}
+ELUSIVE_ITEMS: set[str] = {"BastionEmblem", "BruiserEmblem", "ChallengerEmblem", "DeadeyeEmblem", "DemaciaEmblem",
+                           "FreljordEmblem", "GunnerEmblem", "InvokerEmblem", "IoniaEmblem", "JuggernautEmblem",
+                           "NoxusEmblem", "PiltoverEmblem", "RogueEmblem", "ShadowIslesEmblem", "ShurimaEmblem",
+                           "SlayerEmblem", "SorcererEmblem", "StrategistEmblem", "TargonEmblem", "VoidEmblem",
+                           "ZaunEmblem"}
 
-ORNN_ITEMS: set[str] = {"AnimaVisage", "DeathsDefiance", "EternalWinter",
-                        "GoldCollector", "InfinityForce",
-                        "Manazane", "ObsidianCleaver", "RaduinsSanctum",
-                        "RocketPropelledFist", "ZhonyasParadox"}
+ORNN_ITEMS: set[str] = {"AnimaVisage", "BlacksmithsGloves", "DeathsDefiance", "DeathfireGrasp", "EternalWinter",
+                        "GoldCollector", "Hullcrusher", "InfinityForce", "Manazane", "ObsidianCleaver",
+                        "RaduinsSanctum", "RocketPropelledFist", "SnipersFocus", "TrickstersGlass", "ZhonyasParadox"}
+
+RADIANT_ITEMS: set[str] = {"Absolution", "BlessedBloodthirster", "BlueBlessing", "BrinkofDawn", "BulkwarsOath",
+                           "ChaliceofCharity", "CovalentSpark", "DemonSlayer", "DragonsWill", "DvarapalaStoneplate",
+                           "EternalWhisper", "FistofFairness", "GlamorousGauntlet", "GuinsoosReckoning",
+                           "HextechLifeblade", "LocketofTargonPrime", "LuminousDeathblade", "Mistral",
+                           "MoreMoreellonomicon", "Quickestsilver", "RabadonsAscendedDeathcap", "RapidLightcannon",
+                           "RascalsGloves", "RosethornVest", "RunaansTempest", "ShroudofReverance", "SpearofHirana",
+                           "StatikkFavor", "Stridebreaker", "SunlightCape", "TitansVow", "UrfAngelsStaff",
+                           "WarmogsPride", "ZekesHarmony", "ZenithEdge", "ZzrotsInvitation"}
+
+MOGUL_ITEMS: set[str] = {"DeterminedInvestor", "DiamondHands", "DravensAxe", "GamblersBlade", "GoldmancersStaff",
+                         "MogulsMail", "NeedlesslyBigGem"}
+
+ZAUN_ITEMS: set[str] = {"AdaptiveImplant", "HextechExoskeleton", "RoboticArm", "ShimmerInjector", "UnstableChemtank"
+                        "VirulentBioware"}
+
+MISC_ITEMS: set[str] = {"CrownofDemacia", "Masterworkupgrade", "ScrollofKnowledge", "TheDarkinBlade"}
 
 ITEMS: set[str] = COMBINED_ITEMS.union(ELUSIVE_ITEMS).union(ORNN_ITEMS)
 
