@@ -23,10 +23,15 @@ def right_click(coords: tuple) -> None:
 
 
 def press_e(coords: tuple) -> None:
-    """Presses e at argument ones coordinates"""
+    """Presses e at argument ones coordinates. Pressing e allows the player to sell units."""
     offset: int = random.randint(-3, 3)
     pydirectinput.moveTo(coords[0] - offset, coords[1] - offset)
     pydirectinput.press("e")
+
+
+def press_s() -> None:
+    """Presses s. Pressing s stop the movement of the tactician."""
+    pydirectinput.press("s")
 
 
 def move_mouse(coords: tuple) -> None:

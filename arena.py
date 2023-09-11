@@ -30,7 +30,7 @@ class Arena:
         # All the spaces on the board that have a unit, but we don't know what that unit is.
         self.board_unknown: list = []
         # All the spaces on the board that we haven't designated to put a unit from our comp on.
-        self.slots_for_non_comp_units: list = comps.get_unknown_slots()
+        self.board_slots_for_non_comp_units: list = comps.get_unknown_slots()
         self.champs_to_buy: list = comps.champions_to_buy()
         # A list of the names of all units on the board (not the bench), including duplicates.
         self.board_names: list = []
@@ -97,7 +97,7 @@ class Arena:
         # Might accidentally replace an unwanted unit with this one.
         else:
             print("      Selecting a random board space because the unit isn't in our comp.")
-            board_position = random.choice(self.slots_for_non_comp_units)
+            board_position = random.choice(self.board_slots_for_non_comp_units)
         destination: tuple = screen_coords.BOARD_LOC[board_position].get_coords()
         mk_functions.left_click(champion.coords)
         sleep(0.1)
@@ -114,14 +114,16 @@ class Arena:
         """Moves unknown champion to the board"""
         for index, champion in enumerate(self.bench):
             if isinstance(champion, str):
-                print(f"    Moving unknown unit {champion} to board")
+                print(f"    Moving unknown unit {champion} from bench slot {index} "
+                      f"to board space {self.board_slots_for_non_comp_units[len(self.board_unknown)]}.")
                 mk_functions.left_click(screen_coords.BENCH_LOC[index].get_coords())
                 sleep(0.1)
                 mk_functions.left_click(
-                    screen_coords.BOARD_LOC[self.slots_for_non_comp_units[len(self.board_unknown)]].get_coords())
+                    screen_coords.BOARD_LOC[self.board_slots_for_non_comp_units[len(self.board_unknown)]].get_coords())
                 self.bench[index] = None
                 self.board_unknown.append(champion)
                 self.board_size += 1
+                print(f"      There are now {self.board_size} units on the board.")
                 return
 
     def sell_bench(self) -> None:
@@ -176,7 +178,7 @@ class Arena:
         champion: Champion | None = self.get_next_champion_on_bench()
         if len(self.board_unknown) > 0 and champion is not None:
             print(f"    Replacing an unknown champion with {champion.name}.")
-            mk_functions.press_e(screen_coords.BOARD_LOC[self.slots_for_non_comp_units[len(
+            mk_functions.press_e(screen_coords.BOARD_LOC[self.board_slots_for_non_comp_units[len(
                 self.board_unknown) - 1]].get_coords())
             self.board_unknown.pop()
             self.board_size -= 1
@@ -217,9 +219,10 @@ class Arena:
         item_count = 0
         item_amount_at_start = self.count_items_on_bench()
         # Place items until we fail to place an item once.
+        print(f"  Looking to place items.")
         while will_try_to_place_item:
             item_count += 1
-            print(f"  Looking for item #{item_count} to place:")
+            # print(f"  Looking for item #{item_count} to place:")
             for index, _ in enumerate(self.items):
                 if self.items[index] is not None:
                     item = self.items[index]
@@ -248,7 +251,6 @@ class Arena:
                         if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                             will_try_to_place_item = False
             if item_count > 10:
-                print("    The while loop got out of control.")
                 will_try_to_place_item = False
             if not will_try_to_place_item:
                 print("    No longer placing items this round.")
@@ -368,7 +370,7 @@ class Arena:
         """Removes the first unknown unit that is on the board."""
         sleep(0.25)
         mk_functions.press_e(
-            screen_coords.BOARD_LOC[self.slots_for_non_comp_units[0]].get_coords())
+            screen_coords.BOARD_LOC[self.board_slots_for_non_comp_units[0]].get_coords())
         self.board_unknown.pop(0)
         self.board_size -= 1
 
@@ -524,7 +526,7 @@ class Arena:
                 labels.append((f"{slot.name}", slot.coords, 15, 30))
         # Create labels for unknown units on the board.
         labels.extend(
-            (slot, screen_coords.BOARD_LOC[self.slots_for_non_comp_units[index]].get_coords(), 15, 30)
+            (slot, screen_coords.BOARD_LOC[self.board_slots_for_non_comp_units[index]].get_coords(), 15, 30)
             for index, slot in enumerate(self.board_unknown)
         )
         # Create label for level of the tactician.
@@ -622,6 +624,7 @@ class Arena:
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
                 # print(f"       Right-clicking the unit to make its info appear.")
                 mk_functions.right_click(board_space.coords)
+                mk_functions.press_s()
                 # print(f"       Sleeping for 0.1 seconds.")
                 sleep(0.1)
                 champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
@@ -658,6 +661,7 @@ class Arena:
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
                 # print(f"       Right-clicking the unit to make its info appear.")
                 mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
+                mk_functions.press_s()
                 # print(f"       Sleeping for 0.1 seconds.")
                 sleep(0.1)
                 champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
