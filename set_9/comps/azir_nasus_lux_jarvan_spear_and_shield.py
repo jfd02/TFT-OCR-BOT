@@ -1,5 +1,8 @@
 """
 Items are in camel case and a-Z
+Comp from https://app.mobalytics.gg/tft/comps-guide/spear-and-shield-2RvLjaeufrqyrIRRsJFTqDm5riI
+Strategy: Default: This comp rolls gold above 50 to look for 3-star champions.
+Difficulty: Medium
 """
 
 COMP = {

@@ -1,95 +1,71 @@
 """
 Items are in camel case and a-Z
-Comp from https://app.mobalytics.gg/tft/comps-guide/icy-rogues-2UqelNVz4mmfhfiE11Tew1uHtju
+Comp from https://app.mobalytics.gg/tft/comps-guide/challengers-2Qnyf4oMpJ0P8r6K2ZL5jDoAlAO
 Strategy: Slow Roll: This comp rolls gold above 50 to look for 3-star champions.
 Difficulty: Easy
 """
 
 COMP = {
-    "Ekko": {
-        "board_position": 22,
-        "items": ["JeweledGauntlet", "HandofJustice", "HandofJustice"],
+    "Kalista": {
+        "board_position": 6,
+        "items": ["JeweledGauntlet", "GuinsoosRageblade", "HandofJustice"],
         "level": 3,
         "final_comp": True
     },
-    "Katarina": {
-        "board_position": 24,
-        "items": ["ArchangelsStaff", "JeweledGauntlet", "HandofJustice"],
-        "level": 3,
-        "final_comp": True
-    },
-    "Lissandra": {
+    "Yasuo": {
         "board_position": 23,
-        "items": ["ChaliceofPower"],
+        "items": ["TitansResolve", "Bloodthirster"],
+        "level": 3,
+        "final_comp": True
+    },
+    "Shen": {
+        "board_position": 24,
+        "items": ["Redemption", "BrambleVest"],
         "level": 2,
         "final_comp": True
     },
-    "Sejuani": {
-        "board_position": 21,
-        "items": [],
-        "level": 2,
-        "final_comp": True
-    },
-    "Urgot": {
+    "Gwen": {
         "board_position": 25,
+        "items": ["WarmogsArmor", "BlueBuff", "ChallengerEmblem"],
+        "level": 2,
+        "final_comp": True
+    },
+    "Warwick": {
+        "board_position": 22,
         "items": [],
         "level": 2,
         "final_comp": True
     },
-    "Sion": {
+    "Irelia": {
         "board_position": 26,
         "items": [],
         "level": 2,
         "final_comp": True
     },
-    "Heimerdinger": {
+    "KaiSa": {
         "board_position": 0,
         "items": [],
         "level": 2,
         "final_comp": True
     },
-    "Ashe": {
-        "board_position": 6,
+    "Samira": {
+        "board_position": 3,
         "items": [],
         "level": 2,
         "final_comp": True
     },
-    "Viego": {
-        "board_position": 22,
-        "items": ["JeweledGauntlet", "HandofJustice", "HandofJustice"],
-        "level": 2,
-        "final_comp": False
-    },
-    "Maokai": {
+    "Kassadin": {
         "board_position": 23,
         "items": [],
         "level": 2,
         "final_comp": False
     },
-    "Zed": {
+    "Maokai": {
         "board_position": 24,
-        "items": [],
+        "items": ["WarmogsArmor"],
         "level": 2,
         "final_comp": False
     },
-    "Poppy": {
-        "board_position": 25,
-        "items": [],
-        "level": 2,
-        "final_comp": False
-    },
-    "Vi": {
-        "board_position": 25,
-        "items": [],
-        "level": 2,
-        "final_comp": False
-    },
-    "Orianna": {
-        "board_position": 2,
-        "items": ["JeweledGauntlet"],
-        "level": 2,
-        "final_comp": False
-    }
 }
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
@@ -97,6 +73,7 @@ COMP = {
 AUGMENTS: list[str] = [
     "Battle Ready I",
     "Bronze Ticket",
+    "Challenger Heart",
     "Cybernetic Bulk I",
     "Cybernetic Leech I",
     "Gotta Go Fast!!! I",
@@ -117,8 +94,10 @@ AUGMENTS: list[str] = [
     "Big Grab Bag",
     "Buried Treasures II",
     "Caretaker's Favor",
+    "Challenger Crest"
     "Cybernetic Bulk II",
     "Cybernetic Leech II",
+    "Defensive Dash"
     "Early Education",
     "Endurance Training",
     "Final Grab Bag II",
@@ -157,6 +136,7 @@ AUGMENTS: list[str] = [
     "Battle Ready III",
     "Blinding Speed",
     "Buried Treasures III",
+    "Challenger Crown",
     "Cybernetic Bulk III",
     "Cybernetic Leech III",
     "Final Ascension",

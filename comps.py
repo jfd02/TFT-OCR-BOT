@@ -1,7 +1,10 @@
 """
 Team composition used by the bot
-Comps come from https://tftactics.gg/tierlist/team-comps
 Items are in camel case and a-Z
+Strategies:
+    Default: This comp uses the standard leveling strategy that revolves around a 4-cost carry.
+    Fast 8: This comp looks to level up to 8 aggressively with a strong economy.
+    Slow Roll: This comp rolls gold above 50 to look for 3-star champions.
 """
 import set_9.comps
 
