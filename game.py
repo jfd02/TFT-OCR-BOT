@@ -2,23 +2,21 @@
 Handles tasks that happen each game round
 """
 
-from time import sleep, perf_counter
-import random
 import multiprocessing
+import random
+from time import sleep, perf_counter
+
 import win32gui
 
 import arena_functions
-import mk_functions
-import screen_coords
-import settings
 import game_assets
 import game_functions
-import ocr
-import comps
+import screen_coords
+import settings
 from arena import Arena
 from champion import Champion
-from vec4 import Vec4
 from vec2 import Vec2
+from vec4 import Vec4
 
 
 class Game:
@@ -77,6 +75,12 @@ class Game:
         ran_round: str = None
         while game_functions.check_alive():
             self.round: str = game_functions.get_round()
+
+            # Display the seconds remaining for this phase in real time.
+            self.time: int = arena_functions.get_seconds_remaining()
+            labels = [(f"{arena_functions.get_seconds_remaining()}",
+                       screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords(), 0, 0)]
+            self.message_queue.put(("LABEL", labels))
 
             if (
                     settings.FORFEIT
@@ -169,8 +173,8 @@ class Game:
             arena_functions.buy_xp_round()
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items:")
-            game_functions.move_to_items_orbs_on_board()
-            #game_functions.pickup_items()
+            # game_functions.move_to_items_orbs_on_board()
+            game_functions.pickup_items()
 
         self.arena.fix_bench_state()
         self.arena.bench_cleanup()
@@ -196,21 +200,18 @@ class Game:
         game_functions.default_pos()
 
     def print_arena_values(self):
-        print(f"    Board: {self.arena.board}")
-        print(f"      {self.arena.board[:]}")
+        #print(f"    Board: {self.arena.board}")
         print(f"    Board Size: {self.arena.board_size}")
         print(f"    Board Names: {self.arena.board_names}")
-        print(f"      {self.arena.board_names[:]}")
         print(f"    Board Unknown: {self.arena.board_unknown}")
-        print(f"      {self.arena.board_unknown[:]}")
         print(f"    Board Slot For Non Comp Units: {self.arena.board_slots_for_non_comp_units}")
-        print(f"      {self.arena.board_slots_for_non_comp_units[:]}")
-        print(f"    Bench: {self.arena.bench}")
-        print(f"      {self.arena.bench[:]}")
-        print(f"    Items: {self.arena.items}")
-        print(f"      {self.arena.items[:]}")
+        unit_names_on_bench = []
+        for unit in self.arena.bench:
+            if unit is not None and isinstance(unit, Champion):
+                unit_names_on_bench.append(unit.name)
+        print(f"    Bench: {unit_names_on_bench}")
+        print(f"    Items: {[item for item in self.arena.items if item is not None]}")
         print(f"    Augments: {self.arena.augments}")
-        print(f"      {self.arena.augments[:]}")
         print(f"    Level: {self.arena.level}")
         print(f"    Final Comp: {self.arena.final_comp}")
         print(f"    Augment Roll: {self.arena.augment_roll}")
