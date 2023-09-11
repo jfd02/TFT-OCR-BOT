@@ -34,6 +34,7 @@ class Arena:
         self.champs_to_buy: list = comps.champions_to_buy()
         # A list of the names of all units on the board (not the bench), including duplicates.
         self.board_names: list = []
+        # Items on the player's bench.
         self.items: list = []
         # All the augments that the player currently has.
         self.augments: list = []
@@ -647,22 +648,28 @@ class Arena:
 
     def identify_champions_on_board(self):
         print("  Double-checking the champions on the board.")
-        for index, board_space in enumerate(self.board):
-            if isinstance(board_space, Champion):
-                print(f"  [!]Board space: {board_space} at index: {index} is occupied by a unit,"
-                      f" but we don't know which unit!")
+        for board_index, unit in enumerate(self.board):
+            if isinstance(unit, Champion):
+                unit_board_position = -1
+                for board_loc_index, vec2 in enumerate(screen_coords.BOARD_LOC):
+                    if vec2.get_coords() == unit.coords:
+                        unit_board_position = board_loc_index
+                print(f"  There is a {unit.name} unit located at board space {unit_board_position}.")
                 # print(f"       Board Space Occupied: {board_space}")
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
                 # print(f"       Right-clicking the unit to make its info appear.")
-                mk_functions.right_click(board_space.coords)
+                mk_functions.right_click(unit.coords)
+                # Press s to prevent the tactician from moving anywhere.
                 mk_functions.press_s()
                 # print(f"       Sleeping for 0.1 seconds.")
                 sleep(0.1)
                 champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
                                                scale=3, psm=13, whitelist=ocr.ALPHABET_WHITELIST)
-                print(f"       Champ: {champ_name}")
+                # print(f"       Champ: {champ_name}")
                 # print(f"       I hope the info box appeared because I already tried to grab the info.")
                 champ_name = arena_functions.get_valid_champ(champ_name)
+                # Click at the default location so that the unit's info disappears.
+                mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
                 # Confirm this is an actual unit that can be used
                 if arena_functions.is_valid_champ(champ_name):
                     # Set default values if we don't want to use this champ in our comp.
@@ -673,11 +680,11 @@ class Arena:
                         items_to_build = comps.COMP[champ_name]["items"].copy()
                         final_comp = comps.COMP[champ_name]["final_comp"]
                     # Create the Champion object.
-                    self.board[index] = Champion(name=champ_name,
-                                                 coords=screen_coords.BENCH_LOC[index].get_coords(
+                    self.board[unit_board_position] = Champion(name=champ_name,
+                                                 coords=screen_coords.BOARD_LOC[unit_board_position].get_coords(
                                                  ),
                                                  build=items_to_build,
-                                                 slot=index,
+                                                 slot=unit_board_position,
                                                  size=game_assets.CHAMPIONS[champ_name]["Board Size"],
                                                  final_comp=final_comp)
 
@@ -700,6 +707,8 @@ class Arena:
                 print(f"       Champ: {champ_name}")
                 # print(f"       I hope the info box appeared because I already tried to grab the info.")
                 champ_name = arena_functions.get_valid_champ(champ_name)
+                # Click at the default location so that the unit's info disappears.
+                mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
                 # Confirm this is an actual unit that can be used
                 if arena_functions.is_valid_champ(champ_name):
                     # Set default values if we don't want to use this champ in our comp.

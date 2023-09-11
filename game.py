@@ -203,7 +203,7 @@ class Game:
 
     def print_arena_values(self):
         unit_names_on_entire_board = []
-        for unit in self.arena.bench:
+        for unit in self.arena.board:
             if unit is not None and isinstance(unit, Champion):
                 unit_names_on_entire_board.append(unit.name)
         print(f"    Board: {unit_names_on_entire_board}")
