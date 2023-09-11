@@ -80,7 +80,7 @@ class Arena:
                 champion
                 for champion in self.bench
                 if isinstance(champion, Champion)
-                   and champion.name not in self.board_names
+                and champion.name not in self.board_names
             ),
             None,
         )
@@ -92,8 +92,8 @@ class Arena:
                 champion
                 for champion in self.bench
                 if isinstance(champion, Champion)
-                   and champion.name not in self.board_names
-                   and champion.name in comps.COMP
+                and champion.name not in self.board_names
+                and champion.name in comps.COMP
             ),
             None,
         )
@@ -118,10 +118,15 @@ class Arena:
         champion.coords = destination
         self.board.append(champion)
         self.board_names.append(champion.name)
-        self.bench[champion.index] = None
+        if champion.index >= len(self.bench):
+            print(f"      [!] The index {champion.index} of unit {champion.name} "
+                  f"is larger than the length of the bench.")
+        else:
+            self.bench[champion.index] = None
         champion.index = board_position
         self.board_size += champion.size
         print(f"      Moved {champion.name} to {board_position}.")
+        print(f"        There are now {self.board_size} units on the board.")
 
     def move_unknown(self) -> None:
         """Moves unknown champion to the board"""
