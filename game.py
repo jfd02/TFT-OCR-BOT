@@ -92,21 +92,15 @@ class Game:
             if self.round != ran_round:
                 if self.round in game_assets.SECOND_ROUND:
                     self.second_round()
-                    self.arena.identify_champions_on_board()
-                    self.arena.identify_champions_on_bench()
                     ran_round: str = self.round
                 elif self.round in game_assets.CAROUSEL_ROUND:
                     self.carousel_round()
                     ran_round: str = self.round
                 elif self.round in game_assets.PVE_ROUND:
-                    self.arena.identify_champions_on_board()
-                    self.arena.identify_champions_on_bench()
                     game_functions.default_pos()
                     self.pve_round()
                     ran_round: str = self.round
                 elif self.round in game_assets.PVP_ROUND:
-                    self.arena.identify_champions_on_board()
-                    self.arena.identify_champions_on_bench()
                     game_functions.default_pos()
                     self.pvp_round()
                     ran_round: str = self.round
@@ -117,6 +111,8 @@ class Game:
     def second_round(self) -> None:
         """Move unknown champion to board after first carousel"""
         print(f"\n[Second Round] {self.round}")
+        self.arena.identify_champions_on_board()
+        self.arena.identify_champions_on_bench()
         self.message_queue.put("CLEAR")
         self.arena.bench[0] = "?"
         self.arena.move_unknown()
@@ -135,6 +131,8 @@ class Game:
     def pve_round(self) -> None:
         """Handles tasks for PVE rounds"""
         print(f"\n[PvE Round] {self.round}")
+        self.arena.identify_champions_on_board()
+        self.arena.identify_champions_on_bench()
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(0.5)
@@ -161,6 +159,8 @@ class Game:
     def pvp_round(self) -> None:
         """Handles tasks for PVP rounds"""
         print(f"\n[PvP Round] {self.round}")
+        self.arena.identify_champions_on_board()
+        self.arena.identify_champions_on_bench()
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(0.5)
