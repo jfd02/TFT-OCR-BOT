@@ -62,6 +62,7 @@ class Arena:
                 print(f"         slot:{slot}")
                 print(f"         unit name:{slot.name}")
                 self.bench[index] = None
+        self.sell_non_comp_units_on_bench()
 
     def bought_champion(self, name: str, slot: int) -> None:
         """Purchase champion and creates champion instance"""
@@ -656,8 +657,8 @@ class Arena:
            remove it from our list of units on our self.board and self.board_names."""
         print("  Double-checking the champions on the board.")
         for board_index, unit in enumerate(self.board):
+            unit_board_position = -1
             if isinstance(unit, Champion):
-                unit_board_position = -1
                 for board_loc_index, vec2 in enumerate(screen_coords.BOARD_LOC):
                     if vec2.get_coords() == unit.coords:
                         unit_board_position = board_loc_index
@@ -711,3 +712,17 @@ class Arena:
                                                  slot=index,
                                                  size=game_assets.CHAMPIONS[champ_name]["Board Size"],
                                                  final_comp=final_comp)
+
+    def sell_non_comp_units_on_bench(self):
+        """Sells any units on the bench that aren't in our comp,
+           so long as the board is full and the unit that will be sold doesn't have a copy on the board."""
+        for index, unit_on_bench in enumerate(self.bench):
+            if isinstance(unit_on_bench, Champion):
+                if unit_on_bench.name not in comps.COMP and self.board_size >= self.level and unit_on_bench.name not in self.board_names:
+                    self.sell_unit(unit_on_bench, index)
+
+    def sell_unit(self, unit: Champion, index: int) -> None:
+        """Sell a single unit on the bench."""
+        print(f"    Selling the {unit.name} at bench position {index}.")
+        mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
+        self.bench[index] = None
