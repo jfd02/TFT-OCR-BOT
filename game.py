@@ -30,6 +30,7 @@ class Game:
         self.time: None = None
         self.forfeit_time: int = settings.FORFEIT_TIME + random.randint(50, 150)
         self.found_window = False
+        self.seconds_remaining_in_phase: int = -1
 
         print("\n[!] Searching for game window")
         while not self.found_window:
@@ -77,7 +78,7 @@ class Game:
             self.round: str = game_functions.get_round()
 
             # Display the seconds remaining for this phase in real time.
-            self.time: int = arena_functions.get_seconds_remaining()
+            self.seconds_remaining_in_phase: int = arena_functions.get_seconds_remaining()
             labels = [(f"{arena_functions.get_seconds_remaining()}",
                        screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords(), -40, -10)]
             self.message_queue.put(("LABEL", labels))
@@ -131,7 +132,6 @@ class Game:
     def pve_round(self) -> None:
         """Handles tasks for PVE rounds"""
         print(f"\n[PvE Round] {self.round}")
-        self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(0.5)
         if self.round in game_assets.AUGMENT_ROUNDS:
@@ -162,7 +162,6 @@ class Game:
     def pvp_round(self) -> None:
         """Handles tasks for PVP rounds"""
         print(f"\n[PvP Round] {self.round}")
-        self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(0.5)
         print("  Checking health at the beginning of PvP Round, so I know how much health I have before shopping.")
@@ -205,6 +204,7 @@ class Game:
         print(f"  Running end round tasks:")
         self.arena.check_health()
         self.arena.set_labels()
+        self.print_arena_values()
         game_functions.default_pos()
 
     def print_arena_values(self):

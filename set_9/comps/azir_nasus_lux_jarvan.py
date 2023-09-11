@@ -90,6 +90,8 @@ COMP = {
     }
 }
 
+# No logic for certain augments meaning the bot won't know what to do if they are included in here
+# (Anything that changes gameplay or adds something to the bench).
 AUGMENTS: list[str] = [
     "Battle Ready I",
     "Bronze Ticket",
