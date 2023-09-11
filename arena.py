@@ -566,25 +566,25 @@ class Arena:
             for index, slot in enumerate(self.board_unknown)
         )
         # Create label for level of the tactician.
-        labels.append((f"{arena_functions.get_level_via_ocr()}", screen_coords.TACTICIAN_LEVEL_LOC.get_coords(), 0, 0))
+        labels.append((f"{arena_functions.get_level_via_ocr()}", screen_coords.TACTICIAN_LEVEL_LOC.get_coords(), -10, -10))
         # Create label for current gold.
-        labels.append((f"{arena_functions.get_gold()}", screen_coords.GOLD_LOC.get_coords(), 0, 0))
+        labels.append((f"{arena_functions.get_gold()}", screen_coords.GOLD_LOC.get_coords(), 5, -10))
         # Create label for how much it costs to buy XP.
-        labels.append((f"{arena_functions.get_cost_to_buy_xp()}", screen_coords.BUY_XP_COST_LOC.get_coords(), 0, 0))
+        labels.append((f"{arena_functions.get_cost_to_buy_xp()}", screen_coords.BUY_XP_COST_LOC.get_coords(), -10, -10))
         # Create label for how much it costs to refresh the shop.
         labels.append((f"{arena_functions.get_cost_to_refresh_shop()}", screen_coords.REFRESH_LOC.get_coords(), 0, 0))
         # Create label for the current win/loss streak.
         labels.append(
             (f"{arena_functions.get_win_loss_streak()}",
-             screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_LOC.get_coords(), 0, 0))
+             screen_coords.WIN_STREAK_LOSS_STREAK_AMOUNT_LOC.get_coords(), -20, -10))
         # Create label for the remaining time in this phase.
         labels.append((f"{arena_functions.get_seconds_remaining()}",
-                       screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords(), 0, 0))
+                       screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords(), 10, 20))
         # Create label for the current stage and round we are in.
-        labels.append((f"{game_functions.get_round()}", screen_coords.ROUND_LOC.get_coords(), 0, 0))
+        labels.append((f"{game_functions.get_round()}", screen_coords.ROUND_LOC.get_coords(), 5, -10))
         # Create label for the current xp / total needed xp.
         labels.append((f"{arena_functions.get_current_xp_and_total_needed_xp()}",
-                       screen_coords.TACTICIAN_XP_FRACTION_LOC.get_coords(), 0, 0))
+                       screen_coords.TACTICIAN_XP_FRACTION_LOC.get_coords(), 20, 5))
         # Create label for the current amount of units on the board.
         labels.append((f"{arena_functions.get_current_amount_of_units_on_board()}",
                        screen_coords.CURRENT_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC.get_coords(), 0, 0))

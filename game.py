@@ -79,7 +79,7 @@ class Game:
             # Display the seconds remaining for this phase in real time.
             self.time: int = arena_functions.get_seconds_remaining()
             labels = [(f"{arena_functions.get_seconds_remaining()}",
-                       screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords(), -20, -10)]
+                       screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords(), -40, -10)]
             self.message_queue.put(("LABEL", labels))
 
             if (
@@ -131,8 +131,6 @@ class Game:
     def pve_round(self) -> None:
         """Handles tasks for PVE rounds"""
         print(f"\n[PvE Round] {self.round}")
-        self.arena.identify_champions_on_board()
-        self.arena.identify_champions_on_bench()
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(0.5)
@@ -141,6 +139,11 @@ class Game:
             self.arena.pick_augment()
             # Can't purchase champions for a short period after choosing augment
             sleep(2.5)
+
+        # Have this happen after the augment selection.
+        self.arena.identify_champions_on_board()
+        self.arena.identify_champions_on_bench()
+
         if self.round == "1-3":
             sleep(1.5)
             self.arena.fix_unknown()
@@ -159,8 +162,6 @@ class Game:
     def pvp_round(self) -> None:
         """Handles tasks for PVP rounds"""
         print(f"\n[PvP Round] {self.round}")
-        self.arena.identify_champions_on_board()
-        self.arena.identify_champions_on_bench()
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(0.5)
@@ -170,6 +171,11 @@ class Game:
             sleep(1)
             self.arena.pick_augment()
             sleep(2.5)
+
+        # Have this happen after the augment selection.
+        self.arena.identify_champions_on_board()
+        self.arena.identify_champions_on_bench()
+
         if self.round in ("2-1", "2-5"):
             arena_functions.buy_xp_round()
         if self.round in game_assets.PICKUP_ROUNDS:
