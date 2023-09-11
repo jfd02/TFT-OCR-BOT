@@ -7,7 +7,7 @@ import set_9.comps.azir_nasus_lux_jarvan
 
 COMP = set_9.comps.azir_nasus_lux_jarvan.COMP
 
-AUGMENTS: set_9.comps.azir_nasus_lux_jarvan.AUGMENTS
+AUGMENTS = set_9.comps.azir_nasus_lux_jarvan.AUGMENTS
 
 def champions_to_buy() -> list:
     """Creates a list of champions to buy during the game"""
