@@ -131,6 +131,7 @@ class Game:
     def pve_round(self) -> None:
         """Handles tasks for PVE rounds"""
         print(f"\n[PvE Round] {self.round}")
+        self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(0.5)
         if self.round in game_assets.AUGMENT_ROUNDS:
@@ -155,6 +156,7 @@ class Game:
     def pvp_round(self) -> None:
         """Handles tasks for PVP rounds"""
         print(f"\n[PvP Round] {self.round}")
+        self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(0.5)
         print("  Checking health at the beginning of PvP Round, so I know how much health I have before shopping.")
@@ -192,3 +194,25 @@ class Game:
         self.arena.check_health()
         self.arena.set_labels()
         game_functions.default_pos()
+
+    def print_arena_values(self):
+        print(f"    Board: {self.arena.board}")
+        print(f"      {self.arena.board[:]}")
+        print(f"    Board Size: {self.arena.board_size}")
+        print(f"    Board Names: {self.arena.board_names}")
+        print(f"      {self.arena.board_names[:]}")
+        print(f"    Board Unknown: {self.arena.board_unknown}")
+        print(f"      {self.arena.board_unknown[:]}")
+        print(f"    Board Slot For Non Comp Units: {self.arena.board_slots_for_non_comp_units}")
+        print(f"      {self.arena.board_slots_for_non_comp_units[:]}")
+        print(f"    Bench: {self.arena.bench}")
+        print(f"      {self.arena.bench[:]}")
+        print(f"    Items: {self.arena.items}")
+        print(f"      {self.arena.items[:]}")
+        print(f"    Augments: {self.arena.augments}")
+        print(f"      {self.arena.augments[:]}")
+        print(f"    Level: {self.arena.level}")
+        print(f"    Final Comp: {self.arena.final_comp}")
+        print(f"    Augment Roll: {self.arena.augment_roll}")
+        print(f"    Spam Roll: {self.arena.spam_roll}")
+        print(f"    Spam Roll To Zero: {self.arena.spam_roll_to_zero}")
