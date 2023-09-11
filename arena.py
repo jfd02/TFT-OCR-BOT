@@ -652,7 +652,7 @@ class Arena:
            If this a unit that is on our board, we don't need to do anything else.
            If we have found a unit that is not a valid champ (most likely because it is not on our board)
            remove it from our list of units on our self.board and self.board_names."""
-        print("  Double-checking the champions on the board.")
+        print("  Identifying units on the board:")
         for board_index, unit in enumerate(self.board):
             unit_board_position = -1
             if isinstance(unit, Champion):
@@ -673,9 +673,11 @@ class Arena:
                 if not arena_functions.is_valid_champ(champ_name):
                     self.board.remove(unit)
                     self.board_names.remove(unit.name)
+            else:
+                print(f"    unit: {unit}")
 
     def identify_champions_on_bench(self):
-        print("  Double-checking the champions on the bench.")
+        print("  Identifying units on the bench:")
         bench_occupied: list = arena_functions.bench_occupied_check()
         for index, bench_space in enumerate(self.bench):
             # check is this bench space is labeled "?"
@@ -715,7 +717,9 @@ class Arena:
            so long as the board is full and the unit that will be sold doesn't have a copy on the board."""
         for index, unit_on_bench in enumerate(self.bench):
             if isinstance(unit_on_bench, Champion):
-                if unit_on_bench.name not in comps.COMP and self.board_size >= self.level and unit_on_bench.name not in self.board_names:
+                if unit_on_bench.name not in comps.COMP \
+                        and self.board_size >= self.level \
+                        and unit_on_bench.name not in self.board_names:
                     self.sell_unit(unit_on_bench, index)
 
     def sell_unit(self, unit: Champion, index: int) -> None:
