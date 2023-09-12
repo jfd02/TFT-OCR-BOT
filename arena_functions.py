@@ -328,3 +328,25 @@ def move_item(start_location: tuple, destination: tuple):
     sleep(0.05)
     mk_functions.left_click(destination)
 
+
+def identify_component_anvil(index: int) -> bool:
+    """Right-clicks a spot on the bench and if this can find the 'Component Anvil' text
+       then it declares this spot on the bench as containing an anvil."""
+    # setup coordinate values
+    right_click_tuple = screen_coords.BENCH_LOC[index].get_coords()
+    vec4_anvil = screen_coords.COMPONENT_ANVIL_TEXT_POS.get_coords()
+    x_start = right_click_tuple[0] + vec4_anvil[0]
+    y_start = right_click_tuple[1] + vec4_anvil[1]
+    x_end = x_start + vec4_anvil[2]
+    y_end = y_start + vec4_anvil[3]
+    anvil_coords_tuple = (x_start, y_start, x_end, y_end)
+    # grab text and validate
+    mk_functions.right_click(right_click_tuple)
+    anvil_text: str = ocr.get_text(screenxy=anvil_coords_tuple, scale=3, psm=13,
+                                   whitelist=ocr.ALPHABET_WHITELIST)
+    return valid_anvil(anvil_text)
+
+
+def valid_anvil(anvil_text: str) -> bool:
+    """Checks if the anvil text passed in arg one matches 'Component Anvil'."""
+    return anvil_text == "Component Anvil" or SequenceMatcher(a=anvil_text, b="Component Anvil").ratio() >= 0.7

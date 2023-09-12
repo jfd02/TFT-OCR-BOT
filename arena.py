@@ -239,8 +239,8 @@ class Arena:
     def clear_anvil(self) -> None:
         """Clears anvil on the bench, selects middle item"""
         print("  Looking for anvils to sell.")
-        for index, champion in enumerate(self.bench):
-            if champion is None:
+        for index, unit in enumerate(self.bench):
+            if unit is None and arena_functions.identify_component_anvil(index):
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                 sleep(0.2)
                 print("  Selecting middle item from anvil.")
