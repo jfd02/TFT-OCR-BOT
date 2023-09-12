@@ -30,6 +30,8 @@ class Arena:
         self.board: list = []
         # All the spaces on the board that have a unit, but we don't know what that unit is.
         self.board_unknown: list = []
+        # All the non-Champion units and the board space they occupy.
+        self.board_unknown_and_pos: list = [(str, int)]
         # All the spaces on the board that we haven't designated to put a unit from our comp on.
         self.board_slots_for_non_comp_units: list = comps.get_unknown_slots()
         self.champs_to_buy: list = comps.champions_to_buy()
@@ -195,11 +197,11 @@ class Arena:
     def replace_unknown(self) -> None:
         """Replaces an unknown champion on the board with a known champion from the bench."""
         champion: Champion | None = self.get_next_champion_on_bench()
-        if len(self.board_unknown) > 0 and champion is not None:
+        if len(self.board_unknown_and_pos) > 0 and champion is not None:
             print(f"    Replacing an unknown champion with {champion.name}.")
-            mk_functions.press_e(screen_coords.BOARD_LOC[self.board_slots_for_non_comp_units[len(
-                self.board_unknown) - 1]].get_coords())
-            self.board_unknown.pop()
+            unknown_unit_and_pos = self.board_unknown_and_pos.pop()
+            value = screen_coords.BOARD_LOC[unknown_unit_and_pos[1]].get_coords()
+            mk_functions.press_e(value)
             self.board_size -= 1
             self.move_known(champion)
 
@@ -685,6 +687,7 @@ class Arena:
             if arena_functions.is_valid_champ(unit_name):
                 print(f"    Found a valid {unit_name} unit from an unknown unit!")
                 valid_champs.append((unit_name, index))
+        self.board_unknown_and_pos = valid_champs
         return valid_champs
 
     def remove_random_duplicate_champions_from_board(self):
@@ -768,10 +771,12 @@ class Arena:
         # Create the Champion object.
         print(f"      Created the Champion object for the {unit_name}.")
         self.board_names.append(unit_name)
+        size = game_assets.CHAMPIONS[unit_name]["Board Size"]
+        self.board_size += size
         self.board.append(Champion(name=unit_name,
                                    coords=screen_coords.BOARD_LOC[index].get_coords(
                                    ),
                                    build=items_to_build,
                                    slot=index,
-                                   size=game_assets.CHAMPIONS[unit_name]["Board Size"],
+                                   size=size,
                                    final_comp=final_comp))
