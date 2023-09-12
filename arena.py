@@ -161,7 +161,10 @@ class Arena:
     def move_champions(self) -> None:
         """Moves champions to the board"""
         self.level: int = arena_functions.get_level_via_https_request()
-        while self.level > self.board_size:
+        more_room_on_board = self.level > self.board_size
+        if more_room_on_board:
+            print(f"  Our level {self.level} is greater than our board size {self.board_size}.")
+        while more_room_on_board:
             champion: Champion | None = self.get_next_champion_on_bench()
             if champion is not None:
                 self.move_known(champion)
@@ -660,32 +663,37 @@ class Arena:
                     if not arena_functions.identify_one_champion_on_the_board(unit):
                         self.board.remove(unit)
                         self.board_names.remove(unit.name)
+                        self.board_size -= 1
+                    else:
+                        print(f"      Confirmed that {unit.name} is still on the board.")
                 else:
                     print(f"    unit: {unit}")
         # There are 1 or more units on the board we don't know.
-        if self.board_size > len(self.board):
-            valid_champs = self.identify_unknown_champions_on_board()
-            for name_and_pos in valid_champs:
-                self.create_champion_object_from_unit_name_on_the_board(name_and_pos[0], name_and_pos[1])
+        #if self.board_size > len(self.board):
+        #    valid_champs = self.identify_unknown_champions_on_board()
+        #    for name_and_pos in valid_champs:
+        #        self.create_champion_object_from_unit_name_on_the_board(name_and_pos[0], name_and_pos[1])
         # If there are more units in our "board" than should exist.
-        if len(self.board) > self.board_size:
+        if len(self.board) > self.level:
             self.remove_random_duplicate_champions_from_board()
+
 
     def identify_unknown_champions_on_board(self) -> [(str, int)]:
         """Loops through every space on the board,
            right-clicks that space to open up a potential info window.
            Looks for a unit name in that info window and if it is a valid unit, adds the units name to a list.
            Returns a list of names of any valid units on the board."""
+        print("    Identifying unknown units on the board.")
         valid_champs = []
         for index, vec2_board_space in enumerate(screen_coords.BOARD_LOC):
             # Solved the problem we entered this function for.
-            if self.board_size == len(self.board):
+            if len(self.board_unknown) == 0:
                 break
             unit_name = arena_functions.identify_one_space_on_the_board(vec2_board_space)
             if unit_name is None:
                 continue
             if arena_functions.is_valid_champ(unit_name):
-                print(f"    Found a valid {unit_name} unit from an unknown unit!")
+                print(f"        Found a valid {unit_name} unit from an unknown unit!")
                 valid_champs.append((unit_name, index))
         self.board_unknown_and_pos = valid_champs
         return valid_champs
@@ -702,6 +710,7 @@ class Arena:
                     print(f"    Removing a duplicate {unit.name} from self.board.")
                     self.board.remove(unit)
                     self.board_names.remove(unit.name)
+                    self.board_size -= 1
                 else:
                     positions_of_all_unit.append(unit.index)
 
@@ -725,6 +734,7 @@ class Arena:
                 mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
                 # Confirm this is an actual unit that can be used
                 if arena_functions.is_valid_champ(champ_name):
+                    print(f"        Found a valid {champ_name} unit on the bench!")
                     # Set default values if we don't want to use this champ in our comp.
                     items_to_build = []
                     final_comp = False
