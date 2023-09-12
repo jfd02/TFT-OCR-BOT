@@ -10,9 +10,9 @@ import set_9.comps.azir_nasus_lux_jarvan_spear_and_shield
 import set_9.comps.ekko_katarina_lissandra_icy_rogues
 import set_9.comps.reksai_kaisa_sejuani_furious_bite
 
-COMP = set_9.comps.reksai_kaisa_sejuani_furious_bite.COMP
+COMP = set_9.comps.azir_nasus_lux_jarvan_spear_and_shield.COMP
 
-AUGMENTS = set_9.comps.reksai_kaisa_sejuani_furious_bite.AUGMENTS
+AUGMENTS = set_9.comps.azir_nasus_lux_jarvan_spear_and_shield.AUGMENTS
 
 def champions_to_buy() -> list:
     """Creates a list of champions to buy during the game"""

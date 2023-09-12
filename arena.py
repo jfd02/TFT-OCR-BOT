@@ -389,15 +389,15 @@ class Arena:
                 arena_functions.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 self.items[self.items.index(item)] = None
-        if item in game_assets.FULL_ITEMS:
+        elif item in game_assets.FULL_ITEMS:
             if champ.does_need_items():
                 arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
                 arena_functions.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 self.items[self.items.index(item)] = None
-        if len(champ.current_building) != 0:
+        elif len(champ.current_building) != 0:
             print("  ADD ITEMS BEFORE DYING:")
-            print(f"     {champ.name} is building {len(champ.current_building)} items.")
+            print(f"   {champ.name} is building {len(champ.current_building)} items.")
             arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
             arena_functions.print_item_placed_on_champ(item, champ)
             self.items[self.items.index(item)] = None

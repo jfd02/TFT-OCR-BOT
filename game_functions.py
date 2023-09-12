@@ -79,7 +79,7 @@ def check_alive() -> bool:  # Refactor this function to use API
 def exit_game() -> None:
     """Exits the game"""
     mk_functions.left_click(screen_coords.EXIT_NOW_LOC.get_coords())
-    sleep(10)  # sleep for 20 seconds to add time between games, so that the end-game screen can show.
+    sleep(20)  # sleep for 20 seconds to add time between games, so that the end-game screen can show.
 
 
 def default_pos() -> None:
