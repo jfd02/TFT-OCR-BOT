@@ -195,7 +195,8 @@ class Arena:
                     return
 
     def replace_unknown(self) -> None:
-        """Replaces an unknown champion on the board with a known champion from the bench."""
+        """Removes an unknown champion on the board.
+           Then places a known champion from the bench."""
         champion: Champion | None = self.get_next_champion_on_bench()
         if len(self.board_unknown_and_pos) > 0 and champion is not None:
             print(f"    Replacing an unknown champion with {champion.name}.")
