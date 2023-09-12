@@ -30,8 +30,8 @@ class Arena:
         self.board: list = []
         # All the spaces on the board that have a unit, but we don't know what that unit is.
         self.board_unknown: list = []
-        # All the non-Champion units and the board space they occupy.
-        self.board_unknown_and_pos: list = [(str, int)]
+        # All the non-Champion units and the board spaces they occupy. Should be a list of tuple(str, int).
+        self.board_unknown_and_pos: list = []
         # All the spaces on the board that we haven't designated to put a unit from our comp on.
         self.board_slots_for_non_comp_units: list = comps.get_unknown_slots()
         self.champs_to_buy: list = comps.champions_to_buy()
@@ -239,9 +239,9 @@ class Arena:
         for index, champion in enumerate(self.bench):
             if champion is None:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
-        sleep(0.2)
-        print("  Selecting middle item from anvil.")
-        mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
+                sleep(0.2)
+                print("  Selecting middle item from anvil.")
+                mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
 
     def place_items(self) -> None:
         """Iterates through items and tries to add them to champion"""
@@ -561,10 +561,9 @@ class Arena:
             if isinstance(slot, Champion):
                 labels.append((f"{slot.name}", slot.coords, 15, 30))
         # Create labels for unknown units on the board.
-        labels.extend(
-            ("u:" + name_and_pos[0], screen_coords.BOARD_LOC[name_and_pos[1]].get_coords(), 15, 30)
-            for index, name_and_pos in enumerate(self.board_unknown_and_pos)
-        )
+        for index, name_and_pos in enumerate(self.board_unknown_and_pos):
+            print(f" name_and_pos: {name_and_pos}, name_and_pos[0]: {name_and_pos[0]}, name_and_pos[1]: {name_and_pos[1]}")
+            labels.append(("u:" + str(name_and_pos[0]), screen_coords.BOARD_LOC[name_and_pos[1]].get_coords(), 15, 30))
         # Create label for level of the tactician.
         labels.append((f"{arena_functions.get_level_via_ocr()}", screen_coords.TACTICIAN_LEVEL_LOC.get_coords(), -10, -10))
         # Create label for current gold.
