@@ -562,8 +562,8 @@ class Arena:
                 labels.append((f"{slot.name}", slot.coords, 15, 30))
         # Create labels for unknown units on the board.
         labels.extend(
-            ("u:" + slot, screen_coords.BOARD_LOC[self.board_slots_for_non_comp_units[index]].get_coords(), 15, 30)
-            for index, slot in enumerate(self.board_unknown)
+            ("u:" + name_and_pos[0], screen_coords.BOARD_LOC[name_and_pos[1]].get_coords(), 15, 30)
+            for index, name_and_pos in enumerate(self.board_unknown_and_pos)
         )
         # Create label for level of the tactician.
         labels.append((f"{arena_functions.get_level_via_ocr()}", screen_coords.TACTICIAN_LEVEL_LOC.get_coords(), -10, -10))
