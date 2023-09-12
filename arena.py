@@ -680,6 +680,7 @@ class Arena:
             if unit_name is None:
                 continue
             if arena_functions.is_valid_champ(unit_name):
+                print(f"    Found a valid {unit_name} unit from an unknown unit!")
                 # Set default values if we don't want to use this champ in our comp.
                 items_to_build = []
                 final_comp = False
@@ -688,6 +689,7 @@ class Arena:
                     items_to_build = comps.COMP[unit_name]["items"].copy()
                     final_comp = comps.COMP[unit_name]["final_comp"]
                 # Create the Champion object.
+                print(f"      Created the Champion object for the {unit_name}.")
                 self.board_names.append(unit_name)
                 self.board.append(Champion(name=unit_name,
                                            coords=screen_coords.BOARD_LOC[index].get_coords(
@@ -706,6 +708,7 @@ class Arena:
             if isinstance(unit, Champion):
                 # Just remove the first duplicate Champion unit from the self.board.
                 if unit.index in positions_of_all_unit:
+                    print(f"    Removing a duplicate {unit.name} from self.board.")
                     self.board.remove(unit)
                     self.board_names.remove(unit.name)
                 else:
