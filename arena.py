@@ -257,7 +257,7 @@ class Arena:
             if unit is None and arena_functions.identify_component_anvil(index):
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                 sleep(0.2)
-                print("  Selecting middle item from anvil.")
+                print("  Selecting middle item from Anvil/Ornn Item Anvil/Tome of Traits.")
                 mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
 
     def place_items(self) -> None:
@@ -517,7 +517,7 @@ class Arena:
 
     def pick_augment(self) -> None:
         """Picks an augment from user defined augment priority list or defaults to first augment"""
-        sleep(5)
+        sleep(2)  # So that when I'm watching the screen I can actually read the augments' descriptions.
         augments: list = []
         for coords in screen_coords.AUGMENT_POS:
             augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
