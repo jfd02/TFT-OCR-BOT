@@ -157,10 +157,9 @@ class Arena:
     def move_champions(self) -> None:
         """Moves champions to the board"""
         self.level: int = arena_functions.get_level_via_https_request()
-        more_room_on_board = self.level > self.board_size
-        if more_room_on_board:
+        if self.level > self.board_size:
             print(f"  Our level {self.level} is greater than our board size {self.board_size}.")
-        while more_room_on_board:
+        while self.level > self.board_size:
             champion: Champion | None = self.get_next_champion_on_bench()
             if champion is not None:
                 self.move_known(champion)
@@ -169,12 +168,12 @@ class Arena:
                 # self.move_unknown()
                 self.identify_champions_on_bench()
             else:
-                print("Crazy bit of code here.")
+                print("    I think the point of this code is to always have a unit on the bench?")
                 bought_unknown = False
                 shop: list = arena_functions.get_shop()
                 for champion in shop:
                     gold: int = arena_functions.get_gold()
-                    valid_champ: bool = (
+                    valid_champ_not_in_champs_to_buy_or_board_unknown: bool = (
                             champion[1] in game_assets.CHAMPIONS and
                             game_assets.champion_gold_cost(champion[1]) <= gold and
                             game_assets.champion_board_size(champion[1]) == 1 and
@@ -182,19 +181,34 @@ class Arena:
                             champion[1] not in self.board_unknown
                     )
 
-                    if valid_champ:
-                        none_slot: int = arena_functions.empty_bench_slot()
+                    if valid_champ_not_in_champs_to_buy_or_board_unknown:
+                        empty_bench_slot: int = arena_functions.empty_bench_slot()
                         mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
                         sleep(0.2)
-                        self.bench[none_slot] = f"{champion[1]}"
-                        self.move_unknown()
+                        # Set default values if we don't want to use this champ in our comp.
+                        items_to_build = []
+                        final_comp = False
+                        # If we actually plan on using this champ in our comp:
+                        if champion[1] in comps.COMP:
+                            items_to_build = comps.COMP[champion[1]]["items"].copy()
+                            final_comp = comps.COMP[champion[1]]["final_comp"]
+                        # Create the Champion object.
+                        champion = Champion(name=champion[1],
+                                            coords=screen_coords.BENCH_LOC[empty_bench_slot].get_coords(),
+                                            build=items_to_build,
+                                            slot=empty_bench_slot,
+                                            size=game_assets.CHAMPIONS[champion[1]]["Board Size"],
+                                            final_comp=final_comp)
+                        self.bench[empty_bench_slot] = champion
+                        self.move_known(champion)
                         bought_unknown = True
                         break
 
-                if not bought_unknown:
-                    print("  Need to sell entire bench to keep track of board")
-                    self.sell_bench()
-                    return
+                # why
+                #if not bought_unknown:
+                #    print("  Need to sell entire bench to keep track of board")
+                #    self.sell_bench()
+                #    return
 
     def replace_unknown(self) -> None:
         """Removes an unknown champion on the board.
@@ -456,7 +470,12 @@ class Arena:
             print("  Item could not be read for Tacticians Check")
 
     def spend_gold(self) -> None:
-        """Spends gold every round"""
+        """Spends gold every round.
+           Sets the minimum gold to spend based on the spam_roll class variables.
+           If the bot has above the min gold, it will purchase unit if they are in the list of champs_to_buy
+           and buying the unit would not make the amount of gold the bot has go into negative values.
+           It will buy xp if not level 9, and mark a spot on the bench for the purchased units.
+           """
         first_run = True
         min_gold = 54
         if self.spam_roll:
@@ -484,7 +503,7 @@ class Arena:
                         self.champs_to_buy.remove(champion[1])
                     else:
                         # Try to buy champ 3 when bench is full
-                        print(f"  Board is full but want {champion[1]}")
+                        print(f"  Bench is full but want {champion[1]}")
                         mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
                         game_functions.default_pos()
                         sleep(0.5)
@@ -492,7 +511,7 @@ class Arena:
                         none_slot = arena_functions.empty_bench_slot()
                         sleep(0.5)
                         if none_slot != -1:
-                            print(f"    Purchased {champion[1]}")
+                            print(f"    Bench no longer full. Purchased {champion[1]}")
                             self.champs_to_buy.remove(champion[1])
             first_run = False
 
@@ -650,11 +669,14 @@ class Arena:
             for board_index, unit in enumerate(self.board):
                 if isinstance(unit, Champion):
                     if not arena_functions.identify_one_champion_on_the_board(unit):
+                        print(f"         Was not able to confirm that {unit.name} is still on the board.")
                         self.board.remove(unit)
                         self.board_names.remove(unit.name)
-                        self.set_board_size(self.board_size - unit.size)
+                        # don't think we need to reduce the board_size (amount of units we have on the board)
+                        # here because this happens this function checks stuff after combat, so we should have the
+                        # max amount of units/board_size on the board already.
                     else:
-                        print(f"      Confirmed that {unit.name} is still on the board.")
+                        print(f"         Confirmed that {unit.name} is still on the board.")
                 else:
                     print(f"    unit: {unit}")
         # There are 1 or more units on the board we don't know.
@@ -690,6 +712,7 @@ class Arena:
         """Loops through the entire self.board list,
            and if a unit is a Champion object, but is sharing the same space as another Champion unit,
            removes the duplicate unit from the self.board list and the self.board_names list."""
+        print("    Attempting to remove random duplicate champions from the board.")
         for board_index, unit in enumerate(self.board):
             positions_of_all_unit = []
             if isinstance(unit, Champion):
@@ -698,7 +721,9 @@ class Arena:
                     print(f"    Removing a duplicate {unit.name} from self.board.")
                     self.board.remove(unit)
                     self.board_names.remove(unit.name)
-                    self.set_board_size(self.board_size - unit.size)
+                    # don't think we need to reduce the board_size (amount of units we have on the board)
+                    # here because this happens this function checks stuff after combat, so we should have the
+                    # max amount of units/board_size on the board already.
                 else:
                     positions_of_all_unit.append(unit.index)
 
