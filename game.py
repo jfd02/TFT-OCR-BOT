@@ -247,6 +247,7 @@ class Game:
         print(f"        Board Size: {self.arena.board_size}")
         print(f"        Board Names: {self.arena.board_names}")
         print(f"        Board Unknown: {self.arena.board_unknown}")
+        print(f"        Board Unknown And Pos: {self.board_unknown_and_pos}")
         print(f"        Board Slot For Non Comp Units: {self.arena.board_slots_for_non_comp_units}")
         unit_names_on_bench = []
         for unit in self.arena.bench:
