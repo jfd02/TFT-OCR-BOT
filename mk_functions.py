@@ -33,6 +33,12 @@ def press_s() -> None:
     """Presses s. Pressing s stop the movement of the tactician."""
     pydirectinput.press("s")
 
+def press_w(coords: tuple) -> None:
+    """Presses w. Moves a unit from the bench to the board or the board to the bench."""
+    offset: int = random.randint(-3, 3)
+    pydirectinput.moveTo(coords[0] - offset, coords[1] - offset)
+    pydirectinput.press("w")
+
 
 def move_mouse(coords: tuple) -> None:
     """Moves mouse to argument ones coordinates"""
