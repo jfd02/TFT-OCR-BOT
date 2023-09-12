@@ -93,7 +93,7 @@ BUY_LOC: list[Vec2] = [
 
 # Where the mouse will click to move the tactician on the board to pick up items.
 ITEM_PICKUP_LOC: list[Vec2] = [
-    Vec2(1440, 611),
+    Vec2(1450, 611),
     Vec2(406, 544),
     Vec2(1412, 486),
     Vec2(469, 440),
@@ -257,7 +257,7 @@ MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC: Vec2 = Vec2(1108, 279)
 BOARD_OF_ARENA_POS: Vec4 = Vec4(GameWindow(586, 222, 1350, 714))
 
 # Where the tactician stand when they are returned to their map.
-TACTICIAN_PEDESTAL_LOC: Vec2 = Vec2(464, 664)
+TACTICIAN_PEDESTAL_LOC: Vec2 = Vec2(440, 580)
 
 # The area that covers the "Component Anvil" text when you hover right-click an anvil.
 COMPONENT_ANVIL_TEXT_POS: Vec4 = Vec4(GameWindow(78, 11, 236, 35), use_screen_offset=False)
