@@ -115,9 +115,7 @@ class Arena:
             print("      Selecting a random board space because the unit isn't in our comp.")
             board_position = random.choice(self.board_slots_for_non_comp_units)
         destination: tuple = screen_coords.BOARD_LOC[board_position].get_coords()
-        mk_functions.left_click(champion.coords)
-        sleep(0.1)
-        mk_functions.left_click(destination)
+        arena_functions.move_unit(champion.coords, destination)
         champion.coords = destination
         self.board.append(champion)
         self.board_names.append(champion.name)
@@ -137,10 +135,8 @@ class Arena:
             if isinstance(champion, str):
                 print(f"    Moving unknown unit {champion} from bench slot {index} "
                       f"to board space {self.board_slots_for_non_comp_units[len(self.board_unknown)]}.")
-                mk_functions.left_click(screen_coords.BENCH_LOC[index].get_coords())
-                sleep(0.1)
-                mk_functions.left_click(
-                    screen_coords.BOARD_LOC[self.board_slots_for_non_comp_units[len(self.board_unknown)]].get_coords())
+                arena_functions.move_unit(screen_coords.BENCH_LOC[index].get_coords(), screen_coords.BOARD_LOC[
+                    self.board_slots_for_non_comp_units[len(self.board_unknown)]].get_coords())
                 self.bench[index] = None
                 self.board_unknown.append(champion)
                 self.set_board_size(self.board_size + 1)
@@ -169,8 +165,11 @@ class Arena:
             if champion is not None:
                 self.move_known(champion)
             elif self.unknown_in_bench():
-                self.move_unknown()
+                # No more moving unknown units to the board.
+                # self.move_unknown()
+                self.identify_champions_on_bench()
             else:
+                print("Crazy bit of code here.")
                 bought_unknown = False
                 shop: list = arena_functions.get_shop()
                 for champion in shop:
@@ -306,9 +305,7 @@ class Arena:
         item = self.items[item_index]
         if item in game_assets.FULL_ITEMS:
             if item in champ.build:
-                mk_functions.left_click(
-                    screen_coords.ITEM_POS[item_index][0].get_coords())
-                mk_functions.left_click(champ.coords)
+                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
                 arena_functions.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 champ.build.remove(item)
@@ -325,17 +322,13 @@ class Arena:
                         (build_item, build_item_components[0]))
                     champ.build.remove(build_item)
             if item_to_move is not None:
-                mk_functions.left_click(
-                    screen_coords.ITEM_POS[item_index][0].get_coords())
-                mk_functions.left_click(champ.coords)
+                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
                 arena_functions.print_item_placed_on_champ(item, champ)
                 self.items[self.items.index(item)] = None
         else:
             for builditem in champ.current_building:
                 if item == builditem[1]:
-                    mk_functions.left_click(
-                        screen_coords.ITEM_POS[item_index][0].get_coords())
-                    mk_functions.left_click(champ.coords)
+                    arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
                     champ.completed_items.append(builditem[0])
                     champ.current_building.clear()
                     self.items[self.items.index(item)] = None
@@ -355,14 +348,10 @@ class Arena:
                 if gloves_index_1 != -1 and gloves_index_2 == -1:
                     gloves_index_2 = index
         if gloves_index_1 != -1 and gloves_index_2 != -1 and gloves_index_1 != gloves_index_2:
-            mk_functions.left_click(
-                screen_coords.ITEM_POS[gloves_index_1][0].get_coords())
-            mk_functions.left_click(champ.coords)
+            arena_functions.move_item(screen_coords.ITEM_POS[gloves_index_1][0].get_coords(), champ.coords)
             print(f"    Placed {self.items[gloves_index_1]} on {champ.name}")
             self.items[gloves_index_1] = None
-            mk_functions.left_click(
-                screen_coords.ITEM_POS[gloves_index_2][0].get_coords())
-            mk_functions.left_click(champ.coords)
+            arena_functions.move_item(screen_coords.ITEM_POS[gloves_index_2][0].get_coords(), champ.coords)
             print(f"    Placed {self.items[gloves_index_2]} on {champ.name}")
             self.items[gloves_index_2] = None
             return True
@@ -382,26 +371,20 @@ class Arena:
         item = self.items[item_index]
         if item in game_assets.ORNN_ITEMS:
             if champ.does_need_items():
-                mk_functions.left_click(
-                    screen_coords.ITEM_POS[item_index][0].get_coords())
-                mk_functions.left_click(champ.coords)
+                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
                 arena_functions.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 self.items[self.items.index(item)] = None
         if item in game_assets.FULL_ITEMS:
             if champ.does_need_items():
-                mk_functions.left_click(
-                    screen_coords.ITEM_POS[item_index][0].get_coords())
-                mk_functions.left_click(champ.coords)
+                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
                 arena_functions.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 self.items[self.items.index(item)] = None
         if len(champ.current_building) != 0:
             print("  ADD ITEMS BEFORE DYING:")
             print(f"     {champ.name} is building {len(champ.current_building)} items.")
-            mk_functions.left_click(
-                screen_coords.ITEM_POS[item_index][0].get_coords())
-            mk_functions.left_click(champ.coords)
+            arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
             arena_functions.print_item_placed_on_champ(item, champ)
             self.items[self.items.index(item)] = None
 
@@ -569,10 +552,12 @@ class Arena:
                 labels.append((f"{slot.name}", slot.coords, 15, 30))
         # Create labels for unknown units on the board.
         for index, name_and_pos in enumerate(self.board_unknown_and_pos):
-            print(f" name_and_pos: {name_and_pos}, name_and_pos[0]: {name_and_pos[0]}, name_and_pos[1]: {name_and_pos[1]}")
+            print(
+                f" name_and_pos: {name_and_pos}, name_and_pos[0]: {name_and_pos[0]}, name_and_pos[1]: {name_and_pos[1]}")
             labels.append(("u:" + str(name_and_pos[0]), screen_coords.BOARD_LOC[name_and_pos[1]].get_coords(), 15, 30))
         # Create label for level of the tactician.
-        labels.append((f"{arena_functions.get_level_via_ocr()}", screen_coords.TACTICIAN_LEVEL_LOC.get_coords(), -10, -10))
+        labels.append(
+            (f"{arena_functions.get_level_via_ocr()}", screen_coords.TACTICIAN_LEVEL_LOC.get_coords(), -10, -10))
         # Create label for current gold.
         labels.append((f"{arena_functions.get_gold()}", screen_coords.GOLD_LOC.get_coords(), 5, -10))
         # Create label for how much it costs to buy XP.
@@ -673,14 +658,13 @@ class Arena:
                 else:
                     print(f"    unit: {unit}")
         # There are 1 or more units on the board we don't know.
-        #if self.board_size > len(self.board):
+        # if self.board_size > len(self.board):
         #    valid_champs = self.identify_unknown_champions_on_board()
         #    for name_and_pos in valid_champs:
         #        self.create_champion_object_from_unit_name_on_the_board(name_and_pos[0], name_and_pos[1])
         # If there are more units in our "board" than should exist.
         if len(self.board) > self.level:
             self.remove_random_duplicate_champions_from_board()
-
 
     def identify_unknown_champions_on_board(self) -> [(str, int)]:
         """Loops through every space on the board,
