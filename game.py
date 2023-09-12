@@ -144,6 +144,7 @@ class Game:
         """ """
         print(f"\n[Third Round] {self.round}")
         self.message_queue.put("CLEAR")
+        sleep(2)
         self.arena.identify_champions_on_board()
         self.arena.identify_champions_on_bench()
         self.arena.move_champions()
