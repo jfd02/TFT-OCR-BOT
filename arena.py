@@ -127,7 +127,7 @@ class Arena:
         else:
             self.bench[champion.index] = None
         champion.index = board_position
-        self.board_size += champion.size
+        self.set_board_size(self.board_size + champion.size)
         print(f"      Moved {champion.name} to {board_position}.")
         print(f"        There are now {self.board_size} units on the board.")
 
@@ -143,7 +143,7 @@ class Arena:
                     screen_coords.BOARD_LOC[self.board_slots_for_non_comp_units[len(self.board_unknown)]].get_coords())
                 self.bench[index] = None
                 self.board_unknown.append(champion)
-                self.board_size += 1
+                self.set_board_size(self.board_size + 1)
                 print(f"      There are now {self.board_size} units on the board.")
                 return
 
@@ -206,7 +206,7 @@ class Arena:
             unknown_unit_and_pos = self.board_unknown_and_pos.pop()
             value = screen_coords.BOARD_LOC[unknown_unit_and_pos[1]].get_coords()
             mk_functions.press_e(value)
-            self.board_size -= 1
+            self.set_board_size(self.board_size - 1)
             self.move_known(champion)
 
     def replace_units_not_in_our_comp(self) -> None:
@@ -219,7 +219,8 @@ class Arena:
                 if unit.name not in comps.COMP:
                     print(f"    Replacing {unit.name} with {champion.name} because {unit.name} is not in our comp.")
                     mk_functions.press_e(unit.coords)
-                    self.board_size -= 1
+                    # Might set the wrong size because an unknown unit could have a size of two.
+                    self.set_board_size(self.board_size - unit.size)
                     self.move_known(champion)
 
     def bench_cleanup(self) -> None:
@@ -406,11 +407,13 @@ class Arena:
 
     def fix_unknown(self) -> None:
         """Removes the first unknown unit that is on the board."""
+        print("  Fixing unknown unit.")
         sleep(0.25)
         mk_functions.press_e(
             screen_coords.BOARD_LOC[self.board_slots_for_non_comp_units[0]].get_coords())
         self.board_unknown.pop(0)
-        self.board_size -= 1
+        # Might set the wrong size because an unknown unit could have a size of two.
+        self.set_board_size(self.board_size - 1)
 
     def remove_champion(self, champion: Champion) -> None:
         """Removes all instances of the given Champion from the bench if it is on the bench.
@@ -430,7 +433,7 @@ class Arena:
         if champion.name in self.board_names:
             self.board_names.remove(champion.name)
         if champion in self.board:
-            self.board_size -= champion.size
+            self.set_board_size(self.board_size - champion.size)
             self.board.remove(champion)
         if champion in self.board and champion.name not in self.board_names:
             print(AnsiColors.RED_REGULAR + f"      [!] Unit {champion} is registered as in self.board, "
@@ -462,7 +465,8 @@ class Arena:
         try:
             if "TacticiansCrown" in item:
                 print("  Tacticians Crown on bench, adding extra slot to board")
-                self.board_size -= 1
+                # TODO: why is this written this way
+                # self.board_size -= 1
             else:
                 print(f"{item} is not TacticiansCrown")
         except TypeError:
@@ -663,7 +667,7 @@ class Arena:
                     if not arena_functions.identify_one_champion_on_the_board(unit):
                         self.board.remove(unit)
                         self.board_names.remove(unit.name)
-                        self.board_size -= 1
+                        self.set_board_size(self.board_size - unit.size)
                     else:
                         print(f"      Confirmed that {unit.name} is still on the board.")
                 else:
@@ -710,7 +714,7 @@ class Arena:
                     print(f"    Removing a duplicate {unit.name} from self.board.")
                     self.board.remove(unit)
                     self.board_names.remove(unit.name)
-                    self.board_size -= 1
+                    self.set_board_size(self.board_size - unit.size)
                 else:
                     positions_of_all_unit.append(unit.index)
 
@@ -782,7 +786,7 @@ class Arena:
         print(f"      Created the Champion object for the {unit_name}.")
         self.board_names.append(unit_name)
         size = game_assets.CHAMPIONS[unit_name]["Board Size"]
-        self.board_size += size
+        self.set_board_size(self.board_size - size)
         # Remove the unit that was unknown, and is now no longer unknown, from the unknown list.
         if unit_name in self.board_unknown:
             print(f"      Removing the unknown unit {unit_name} from the list of unknown units.")
@@ -794,3 +798,7 @@ class Arena:
                                    slot=index,
                                    size=size,
                                    final_comp=final_comp))
+
+    def set_board_size(self, new_size: int):
+        print(f"  Setting the board size {self.board_size} to {new_size}.")
+        self.board_size = new_size
