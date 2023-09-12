@@ -316,7 +316,7 @@ def move_unit(start_location: tuple, destination: tuple):
     mk_functions.left_click(start_location)
     sleep(0.1)
     mk_functions.move_mouse(destination)
-    sleep(0.05)
+    sleep(0.1)
     mk_functions.left_click(destination)
 
 
@@ -325,7 +325,7 @@ def move_item(start_location: tuple, destination: tuple):
     mk_functions.left_click(start_location)
     sleep(0.1)
     mk_functions.move_mouse(destination)
-    sleep(0.05)
+    sleep(0.1)
     mk_functions.left_click(destination)
 
 
@@ -342,6 +342,7 @@ def identify_component_anvil(index: int) -> bool:
     anvil_coords_tuple = (x_start, y_start, x_end, y_end)
     # grab text and validate
     mk_functions.right_click(right_click_tuple)
+    mk_functions.press_s()  # make sure the tactician doesn't move around too much
     anvil_text: str = ocr.get_text(screenxy=anvil_coords_tuple, scale=3, psm=13,
                                    whitelist=ocr.ALPHABET_WHITELIST)
     return valid_anvil(anvil_text)
