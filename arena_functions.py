@@ -4,6 +4,8 @@ Functions used by the Arena class to get game data
 
 from difflib import SequenceMatcher
 import threading
+from time import sleep
+
 from PIL import ImageGrab
 import numpy as np
 import requests
@@ -57,6 +59,7 @@ def get_valid_champ(champ_name: str) -> str:
         ),
         "",
     )
+
 
 def is_valid_champ(champ_name: str) -> bool:
     if champ_name in game_assets.CHAMPIONS:
@@ -258,3 +261,51 @@ def get_center_position_of_item_orbs() -> [Vec2]:
         vec_2 = Vec2(x_center, y_center)
         center_of_item_orbs.append(vec_2)
     return center_of_item_orbs
+
+
+def identify_one_champion_on_the_board(unit: Champion) -> bool:
+    """Confirms that the given unit is positioned on the board by right-clicking the unit,
+       and checking for the units name, if the unit's info window appears."""
+    identify_unit_board_position(unit)
+    # Right-click the unit to make the unit's info appear on the right side of the screen.
+    mk_functions.right_click(unit.coords)
+    # Press s to prevent the tactician from moving anywhere.
+    mk_functions.press_s()
+    sleep(0.05)
+    champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
+                                   scale=3, psm=13, whitelist=ocr.ALPHABET_WHITELIST)
+    champ_name = get_valid_champ(champ_name)
+    # Click at the default location so that the unit's info disappears.
+    mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
+    if is_valid_champ(champ_name):
+        return True
+    else:
+        return False
+
+
+def identify_unit_board_position(unit: Champion) -> int:
+    unit_board_position = -1
+    for index, vec2 in enumerate(screen_coords.BOARD_LOC):
+        if vec2.get_coords() == unit.coords:
+            unit_board_position = index
+    print(f"  There is a {unit.name} unit located at board space {unit_board_position}.")
+    return unit_board_position
+
+
+def identify_one_space_on_the_board(vec2_board_space: Vec2) -> str | None:
+    """Tries to identify the name of the unit at the given vec2 coordinates, if a unit exists there."""
+    # Right-click the board space to make the unit's info appear on the right side of the screen,
+    # if a unit is located there.
+    mk_functions.right_click(vec2_board_space.get_coords())
+    # Press s to prevent the tactician from moving anywhere.
+    mk_functions.press_s()
+    sleep(0.05)
+    champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
+                                   scale=3, psm=13, whitelist=ocr.ALPHABET_WHITELIST)
+    champ_name = get_valid_champ(champ_name)
+    # Click at the default location so that the unit's info disappears.
+    mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
+    if is_valid_champ(champ_name):
+        return champ_name
+    else:
+        return None
