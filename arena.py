@@ -665,39 +665,30 @@ class Arena:
                     print(f"    unit: {unit}")
         # There are 1 or more units on the board we don't know.
         if self.board_size > len(self.board):
-            self.identify_unknown_champions_on_board()
+            valid_champs = self.identify_unknown_champions_on_board()
+            for name_and_pos in valid_champs:
+                self.create_champion_object_from_unit_name_on_the_board(name_and_pos[0], name_and_pos[1])
         # If there are more units in our "board" than should exist.
         if len(self.board) > self.board_size:
             self.remove_random_duplicate_champions_from_board()
 
-    def identify_unknown_champions_on_board(self):
+    def identify_unknown_champions_on_board(self) -> [(str, int)]:
         """Loops through every space on the board,
            right-clicks that space to open up a potential info window.
-           Looks for a unit name in that info window and if it is a valid unit,
-           creates a Champion unit to replace the unknown unit."""
+           Looks for a unit name in that info window and if it is a valid unit, adds the units name to a list.
+           Returns a list of names of any valid units on the board."""
+        valid_champs = []
         for index, vec2_board_space in enumerate(screen_coords.BOARD_LOC):
+            # Solved the problem we entered this function for.
+            if self.board_size == len(self.board):
+                break
             unit_name = arena_functions.identify_one_space_on_the_board(vec2_board_space)
             if unit_name is None:
                 continue
             if arena_functions.is_valid_champ(unit_name):
                 print(f"    Found a valid {unit_name} unit from an unknown unit!")
-                # Set default values if we don't want to use this champ in our comp.
-                items_to_build = []
-                final_comp = False
-                # If we actually plan on using this champ in our comp:
-                if unit_name in comps.COMP:
-                    items_to_build = comps.COMP[unit_name]["items"].copy()
-                    final_comp = comps.COMP[unit_name]["final_comp"]
-                # Create the Champion object.
-                print(f"      Created the Champion object for the {unit_name}.")
-                self.board_names.append(unit_name)
-                self.board.append(Champion(name=unit_name,
-                                           coords=screen_coords.BOARD_LOC[index].get_coords(
-                                           ),
-                                           build=items_to_build,
-                                           slot=index,
-                                           size=game_assets.CHAMPIONS[unit_name]["Board Size"],
-                                           final_comp=final_comp))
+                valid_champs.append((unit_name, index))
+        return valid_champs
 
     def remove_random_duplicate_champions_from_board(self):
         """Loops through the entire self.board list,
@@ -765,3 +756,25 @@ class Arena:
         print(f"    Selling the {unit.name} at bench position {index}.")
         mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
         self.bench[index] = None
+
+    def create_champion_object_from_unit_name_on_the_board(self, unit_name: str, index: int):
+        """Given the unit's name and the location on the board it should be placed at.
+           This function creates a Champion unit that has the designated items
+           and final_comp value from the comps file and adds the unit to the board."""
+        # Set default values if we don't want to use this champ in our comp.
+        items_to_build = []
+        final_comp = False
+        # If we actually plan on using this champ in our comp:
+        if unit_name in comps.COMP:
+            items_to_build = comps.COMP[unit_name]["items"].copy()
+            final_comp = comps.COMP[unit_name]["final_comp"]
+        # Create the Champion object.
+        print(f"      Created the Champion object for the {unit_name}.")
+        self.board_names.append(unit_name)
+        self.board.append(Champion(name=unit_name,
+                                   coords=screen_coords.BOARD_LOC[index].get_coords(
+                                   ),
+                                   build=items_to_build,
+                                   slot=index,
+                                   size=game_assets.CHAMPIONS[unit_name]["Board Size"],
+                                   final_comp=final_comp))
