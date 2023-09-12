@@ -92,7 +92,6 @@ class Game:
                 return
 
             if self.round != ran_round:
-                self.print_arena_values()
                 if self.round in game_assets.SECOND_ROUND:
                     second_round_process = multiprocessing.Process(target=self.second_round(), name="Second Round", args=(30,))
                     second_round_process.start()
@@ -132,7 +131,8 @@ class Game:
 
     def second_round(self) -> None:
         """ """
-        print(f"\n[Second Round] {self.round}")
+        print(f"\n\n[Second Round] {self.round}")
+        self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(1)
         self.arena.identify_champions_on_board()
@@ -142,7 +142,8 @@ class Game:
 
     def third_round(self) -> None:
         """ """
-        print(f"\n[Third Round] {self.round}")
+        print(f"\n\n[Third Round] {self.round}")
+        self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(2)
         self.arena.identify_champions_on_board()
@@ -152,7 +153,8 @@ class Game:
 
     def carousel_round(self) -> None:
         """Handles tasks for carousel rounds"""
-        print(f"\n[Carousel Round] {self.round}")
+        print(f"\n\n[Carousel Round] {self.round}")
+        self.print_arena_values()
         self.message_queue.put("CLEAR")
         if self.round == "3-4":
             self.arena.final_comp = True
@@ -162,7 +164,8 @@ class Game:
 
     def pve_round(self) -> None:
         """Handles tasks for PVE rounds"""
-        print(f"\n[PvE Round] {self.round}")
+        print(f"\n\n[PvE Round] {self.round}")
+        self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(1)
         if self.round in game_assets.AUGMENT_ROUNDS:
@@ -192,7 +195,8 @@ class Game:
 
     def pvp_round(self) -> None:
         """Handles tasks for PVP rounds"""
-        print(f"\n[PvP Round] {self.round}")
+        print(f"\n\n[PvP Round] {self.round}")
+        self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(1)
         print("  Checking health at the beginning of PvP Round, so I know how much health I have before shopping.")
