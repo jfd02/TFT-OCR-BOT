@@ -653,28 +653,35 @@ class Arena:
            If we have found a unit that is not a valid champ (most likely because it is not on our board)
            remove it from our list of units on our self.board and self.board_names."""
         print("  Identifying units on the board:")
+        # Double-check the units we know are Champion objects.
         for board_index, unit in enumerate(self.board):
-            unit_board_position = -1
             if isinstance(unit, Champion):
-                for board_loc_index, vec2 in enumerate(screen_coords.BOARD_LOC):
-                    if vec2.get_coords() == unit.coords:
-                        unit_board_position = board_loc_index
-                print(f"  There is a {unit.name} unit located at board space {unit_board_position}.")
-                # Right-click the unit to make the unit's info appear on the right side of the screen.
-                mk_functions.right_click(unit.coords)
-                # Press s to prevent the tactician from moving anywhere.
-                mk_functions.press_s()
-                sleep(0.05)
-                champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
-                                               scale=3, psm=13, whitelist=ocr.ALPHABET_WHITELIST)
-                champ_name = arena_functions.get_valid_champ(champ_name)
-                # Click at the default location so that the unit's info disappears.
-                mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
-                if not arena_functions.is_valid_champ(champ_name):
+                if not arena_functions.identify_one_champion_on_the_board(unit):
                     self.board.remove(unit)
                     self.board_names.remove(unit.name)
             else:
                 print(f"    unit: {unit}")
+        # There are 1 or more units on the board we don't know.
+        if self.board_size > len(self.board):
+            for index, vec2_board_space in enumerate(screen_coords.BOARD_LOC):
+                unit_name = arena_functions.identify_one_space_on_the_board(vec2_board_space)
+                if arena_functions.is_valid_champ(unit_name):
+                    # Set default values if we don't want to use this champ in our comp.
+                    items_to_build = []
+                    final_comp = False
+                    # If we actually plan on using this champ in our comp:
+                    if unit_name in comps.COMP:
+                        items_to_build = comps.COMP[unit_name]["items"].copy()
+                        final_comp = comps.COMP[unit_name]["final_comp"]
+                    # Create the Champion object.
+                    self.board_names.append(unit_name)
+                    self.board.append(Champion(name=unit_name,
+                                               coords=screen_coords.BENCH_LOC[index].get_coords(
+                                               ),
+                                               build=items_to_build,
+                                               slot=index,
+                                               size=game_assets.CHAMPIONS[unit_name]["Board Size"],
+                                               final_comp=final_comp))
 
     def identify_champions_on_bench(self):
         print("  Identifying units on the bench:")
