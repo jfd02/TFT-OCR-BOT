@@ -6,108 +6,84 @@ Difficulty: Easy
 """
 
 COMP = {
-    "Ekko": {
-        "board_position": 22,
-        "items": ["JeweledGauntlet", "HandofJustice", "HandofJustice"],
+    "Reksai": {
+        "board_position": 21,
+        "items": ["Bloodthirster", "TitansResolve", "TitansResolve"],
         "level": 3,
         "final_comp": True
     },
-    "Katarina": {
-        "board_position": 24,
-        "items": ["ArchangelsStaff", "JeweledGauntlet", "HandofJustice"],
+    "Kaisa": {
+        "board_position": 3,
+        "items": ["ArchangelsStaff", "GuinsoosRageblade"],
         "level": 3,
-        "final_comp": True
-    },
-    "Lissandra": {
-        "board_position": 23,
-        "items": ["ChaliceofPower"],
-        "level": 2,
         "final_comp": True
     },
     "Sejuani": {
-        "board_position": 21,
-        "items": [],
+        "board_position": 26,
+        "items": ["GargoyleStoneplate", "WarmogsArmor"],
         "level": 2,
         "final_comp": True
     },
-    "Urgot": {
-        "board_position": 25,
-        "items": [],
+    "Lissandra": {
+        "board_position": 14,
+        "items": ["SpearofShojin"],  # BruiserEmblem
         "level": 2,
         "final_comp": True
     },
     "Sion": {
-        "board_position": 26,
+        "board_position": 22,
+        "items": ["ZekesHerald"],
+        "level": 2,
+        "final_comp": True
+    },
+    "ChoGath": {
+        "board_position": 23,
         "items": [],
         "level": 2,
         "final_comp": True
     },
-    "Heimerdinger": {
-        "board_position": 0,
+    "Vi": {
+        "board_position": 24,
         "items": [],
         "level": 2,
         "final_comp": True
     },
     "Ashe": {
-        "board_position": 6,
+        "board_position": 0,
         "items": [],
         "level": 2,
         "final_comp": True
     },
-    "Viego": {
-        "board_position": 14,
-        "items": ["JeweledGauntlet", "HandofJustice", "HandofJustice"],
+    "Renekton": {
+        "board_position": 27,
+        "items": ["WarmogsArmor", "GargoyleStoneplate"],
         "level": 2,
         "final_comp": False
     },
-    "Maokai": {
-        "board_position": 15,
+    "Malzahar": {
+        "board_position": 1,
+        "items": ["ArchangelsStaff"],
+        "level": 2,
+        "final_comp": False
+    },
+    "Velkoz": {
+        "board_position": 6,
         "items": [],
         "level": 2,
         "final_comp": False
     },
-    "Zed": {
-        "board_position": 16,
-        "items": [],
+    "Kalista": {
+        "board_position": 4,
+        "items": ["GuinsoosRageblade"],
         "level": 2,
         "final_comp": False
     },
-    "Poppy": {
-        "board_position": 17,
-        "items": [],
-        "level": 2,
-        "final_comp": False
-    },
-    "Vi": {
+    "Yasuo": {
         "board_position": 18,
-        "items": [],
+        "items": ["Bloodthirster", "TitansResolve"],
         "level": 2,
         "final_comp": False
     },
-    "Orianna": {
-        "board_position": 2,
-        "items": ["JeweledGauntlet"],
-        "level": 2,
-        "final_comp": False
-    },
-    "Cassiopeia": {
-        "board_position": 3,
-        "items": ["JeweledGauntlet"],
-        "level": 2,
-        "final_comp": False
-    },
-    "Galio": {
-        "board_position": 20,
-        "items": ["JeweledGauntlet"],
-        "level": 2,
-        "final_comp": False
-    },
-    "Soraka": {
-        "board_position": 5,
-        "items": ["JeweledGauntlet"],
-        "level": 2,
-        "final_comp": False
-    }
 }
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
@@ -115,6 +91,7 @@ COMP = {
 AUGMENTS: list[str] = [
     "Battle Ready I",
     "Bronze Ticket",
+    "Bruiser Heart",
     "Cybernetic Bulk I",
     "Cybernetic Leech I",
     "Gotta Go Fast!!! I",
@@ -132,6 +109,7 @@ AUGMENTS: list[str] = [
     "Balanced Budget II",
     "Battle Ready II",
     "Big Grab Bag",
+    "Bruiser Crest",
     "Buried Treasures II",
     "Caretaker's Favor",
     "Cybernetic Bulk II",
@@ -139,11 +117,9 @@ AUGMENTS: list[str] = [
     "Early Education",
     "Endurance Training",
     "Final Grab Bag II",
-    "Freljord Heart",
     "Gifts from the Fallen",
     "Gotta Go Fast!!! II",
     "Healing Orbs II",
-    "Idealism",
     "Infusion",
     "Item Grab Bag II",
     "It Pays to Learn II",
@@ -160,9 +136,8 @@ AUGMENTS: list[str] = [
     "Salvage Bin",
     "Salvage Bin+",
     "Scrappy Inventions",
-    "Sorcerer Crest",
-    "Tactical Superiority",
     "Tiny Power II",
+    "Titanic Strength",
     "Tons of Stats!",
     "Unified Resistance II",
     "Vampiric Blades",
@@ -173,6 +148,7 @@ AUGMENTS: list[str] = [
     "Balanced Budget III",
     "Battle Ready III",
     "Blinding Speed",
+    "Bruiser Crown",
     "Buried Treasures III",
     "Cybernetic Bulk III",
     "Cybernetic Leech III",

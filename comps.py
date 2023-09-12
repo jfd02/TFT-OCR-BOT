@@ -6,11 +6,13 @@ Strategies:
     Fast 8: This comp looks to level up to 8 aggressively with a strong economy.
     Slow Roll: This comp rolls gold above 50 to look for 3-star champions.
 """
-import set_9.comps
+import set_9.comps.azir_nasus_lux_jarvan_spear_and_shield
+import set_9.comps.ekko_katarina_lissandra_icy_rogues
+import set_9.comps.reksai_kaisa_sejuani_furious_bite
 
-COMP = set_9.comps.ekko_katarina_lissandra_icy_rogues.COMP
+COMP = set_9.comps.reksai_kaisa_sejuani_furious_bite.COMP
 
-AUGMENTS = set_9.comps.ekko_katarina_lissandra_icy_rogues.AUGMENTS
+AUGMENTS = set_9.comps.reksai_kaisa_sejuani_furious_bite.AUGMENTS
 
 def champions_to_buy() -> list:
     """Creates a list of champions to buy during the game"""

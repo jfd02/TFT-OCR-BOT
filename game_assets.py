@@ -17,11 +17,16 @@ COMBINED_ITEMS: set[str] = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLar
                             "ThiefsGloves", "TitansResolve", "WarmogsArmor", "ZekesHerald",
                             "Zephyr", "ZzRotPortal"}
 
-ELUSIVE_ITEMS: set[str] = {"BastionEmblem", "BruiserEmblem", "ChallengerEmblem", "DeadeyeEmblem", "DemaciaEmblem",
+TRAIT_ITEMS: set[str] = {"BastionEmblem", "BruiserEmblem", "ChallengerEmblem", "DeadeyeEmblem", "DemaciaEmblem",
                            "FreljordEmblem", "GunnerEmblem", "InvokerEmblem", "IoniaEmblem", "JuggernautEmblem",
                            "NoxusEmblem", "PiltoverEmblem", "RogueEmblem", "ShadowIslesEmblem", "ShurimaEmblem",
                            "SlayerEmblem", "SorcererEmblem", "StrategistEmblem", "TargonEmblem", "VoidEmblem",
                            "ZaunEmblem"}
+
+# Trait Items that cannot be crafted
+ELUSIVE_ITEMS: set[str] = {"BastionEmblem", "BruiserEmblem", "DeadeyeEmblem", "FreljordEmblem",
+                           "GunnerEmblem", "InvokerEmblem", "PiltoverEmblem", "RogueEmblem",
+                           "StrategistEmblem", "TargonEmblem", "VoidEmblem", "ZaunEmblem"}
 
 ORNN_ITEMS: set[str] = {"AnimaVisage", "BlacksmithsGloves", "DeathsDefiance", "DeathfireGrasp", "EternalWinter",
                         "GoldCollector", "Hullcrusher", "InfinityForce", "Manazane", "ObsidianCleaver",
@@ -39,12 +44,29 @@ RADIANT_ITEMS: set[str] = {"Absolution", "BlessedBloodthirster", "BlueBlessing",
 MOGUL_ITEMS: set[str] = {"DeterminedInvestor", "DiamondHands", "DravensAxe", "GamblersBlade", "GoldmancersStaff",
                          "MogulsMail", "NeedlesslyBigGem"}
 
+# Items that can only be given to Zaun trait units and pop off after each round.
 ZAUN_ITEMS: set[str] = {"AdaptiveImplant", "HextechExoskeleton", "RoboticArm", "ShimmerInjector", "UnstableChemtank"
-                        "VirulentBioware"}
+                                                                                                  "VirulentBioware"}
 
 MISC_ITEMS: set[str] = {"CrownofDemacia", "Masterworkupgrade", "ScrollofKnowledge", "TheDarkinBlade"}
 
 ITEMS: set[str] = COMBINED_ITEMS.union(ELUSIVE_ITEMS).union(ORNN_ITEMS)
+
+# All the augments in the game that won't require the bot to react to
+# (i.e. don't give a unit or item, affect level, cost to buy xp, etc.).
+FULLY_PASSIVE_SILVER_AUGMENTS: set[str] = \
+    {"All Natural I", "Balanced Budget I", "Battle Ready I", "Bood Money", "Bronze Ticket", "Consistency",
+     "Cybernetic Bulk I", "Cybernetic Leech I", "Gotta Go Fast!!! I", "Harmacist I", "Healing Orbs I", "Inconsistency",
+     "Indomitable Will", "It Pays To Learn I", "Jeweled Lotus I", "Knowledge Download", "Lategame Specialist", "Money!",
+     "Partial Ascension", "Pumping Up I", "Red Buff", "Rolling for Day I", "Silver Spoon", "Social Distancing I",
+     "Tiny Titans", "Tiny Power I", "Transfusion I", "Unburdened I", "Unified Resistance I", "Well-Earned Comforts I"}
+
+FULLY_PASSIVE_GOLD_AUGMENTS: set[str] = []
+
+FULLY_PASSIVE_PLATINUM_AUGMENTS: set[str] = []
+
+FULLY_PASSIVE_AUGMENTS: set[str] = FULLY_PASSIVE_SILVER_AUGMENTS.union(FULLY_PASSIVE_GOLD_AUGMENTS) \
+    .union(FULLY_PASSIVE_PLATINUM_AUGMENTS)
 
 CHAMPIONS: dict[str, dict[str, int]] = {
     "Aatrox": {"Gold": 5, "Board Size": 1},
