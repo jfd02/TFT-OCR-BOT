@@ -266,7 +266,7 @@ def get_center_position_of_item_orbs() -> [Vec2]:
 def identify_one_champion_on_the_board(unit: Champion) -> bool:
     """Confirms that the given unit is positioned on the board by right-clicking the unit,
        and checking for the units name, if the unit's info window appears."""
-    identify_unit_board_position(unit)
+    unit_board_position = identify_unit_board_position(unit)
     # Right-click the unit to make the unit's info appear on the right side of the screen.
     mk_functions.right_click(unit.coords)
     # Press s to prevent the tactician from moving anywhere.
@@ -288,7 +288,7 @@ def identify_unit_board_position(unit: Champion) -> int:
     for index, vec2 in enumerate(screen_coords.BOARD_LOC):
         if vec2.get_coords() == unit.coords:
             unit_board_position = index
-    print(f"  There is a {unit.name} unit located at board space {unit_board_position}.")
+    print(f"    There is a {unit.name} unit located at board space {unit_board_position}.")
     return unit_board_position
 
 
