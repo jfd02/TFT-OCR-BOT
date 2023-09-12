@@ -134,7 +134,7 @@ class Game:
         """ """
         print(f"\n[Second Round] {self.round}")
         self.message_queue.put("CLEAR")
-        sleep(2)
+        sleep(1)
         self.arena.identify_champions_on_board()
         self.arena.identify_champions_on_bench()
         self.arena.move_champions()
@@ -164,7 +164,7 @@ class Game:
         """Handles tasks for PVE rounds"""
         print(f"\n[PvE Round] {self.round}")
         self.message_queue.put("CLEAR")
-        sleep(0.5)
+        sleep(1)
         if self.round in game_assets.AUGMENT_ROUNDS:
             sleep(1)
             self.arena.pick_augment()
@@ -194,7 +194,7 @@ class Game:
         """Handles tasks for PVP rounds"""
         print(f"\n[PvP Round] {self.round}")
         self.message_queue.put("CLEAR")
-        sleep(0.5)
+        sleep(1)
         print("  Checking health at the beginning of PvP Round, so I know how much health I have before shopping.")
         self.arena.check_health()
         if self.round in game_assets.AUGMENT_ROUNDS:
