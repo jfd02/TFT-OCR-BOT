@@ -92,26 +92,38 @@ class Game:
                 return
 
             if self.round != ran_round:
+                self.print_arena_values()
                 if self.round in game_assets.SECOND_ROUND:
-                    self.second_round()
+                    second_round_process = multiprocessing.Process(target=self.second_round(), name="Second Round", args=(30,))
+                    second_round_process.start()
                     mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.THIRD_ROUND:
-                    self.third_round()
+                    third_round_process = multiprocessing.Process(target=self.third_round(), name="Third Round", args=(30,))
+                    third_round_process.start()
                     mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.CAROUSEL_ROUND:
-                    self.carousel_round()
+                    carousel_round_process = multiprocessing.Process(target=self.carousel_round(), name="Carousel Round", args=(25,))
+                    carousel_round_process.start()
+                    mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
+                    ran_round: str = self.round
+                elif self.round in game_assets.AUGMENT_ROUNDS:
+                    game_functions.default_pos()
+                    pve_round_process = multiprocessing.Process(target=self.pvp_round(), name="PvP Round", args=(50,))
+                    pve_round_process.start()
                     mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.PVE_ROUND:
                     game_functions.default_pos()
-                    self.pve_round()
+                    pve_round_process = multiprocessing.Process(target=self.pve_round(), name="PvE Round", args=(15,))
+                    pve_round_process.start()
                     mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.PVP_ROUND:
                     game_functions.default_pos()
-                    self.pvp_round()
+                    pve_round_process = multiprocessing.Process(target=self.pvp_round(), name="PvP Round", args=(30,))
+                    pve_round_process.start()
                     mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
                     ran_round: str = self.round
             sleep(0.5)
@@ -231,22 +243,22 @@ class Game:
                 unit_names_on_entire_board.append(unit.name)
             else:
                 unit_names_on_entire_board.append(unit)
-        print(f"    Board: {unit_names_on_entire_board}")
-        print(f"    Board Size: {self.arena.board_size}")
-        print(f"    Board Names: {self.arena.board_names}")
-        print(f"    Board Unknown: {self.arena.board_unknown}")
-        print(f"    Board Slot For Non Comp Units: {self.arena.board_slots_for_non_comp_units}")
+        print(f"        Board: {unit_names_on_entire_board}")
+        print(f"        Board Size: {self.arena.board_size}")
+        print(f"        Board Names: {self.arena.board_names}")
+        print(f"        Board Unknown: {self.arena.board_unknown}")
+        print(f"        Board Slot For Non Comp Units: {self.arena.board_slots_for_non_comp_units}")
         unit_names_on_bench = []
         for unit in self.arena.bench:
             if unit is not None and isinstance(unit, Champion):
                 unit_names_on_bench.append(unit.name)
             elif unit is not None:
                 unit_names_on_bench.append(unit)
-        print(f"    Bench: {unit_names_on_bench}")
-        print(f"    Items: {[item for item in self.arena.items if item is not None]}")
-        print(f"    Augments: {self.arena.augments}")
-        print(f"    Level: {self.arena.level}")
-        print(f"    Final Comp: {self.arena.final_comp}")
-        print(f"    Augment Roll: {self.arena.augment_roll}")
-        print(f"    Spam Roll: {self.arena.spam_roll}")
-        print(f"    Spam Roll To Zero: {self.arena.spam_roll_to_zero}")
+        print(f"        Bench: {unit_names_on_bench}")
+        print(f"        Items: {[item for item in self.arena.items if item is not None]}")
+        print(f"        Augments: {self.arena.augments}")
+        print(f"        Level: {self.arena.level}")
+        print(f"        Final Comp: {self.arena.final_comp}")
+        print(f"        Augment Roll: {self.arena.augment_roll}")
+        print(f"        Spam Roll: {self.arena.spam_roll}")
+        print(f"        Spam Roll To Zero: {self.arena.spam_roll_to_zero}")
