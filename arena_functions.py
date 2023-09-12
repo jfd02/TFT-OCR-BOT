@@ -309,3 +309,22 @@ def identify_one_space_on_the_board(vec2_board_space: Vec2) -> str | None:
         return champ_name
     else:
         return None
+
+
+def move_unit(start_location: tuple, destination: tuple):
+    """A function to make it easy to adjust all instances of moving a unit on the board."""
+    mk_functions.left_click(start_location)
+    sleep(0.1)
+    mk_functions.move_mouse(destination)
+    sleep(0.05)
+    mk_functions.left_click(destination)
+
+
+def move_item(start_location: tuple, destination: tuple):
+    """A function to make it easy to adjust all instances of moving a item on the board."""
+    mk_functions.left_click(start_location)
+    sleep(0.1)
+    mk_functions.move_mouse(destination)
+    sleep(0.05)
+    mk_functions.left_click(destination)
+
