@@ -160,9 +160,9 @@ class Arena:
         if self.level > self.board_size:
             print(f"  Our level {self.level} is greater than our board size {self.board_size}.")
         while self.level > self.board_size:
-            champion: Champion | None = self.get_next_champion_on_bench()
-            if champion is not None:
-                self.move_known(champion)
+            unit: Champion | None = self.get_next_champion_on_bench()
+            if unit is not None:
+                self.move_known(unit)
             elif self.unknown_in_bench():
                 # No more moving unknown units to the board.
                 # self.move_unknown()
@@ -171,33 +171,33 @@ class Arena:
                 print("    I think the point of this code is to always have a unit on the bench?")
                 bought_unknown = False
                 shop: list = arena_functions.get_shop()
-                for champion in shop:
+                for purchaseable_unit in shop:
                     gold: int = arena_functions.get_gold()
                     valid_champ_not_in_champs_to_buy_or_board_unknown: bool = (
-                            champion[1] in game_assets.CHAMPIONS and
-                            game_assets.champion_gold_cost(champion[1]) <= gold and
-                            game_assets.champion_board_size(champion[1]) == 1 and
-                            champion[1] not in self.champs_to_buy and
-                            champion[1] not in self.board_unknown
+                            purchaseable_unit[1] in game_assets.CHAMPIONS and
+                            game_assets.champion_gold_cost(purchaseable_unit[1]) <= gold and
+                            game_assets.champion_board_size(purchaseable_unit[1]) == 1 and
+                            purchaseable_unit[1] not in self.champs_to_buy and
+                            purchaseable_unit[1] not in self.board_unknown
                     )
 
                     if valid_champ_not_in_champs_to_buy_or_board_unknown:
                         empty_bench_slot: int = arena_functions.empty_bench_slot()
-                        mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
+                        mk_functions.left_click(screen_coords.BUY_LOC[purchaseable_unit[0]].get_coords())
                         sleep(0.2)
                         # Set default values if we don't want to use this champ in our comp.
                         items_to_build = []
                         final_comp = False
                         # If we actually plan on using this champ in our comp:
-                        if champion[1] in comps.COMP:
-                            items_to_build = comps.COMP[champion[1]]["items"].copy()
-                            final_comp = comps.COMP[champion[1]]["final_comp"]
+                        if purchaseable_unit[1] in comps.COMP:
+                            items_to_build = comps.COMP[purchaseable_unit[1]]["items"].copy()
+                            final_comp = comps.COMP[purchaseable_unit[1]]["final_comp"]
                         # Create the Champion object.
-                        champion = Champion(name=champion[1],
+                        champion = Champion(name=purchaseable_unit[1],
                                             coords=screen_coords.BENCH_LOC[empty_bench_slot].get_coords(),
                                             build=items_to_build,
                                             slot=empty_bench_slot,
-                                            size=game_assets.CHAMPIONS[champion[1]]["Board Size"],
+                                            size=game_assets.CHAMPIONS[purchaseable_unit[1]]["Board Size"],
                                             final_comp=final_comp)
                         self.bench[empty_bench_slot] = champion
                         self.move_known(champion)
