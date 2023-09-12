@@ -11,6 +11,7 @@ import win32gui
 import arena_functions
 import game_assets
 import game_functions
+import mk_functions
 import screen_coords
 import settings
 from arena import Arena
@@ -93,17 +94,26 @@ class Game:
             if self.round != ran_round:
                 if self.round in game_assets.SECOND_ROUND:
                     self.second_round()
+                    mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
+                    ran_round: str = self.round
+                elif self.round in game_assets.THIRD_ROUND:
+                    self.arena.identify_champions_on_board()
+                    self.arena.identify_champions_on_bench()
+                    mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.CAROUSEL_ROUND:
                     self.carousel_round()
+                    mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.PVE_ROUND:
                     game_functions.default_pos()
                     self.pve_round()
+                    mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.PVP_ROUND:
                     game_functions.default_pos()
                     self.pvp_round()
+                    mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
                     ran_round: str = self.round
             sleep(0.5)
         self.message_queue.put("CLEAR")
@@ -115,7 +125,6 @@ class Game:
         self.arena.identify_champions_on_board()
         self.arena.identify_champions_on_bench()
         self.message_queue.put("CLEAR")
-        self.arena.bench[0] = "?"
         self.arena.move_unknown()
         self.end_round_tasks()
 
