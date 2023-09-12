@@ -773,6 +773,10 @@ class Arena:
         self.board_names.append(unit_name)
         size = game_assets.CHAMPIONS[unit_name]["Board Size"]
         self.board_size += size
+        # Remove the unit that was unknown, and is now no longer unknown, from the unknown list.
+        if unit_name in self.board_unknown:
+            print(f"      Removing the unknown unit {unit_name} from the list of unknown units.")
+            self.board_unknown.remove(unit_name)
         self.board.append(Champion(name=unit_name,
                                    coords=screen_coords.BOARD_LOC[index].get_coords(
                                    ),
