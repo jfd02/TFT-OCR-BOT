@@ -345,9 +345,19 @@ def identify_component_anvil(index: int) -> bool:
     mk_functions.press_s()  # make sure the tactician doesn't move around too much
     anvil_text: str = ocr.get_text(screenxy=anvil_coords_tuple, scale=3, psm=13,
                                    whitelist=ocr.ALPHABET_WHITELIST)
-    return valid_anvil(anvil_text)
+    return valid_anvil(anvil_text) or valid_ornn_anvil(anvil_text) or valid_tome_of_traits(anvil_text)
 
 
 def valid_anvil(anvil_text: str) -> bool:
     """Checks if the anvil text passed in arg one matches 'Component Anvil'."""
     return anvil_text == "Component Anvil" or SequenceMatcher(a=anvil_text, b="Component Anvil").ratio() >= 0.7
+
+
+def valid_ornn_anvil(anvil_text: str) -> bool:
+    """Checks if the anvil text passed in arg one matches 'Component Anvil'."""
+    return anvil_text == "Ornn Item Anvil" or SequenceMatcher(a=anvil_text, b="Ornn Item Anvil").ratio() >= 0.7
+
+
+def valid_tome_of_traits(anvil_text: str) -> bool:
+    """Checks if the anvil text passed in arg one matches 'Component Anvil'."""
+    return anvil_text == "Tome of Traits" or SequenceMatcher(a=anvil_text, b="Tome of Traits").ratio() >= 0.7
