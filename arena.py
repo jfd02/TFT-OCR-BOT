@@ -224,12 +224,12 @@ class Arena:
 
     def replace_units_not_in_our_comp(self) -> None:
         """Replaces a unit on the board with a unit from the bench that is in our comp."""
-        champion: Champion | None = self.get_next_unit_from_our_comp_on_bench()
-        if champion is None:
-            return
         for unit in self.board:
             if isinstance(unit, Champion):
-                if unit.name not in comps.COMP:
+                champion: Champion | None = self.get_next_unit_from_our_comp_on_bench()
+                if champion is None:
+                    return
+                if unit.name not in comps.COMP and champion.name in comps.COMP:
                     print(f"    Replacing {unit.name} with {champion.name} because {unit.name} is not in our comp.")
                     mk_functions.press_e(unit.coords)
                     # Might set the wrong size because an unknown unit could have a size of two.
@@ -809,5 +809,5 @@ class Arena:
                                    final_comp=final_comp))
 
     def set_board_size(self, new_size: int):
-        print(f"  Setting the board size {self.board_size} to {new_size}.")
+        print(f"      Setting the board size {self.board_size} to {new_size}.")
         self.board_size = new_size
