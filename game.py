@@ -97,8 +97,7 @@ class Game:
                     mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.THIRD_ROUND:
-                    self.arena.identify_champions_on_board()
-                    self.arena.identify_champions_on_bench()
+                    self.third_round()
                     mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.CAROUSEL_ROUND:
@@ -120,12 +119,21 @@ class Game:
         game_functions.exit_game()
 
     def second_round(self) -> None:
-        """Move unknown champion to board after first carousel"""
+        """ """
         print(f"\n[Second Round] {self.round}")
+        self.message_queue.put("CLEAR")
         self.arena.identify_champions_on_board()
         self.arena.identify_champions_on_bench()
+        self.arena.move_champions()
+        self.end_round_tasks()
+
+    def third_round(self) -> None:
+        """ """
+        print(f"\n[Third Round] {self.round}")
         self.message_queue.put("CLEAR")
-        self.arena.move_unknown()
+        self.arena.move_champions()
+        self.arena.identify_champions_on_board()
+        self.arena.identify_champions_on_bench()
         self.end_round_tasks()
 
     def carousel_round(self) -> None:
