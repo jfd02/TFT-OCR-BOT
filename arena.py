@@ -53,14 +53,11 @@ class Arena:
             if slot is None and bench_occupied[index]:
                 self.bench[index] = "?"
             if isinstance(slot, str) and not bench_occupied[index]:
-                print(
-                    AnsiColors.RED_REGULAR + f"  [!]fix_bench_state slot isinstance str\n    slot:{slot}" + AnsiColors.RESET)
+                print(f"    There is no unit at bench slot {index}. Setting that self.bench spot to None.")
                 self.bench[index] = None
             if isinstance(slot, Champion) and not bench_occupied[index]:
                 # surely this should never happen?
-                print(AnsiColors.YELLOW_REGULAR + f"  [!!!]fix_bench_state slot isinstance Champion" + AnsiColors.RESET)
-                print(f"         slot:{slot}")
-                print(f"         unit name:{slot.name}")
+                print(f"    Identified a {slot.name} at bench spot {index}. Setting it's spot in self.bench.")
                 self.bench[index] = None
         self.sell_non_comp_units_on_bench()
 
@@ -562,7 +559,7 @@ class Arena:
                 labels.append((f"{slot.name}", slot.coords, 15, 30))
         # Create labels for unknown units on the board.
         labels.extend(
-            (slot, screen_coords.BOARD_LOC[self.board_slots_for_non_comp_units[index]].get_coords(), 15, 30)
+            ("u:" + slot, screen_coords.BOARD_LOC[self.board_slots_for_non_comp_units[index]].get_coords(), 15, 30)
             for index, slot in enumerate(self.board_unknown)
         )
         # Create label for level of the tactician.
@@ -581,7 +578,7 @@ class Arena:
         labels.append((f"{arena_functions.get_seconds_remaining()}",
                        screen_coords.SECONDS_REMAINING_UNTIL_NEXT_STEP_LOC.get_coords(), 10, 20))
         # Create label for the current stage and round we are in.
-        labels.append((f"{game_functions.get_round()}", screen_coords.ROUND_LOC.get_coords(), 10, -10))
+        labels.append((f"{game_functions.get_round()}", screen_coords.ROUND_LOC.get_coords(), 100, -10))
         # Create label for the current xp / total needed xp.
         labels.append((f"{arena_functions.get_current_xp_and_total_needed_xp()}",
                        screen_coords.TACTICIAN_XP_FRACTION_LOC.get_coords(), 20, 5))
