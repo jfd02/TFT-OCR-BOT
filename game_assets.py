@@ -139,6 +139,8 @@ ROUNDS: set[str] = {"1-1", "1-2", "1-3", "1-4",
 
 SECOND_ROUND: set[str] = {"1-2"}
 
+THIRD_ROUND: set[str] = {"1-3"}
+
 CAROUSEL_ROUND: set[str] = {"1-1", "2-4", "3-4", "4-4", "5-4", "6-4", "7-4"}
 
 PVE_ROUND: set[str] = {"1-3", "1-4", "2-7", "3-7", "4-7", "5-7", "6-7", "7-7"}
