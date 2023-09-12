@@ -28,19 +28,19 @@ def get_round() -> str:
 def move_to_items_orbs_on_board():
     """Attempts to move the tactician to any item orbs that are on the board."""
     print("    Trying to move directly to the item orbs:")
-    #labels = []
+    # labels = []
     item_orb_vec2_list = arena_functions.get_center_position_of_item_orbs()
     if len(item_orb_vec2_list) == 0:
         print("      The OCR didn't register any items on the board.")
     for item_orb_vec2 in item_orb_vec2_list:
         print(f"      item_orb_vec2: {item_orb_vec2}")
         print(f"        Coordinates: {item_orb_vec2.get_coords()}")
-        #labels.append((f"?", item_orb_vec2.get_coords(), 0, 0))
+        # labels.append((f"?", item_orb_vec2.get_coords(), 0, 0))
         mk_functions.right_click(item_orb_vec2.get_coords())
         sleep(2)
     # Move the tactician back to their pedestal after looting items.
     mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
-    #self.message_queue.put(("LABEL", labels))
+    # self.message_queue.put(("LABEL", labels))
 
 
 def pickup_items() -> None:  # Refactor this function to make it more clear what's happening
@@ -64,21 +64,22 @@ def get_champ_carousel(tft_round: str) -> None:
         sleep(0.7)
 
 
-def check_alive() -> bool:    # Refactor this function to use API
+def check_alive() -> bool:  # Refactor this function to use API
     """Checks the screen to see if player is still alive"""
     if ocr.get_text(screenxy=screen_coords.EXIT_NOW_POS.get_coords(), scale=3, psm=7) == 'EXIT NOW':
         return False
     return (
-        ocr.get_text(
-            screenxy=screen_coords.VICTORY_POS.get_coords(), scale=3, psm=7
-        )
-        != 'CONTINUE'
+            ocr.get_text(
+                screenxy=screen_coords.VICTORY_POS.get_coords(), scale=3, psm=7
+            )
+            != 'CONTINUE'
     )
 
 
 def exit_game() -> None:
     """Exits the game"""
     mk_functions.left_click(screen_coords.EXIT_NOW_LOC.get_coords())
+    sleep(10)  # sleep for 20 seconds to add time between games, so that the end-game screen can show.
 
 
 def default_pos() -> None:
