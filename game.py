@@ -134,6 +134,7 @@ class Game:
         """ """
         print(f"\n[Second Round] {self.round}")
         self.message_queue.put("CLEAR")
+        sleep(2)
         self.arena.identify_champions_on_board()
         self.arena.identify_champions_on_bench()
         self.arena.move_champions()
@@ -143,9 +144,9 @@ class Game:
         """ """
         print(f"\n[Third Round] {self.round}")
         self.message_queue.put("CLEAR")
-        self.arena.move_champions()
         self.arena.identify_champions_on_board()
         self.arena.identify_champions_on_bench()
+        self.arena.move_champions()
         self.end_round_tasks()
 
     def carousel_round(self) -> None:
@@ -243,6 +244,7 @@ class Game:
                 unit_names_on_entire_board.append(unit.name)
             else:
                 unit_names_on_entire_board.append(unit)
+        print(f"-------------------------------------------")
         print(f"        Board: {unit_names_on_entire_board}")
         print(f"        Board Size: {self.arena.board_size}")
         print(f"        Board Names: {self.arena.board_names}")
@@ -263,3 +265,4 @@ class Game:
         print(f"        Augment Roll: {self.arena.augment_roll}")
         print(f"        Spam Roll: {self.arena.spam_roll}")
         print(f"        Spam Roll To Zero: {self.arena.spam_roll_to_zero}")
+        print(f"-------------------------------------------")
