@@ -665,6 +665,8 @@ class Arena:
         if self.board_size > len(self.board):
             for index, vec2_board_space in enumerate(screen_coords.BOARD_LOC):
                 unit_name = arena_functions.identify_one_space_on_the_board(vec2_board_space)
+                if unit_name is None:
+                    continue
                 if arena_functions.is_valid_champ(unit_name):
                     # Set default values if we don't want to use this champ in our comp.
                     items_to_build = []
