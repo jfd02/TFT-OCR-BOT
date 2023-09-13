@@ -410,7 +410,7 @@ class Arena:
                 arena_functions.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 self.items[self.items.index(item)] = None
-        elif len(champ.current_building) != 0:
+        elif len(champ.completed_items) < 3:
             print("  ADD ITEMS BEFORE DYING:")
             print(f"   {champ.name} is building {len(champ.current_building)} items.")
             arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
