@@ -503,7 +503,7 @@ class Arena:
                 mk_functions.reroll()
                 print("  Re-rolling shop")
             shop: list = arena_functions.get_shop()
-            print(f"  Shop: {shop}")
+            print(f"    Shop: {shop}")
             for champion in shop:
                 if (champion[1] in self.champs_to_buy and
                         arena_functions.get_gold() - game_assets.CHAMPIONS[champion[1]]["Gold"] >= 0
@@ -707,8 +707,9 @@ class Arena:
         valid_champs = []
         for index, vec2_board_space in enumerate(screen_coords.BOARD_LOC):
             # Solved the problem we entered this function for.
-            if len(self.board_unknown) == 0:
-                break
+            # if len(self.board_unknown) == 0:
+            #     print("      The self.board_unknown is at 0."
+            #     break
             unit_name = arena_functions.identify_one_space_on_the_board(vec2_board_space)
             if unit_name is None:
                 continue

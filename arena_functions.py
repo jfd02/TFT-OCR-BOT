@@ -232,7 +232,7 @@ def buy_xp_round() -> None:
 
 
 def print_item_placed_on_champ(item: str, champ: Champion):
-    print(AnsiColors.BLUE_REGULAR + f"    Placed {item} on {champ.name}" + AnsiColors.RESET)
+    print(AnsiColors.BLUE_REGULAR + "    Placed " + f"{item}" + " on " + f"{champ.name}" + AnsiColors.RESET)
 
 
 def get_area_of_item_orbs() -> [Vec4]:
