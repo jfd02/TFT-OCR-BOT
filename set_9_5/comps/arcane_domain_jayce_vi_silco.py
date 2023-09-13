@@ -13,66 +13,126 @@ DIFFICULTY = "Easy"
 
 TRAITS = ["Zaun", "Gunner", "Piltover", "Reaver King"]
 
-RECOMMENDED_LEGEND = "Lee Sin"
+RECOMMENDED_LEGEND = "Urf"
 
 COMP = {
     "Jayce": {
         "board_position": 1,
-        "items": ["LastWhisper", "InfinityEdge", "GuinsoosRageblade"],
+        "items_to_build": ["LastWhisper", "InfinityEdge", "GuinsoosRageblade"],
+        "completed_items_to_accept": ["GiantSlayer", "NashorsTooth", "RunaansHurricane"],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "raidiant_items_to_accept": [],
+        "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
     },
     "Vi": {
         "board_position": 24,
-        "items": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
+        "items_to_build": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
+        "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "raidiant_items_to_accept": [],
+        "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
     },
     "Silco": {
         "board_position": 4,
-        "items": ["BlueBuff", "JeweledGauntlet"],
+        "items_to_build": ["BlueBuff", "JeweledGauntlet"],
+        "completed_items_to_accept": ["SpearofShojin", "GiantSlayer", "Morellonomicon"],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "raidiant_items_to_accept": [],
+        "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
     },
     "Gangplank": {
         "board_position": 0,
-        "items": [],
+        "items_to_build": [],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "raidiant_items_to_accept": [],
+        "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
     },
     "Aphelios": {
         "board_position": 2,
-        "items": [],
+        "items_to_build": [],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "raidiant_items_to_accept": [],
+        "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
     },
     "Ekko": {
         "board_position": 26,
-        "items": [],
+        "items_to_build": [],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "raidiant_items_to_accept": [],
+        "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
     },
     "Jinx": {
         "board_position": 6,
-        "items": [],
+        "items_to_build": [],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "raidiant_items_to_accept": [],
+        "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
     },
     "Warwick": {
         "board_position": 22,
-        "items": [],
+        "items_to_build": [],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": ["GunnerEmblem"],
+        "ornn_items_to_accept": [],
+        "raidiant_items_to_accept": [],
+        "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
     },
     "Graves": {
         "board_position": 7,
-        "items": ["InfinityEdge", "LastWhisper"],
+        "items_to_build": ["InfinityEdge", "LastWhisper"],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "raidiant_items_to_accept": [],
+        "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False
     },
     "Orianna": {
         "board_position": 3,
-        "items": ["BlueBuff"],
+        "items_to_build": ["BlueBuff"],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "raidiant_items_to_accept": [],
+        "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False
     }

@@ -68,7 +68,7 @@ class Arena:
         self.bench[slot] = Champion(name=name,
                                     coords=screen_coords.BENCH_LOC[slot].get_coords(
                                     ),
-                                    build=comps.COMP[name]["items"].copy(),
+                                    build=comps.COMP[name]["items_to_build"].copy(),
                                     slot=slot,
                                     size=game_assets.CHAMPIONS[name]["Board Size"],
                                     final_comp=comps.COMP[name]["final_comp"])
@@ -192,7 +192,7 @@ class Arena:
                         final_comp = False
                         # If we actually plan on using this champ in our comp:
                         if purchaseable_unit[1] in comps.COMP:
-                            items_to_build = comps.COMP[purchaseable_unit[1]]["items"].copy()
+                            items_to_build = comps.COMP[purchaseable_unit[1]]["items_to_build"].copy()
                             final_comp = comps.COMP[purchaseable_unit[1]]["final_comp"]
                         # Create the Champion object.
                         champion = Champion(name=purchaseable_unit[1],
@@ -777,7 +777,7 @@ class Arena:
                     final_comp = False
                     # If we actually plan on using this champ in our comp:
                     if champ_name in comps.COMP:
-                        items_to_build = comps.COMP[champ_name]["items"].copy()
+                        items_to_build = comps.COMP[champ_name]["items_to_build"].copy()
                         final_comp = comps.COMP[champ_name]["final_comp"]
                     # Create the Champion object.
                     self.bench[index] = Champion(name=champ_name,
@@ -813,7 +813,7 @@ class Arena:
         final_comp = False
         # If we actually plan on using this champ in our comp:
         if unit_name in comps.COMP:
-            items_to_build = comps.COMP[unit_name]["items"].copy()
+            items_to_build = comps.COMP[unit_name]["items_to_build"].copy()
             final_comp = comps.COMP[unit_name]["final_comp"]
         # Create the Champion object.
         print(f"      Created the Champion object for the {unit_name}.")
