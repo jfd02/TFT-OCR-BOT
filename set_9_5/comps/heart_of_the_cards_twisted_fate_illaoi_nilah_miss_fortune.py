@@ -1,93 +1,72 @@
 """
+Heart of the Cards - A Tier
+Comp from https://app.mobalytics.gg/tft/comps-guide/heart-of-the-cards-2UiFaH0he2Q79A36gooRYd56OYY
+Strategy: Slow Roll: This comp rolls gold above 50 to look for 3-star champions.
+Difficulty: Easy
+Legend: Lee Sin
 Items are in camel case and a-Z
-Comp from https://app.mobalytics.gg/tft/comps-guide/spear-and-shield-2RvLjaeufrqyrIRRsJFTqDm5riI
-Strategy: Default: This comp uses the standard leveling strategy that revolves around a 4-cost carry.
-Difficulty: Medium
 """
 
+STRATEGY = "Slow Roll"
+
+DIFFICULTY = "Easy"
+
+TRAITS = ["Bilgewater", "Bastion", "Multicaster"]
+
+RECOMMENDED_LEGEND = "Lee Sin"
+
 COMP = {
-    "Azir": {
-        "board_position": 6,
-        "items": ["GuinsoosRageblade", "HextechGunblade", "StatikkShiv", "RapidFirecannon", "Guardbreaker",
-                  "GiantSlayer"],
+    "Twisted Fate": {
+        "board_position": 1,
+        "items": ["BlueBuff", "HextechGunblade", "JeweledGauntlet"],
         "level": 3,
         "final_comp": True
     },
-    "Nasus": {
-        "board_position": 24,
-        "items": ["Redemption", "DragonsClaw", "BrambleVest", "GargoyleStoneplate", "WarmogsArmor"],
+    "Illaoi": {
+        "board_position": 23,
+        "items": ["DragonsClaw", "Redemption", "WarmogsArmor"],
         "level": 3,
         "final_comp": True
     },
-    "Jarvan IV": {
-        "board_position": 26,
-        "items": ["ProtectorsVow"],
+    "Nilah": {
+        "board_position": 16,
+        "items": ["TitansResolve", "Bloodthirster"],
         "level": 2,
         "final_comp": True
     },
-    "KSante": {
-        "board_position": 9,
+    "Miss Fortune": {
+        "board_position": 3,
+        "items": ["Guardbreaker", "SpearofShojin"],
+        "level": 3,
+        "final_comp": True
+    },
+    "Nautilus": {
+        "board_position": 24,
+        "items": [],
+        "level": 2,
+        "final_comp": True
+    },
+    "Poppy": {
+        "board_position": 25,
+        "items": [],
+        "level": 3,
+        "final_comp": True
+    },
+    "Sona": {
+        "board_position": 0,
         "items": [],
         "level": 2,
         "final_comp": True
     },
     "Taliyah": {
-        "board_position": 9,
+        "board_position": 2,
         "items": [],
         "level": 2,
-        "final_comp": True
-    },
-    "Teemo": {
-        "board_position": 3,
-        "items": [],
-        "level": 2,
-        "final_comp": True
+        "final_comp": False
     },
     "Swain": {
         "board_position": 22,
-        "items": [],
-        "level": 2,
-        "final_comp": True
-    },
-    "Garen": {
-        "board_position": 23,
-        "items": [],
-        "level": 2,
-        "final_comp": True
-    },
-    "Lux": {
-        "board_position": 0,
-        "items": ["BlueBuff", "JeweledGauntlet"],
-        "level": 2,
-        "final_comp": True
-    },
-    "Renekton": {
-        "board_position": 16,
-        "items": ["BrambleVest", "DragonsClaw"],
-        "level": 2,
-        "final_comp": False
-    },
-    "Vi": {
-        "board_position": 14,
-        "items": ["BrambleVest", "DragonsClaw"],
-        "level": 2,
-        "final_comp": False
-    },
-    "Cassiopeia": {
-        "board_position": 7,
-        "items": ["GuinsoosRageblade", "HextechGunblade", "JeweledGauntlet"],
-        "level": 2,
-        "final_comp": False
-    },
-    "Sona": {
-        "board_position": 8,
-        "items": [],
-        "level": 2,
-        "final_comp": False
-    },
-    "Orianna": {
-        "board_position": 2,
-        "items": ["StatikkShiv", "BlueBuff"],
+        "items": ["Redemption", "WarmogsArmor"],
         "level": 2,
         "final_comp": False
     }
@@ -96,10 +75,11 @@ COMP = {
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
 # (Anything that changes gameplay or adds something to the bench).
 AUGMENTS: list[str] = [
+    "AFK",
     "Battle Ready I",
     "Money!",
+    "On a Roll",
     "Pandora's Items I",
-    "Partial Ascension",
     "Tiny Power I",
     "Unified Resistance I",
 
@@ -107,21 +87,19 @@ AUGMENTS: list[str] = [
     "Balanced Budget II",
     "Battle Ready II",
     "Last Stand",
-    "Magic Wand"
     "Money Money!",
     "Pandora's Items II",
     "Patient Study",
+    "Perfected Repetition",
     "Pumping Up II",
-    "Shurima Crest",
-    "Shurima's Legacy",
-    "Strategist Heart",
-    "Tactical Superiority",
     "Tiny Power II",
     "Unified Resistance II",
     "You Have My Bow",
 
     "Battle Ready III",
     "Final Ascension",
+    "Golden Ticket",
+    "Impenetrable Bulwark",
     "Lucky Gloves",
     "Money Money Money!",
     "Pandora's Items III",

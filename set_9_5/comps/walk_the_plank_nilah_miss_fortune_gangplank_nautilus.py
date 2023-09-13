@@ -1,93 +1,72 @@
 """
-Items are in camel case and a-Z
-Comp from https://app.mobalytics.gg/tft/comps-guide/spear-and-shield-2RvLjaeufrqyrIRRsJFTqDm5riI
+Walk the Plank - S Tier
+Comp from https://app.mobalytics.gg/tft/comps-guide/walk-the-plank-2UcDQkBTlGA2Y6MTIQOQXhAsWil
 Strategy: Default: This comp uses the standard leveling strategy that revolves around a 4-cost carry.
 Difficulty: Medium
+Legend: Poro
+Items are in camel case and a-Z
 """
 
+STRATEGY = "Default"
+
+DIFFICULTY = "Medium"
+
+TRAITS = ["Bilgewater", "Reaver King", "Juggernaut", "Vanquisher", "Gunner"]
+
+RECOMMENDED_LEGEND = "Poro"
+
 COMP = {
-    "Azir": {
-        "board_position": 6,
-        "items": ["GuinsoosRageblade", "HextechGunblade", "StatikkShiv", "RapidFirecannon", "Guardbreaker",
-                  "GiantSlayer"],
+    "Nilah": {
+        "board_position": 15,
+        "items": ["TitansResolve", "Bloodthirster", "RapidFirecannon"],
         "level": 3,
         "final_comp": True
     },
-    "Nasus": {
-        "board_position": 24,
-        "items": ["Redemption", "DragonsClaw", "BrambleVest", "GargoyleStoneplate", "WarmogsArmor"],
-        "level": 3,
-        "final_comp": True
-    },
-    "Jarvan IV": {
-        "board_position": 26,
-        "items": ["ProtectorsVow"],
-        "level": 2,
-        "final_comp": True
-    },
-    "KSante": {
-        "board_position": 9,
-        "items": [],
-        "level": 2,
-        "final_comp": True
-    },
-    "Taliyah": {
-        "board_position": 9,
-        "items": [],
-        "level": 2,
-        "final_comp": True
-    },
-    "Teemo": {
+    "Miss Fortune": {
         "board_position": 3,
-        "items": [],
+        "items": ["JeweledGauntlet", "BlueBuff", "HextechGunblade"],
+        "level": 3,
+        "final_comp": True
+    },
+    "Gangplank": {
+        "board_position": 6,
+        "items": ["SpearofShojin"],
         "level": 2,
         "final_comp": True
     },
-    "Swain": {
-        "board_position": 22,
-        "items": [],
-        "level": 2,
+    "Nautilus": {
+        "board_position": 24,
+        "items": ["Redemption", "DragonsClaw", "BrambleVest"],
+        "level": 3,
         "final_comp": True
     },
-    "Garen": {
+    "Darius": {
         "board_position": 23,
         "items": [],
         "level": 2,
         "final_comp": True
     },
-    "Lux": {
+    "Twisted Fate": {
         "board_position": 0,
-        "items": ["BlueBuff", "JeweledGauntlet"],
-        "level": 2,
+        "items": [],
+        "level": 3,
         "final_comp": True
     },
-    "Renekton": {
-        "board_position": 16,
-        "items": ["BrambleVest", "DragonsClaw"],
-        "level": 2,
-        "final_comp": False
-    },
-    "Vi": {
-        "board_position": 14,
-        "items": ["BrambleVest", "DragonsClaw"],
-        "level": 2,
-        "final_comp": False
-    },
-    "Cassiopeia": {
-        "board_position": 7,
-        "items": ["GuinsoosRageblade", "HextechGunblade", "JeweledGauntlet"],
-        "level": 2,
-        "final_comp": False
-    },
-    "Sona": {
-        "board_position": 8,
+    "Graves": {
+        "board_position": 25,
         "items": [],
-        "level": 2,
-        "final_comp": False
+        "level": 3,
+        "final_comp": True
     },
-    "Orianna": {
-        "board_position": 2,
-        "items": ["StatikkShiv", "BlueBuff"],
+    "Illaoi": {
+        "board_position": 22,
+        "items": [],
+        "level": 3,
+        "final_comp": True
+    },
+    "Kassadin": {
+        "board_position": 22,
+        "items": ["Bloodthirster", "TitansResolve"],
         "level": 2,
         "final_comp": False
     }
@@ -97,34 +76,37 @@ COMP = {
 # (Anything that changes gameplay or adds something to the bench).
 AUGMENTS: list[str] = [
     "Battle Ready I",
+    "Harmacist I",
+    "Healing Orbs I"
     "Money!",
     "Pandora's Items I",
-    "Partial Ascension",
     "Tiny Power I",
     "Unified Resistance I",
 
     "Ascension",
     "Balanced Budget II",
     "Battle Ready II",
+    "Bilgewater Crest",
+    "Dedication",
     "Last Stand",
     "Magic Wand"
     "Money Money!",
     "Pandora's Items II",
     "Patient Study",
     "Pumping Up II",
-    "Shurima Crest",
-    "Shurima's Legacy",
-    "Strategist Heart",
-    "Tactical Superiority",
+    "Rising Infamy",
     "Tiny Power II",
     "Unified Resistance II",
     "You Have My Bow",
 
     "Battle Ready III",
+    "Bilgewater Crown",
     "Final Ascension",
+    "Impenetrable Bulwark",
     "Lucky Gloves",
     "Money Money Money!",
     "Pandora's Items III",
+    "Stationary Support III",
     "Strategist Soul",
     "Tiny Power III",
     "Unified Resistance III",
