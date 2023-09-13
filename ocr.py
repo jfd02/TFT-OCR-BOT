@@ -6,7 +6,7 @@ from typing import Any
 import cv2
 import numpy as np
 from PIL import ImageGrab
-from tesserocr import PyTessBaseAPI # pylint: disable=import-error
+from tesserocr import PyTessBaseAPI
 import settings
 
 TESSDATA_PATH = settings.TESSERACT_TESSDATA_PATH
