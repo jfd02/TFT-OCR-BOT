@@ -159,6 +159,7 @@ class Arena:
         self.level: int = arena_functions.get_level_via_https_request()
         if self.level > self.board_size:
             print(f"  Our level {self.level} is greater than our board size {self.board_size}.")
+        # can currently run into an infinite while loop on augment stages
         while self.level > self.board_size:
             unit: Champion | None = self.get_next_champion_on_bench()
             if unit is not None:
@@ -490,14 +491,13 @@ class Arena:
            It will buy xp if not level 9, and mark a spot on the bench for the purchased units.
            """
         first_run = True
-        min_gold = 50
         min_buy_xp_gold = 54
         min_buy_unit_gold = 56
         if self.spam_roll:
             min_buy_unit_gold = 27
         if self.spam_roll_to_zero:
             min_buy_unit_gold = 7
-        while first_run or arena_functions.get_gold() >= min_gold:
+        while first_run or arena_functions.get_gold() >= min_buy_xp_gold:
             if not first_run:
                 if arena_functions.get_level_via_https_request() != 9 and arena_functions.get_gold() >= min_buy_xp_gold:
                     mk_functions.buy_xp()

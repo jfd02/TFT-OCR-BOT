@@ -92,6 +92,7 @@ def check_alive() -> bool:  # Refactor this function to use API
 def exit_game() -> None:
     """Exits the game"""
     mk_functions.left_click(screen_coords.EXIT_NOW_LOC.get_coords())
+    print("  Sleeping so that we can take a look at the end game screen.")
     sleep(25)  # sleep for 25 seconds to add time between games, so that the end-game screen can show.
 
 
