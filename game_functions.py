@@ -1,7 +1,7 @@
 """
 Functions used by the Game class to retrieve relevant data
 """
-
+from difflib import SequenceMatcher
 from time import sleep
 from PIL import ImageGrab
 
@@ -46,6 +46,10 @@ def move_to_items_orbs_on_board():
 def pickup_items() -> None:  # Refactor this function to make it more clear what's happening
     """Picks up items from the board after PVP round"""
     for index, coords in enumerate(screen_coords.ITEM_PICKUP_LOC):
+        if do_we_have_too_many_items_popup():
+            mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
+            sleep(2)
+            return
         mk_functions.right_click(coords.get_coords())
         if index == 7:  # Don't need to sleep on final click
             return
@@ -55,6 +59,14 @@ def pickup_items() -> None:  # Refactor this function to make it more clear what
             sleep(2)
         else:
             sleep(1.2)
+
+
+def do_we_have_too_many_items_popup() -> bool:
+    too_much_loot_popup = ocr.get_text(screenxy=screen_coords.TOO_MUCH_LOOT.get_coords(), scale=3, psm=7)
+    text_to_match = "Loot contains more"
+    if too_much_loot_popup == text_to_match or SequenceMatcher(a=text_to_match, b=too_much_loot_popup).ratio() >= 0.7:
+        return True
+    return False
 
 
 def get_champ_carousel(tft_round: str) -> None:

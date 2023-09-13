@@ -257,7 +257,12 @@ MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC: Vec2 = Vec2(1108, 279)
 BOARD_OF_ARENA_POS: Vec4 = Vec4(GameWindow(586, 222, 1350, 714))
 
 # Where the tactician stand when they are returned to their map.
-TACTICIAN_PEDESTAL_LOC: Vec2 = Vec2(440, 580)
+TACTICIAN_PEDESTAL_LOC: Vec2 = Vec2(440, 570)
 
 # The area that covers the "Component Anvil" text when you hover right-click an anvil.
 COMPONENT_ANVIL_TEXT_POS: Vec4 = Vec4(GameWindow(78, 11, 236, 35), use_screen_offset=False)
+
+# The text that appears over the bench when the tactician tries to pick up items,
+# but the player already has the maximum of 10 items.
+# "Loot contains more items than your bench can allow."
+TOO_MUCH_LOOT: Vec4 = Vec4(GameWindow(616, 764, 816, 786))
