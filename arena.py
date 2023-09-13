@@ -352,7 +352,7 @@ class Arena:
 
     def add_thiefs_gloves_to_champ(self, champ: Champion) -> bool:
         """Makes Thiefs Gloves if possible and gives them to a champ with no items."""
-        print("  Attempting to add Thiefs Gloves to a random itemless champ.")
+        print("    Attempting to add Thiefs Gloves to a random itemless champ.")
         gloves_index_1 = -1
         gloves_index_2 = -1
         for index, _ in enumerate(self.items):
@@ -661,7 +661,8 @@ class Arena:
 
     def get_random_final_comp_champ_on_board_with_no_build(self) -> Champion | None:
         for champ in self.board:
-            if champ.build is None:
+            if len(champ.build) == 0:
+                print(f"    We have Lucky Gloves! {champ.name} is a unit that we haven't specified items for.")
                 return champ
         return None
 
