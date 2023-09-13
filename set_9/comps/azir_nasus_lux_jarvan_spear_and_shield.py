@@ -103,6 +103,7 @@ AUGMENTS: list[str] = [
     "Gotta Go Fast!!! I",
     "Healing Orbs I",
     "Money!",
+    "Pandora's Items I",
     "Partial Ascension",
     "Pumping Up I",
     "Red Buff",
@@ -134,6 +135,7 @@ AUGMENTS: list[str] = [
     "Magic Wand"
     "Martyr",
     "Money Money!",
+    "Pandora's Items II",
     "Patient Study",
     "Pumping Up II",
     "Salvage Bin",
@@ -180,6 +182,7 @@ AUGMENTS: list[str] = [
     "Masterful Job",
     "Money Money Money!",
     "Multicaster Soul",
+    "Pandora's Items III",
     "Parting Gifts",
     "Phreaky Friday",
     "Phreaky Friday+",
