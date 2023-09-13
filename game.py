@@ -223,7 +223,7 @@ class Game:
         self.arena.identify_champions_on_board()
         self.arena.identify_champions_on_bench()
 
-        if self.round in ("2-1", "2-5") or arena_functions.get_gold() > 60:
+        if self.round in ("2-1", "2-5"):
             arena_functions.buy_xp_round()
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items:")

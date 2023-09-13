@@ -337,7 +337,7 @@ class Arena:
                     print(f"        Attempting to complete item {build_item} for {champ.name}")
                     item_to_move: None = item
                     build_item_components.remove(item_to_move)
-                    print(f"        Adding item {build_item_components[0]} to {champ.name} as a component item it needs.")
+                    print(f"        Adding item {build_item_components[0]} to the list of component items {champ.name} needs next.")
                     champ.current_building.append(
                         (build_item, build_item_components[0]))
                     champ.build.remove(build_item)
@@ -490,18 +490,21 @@ class Arena:
            It will buy xp if not level 9, and mark a spot on the bench for the purchased units.
            """
         first_run = True
-        min_gold = 54
+        min_gold = 50
+        min_buy_xp_gold = 54
+        min_buy_unit_gold = 56
         if self.spam_roll:
-            min_gold = 25
+            min_buy_unit_gold = 27
         if self.spam_roll_to_zero:
-            min_gold = 6
+            min_buy_unit_gold = 7
         while first_run or arena_functions.get_gold() >= min_gold:
             if not first_run:
-                if arena_functions.get_level_via_https_request() != 9:
+                if arena_functions.get_level_via_https_request() != 9 and arena_functions.get_gold() >= min_buy_xp_gold:
                     mk_functions.buy_xp()
                     print("  Purchasing XP")
-                mk_functions.reroll()
-                print("  Re-rolling shop")
+                if arena_functions.get_gold() >= min_buy_unit_gold:
+                    mk_functions.reroll()
+                    print("  Re-rolling shop")
             shop: list = arena_functions.get_shop()
             print(f"    Shop: {shop}")
             for champion in shop:
@@ -810,7 +813,7 @@ class Arena:
         self.board_names.append(unit_name)
         size = game_assets.CHAMPIONS[unit_name]["Board Size"]
         # Why do we do this?
-        self.set_board_size(self.board_size - size)
+        self.set_board_size(self.board_size + size)
         # Remove the unit that was unknown, and is now no longer unknown, from the unknown list.
         if unit_name in self.board_unknown:
             print(f"      Removing the unknown unit {unit_name} from the list of unknown units.")
