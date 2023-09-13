@@ -73,7 +73,8 @@ class Arena:
                                     size=game_assets.CHAMPIONS[name]["Board Size"],
                                     final_comp=comps.COMP[name]["final_comp"])
         mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
-        sleep(0.5)
+        # Why was this set to sleep for 0.5 seconds?
+        sleep(0.3)
         self.fix_bench_state()
 
     def get_next_champion_on_bench(self) -> Champion | None:
