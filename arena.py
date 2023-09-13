@@ -495,8 +495,10 @@ class Arena:
         min_buy_xp_gold = 54
         min_buy_unit_gold = 56
         if self.spam_roll:
+            min_buy_xp_gold = 25
             min_buy_unit_gold = 27
         if self.spam_roll_to_zero:
+            min_buy_xp_gold = 5
             min_buy_unit_gold = 7
         while first_run or arena_functions.get_gold() >= min_buy_xp_gold or arena_functions.get_gold() >= min_buy_unit_gold:
             if not first_run:
