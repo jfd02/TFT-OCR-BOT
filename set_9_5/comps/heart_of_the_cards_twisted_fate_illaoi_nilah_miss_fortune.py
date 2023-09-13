@@ -1,6 +1,7 @@
 """
-Heart of the Cards - A Tier
-Comp from https://app.mobalytics.gg/tft/comps-guide/heart-of-the-cards-2UiFaH0he2Q79A36gooRYd56OYY
+Title: Heart of the Cards - A Tier
+Set: 9.5
+Comp: https://app.mobalytics.gg/tft/comps-guide/heart-of-the-cards-2UiFaH0he2Q79A36gooRYd56OYY
 Strategy: Slow Roll: This comp rolls gold above 50 to look for 3-star champions.
 Difficulty: Easy
 Legend: Lee Sin
@@ -23,7 +24,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
@@ -35,7 +36,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
@@ -47,7 +48,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -59,7 +60,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
@@ -71,7 +72,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -83,7 +84,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
@@ -95,7 +96,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -107,7 +108,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False
@@ -119,7 +120,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False

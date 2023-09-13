@@ -1,6 +1,7 @@
 """
-Arcane Domain - S Tier
-Comp from https://app.mobalytics.gg/tft/comps-guide/piltovers-pride-2VG56xmI0csHVkF4qX6Uo0443fa
+Title: Arcane Domain - S Tier
+Set: 9.5
+Comp: https://app.mobalytics.gg/tft/comps-guide/piltovers-pride-2VG56xmI0csHVkF4qX6Uo0443fa
 Strategy: Slow Roll: This comp rolls gold above 50 to look for 3-star champions.
 Difficulty: Medium
 Legend: Urf
@@ -23,7 +24,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
@@ -33,9 +34,9 @@ COMP = {
         "items_to_build": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
         "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
         "support_items_to_accept": [],
-        "trait_items_to_accept": [],
+        "trait_items_to_accept": ["JuggernautEmblem"],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
@@ -47,7 +48,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
@@ -59,7 +60,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -69,9 +70,9 @@ COMP = {
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": [],
+        "trait_items_to_accept": ["BilgewaterEmblem", "PiltoverEmblem"],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -81,9 +82,9 @@ COMP = {
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": [],
+        "trait_items_to_accept": ["JuggernautEmblem", "BilgewaterEmblem", "BruiserEmblem"],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -93,9 +94,9 @@ COMP = {
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": [],
+        "trait_items_to_accept": ["PiltoverEmblem"],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -105,9 +106,9 @@ COMP = {
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": ["GunnerEmblem"],
+        "trait_items_to_accept": ["GunnerEmblem", "RogueEmblem", "BilgewaterEmblem", "PiltoverEmblem", "BruiserEmblem"],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -119,7 +120,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False
@@ -131,7 +132,7 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "raidiant_items_to_accept": [],
+        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False
