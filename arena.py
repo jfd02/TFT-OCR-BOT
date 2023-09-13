@@ -711,7 +711,10 @@ class Arena:
             #     print("      The self.board_unknown is at 0."
             #     break
             unit_name = arena_functions.identify_one_space_on_the_board(vec2_board_space)
-            if unit_name is None:
+            # If the unit doesn't exist, continue.
+            # Or if the unit is a unit we know about,
+            # just continue along so that we don't create duplicate units in self.board.
+            if unit_name is None or unit_name in self.board_names:
                 continue
             if arena_functions.is_valid_champ(unit_name):
                 print(f"        Found a valid {unit_name} unit from an unknown unit!")
@@ -806,6 +809,7 @@ class Arena:
         print(f"      Created the Champion object for the {unit_name}.")
         self.board_names.append(unit_name)
         size = game_assets.CHAMPIONS[unit_name]["Board Size"]
+        # Why do we do this?
         self.set_board_size(self.board_size - size)
         # Remove the unit that was unknown, and is now no longer unknown, from the unknown list.
         if unit_name in self.board_unknown:
@@ -819,6 +823,14 @@ class Arena:
                                    size=size,
                                    final_comp=final_comp))
 
-    def set_board_size(self, new_size: int):
-        print(f"      Setting the board size {self.board_size} to {new_size}.")
-        self.board_size = new_size
+    def set_board_size(self, new_size: int) -> bool:
+        """Sets how many units we have on the board.
+           If the value we are trying to set is below zero, this function fails.
+           Returns True if the board size was successfully set."""
+        if (new_size >= 0):
+            print(f"      Setting the board size {self.board_size} to {new_size}.")
+            self.board_size = new_size
+            return True
+        else:
+            print("      The board size cannot be less than 0!")
+            return False
