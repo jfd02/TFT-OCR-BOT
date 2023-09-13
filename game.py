@@ -95,35 +95,35 @@ class Game:
                 if self.round in game_assets.SECOND_ROUND:
                     second_round_process = multiprocessing.Process(target=self.second_round(), name="Second Round", args=(30,))
                     second_round_process.start()
-                    mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
+                    mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.THIRD_ROUND:
                     third_round_process = multiprocessing.Process(target=self.third_round(), name="Third Round", args=(30,))
                     third_round_process.start()
-                    mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
+                    mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.CAROUSEL_ROUND:
                     carousel_round_process = multiprocessing.Process(target=self.carousel_round(), name="Carousel Round", args=(25,))
                     carousel_round_process.start()
-                    mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
+                    mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.AUGMENT_ROUNDS:
                     game_functions.default_pos()
                     pve_round_process = multiprocessing.Process(target=self.pvp_round(), name="PvP Round", args=(50,))
                     pve_round_process.start()
-                    mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
+                    mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.PVE_ROUND:
                     game_functions.default_pos()
                     pve_round_process = multiprocessing.Process(target=self.pve_round(), name="PvE Round", args=(15,))
                     pve_round_process.start()
-                    mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
+                    mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.PVP_ROUND:
                     game_functions.default_pos()
                     pve_round_process = multiprocessing.Process(target=self.pvp_round(), name="PvP Round", args=(30,))
                     pve_round_process.start()
-                    mk_functions.right_click(screen_coords.TACTICIAN_PEDESTAL_LOC.get_coords())
+                    mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT.get_coords())
                     ran_round: str = self.round
             sleep(0.5)
         self.message_queue.put("CLEAR")

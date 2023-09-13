@@ -53,7 +53,7 @@ MOGUL_ITEMS: set[str] = {"DeterminedInvestor", "DiamondHands", "DravensAxe", "Ga
 ZAUN_ITEMS: set[str] = {"AdaptiveImplant", "HextechExoskeleton", "RoboticArm", "ShimmerInjector", "UnstableChemtank"
                                                                                                   "VirulentBioware"}
 
-MISC_ITEMS: set[str] = {"CrownofDemacia", "Masterworkupgrade", "ScrollofKnowledge", "TheDarkinBlade"}
+MISC_ITEMS: set[str] = {"CrownofDemacia", "Masterworkupgrade", "ScrollofKnowledge", "TheDarkinBlade", "Reforger"}
 
 ITEMS: set[str] = COMPONENT_AND_CRAFTABLE_ITEMS.union(ELUSIVE_ITEMS)\
                                                .union(SUPPORT_ITEMS)\
