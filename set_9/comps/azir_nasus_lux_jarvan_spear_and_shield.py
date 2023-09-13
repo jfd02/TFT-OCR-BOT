@@ -86,7 +86,7 @@ COMP = {
         "final_comp": False
     },
     "Orianna": {
-        "board_position": 12,
+        "board_position": 2,
         "items": ["StatikkShiv", "BlueBuff"],
         "level": 2,
         "final_comp": False
