@@ -6,7 +6,7 @@ other variables used by the bot to make decisions
 from time import sleep
 import random
 
-import game_assets
+from set_9_5 import game_assets
 import mk_functions
 import screen_coords
 from ansi_colors import AnsiColors
@@ -290,7 +290,7 @@ class Arena:
                         if self.check_if_we_should_spam_items_before_dying(index):
                             if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                                 will_try_to_place_item = False
-                    if item in game_assets.FULL_ITEMS:
+                    if item in game_assets.CRAFTABLE_ITEMS_DICT:
                         print(f"    Found a Completed Item: {item}")
                         self.add_item_to_champs(index)
                         if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
@@ -323,7 +323,7 @@ class Arena:
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
         item = self.items[item_index]
-        if item in game_assets.FULL_ITEMS:
+        if item in game_assets.CRAFTABLE_ITEMS_DICT:
             if item in champ.build:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a completed item it builds.")
                 arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
@@ -335,7 +335,7 @@ class Arena:
             item_to_move: None = None
             for build_item in champ.build:
                 build_item_components: list = list(
-                    game_assets.FULL_ITEMS[build_item])
+                    game_assets.CRAFTABLE_ITEMS_DICT[build_item])
                 if item in build_item_components:
                     print(f"        Attempting to complete item {build_item} for {champ.name}")
                     item_to_move: None = item
@@ -501,7 +501,8 @@ class Arena:
         if self.spam_roll_to_zero:
             min_buy_xp_gold = 5
             min_buy_unit_gold = 7
-        while first_run or arena_functions.get_gold() >= min_buy_xp_gold or arena_functions.get_gold() >= min_buy_unit_gold:
+        while first_run or arena_functions.get_gold() >= min_buy_xp_gold \
+                        or arena_functions.get_gold() >= min_buy_unit_gold:
             if not first_run:
                 if arena_functions.get_level_via_https_request() != 9 and arena_functions.get_gold() >= min_buy_xp_gold:
                     mk_functions.buy_xp()
@@ -834,7 +835,7 @@ class Arena:
         """Sets how many units we have on the board.
            If the value we are trying to set is below zero, this function fails.
            Returns True if the board size was successfully set."""
-        if (new_size >= 0):
+        if new_size >= 0:
             print(f"      Setting the board size {self.board_size} to {new_size}.")
             self.board_size = new_size
             return True

@@ -11,7 +11,7 @@ import numpy as np
 import requests
 import screen_coords
 import ocr
-import game_assets
+from set_9_5 import game_assets
 import mk_functions
 from ansi_colors import AnsiColors
 from champion import Champion

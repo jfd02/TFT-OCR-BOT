@@ -9,7 +9,7 @@ from time import sleep, perf_counter
 import win32gui
 
 import arena_functions
-import game_assets
+from set_9_5 import game_assets
 import game_functions
 import mk_functions
 import screen_coords

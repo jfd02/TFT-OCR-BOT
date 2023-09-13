@@ -8,7 +8,7 @@ from PIL import ImageGrab
 import arena_functions
 import screen_coords
 import ocr
-import game_assets
+from set_9_5 import game_assets
 import mk_functions
 
 
