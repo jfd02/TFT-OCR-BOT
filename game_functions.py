@@ -51,7 +51,8 @@ def pickup_items() -> None:  # Refactor this function to make it more clear what
             sleep(2)
             return
         mk_functions.right_click(coords.get_coords())
-        if index == 7:  # Don't need to sleep on final click
+        if index == 7:
+            sleep(1) #  give more time for the bot to reach the top-left of the screen
             return
         if index == 0:
             sleep(1.2)

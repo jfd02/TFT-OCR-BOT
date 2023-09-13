@@ -191,7 +191,7 @@ ITEM_PLACEMENT_ROUNDS: set[str] = {"2-1", "3-1", "4-1", "5-1", "6-1", "7-1",
                                    "2-3", "3-3", "4-3", "5-3", "6-3", "7-3",
                                    "2-5", "3-5", "4-5", "5-5", "6-5", "7-5"}
 
-FINAL_COMP_ROUND = "4-5"
+FINAL_COMP_ROUND = "4-1"
 
 CRAFTABLE_ITEMS_DICT = {"ChallengerEmblem": ("Spatula", "RecurveBow"),
                         "DemaciaEmblem": ("Spatula", "NegatronCloak"),
