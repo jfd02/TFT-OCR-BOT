@@ -334,8 +334,10 @@ class Arena:
         elif len(champ.current_building) == 0:
             item_to_move: None = None
             for build_item in champ.build:
-                build_item_components: list = list(
-                    game_assets.CRAFTABLE_ITEMS_DICT[build_item])
+                build_item_components = []
+                if build_item in game_assets.CRAFTABLE_ITEMS_DICT:
+                    build_item_components: list = list(
+                        game_assets.CRAFTABLE_ITEMS_DICT[build_item])
                 if item in build_item_components:
                     print(f"        Attempting to complete item {build_item} for {champ.name}")
                     item_to_move: None = item
