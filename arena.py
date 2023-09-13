@@ -383,7 +383,13 @@ class Arena:
         """
         # print("  Found a champ to add an item to before dying.")
         item = self.items[item_index]
-        if item in game_assets.ORNN_ITEMS:
+        if item in game_assets.ORNN_ITEMS or game_assets.RADIANT_ITEMS:
+            if champ.does_need_items():
+                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
+                arena_functions.print_item_placed_on_champ(item, champ)
+                champ.completed_items.append(item)
+                self.items[self.items.index(item)] = None
+        elif item in game_assets.ELUSIVE_ITEMS:
             if champ.does_need_items():
                 arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
                 arena_functions.print_item_placed_on_champ(item, champ)
