@@ -549,7 +549,7 @@ class Arena:
                                           "undefined behavior may occur for the rest of the round" + AnsiColors.RESET)
         mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
 
-    def check_health(self) -> None:
+    def check_health(self) -> int:
         """Checks if current health is below 30 and conditionally activates spam roll"""
         health: int = arena_functions.get_health()
         if health > 0:
@@ -562,6 +562,7 @@ class Arena:
                 self.spam_roll_to_zero = True
         else:
             print("    Health check failed")
+        return health
 
     def set_labels(self) -> None:
         """Gets labels used to display champion name UI on window"""

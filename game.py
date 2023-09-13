@@ -190,6 +190,8 @@ class Game:
         self.arena.replace_units_not_in_our_comp()
         if self.arena.final_comp:
             self.arena.final_comp_check()
+        elif self.arena.check_health() <= 15:
+            self.arena.final_comp = True
         self.arena.bench_cleanup()
         self.end_round_tasks()
 
@@ -210,7 +212,7 @@ class Game:
         self.arena.identify_champions_on_board()
         self.arena.identify_champions_on_bench()
 
-        if self.round in ("2-1", "2-5"):
+        if self.round in ("2-1", "2-5") or arena_functions.get_gold() > 60:
             arena_functions.buy_xp_round()
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items:")
@@ -227,6 +229,8 @@ class Game:
         self.arena.replace_units_not_in_our_comp()
         if self.arena.final_comp:
             self.arena.final_comp_check()
+        elif self.arena.check_health() <= 15:
+            self.arena.final_comp = True
         self.arena.bench_cleanup()
 
         if self.round in game_assets.ITEM_PLACEMENT_ROUNDS or arena_functions.get_health() <= 15:
