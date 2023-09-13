@@ -219,7 +219,8 @@ TACTICIAN_XP_FRACTION_POS: Vec4 = Vec4(GameWindow(402, 886, 442, 906))
 TACTICIAN_XP_FRACTION_LOC: Vec2 = Vec2(422, 896)
 
 # When a unit is selected, the name of the unit displayed in the menu on the right side of the screen.
-SELECTED_UNIT_NAME_POS: Vec4 = Vec4(GameWindow(1708, 322, 1808, 338))
+# Any OCR trying to detect just a unit's name should use psm=7 or psm=8.
+SELECTED_UNIT_NAME_POS: Vec4 = Vec4(GameWindow(1706, 320, 1802, 340))
 
 # Where the mouse will click to lock the shop.
 LOCK_SHOP_BUTTON_LOC: Vec2 = Vec2(1451, 903)
@@ -257,7 +258,7 @@ MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC: Vec2 = Vec2(1108, 279)
 BOARD_OF_ARENA_POS: Vec4 = Vec4(GameWindow(586, 222, 1350, 714))
 
 # Where the tactician stand when they are returned to their map.
-TACTICIAN_RESTING_SPOT: Vec2 = Vec2(502, 496)
+TACTICIAN_RESTING_SPOT_LOC: Vec2 = Vec2(502, 496)
 
 # The area that covers the "Component Anvil" text when you hover right-click an anvil.
 COMPONENT_ANVIL_TEXT_POS: Vec4 = Vec4(GameWindow(78, 11, 236, 35), use_screen_offset=False)
@@ -265,8 +266,15 @@ COMPONENT_ANVIL_TEXT_POS: Vec4 = Vec4(GameWindow(78, 11, 236, 35), use_screen_of
 # The text that appears over the bench when the tactician tries to pick up items,
 # but the player already has the maximum of 10 items.
 # "Loot contains more items than your bench can allow."
-TOO_MUCH_LOOT: Vec4 = Vec4(GameWindow(616, 764, 816, 786))
+TOO_MUCH_LOOT_POS: Vec4 = Vec4(GameWindow(616, 764, 816, 786))
 
 # The location of the button that appears at the bottom of the screen during Carousel rounds
 # that shows the player's board.
-CAROUSEL_TO_BOARD_BUTTON_POS: Vec2 = Vec2(953, 994)
+CAROUSEL_TO_BOARD_BUTTON_LOC: Vec2 = Vec2(953, 994)
+
+# The words COMBAT or the word PLANNING that signifies whether the player can adjust their board or not.
+PLANNING_OR_COMBAT_PHASE_POS: Vec4 = Vec4(GameWindow(892, 156, 1026, 192))
+
+# The name of the portal that players choose from at the start of the game
+# in set 9 & 9.5 that affects everyone in the game, similar to how galaxies did in set 3.
+NAME_OF_REGIONAL_PORTAL_POS: Vec4 = Vec4(GameWindow(684, 530, 1232, 600))
