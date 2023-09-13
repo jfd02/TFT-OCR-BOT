@@ -159,8 +159,19 @@ class Game:
         if self.round == "3-4":
             self.arena.final_comp = True
         self.arena.check_health()
-        print("  Getting a champ from the carousel")
-        game_functions.get_champ_carousel(self.round)
+        # There are 1 or more units on the board we don't know, so view our board instead of the carousel and identify
+        # what units are on our board that we don't know about.
+        # It's ok if our tactician gets a random item&champ chosen for it anyways,
+        # because it picks a random one on its own.
+        if self.arena.board_size > len(self.arena.board):
+            print("    Moving our view from the carousel to the game board.")
+            mk_functions.left_click(screen_coords.CAROUSEL_TO_BOARD_BUTTON_POS.get_coords())
+            valid_champs = self.arena.identify_unknown_champions_on_board()
+            for name_and_pos in valid_champs:
+                self.arena.create_champion_object_from_unit_name_on_the_board(name_and_pos[0], name_and_pos[1])
+        else:
+            print("  Getting a champ from the carousel")
+            game_functions.get_champ_carousel(self.round)
 
     def pve_round(self) -> None:
         """Handles tasks for PVE rounds"""

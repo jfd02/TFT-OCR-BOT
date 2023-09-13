@@ -694,11 +694,6 @@ class Arena:
                         print(f"         Confirmed that {unit.name} is still on the board.")
                 else:
                     print(f"    unit: {unit}")
-        # There are 1 or more units on the board we don't know.
-        # if self.board_size > len(self.board):
-        #    valid_champs = self.identify_unknown_champions_on_board()
-        #    for name_and_pos in valid_champs:
-        #        self.create_champion_object_from_unit_name_on_the_board(name_and_pos[0], name_and_pos[1])
         # If there are more units in our "board" than should exist.
         if len(self.board) > self.level:
             self.remove_random_duplicate_champions_from_board()

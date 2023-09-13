@@ -266,3 +266,7 @@ COMPONENT_ANVIL_TEXT_POS: Vec4 = Vec4(GameWindow(78, 11, 236, 35), use_screen_of
 # but the player already has the maximum of 10 items.
 # "Loot contains more items than your bench can allow."
 TOO_MUCH_LOOT: Vec4 = Vec4(GameWindow(616, 764, 816, 786))
+
+# The location of the button that appears at the bottom of the screen during Carousel rounds
+# that shows the player's board.
+CAROUSEL_TO_BOARD_BUTTON_POS: Vec2 = Vec2(953, 994)
