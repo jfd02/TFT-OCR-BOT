@@ -276,6 +276,7 @@ class Arena:
         while will_try_to_place_item:
             item_count += 1
             # print(f"  Looking for item #{item_count} to place:")
+            print("    Item Loop 1")
             for index, _ in enumerate(self.items):
                 if self.items[index] is not None:
                     item = self.items[index]
@@ -295,6 +296,7 @@ class Arena:
                         if self.check_if_we_should_spam_items_before_dying(index):
                             if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                                 will_try_to_place_item = False
+            print("    Item Loop 2")
             for index, _ in enumerate(self.items):
                 if self.items[index] is not None:
                     self.add_item_to_champs(index)
@@ -312,6 +314,7 @@ class Arena:
         """Iterates through champions in the board and checks if the champion needs items"""
         for champ in self.board:
             if champ.does_need_items() and self.items[item_index] is not None:
+                print(f"      {champ.name} needs items.")
                 self.add_item_to_champ(item_index, champ)
 
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
@@ -319,6 +322,7 @@ class Arena:
         item = self.items[item_index]
         if item in game_assets.FULL_ITEMS:
             if item in champ.build:
+                print(f"        Attempting to add item {item} to {champ.name} because it is a completed item it builds.")
                 arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
                 arena_functions.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
@@ -330,12 +334,15 @@ class Arena:
                 build_item_components: list = list(
                     game_assets.FULL_ITEMS[build_item])
                 if item in build_item_components:
+                    print(f"        Attempting to complete item {build_item} for {champ.name}")
                     item_to_move: None = item
                     build_item_components.remove(item_to_move)
+                    print(f"        Adding item {build_item_components[0]} to {champ.name} as a component item it needs.")
                     champ.current_building.append(
                         (build_item, build_item_components[0]))
                     champ.build.remove(build_item)
             if item_to_move is not None:
+                print(f"        Attempting to add item {item} to {champ.name} because it is a component item it needs.")
                 arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
                 arena_functions.print_item_placed_on_champ(item, champ)
                 self.items[self.items.index(item)] = None
