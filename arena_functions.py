@@ -274,9 +274,10 @@ def identify_one_champion_on_the_board(unit: Champion) -> bool:
     mk_functions.right_click(unit.coords)
     # Press s to prevent the tactician from moving anywhere.
     mk_functions.press_s()
-    sleep(0.05)
+    sleep(0.1)
     champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
                                    scale=3, psm=13, whitelist=ocr.ALPHABET_WHITELIST)
+    print(f"      OCR text: {champ_name}")
     champ_name = get_valid_champ(champ_name)
     # Click at the default location so that the unit's info disappears.
     mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
@@ -302,9 +303,10 @@ def identify_one_space_on_the_board(vec2_board_space: Vec2) -> str | None:
     mk_functions.right_click(vec2_board_space.get_coords())
     # Press s to prevent the tactician from moving anywhere.
     mk_functions.press_s()
-    sleep(0.05)
+    sleep(0.1)
     champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
                                    scale=3, psm=13, whitelist=ocr.ALPHABET_WHITELIST)
+    print(f"      OCR text: {champ_name}")
     champ_name = get_valid_champ(champ_name)
     # Click at the default location so that the unit's info disappears.
     mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())

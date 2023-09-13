@@ -587,6 +587,8 @@ class Arena:
             augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
             augments.append(augment)
 
+        print("  Augments to Choose From:")
+        print(f"    {augments}")
         for augment in augments:
             for potential in comps.AUGMENTS:
                 if potential in augment:
@@ -603,8 +605,7 @@ class Arena:
             self.augment_roll = False
             self.pick_augment()
 
-        print(AnsiColors.YELLOW_REGULAR + "  [!] No priority or backup augment found, "
-                                          "undefined behavior may occur for the rest of the round" + AnsiColors.RESET)
+        print(AnsiColors.YELLOW_REGULAR + "  None of the augments were a desired augments." + AnsiColors.RESET)
         mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
 
     def check_health(self) -> int:
