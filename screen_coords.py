@@ -257,7 +257,7 @@ MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC: Vec2 = Vec2(1108, 279)
 BOARD_OF_ARENA_POS: Vec4 = Vec4(GameWindow(586, 222, 1350, 714))
 
 # Where the tactician stand when they are returned to their map.
-TACTICIAN_RESTING_SPOT: Vec2 = Vec2(502, 502)
+TACTICIAN_RESTING_SPOT: Vec2 = Vec2(502, 496)
 
 # The area that covers the "Component Anvil" text when you hover right-click an anvil.
 COMPONENT_ANVIL_TEXT_POS: Vec4 = Vec4(GameWindow(78, 11, 236, 35), use_screen_offset=False)
