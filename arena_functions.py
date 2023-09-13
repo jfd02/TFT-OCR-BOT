@@ -278,7 +278,7 @@ def identify_one_champion_on_the_board(unit: Champion) -> bool:
     champ_name = get_valid_champ(champ_name)
     # Click at the default location so that the unit's info disappears.
     mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
-    if is_valid_champ(champ_name):
+    if is_valid_champ(champ_name) and champ_name == unit.name:
         return True
     else:
         return False
