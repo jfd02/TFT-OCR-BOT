@@ -39,7 +39,7 @@ def move_to_items_orbs_on_board():
         mk_functions.right_click(item_orb_vec2.get_coords())
         sleep(2)
     # Move the tactician back to their pedestal after looting items.
-    mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT.get_coords())
+    mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
     # self.message_queue.put(("LABEL", labels))
 
 
@@ -47,7 +47,7 @@ def pickup_items() -> None:  # Refactor this function to make it more clear what
     """Picks up items from the board after PVP round"""
     for index, coords in enumerate(screen_coords.ITEM_PICKUP_LOC):
         if do_we_have_too_many_items_popup():
-            mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT.get_coords())
+            mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
             sleep(2)
             return
         mk_functions.right_click(coords.get_coords())
@@ -63,7 +63,7 @@ def pickup_items() -> None:  # Refactor this function to make it more clear what
 
 
 def do_we_have_too_many_items_popup() -> bool:
-    too_much_loot_popup = ocr.get_text(screenxy=screen_coords.TOO_MUCH_LOOT.get_coords(), scale=3, psm=7)
+    too_much_loot_popup = ocr.get_text(screenxy=screen_coords.TOO_MUCH_LOOT_POS.get_coords(), scale=3, psm=7)
     text_to_match = "Loot contains more"
     if too_much_loot_popup == text_to_match or SequenceMatcher(a=text_to_match, b=too_much_loot_popup).ratio() >= 0.7:
         print("    We can't pick up anymore items.")
