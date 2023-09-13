@@ -315,8 +315,9 @@ class Arena:
         """Iterates through champions in the board and checks if the champion needs items"""
         for champ in self.board:
             if champ.does_need_items() and self.items[item_index] is not None:
-                print(f"      {champ.name} needs items.")
+                print(f"      {champ.name} needs items.", end=" ")
                 self.add_item_to_champ(item_index, champ)
+        print("")
 
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
@@ -497,7 +498,7 @@ class Arena:
             min_buy_unit_gold = 27
         if self.spam_roll_to_zero:
             min_buy_unit_gold = 7
-        while first_run or arena_functions.get_gold() >= min_buy_xp_gold:
+        while first_run or arena_functions.get_gold() >= min_buy_xp_gold or arena_functions.get_gold() >= min_buy_unit_gold:
             if not first_run:
                 if arena_functions.get_level_via_https_request() != 9 and arena_functions.get_gold() >= min_buy_xp_gold:
                     mk_functions.buy_xp()
