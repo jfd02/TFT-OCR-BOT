@@ -13,6 +13,7 @@ import screen_coords
 import ocr
 import game_assets
 import mk_functions
+from ansi_colors import AnsiColors
 from champion import Champion
 from vec2 import Vec2
 from vec4 import Vec4
@@ -231,7 +232,7 @@ def buy_xp_round() -> None:
 
 
 def print_item_placed_on_champ(item: str, champ: Champion):
-    print(f"    Placed {item} on {champ.name}")
+    print(AnsiColors.BLUE_REGULAR + f"    Placed {item} on {champ.name}" + AnsiColors.RESET)
 
 
 def get_area_of_item_orbs() -> [Vec4]:
