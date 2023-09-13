@@ -806,7 +806,7 @@ class Arena:
                 mk_functions.press_s()
                 sleep(0.05)
                 champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
-                                               scale=3, psm=13, whitelist=ocr.ALPHABET_WHITELIST)
+                                               scale=3, psm=8, whitelist=ocr.ALPHABET_WHITELIST)
                 print(f"       Champ: {champ_name}")
                 champ_name = arena_functions.get_valid_champ(champ_name)
                 # Click at the default location so that the unit's info disappears.

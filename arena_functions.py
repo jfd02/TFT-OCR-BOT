@@ -276,7 +276,7 @@ def identify_one_champion_on_the_board(unit: Champion) -> bool:
     mk_functions.press_s()
     sleep(0.1)
     champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
-                                   scale=3, psm=13, whitelist=ocr.ALPHABET_WHITELIST)
+                                   scale=3, psm=8, whitelist=ocr.ALPHABET_WHITELIST)
     print(f"      OCR text: {champ_name}")
     champ_name = get_valid_champ(champ_name)
     # Click at the default location so that the unit's info disappears.
@@ -305,7 +305,7 @@ def identify_one_space_on_the_board(vec2_board_space: Vec2) -> str | None:
     mk_functions.press_s()
     sleep(0.1)
     champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
-                                   scale=3, psm=13, whitelist=ocr.ALPHABET_WHITELIST)
+                                   scale=3, psm=8, whitelist=ocr.ALPHABET_WHITELIST)
     print(f"      OCR text: {champ_name}")
     champ_name = get_valid_champ(champ_name)
     # Click at the default location so that the unit's info disappears.
@@ -348,7 +348,7 @@ def identify_component_anvil(index: int) -> bool:
     # grab text and validate
     mk_functions.right_click(right_click_tuple)
     mk_functions.press_s()  # make sure the tactician doesn't move around too much
-    anvil_text: str = ocr.get_text(screenxy=anvil_coords_tuple, scale=3, psm=13,
+    anvil_text: str = ocr.get_text(screenxy=anvil_coords_tuple, scale=3, psm=7,
                                    whitelist=ocr.ALPHABET_WHITELIST)
     return valid_anvil(anvil_text) or valid_ornn_anvil(anvil_text) or valid_tome_of_traits(anvil_text)
 
