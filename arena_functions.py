@@ -66,6 +66,8 @@ def is_valid_champ(champ_name: str) -> bool:
     if champ_name in game_assets.CHAMPIONS:
         print(f"       Confirmed that {champ_name} is a valid champ.")
         return True
+    elif champ_name is not None and champ_name != "" and champ_name != " ":
+        print(f"       Unable to confirm that {champ_name} is a valid champ.")
     return False
 
 
