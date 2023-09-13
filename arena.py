@@ -279,25 +279,29 @@ class Arena:
             item_count += 1
             # print(f"  Looking for item #{item_count} to place:")
             print("    Item Loop 1")
+            # TODO: should loop through units first before looping through items
+            # so that we can place multiple items on a unit at once
             for index, _ in enumerate(self.items):
                 if self.items[index] is not None:
                     item = self.items[index]
+                    if item in game_assets.MOGUL_ITEMS:
+                        print(f"    Found an Mogul Item: {item}")
+                    if item in game_assets.TRAIT_ITEMS:
+                        print(f"    Found an Trait Item: {item}")
+                    if item in game_assets.RADIANT_ITEMS:
+                        print(f"    Found an Radiant Item: {item}")
                     if item in game_assets.ORNN_ITEMS:
                         print(f"    Found an Ornn Item: {item}")
-                        self.add_item_to_champs(index)
-                        if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
-                            will_try_to_place_item = False
-                        if self.check_if_we_should_spam_items_before_dying(index):
-                            if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
-                                will_try_to_place_item = False
+                    if item in game_assets.ZAUN_ITEMS:
+                        print(f"    Found an Zaun Item: {item}")
                     if item in game_assets.CRAFTABLE_ITEMS_DICT:
                         print(f"    Found a Completed Item: {item}")
-                        self.add_item_to_champs(index)
+                    self.add_item_to_champs(index)
+                    if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
+                        will_try_to_place_item = False
+                    if self.check_if_we_should_spam_items_before_dying(index):
                         if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                             will_try_to_place_item = False
-                        if self.check_if_we_should_spam_items_before_dying(index):
-                            if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
-                                will_try_to_place_item = False
             print("    Item Loop 2")
             for index, _ in enumerate(self.items):
                 if self.items[index] is not None:
@@ -323,6 +327,35 @@ class Arena:
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
         item = self.items[item_index]
+        if item in game_assets.TRAIT_ITEMS:
+            if champ.name in comps.COMP and item in comps.COMP[champ.name]["trait_items_to_accept"]:
+                print(f"        Attempting to add item {item} to {champ.name} because it is a Trait item it accepts.")
+                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
+                arena_functions.print_item_placed_on_champ(item, champ)
+                champ.completed_items.append(item)
+                self.items[self.items.index(item)] = None
+        if item in game_assets.ORNN_ITEMS:
+            if champ.name in comps.COMP and item in comps.COMP[champ.name]["ornn_items_to_accept"]:
+                print(f"        Attempting to add item {item} to {champ.name} because it is an Ornn item it accepts.")
+                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
+                arena_functions.print_item_placed_on_champ(item, champ)
+                champ.completed_items.append(item)
+                self.items[self.items.index(item)] = None
+        if item in game_assets.RADIANT_ITEMS:
+            if champ.name in comps.COMP and item in comps.COMP[champ.name]["radiant_items_to_accept"]:
+                print(f"        Attempting to add item {item} to {champ.name} because it is a Radiant item it accepts.")
+                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
+                arena_functions.print_item_placed_on_champ(item, champ)
+                champ.completed_items.append(item)
+                self.items[self.items.index(item)] = None
+        if item in game_assets.ZAUN_ITEMS:
+            if champ.name in comps.COMP and item in comps.COMP[champ.name]["zaun_items_to_accept"]:
+                print(f"        Attempting to add item {item} to {champ.name} because it is a Zaun item it accepts.")
+                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
+                arena_functions.print_item_placed_on_champ(item, champ)
+                champ.completed_items.append(item)
+                champ.build.remove(item)
+                self.items[self.items.index(item)] = None
         if item in game_assets.CRAFTABLE_ITEMS_DICT:
             if item in champ.build:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a completed item it builds.")
