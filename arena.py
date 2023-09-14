@@ -690,8 +690,8 @@ class Arena:
         labels.append((f"{arena_functions.get_max_amount_of_units_on_board()}",
                        screen_coords.MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC.get_coords(), 0, 0))
         # Create label for the item orbs.
-        for item_orb_vec2 in arena_functions.get_center_position_of_item_orbs():
-            labels.append((f"Item Orb", item_orb_vec2.get_coords(), 0, 0))
+        # for item_orb_vec2 in arena_functions.get_center_position_of_item_orbs():
+        #     labels.append((f"Item Orb", item_orb_vec2.get_coords(), 0, 0))
         self.message_queue.put(("LABEL", labels))
 
     def count_items_on_bench(self) -> int:

@@ -243,7 +243,7 @@ def get_area_of_item_orbs() -> [Vec4]:
        Page Sementation Mode (PSM) 11 is for finding:
        'Sparse Text: Find as Much Text as Possible in No Particular Order'"""
     area_of_item_orbs: [Vec4] = ocr.get_coordinates_of_text(screenxy=screen_coords.BOARD_OF_ARENA_POS.get_coords(),
-                                                            scale=3, psm=11)
+                                                            scale=3, psm=11, whitelist="?")
     try:
         return area_of_item_orbs
     except ValueError:

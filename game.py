@@ -272,6 +272,7 @@ class Game:
             else:
                 unit_names_on_entire_board.append(unit)
         print(f"-------------------------------------------")
+        print(f"        Comp: {self.arena.comp_to_play.name}")
         print(f"        Board: {unit_names_on_entire_board}")
         print(f"        Board Size: {self.arena.board_size}")
         print(f"        Board Names: {self.arena.board_names}")
@@ -284,6 +285,7 @@ class Game:
                 unit_names_on_bench.append(unit.name)
             elif unit is not None:
                 unit_names_on_bench.append(unit)
+        print(f"        Champs to Buy: {self.arena.champs_to_buy}")
         print(f"        Bench: {unit_names_on_bench}")
         print(f"        Items: {[item for item in self.arena.items if item is not None]}")
         print(f"        Augments: {self.arena.augments}")
