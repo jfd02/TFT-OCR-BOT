@@ -62,7 +62,29 @@ def pickup_items() -> None:  # Refactor this function to make it more clear what
             sleep(1.2)
 
 
+def pick_up_items_holding_down_right_click() -> None:
+    """Holds down the right-click button and moves the tactician in an arc around the board
+       as item orbs should fall in a sort-of circle shape. Releases the right-click mouse button
+       when it reaches the end of the arc.
+       This should speed up grabbing compared to the game_functions.pickup_items()"""
+    mk_functions.move_mouse(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
+    mk_functions.hold_down_right_mouse_button()
+    for index, coords in enumerate(screen_coords.ITEM_PICKUP_DRAGGING_MOUSE_LOC):
+        if do_we_have_too_many_items_popup():
+            mk_functions.release_right_mouse_button()
+            mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
+            sleep(2)
+            return
+        else:
+            mk_functions.move_mouse(coords.get_coords())
+            sleep(0.6)  # guessing that 0.6 might work.
+    # Hopefully we went in the complete arc and picked up all items.
+    mk_functions.release_right_mouse_button()
+    mk_functions.move_mouse(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
+
+
 def do_we_have_too_many_items_popup() -> bool:
+    print("  Double-checking that a pop-up saying we have too many items isn't appearing.")
     too_much_loot_popup = ocr.get_text(screenxy=screen_coords.TOO_MUCH_LOOT_POS.get_coords(), scale=3, psm=7)
     text_to_match = "Loot contains more"
     if too_much_loot_popup == text_to_match or SequenceMatcher(a=text_to_match, b=too_much_loot_popup).ratio() >= 0.7:

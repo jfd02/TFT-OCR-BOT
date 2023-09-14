@@ -228,7 +228,7 @@ class Game:
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items:")
             # game_functions.move_to_items_orbs_on_board()
-            game_functions.pickup_items()
+            game_functions.pick_up_items_holding_down_right_click()
 
         self.arena.fix_bench_state()
         self.arena.bench_cleanup()

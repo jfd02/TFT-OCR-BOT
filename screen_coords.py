@@ -103,6 +103,17 @@ ITEM_PICKUP_LOC: list[Vec2] = [
     Vec2(590, 215),
 ]
 
+# Where the mouse will move itself while the right-click mouse button is being held.
+ITEM_PICKUP_DRAGGING_MOUSE_LOC: list[Vec2] = [
+    Vec2(830, 624),
+    Vec2(1136, 620),
+    Vec2(1280, 532),
+    Vec2(1276, 346),
+    Vec2(1102, 234),
+    Vec2(838, 238),
+    Vec2(672, 314)
+]
+
 BENCH_LOC: list[Vec2] = [
     Vec2(425, 777),
     Vec2(542, 777),
