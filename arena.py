@@ -631,8 +631,8 @@ class Arena:
             else:
                 print(AnsiColors.YELLOW_REGULAR + "  None of the augments were a desired augment." + AnsiColors.RESET)
                 mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
-                print(f"    Augment Chosen: {augments.index(0)}")
-                self.augments.append(augments.index(0))
+                print(f"    Augment Chosen: {augments[0]}")
+                self.augments.append(augments[0])
         return False
 
     def check_health(self) -> int:
