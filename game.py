@@ -9,6 +9,7 @@ from time import sleep, perf_counter
 import win32gui
 
 import arena_functions
+import comps
 from set_9_5 import game_assets
 import game_functions
 import mk_functions
@@ -38,6 +39,7 @@ class Game:
             print("  Did not find window, trying again...")
             win32gui.EnumWindows(self.callback, None)
             sleep(1)
+
 
         self.loading_screen()
 
@@ -69,6 +71,9 @@ class Game:
         while game_functions.get_round() != "1-1":
             sleep(1)
         print("\n\nStarting match...")
+        # Make the bot play a random comp from the comps we have created.
+        random_comp = comps.return_random_comp()
+        comps.COMP = random_comp.COMP
         self.start_time: float = perf_counter()
         self.game_loop()
 
