@@ -8,6 +8,8 @@ Legend: Urf
 Items are in camel case and a-Z
 """
 
+NAME = "Arcane Domain"
+
 STRATEGY = "Slow Roll"
 
 DIFFICULTY = "Easy"

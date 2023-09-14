@@ -8,6 +8,8 @@ Legend: Lee Sin
 Items are in camel case and a-Z
 """
 
+NAME = "Heart of the Cards"
+
 STRATEGY = "Slow Roll"
 
 DIFFICULTY = "Easy"

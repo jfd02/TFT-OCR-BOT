@@ -79,7 +79,10 @@ def pick_up_items_holding_down_right_click() -> None:
             return
         else:
             mk_functions.move_mouse(coords.get_coords())
-            sleep(0.6)  # guessing that 0.6 might work.
+            if index == 0:
+                sleep(1.5)  # need more time to set the tactician in the correct starting position
+            else:
+                sleep(0.6)  # guessing that 0.6 might work.
     # Hopefully we went in the complete arc and picked up all items.
     mk_functions.release_right_mouse_button()
     mk_functions.move_mouse(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
@@ -138,6 +141,6 @@ def forfeit() -> None:
 def pick_a_random_comp_to_play():
     """Make the bot play a random comp from the comps we have created."""
     random_comp = comps.return_random_comp()
-    comps.COMP = random_comp.COMP
-    comps.PRIMARY_AUGMENTS = random_comp.PRIMARY_AUGMENTS
-    comps.SECONDARY_AUGMENTS = random_comp.SECONDARY_AUGMENTS
+    comp_to_play = comps.Comp(random_comp)
+    print(f"B.O.T. has decided to play {comp_to_play.name}")
+    return comp_to_play

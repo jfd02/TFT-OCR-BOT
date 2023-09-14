@@ -23,6 +23,8 @@ class Arena:
     # pylint: disable=too-many-instance-attributes,too-many-public-methods
     def __init__(self, message_queue) -> None:
         self.message_queue = message_queue
+        # The comp the bot will play.
+        self.comp_to_play = game_functions.pick_a_random_comp_to_play()
         # How many units we are currently fielding.
         self.board_size = 0
         self.bench: list[None] = [None, None, None, None, None, None, None, None, None]
@@ -33,8 +35,8 @@ class Arena:
         # All the non-Champion units and the board spaces they occupy. Should be a list of tuple(str, int).
         self.board_unknown_and_pos: list = []
         # All the spaces on the board that we haven't designated to put a unit from our comp on.
-        self.board_slots_for_non_comp_units: list = comps.get_unknown_slots()
-        self.champs_to_buy: list = comps.champions_to_buy()
+        self.board_slots_for_non_comp_units: list = self.comp_to_play.get_unknown_slots()  # initializing this way is probably bad practice?
+        self.champs_to_buy: list = self.comp_to_play.champions_to_buy()  # initializing this way is probably bad practice?
         # A list of the names of all units on the board (not the bench), including duplicates.
         self.board_names: list = []
         # Items on the player's bench.
@@ -68,10 +70,10 @@ class Arena:
                                     coords=screen_coords.BENCH_LOC[slot].get_coords(
                                     ),
                                     item_slots_filled=0,
-                                    build=comps.COMP[name]["items_to_build"].copy(),
+                                    build=self.comp_to_play.comp[name]["items_to_build"].copy(),
                                     slot=slot,
                                     size=game_assets.CHAMPIONS[name]["Board Size"],
-                                    final_comp=comps.COMP[name]["final_comp"])
+                                    final_comp=self.comp_to_play.comp[name]["final_comp"])
         mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
         # Why was this set to sleep for 0.5 seconds?
         # sleep(0.3)
@@ -97,7 +99,7 @@ class Arena:
                 for champion in self.bench
                 if isinstance(champion, Champion)
                    and champion.name not in self.board_names
-                   and champion.name in comps.COMP
+                   and champion.name in self.comp_to_play.comp
             ),
             None,
         )
@@ -107,9 +109,9 @@ class Arena:
         print(f"    Moving known unit {champion.name} to board.")
         board_position = -1
         # If the unit is in our comp. Put it in its designated spot on the board.
-        if champion.name in comps.COMP:
+        if champion.name in self.comp_to_play.comp:
             print("      Selecting the designated board space because the unit is in our comp.")
-            board_position = comps.COMP[champion.name]["board_position"]
+            board_position = self.comp_to_play.comp[champion.name]["board_position"]
         # Otherwise, put it in a random spot on the board that our wanted units won't use.
         # Might accidentally replace an unwanted unit with this one.
         else:
@@ -192,9 +194,9 @@ class Arena:
                         final_comp = False
                         units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BENCH_LOC[empty_bench_slot].get_coords())
                         # If we actually plan on using this champ in our comp:
-                        if purchaseable_unit[1] in comps.COMP:
-                            items_to_build = comps.COMP[purchaseable_unit[1]]["items_to_build"].copy()
-                            final_comp = comps.COMP[purchaseable_unit[1]]["final_comp"]
+                        if purchaseable_unit[1] in self.comp_to_play.comp:
+                            items_to_build = self.comp_to_play.comp[purchaseable_unit[1]]["items_to_build"].copy()
+                            final_comp = self.comp_to_play.comp[purchaseable_unit[1]]["final_comp"]
                         # Create the Champion object.
                         champion = Champion(name=purchaseable_unit[1],
                                             coords=screen_coords.BENCH_LOC[empty_bench_slot].get_coords(),
@@ -233,7 +235,7 @@ class Arena:
                 champion: Champion | None = self.get_next_unit_from_our_comp_on_bench()
                 if champion is None:
                     return
-                if unit.name not in comps.COMP and champion.name in comps.COMP:
+                if unit.name not in self.comp_to_play.comp and champion.name in self.comp_to_play.comp:
                     print(f"    Replacing {unit.name} with {champion.name} because {unit.name} is not in our comp.")
                     mk_functions.press_e(unit.coords)
                     # Might set the wrong size because an unknown unit could have a size of two.
@@ -332,27 +334,27 @@ class Arena:
         """Takes item index and champ and applies the item"""
         item = self.items[item_index]
         if item in game_assets.SUPPORT_ITEMS:
-            if champ.name in comps.COMP and item in comps.COMP[champ.name]["support_items_to_accept"]:
+            if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["support_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Support item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
                 champ.completed_items.append(item)
         if item in game_assets.TRAIT_ITEMS:
-            if champ.name in comps.COMP and item in comps.COMP[champ.name]["trait_items_to_accept"]:
+            if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["trait_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Trait item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
                 champ.completed_items.append(item)
         if item in game_assets.ORNN_ITEMS:
-            if champ.name in comps.COMP and item in comps.COMP[champ.name]["ornn_items_to_accept"]:
+            if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["ornn_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is an Ornn item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
                 champ.completed_items.append(item)
         if item in game_assets.RADIANT_ITEMS:
-            if champ.name in comps.COMP and item in comps.COMP[champ.name]["radiant_items_to_accept"]:
+            if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["radiant_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Radiant item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
                 champ.completed_items.append(item)
         if item in game_assets.ZAUN_ITEMS:
-            if champ.name in comps.COMP and item in comps.COMP[champ.name]["zaun_items_to_accept"]:
+            if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["zaun_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Zaun item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
                 champ.completed_items.append(item)
@@ -441,7 +443,7 @@ class Arena:
                 arena_functions.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 self.items[self.items.index(item)] = None
-        elif item in game_assets.FULL_ITEMS:
+        elif item in game_assets.CRAFTABLE_ITEMS_DICT:
             if champ.does_need_items():
                 arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
                 arena_functions.print_item_placed_on_champ(item, champ)
@@ -588,14 +590,14 @@ class Arena:
         print("  Augments to Choose From:")
         print(f"    {augments}")
         for augment in augments:
-            for potential1 in comps.PRIMARY_AUGMENTS:
+            for potential1 in self.comp_to_play.primary_augments:
                 if potential1 in augment:
                     print(f"  Choosing augment.")
                     print(f"    Augment: {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                     self.augments.append(augment)
                     return True
-            for potential2 in comps.SECONDARY_AUGMENTS:
+            for potential2 in self.comp_to_play.secondary_augments:
                 if potential2 in augment:
                     if have_rerolled:
                         print(f"  Choosing augment.")
@@ -839,9 +841,9 @@ class Arena:
                     final_comp = False
                     units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BENCH_LOC[index].get_coords())
                     # If we actually plan on using this champ in our comp:
-                    if champ_name in comps.COMP:
-                        items_to_build = comps.COMP[champ_name]["items_to_build"].copy()
-                        final_comp = comps.COMP[champ_name]["final_comp"]
+                    if champ_name in self.comp_to_play.comp:
+                        items_to_build = self.comp_to_play.comp[champ_name]["items_to_build"].copy()
+                        final_comp = self.comp_to_play.comp[champ_name]["final_comp"]
                     # Create the Champion object.
                     self.bench[index] = Champion(name=champ_name,
                                                  coords=screen_coords.BENCH_LOC[index].get_coords(),
@@ -856,7 +858,7 @@ class Arena:
            so long as the board is full and the unit that will be sold doesn't have a copy on the board."""
         for index, unit_on_bench in enumerate(self.bench):
             if isinstance(unit_on_bench, Champion):
-                if unit_on_bench.name not in comps.COMP \
+                if unit_on_bench.name not in self.comp_to_play.comp \
                         and self.board_size >= self.level \
                         and unit_on_bench.name not in self.board_names:
                     self.sell_unit(unit_on_bench, index)
@@ -875,9 +877,9 @@ class Arena:
         items_to_build = []
         final_comp = False
         # If we actually plan on using this champ in our comp:
-        if unit_name in comps.COMP:
-            items_to_build = comps.COMP[unit_name]["items_to_build"].copy()
-            final_comp = comps.COMP[unit_name]["final_comp"]
+        if unit_name in self.comp_to_play.comp:
+            items_to_build = self.comp_to_play.comp[unit_name]["items_to_build"].copy()
+            final_comp = self.comp_to_play.comp[unit_name]["final_comp"]
         # Create the Champion object.
         print(f"      Created the Champion object for the {unit_name}.")
         self.board_names.append(unit_name)

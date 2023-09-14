@@ -8,6 +8,8 @@ Don't level up at stage 2-1.
 Items are in camel case and a-Z
 """
 
+NAME = "Roll the Rogues"
+
 STRATEGY = "Slow Roll"
 
 DIFFICULTY = "Easy"

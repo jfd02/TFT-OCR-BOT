@@ -7,6 +7,8 @@ Legend: Poro
 Items are in camel case and a-Z
 """
 
+NAME = "Walk the Plank"
+
 STRATEGY = "Default"
 
 DIFFICULTY = "Medium"
