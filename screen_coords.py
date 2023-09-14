@@ -289,3 +289,9 @@ PLANNING_OR_COMBAT_PHASE_POS: Vec4 = Vec4(GameWindow(892, 156, 1026, 192))
 # The name of the portal that players choose from at the start of the game
 # in set 9 & 9.5 that affects everyone in the game, similar to how galaxies did in set 3.
 NAME_OF_REGIONAL_PORTAL_POS: Vec4 = Vec4(GameWindow(684, 530, 1232, 600))
+
+# When you right-click a unit and their info menu appears on the right-side of the screen.
+# These are the squares that display what items the unit is currently holding.
+UNIT_INFO_MENU_ITEM_SLOTS_POS: list[Vec4] = [Vec4(GameWindow(1720, 488, 1772, 542)),
+                                             Vec4(GameWindow(1784, 488, 1836, 542)),
+                                             Vec4(GameWindow(1848, 488, 1900, 542))]

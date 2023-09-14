@@ -366,3 +366,24 @@ def valid_ornn_anvil(anvil_text: str) -> bool:
 def valid_tome_of_traits(anvil_text: str) -> bool:
     """Checks if the anvil text passed in arg one matches 'Component Anvil'."""
     return anvil_text == "Tome of Traits" or SequenceMatcher(a=anvil_text, b="Tome of Traits").ratio() >= 0.7
+
+
+def number_of_item_slots_filled_on_unit(unit: Champion) -> int:
+    """Assumes the unit actually exists. Opens the info panel on a unit and then hovers over
+       the center of each item slot that displays in that screen. If the color of that slot is not close to black,
+       then we assume the item slot is filled. As soon as the check fails, we find a color close to black,
+       we can return how many items we've counted, because the item slots of a unit are filled up like a stack."""
+    item_slots_filled = 0
+    mk_functions.right_click(unit.coords)
+    mk_functions.press_s()
+    # Search the unit's item slots from left to right.
+    for positions in screen_coords.UNIT_INFO_MENU_ITEM_SLOTS_POS:
+        screen_capture = ImageGrab.grab(bbox=positions.get_coords())
+        screenshot_array = np.array(screen_capture)
+        if not (np.abs(screenshot_array - (0, 0, 0)) <= 2).all(axis=2).any():
+            item_slots_filled += 1
+        else:
+            return item_slots_filled
+    return item_slots_filled
+
+
