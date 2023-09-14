@@ -406,7 +406,7 @@ class Arena:
 
     def add_thiefs_gloves_to_champ(self, champ: Champion) -> bool:
         """Makes Thiefs Gloves if possible and gives them to a champ with no items."""
-        print("    Attempting to add Thiefs Gloves to a random itemless champ.")
+        print("    Attempting to add Thief's Gloves to a random itemless champ.")
         gloves_index_1 = -1
         gloves_index_2 = -1
         for index, _ in enumerate(self.items):
@@ -416,11 +416,12 @@ class Arena:
                 if gloves_index_1 != -1 and gloves_index_2 == -1:
                     gloves_index_2 = index
         if gloves_index_1 != -1 and gloves_index_2 != -1 and gloves_index_1 != gloves_index_2:
+            print("    We have 2 Sparring Gloves to make Thief's Gloves with!")
             arena_functions.move_item(screen_coords.ITEM_POS[gloves_index_1][0].get_coords(), champ.coords)
-            print(f"    Placed {self.items[gloves_index_1]} on {champ.name}")
+            print(f"      Placed {self.items[gloves_index_1]} on {champ.name}")
             self.items[gloves_index_1] = None
             arena_functions.move_item(screen_coords.ITEM_POS[gloves_index_2][0].get_coords(), champ.coords)
-            print(f"    Placed {self.items[gloves_index_2]} on {champ.name}")
+            print(f"      Placed {self.items[gloves_index_2]} on {champ.name}")
             self.items[gloves_index_2] = None
             return True
         return False
@@ -718,11 +719,11 @@ class Arena:
             return True
 
     def check_if_we_should_spam_sparring_gloves(self) -> bool:
-        """Checks if our health is at 15 or less and then calls the function to spam thief's gloves."""
+        """Checks if our health is at 30 or less and then calls the function to spam thief's gloves."""
         health: int = arena_functions.get_health()
-        if health <= 15:
+        if health <= 30:
             for champ in self.board:
-                if champ.completed_items == 0 and champ.current_building == 0:
+                if len(champ.build) == 0:
                     if self.add_thiefs_gloves_to_champ(champ):
                         return True
         return False
@@ -738,6 +739,7 @@ class Arena:
     def check_if_we_should_make_lucky_gloves(self) -> bool:
         """If we have the Lucky Gloves augment, place thief's gloves on a champion that doesn't build items."""
         if "Lucky Gloves" in self.augments:
+            print("    We have Lucky Gloves!")
             no_build_champ = self.get_random_final_comp_champ_on_board_with_no_build()
             if no_build_champ is not None:
                 if self.add_thiefs_gloves_to_champ(no_build_champ):
@@ -745,9 +747,10 @@ class Arena:
         return False
 
     def get_random_final_comp_champ_on_board_with_no_build(self) -> Champion | None:
+        print("    Looking for a random champ that we don't want to build items.")
         for champ in self.board:
             if len(champ.build) == 0:
-                print(f"    We have Lucky Gloves! {champ.name} is a unit that we haven't specified items for.")
+                print(f"      {champ.name} is a unit that we haven't specified items for.")
                 return champ
         return None
 
