@@ -18,8 +18,9 @@ RECOMMENDED_LEGEND = "Poro"
 COMP = {
     "Nilah": {
         "board_position": 15,
-        "items_to_build": ["TitansResolve", "Bloodthirster", "RapidFirecannon"],
-        "completed_items_to_accept": ["SteraksGage"],
+        "items_to_build": ["Bloodthirster", "RapidFirecannon", "TitansResolve"],
+        "completed_items_to_accept": ["Bloodthirster", "Deathblade", "GiantSlayer", "RapidFirecannon",
+                                      "SteraksGage", "TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -31,7 +32,7 @@ COMP = {
     "Miss Fortune": {
         "board_position": 3,
         "items_to_build": ["JeweledGauntlet", "BlueBuff", "HextechGunblade"],
-        "completed_items_to_accept": [],
+        "completed_items_to_accept": ["HextechGunblade"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -43,7 +44,7 @@ COMP = {
     "Gangplank": {
         "board_position": 6,
         "items_to_build": ["SpearofShojin"],
-        "completed_items_to_accept": ["Guardbreaker"],
+        "completed_items_to_accept": ["Guardbreaker", "SpearofShojin"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -55,7 +56,7 @@ COMP = {
     "Nautilus": {
         "board_position": 24,
         "items_to_build": ["Redemption", "DragonsClaw", "BrambleVest"],
-        "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape"],
+        "completed_items_to_accept": ["GargoyleStoneplate", "IonicSpark", "SunfireCape"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -67,7 +68,7 @@ COMP = {
     "Darius": {
         "board_position": 23,
         "items_to_build": [],
-        "completed_items_to_accept": [],
+        "completed_items_to_accept": ["IonicSpark"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["BastionEmblem", "BilgewaterEmblem", "RogueEmblem", "VanquisherEmblem"],
         "ornn_items_to_accept": [],
@@ -85,7 +86,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
-        "level": 3,
+        "level": 2,
         "final_comp": True
     },
     "Graves": {
@@ -97,7 +98,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
-        "level": 3,
+        "level": 2,
         "final_comp": True
     },
     "Illaoi": {
@@ -109,11 +110,11 @@ COMP = {
         "ornn_items_to_accept": [],
         "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
-        "level": 3,
+        "level": 2,
         "final_comp": True
     },
     "Kassadin": {
-        "board_position": 22,
+        "board_position": 21,
         "items_to_build": ["Bloodthirster", "TitansResolve"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
