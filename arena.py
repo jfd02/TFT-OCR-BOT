@@ -39,8 +39,8 @@ class Arena:
         self.champs_to_buy: list = self.comp_to_play.champions_to_buy()  # initializing this way is probably bad practice?
         # A list of the names of all units on the board (not the bench), including duplicates.
         self.board_names: list = []
-        # Items on the player's bench.
-        self.items: list = []
+        # Items on the player's bench. A max of 10 items can be on the bench.
+        self.items: list = [None] * 10
         # All the augments that the player currently has.
         self.augments: list = []
         self.final_comp = False
@@ -337,33 +337,32 @@ class Arena:
             if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["support_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Support item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
-                champ.completed_items.append(item)
+                champ.non_component_items.append(item)
         if item in game_assets.TRAIT_ITEMS:
             if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["trait_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Trait item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
-                champ.completed_items.append(item)
+                champ.non_component_items.append(item)
         if item in game_assets.ORNN_ITEMS:
             if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["ornn_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is an Ornn item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
-                champ.completed_items.append(item)
+                champ.non_component_items.append(item)
         if item in game_assets.RADIANT_ITEMS:
             if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["radiant_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Radiant item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
-                champ.completed_items.append(item)
+                champ.non_component_items.append(item)
         if item in game_assets.ZAUN_ITEMS:
             if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["zaun_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Zaun item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
-                champ.completed_items.append(item)
         if item in game_assets.CRAFTABLE_ITEMS_DICT:
             if item in champ.build:
                 print(
                     f"        Attempting to add item {item} to {champ.name} because it is a completed item it builds.")
                 self.add_one_item_to_unit(champ, item_index)
-                champ.completed_items.append(item)
+                champ.non_component_items.append(item)
                 champ.build.remove(item)
         elif len(champ.current_building) == 0:
             item_to_move: None = None
@@ -435,13 +434,13 @@ class Arena:
             if champ.does_need_items():
                 arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
                 arena_functions.print_item_placed_on_champ(item, champ)
-                champ.completed_items.append(item)
+                champ.non_component_items.append(item)
                 self.items[self.items.index(item)] = None
         elif item in game_assets.ELUSIVE_ITEMS:
             if champ.does_need_items():
                 arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
                 arena_functions.print_item_placed_on_champ(item, champ)
-                champ.completed_items.append(item)
+                champ.non_component_items.append(item)
                 self.items[self.items.index(item)] = None
         elif item in game_assets.CRAFTABLE_ITEMS_DICT:
             if champ.does_need_items():
@@ -449,7 +448,7 @@ class Arena:
                 arena_functions.print_item_placed_on_champ(item, champ)
                 champ.completed_items.append(item)
                 self.items[self.items.index(item)] = None
-        elif len(champ.completed_items) < 3:
+        elif len(champ.non_component_items) < 3:
             print("  ADD ITEMS BEFORE DYING:")
             print(f"   {champ.name} is building {len(champ.current_building)} items.")
             arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
@@ -919,19 +918,52 @@ class Arena:
         self.items = arena_functions.get_items()
         for unit in self.board:
             if isinstance(unit, Champion):
-                # If we have completed BIS items waiting on the bench, give them to the unit.
-                for item_index, completed_item in enumerate(unit.build):
-                    if completed_item in self.items:
-                        self.add_one_item_to_unit(unit, item_index)
-                        unit.build.remove(completed_item)
+                # can't give completed items if all the slots are filled
+                if unit.item_slots_filled < 3:
+                    self.add_completed_item_to_unit(unit)
+                    self.add_radiant_version_of_bis_items_to_unit(unit)
+                    self.add_radiant_version_of_accepted_completed_items_to_unit(unit)
+                # but can give component items and zaun items
 
-    def add_one_item_to_unit(self, unit: Champion, the_items_index: int):
+    def add_one_item_to_unit(self, unit: Champion, the_items_bench_index: int):
         """Move the item from its location on the board to the unit.
            Prints out the name of the item and the unit it was placed on.
            Adds it to the units list of items it has.
            Removes the instance of the item from the board's list of items."""
-        item = self.items[the_items_index]
-        arena_functions.move_item(screen_coords.ITEM_POS[the_items_index][0].get_coords(), unit.coords)
+        item = self.items[the_items_bench_index]
+        arena_functions.move_item(screen_coords.ITEM_POS[the_items_bench_index][0].get_coords(), unit.coords)
         arena_functions.print_item_placed_on_champ(item, unit)
         unit.items.append(item)
-        self.items[the_items_index] = None
+        self.items[the_items_bench_index] = None
+
+    def add_completed_item_to_unit(self, unit: Champion) -> None:
+        """If we have completed items waiting on the bench,
+        that are the unit's 'items_to_build' (BIS items) give them to the unit."""
+        for item_index, completed_item in enumerate(unit.build):
+            if completed_item in self.items:
+                self.add_one_item_to_unit(unit, self.items.index(completed_item))
+                unit.item_slots_filled += 1
+                unit.build.remove(completed_item)
+                unit.non_component_items.append(completed_item)
+
+    def add_radiant_version_of_bis_items_to_unit(self, unit: Champion) -> None:
+        """If we have radiant items waiting on the bench,
+           that are a better version of the unit's completed items it WANTS to build
+           (i.e. the 'items_to_build' (BIS items), not just the completed items it will accept)
+           give them to the unit."""
+        for radiant_item, completed_item in game_assets.RADIANT_ITEMS_DICT.items():
+            if completed_item in unit.build and radiant_item in self.items:
+                self.add_one_item_to_unit(unit, self.items.index(radiant_item))
+                unit.item_slots_filled += 1
+                unit.build.remove(completed_item)
+                unit.non_component_items.append(radiant_item)
+
+    def add_radiant_version_of_accepted_completed_items_to_unit(self, unit: Champion) -> None:
+        """If we have radiant items waiting on the bench,
+           that are a better version of the unit's items IT IS OK WITH, give them to the unit"""
+        for radiant_item, completed_item in game_assets.RADIANT_ITEMS_DICT.items():
+            if completed_item in unit.completed_items_will_accept and radiant_item in self.items:
+                self.add_one_item_to_unit(unit, self.items.index(radiant_item))
+                unit.item_slots_filled += 1
+                unit.completed_items_will_accept.remove(completed_item)
+                unit.non_component_items.append(radiant_item)
