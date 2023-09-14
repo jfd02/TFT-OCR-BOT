@@ -8,17 +8,21 @@ class Champion:
 
     # pylint: disable=too-many-instance-attributes,too-few-public-methods,too-many-arguments
 
-    def __init__(self, name: str, coords: tuple, build, slot: int, size: int, final_comp: bool) -> None:
+    def __init__(self, name: str, coords: tuple, item_slots_filled: int, build: list[str], slot: int, size: int, final_comp: bool) -> None:
         # The units name.
         self.name: str = name
         # Where the unit is located on the bench or board in Vec2 coordinates.
         self.coords: tuple = coords
-        # All the items the unit is designated to build.
-        self.build = build
+        # How many item slots are taken up by the unit.
+        self.item_slots_filled: int = item_slots_filled
+        # A list of the items that are likely the unit's best items it can be given, a.k.a. their "Best In Slot" (BIS)
+        self.build: list[str] = build
         # The position on the board where the unit is designated in comps.py to be placed.
         self.index: int = slot
         # The 'amount of units' this unit counts as, because sometimes a unit counts as 2 of your total possible units.
         self.size: int = size
+        # The list of every item the unit has.
+        self.items: list = []
         # The list of completed items the unit has.
         self.completed_items: list = []
         # The list of component items that the unit has.

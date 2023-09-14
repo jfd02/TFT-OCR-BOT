@@ -67,6 +67,7 @@ class Arena:
         self.bench[slot] = Champion(name=name,
                                     coords=screen_coords.BENCH_LOC[slot].get_coords(
                                     ),
+                                    item_slots_filled=0,
                                     build=comps.COMP[name]["items_to_build"].copy(),
                                     slot=slot,
                                     size=game_assets.CHAMPIONS[name]["Board Size"],
@@ -261,7 +262,7 @@ class Arena:
                 print("  Selecting middle item from Anvil/Ornn Item Anvil/Tome of Traits.")
                 mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
 
-    def place_items(self) -> None:
+    def place_items_by_looping_through_items_first(self) -> None:
         """Iterates through items and tries to add them to champion"""
         self.items = arena_functions.get_items()
         print(f"  Items: {list(filter(None.__ne__, self.items))}")
@@ -915,3 +916,15 @@ class Arena:
         else:
             print("      The board size cannot be less than 0!")
             return False
+
+    def give_items_to_units(self):
+        """Loops through the units first so that we can add multiple items to one unit first,
+           before moving onto the next unit."""
+        self.arena.items = arena_functions.get_items()
+        for unit in self.arena.board:
+            if isinstance(unit, Champion):
+                # If we have completed BIS items waiting on the bench, give them to the unit.
+                for item_index, completed_item in enumerate(unit.build):
+                    if completed_item in self.arena.items:
+                        self.arena.add_item_to_champ(item_index, unit)
+                        unit.build.remove(completed_item)
