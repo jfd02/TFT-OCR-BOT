@@ -623,11 +623,15 @@ class Arena:
             for index, reroll_button in enumerate(screen_coords.AUGMENT_ROLL):
                 if secondary_augments[index] is None:
                     mk_functions.left_click(reroll_button.get_coords())
+            # if we successfully chose a primary or secondary augment
             if self.pick_augment(True, secondary_augments):
                 return True
+            # if we didn't we pick the first augment on the left side of the screen
             else:
-                print(AnsiColors.YELLOW_REGULAR + "  None of the augments were a desired augments." + AnsiColors.RESET)
+                print(AnsiColors.YELLOW_REGULAR + "  None of the augments were a desired augment." + AnsiColors.RESET)
                 mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
+                print(f"    Augment Chosen: {augments.index(0)}")
+                self.augments.append(augments.index(0))
         return False
 
     def check_health(self) -> int:

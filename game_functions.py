@@ -66,7 +66,8 @@ def pick_up_items_holding_down_right_click() -> None:
     """Holds down the right-click button and moves the tactician in an arc around the board
        as item orbs should fall in a sort-of circle shape. Releases the right-click mouse button
        when it reaches the end of the arc.
-       This should speed up grabbing compared to the game_functions.pickup_items()"""
+       This should speed up grabbing compared to the game_functions.pickup_items(),
+       though picking up items should still be reworked to read the question marks and move directly to the orbs."""
     mk_functions.move_mouse(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
     mk_functions.hold_down_right_mouse_button()
     for index, coords in enumerate(screen_coords.ITEM_PICKUP_DRAGGING_MOUSE_LOC):

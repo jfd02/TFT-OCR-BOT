@@ -244,8 +244,9 @@ class Game:
             self.arena.final_comp = True
         self.arena.bench_cleanup()
 
-        if self.round in game_assets.ITEM_PLACEMENT_ROUNDS or arena_functions.get_health() <= 15:
-            sleep(1)
+        if self.round in game_assets.ITEM_PLACEMENT_ROUNDS \
+                or arena_functions.get_health() <= 15 or len(self.arena.items) >= 8:
+            sleep(1)  # why do we sleep here?
             self.arena.place_items()
         self.end_round_tasks()
 
