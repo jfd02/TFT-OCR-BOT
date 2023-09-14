@@ -58,7 +58,6 @@ class Arena:
                 print(f"    There is no unit at bench slot {index}. Setting that self.bench spot to None.")
                 self.bench[index] = None
             if isinstance(slot, Champion) and not bench_occupied[index]:
-                # surely this should never happen?
                 print(f"    Identified a {slot.name} at bench spot {index}. Setting it's spot in self.bench.")
                 self.bench[index] = None
         self.sell_non_comp_units_on_bench()
@@ -74,7 +73,7 @@ class Arena:
                                     final_comp=comps.COMP[name]["final_comp"])
         mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
         # Why was this set to sleep for 0.5 seconds?
-        sleep(0.3)
+        # sleep(0.3)
         self.fix_bench_state()
 
     def get_next_champion_on_bench(self) -> Champion | None:
@@ -515,6 +514,7 @@ class Arena:
 
     def tacticians_crown_check(self) -> None:
         """Checks if the item from carousel is tacticians crown"""
+        print("    Checking for a Tacticians Crown.")
         mk_functions.move_mouse(screen_coords.ITEM_POS[0][0].get_coords())
         sleep(0.5)
         item: str = ocr.get_text(screenxy=screen_coords.ITEM_POS[0][1].get_coords(), scale=3, psm=13,
@@ -824,7 +824,7 @@ class Arena:
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
                 mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
                 mk_functions.press_s()
-                sleep(0.05)
+                sleep(0.05)  # a delay to make sure the info popup has enough time to animate before ocr kicks in.
                 champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
                                                scale=3, psm=8, whitelist=ocr.ALPHABET_WHITELIST)
                 print(f"       Champ: {champ_name}")
