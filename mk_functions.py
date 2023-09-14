@@ -59,10 +59,14 @@ def press_esc() -> None:
     """Presses escape key"""
     pydirectinput.press("esc")
 
+
 def hold_down_right_mouse_button() -> None:
     """Simulates a human holding down the right mouse button, without releasing it."""
+    print("[   Holding Down the Right Mouse Button   ]")
     pydirectinput.mouseDown(button='right')
+
 
 def release_right_mouse_button() -> None:
     """Simulates a human releasing the right mouse button, after it has been pushed down."""
+    print("[   Releasing the Right Mouse Button   ]")
     pydirectinput.mouseUp(button='right')
