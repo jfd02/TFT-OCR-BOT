@@ -2,23 +2,26 @@
 Contains static item & champion data
 """
 
-COMPONENT_AND_CRAFTABLE_ITEMS: set[str] = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod",
-                       "NegatronCloak", "RecurveBow", "SparringGloves", "Spatula",
-                       "TearoftheGoddess",
-                       "ChallengerEmblem", "Crownguard", "DemaciaEmblem",
-                       "IoniaEmblem", "JuggernautEmblem", "NoxusEmblem", "ShurimaEmblem", "SlayerEmblem",
-                       "SorcererEmblem",
-                       "AdaptiveHelm", "ArchangelsStaff", "Bloodthirster", "BlueBuff",
-                       "BrambleVest", "Deathblade", "DragonsClaw",
-                       "EdgeofNight", "GargoyleStoneplate", "GiantSlayer", "Guardbreaker",
-                       "GuinsoosRageblade", "HandofJustice", "HextechGunblade", "InfinityEdge",
-                       "IonicSpark", "JeweledGauntlet", "LastWhisper",
-                       "Morellonomicon", "ProtectorsVow", "Quicksilver", "RabadonsDeathcap",
-                       "RapidFirecannon", "Redemption", "RunaansHurricane",
-                       "SpearofShojin", "StatikkShiv", "SunfireCape", "TacticiansCrown",
-                       "ThiefsGloves", "TitansResolve", "WarmogsArmor"}
+COMPONENT_AND_CRAFTABLE_ITEMS: set[str] = \
+    {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod",
+     "NegatronCloak", "RecurveBow", "SparringGloves", "Spatula",
+     "TearoftheGoddess",
 
-SUPPORT_ITEMS: set[str] = {"AegisoftheLegion", "BansheesVeil", "CrestOfCinders", "ChaliceofPower"
+     "ChallengerEmblem", "Crownguard", "DemaciaEmblem",
+     "IoniaEmblem", "JuggernautEmblem", "NoxusEmblem", "ShurimaEmblem", "SlayerEmblem",
+     "SorcererEmblem",
+
+     "AdaptiveHelm", "ArchangelsStaff", "Bloodthirster", "BlueBuff",
+     "BrambleVest", "Deathblade", "DragonsClaw",
+     "EdgeofNight", "Evenshroud", "GargoyleStoneplate", "GiantSlayer", "Guardbreaker",
+     "GuinsoosRageblade", "HandofJustice", "HextechGunblade", "InfinityEdge",
+     "IonicSpark", "JeweledGauntlet", "LastWhisper",
+     "Morellonomicon", "ProtectorsVow", "Quicksilver", "RabadonsDeathcap",
+     "RapidFirecannon", "Redemption", "RunaansHurricane",
+     "SpearofShojin", "StatikkShiv", "SunfireCape", "TacticiansCrown",
+     "ThiefsGloves", "TitansResolve", "WarmogsArmor"}
+
+SUPPORT_ITEMS: set[str] = {"AegisoftheLegion", "BansheesVeil", "ChaliceofPower", "CrestOfCinders",
                            "LocketoftheIronSolari", "NeedlesslyBigGem", "ObsidianCleaver", "RanduinsOmen",
                            "ShroudofStillness", "VirtueoftheMartyr", "ZekesHerald", "Zephyr", "ZzRotPortal"}
 
@@ -33,9 +36,9 @@ ELUSIVE_ITEMS: set[str] = {"BastionEmblem", "BruiserEmblem", "DemaciaEmblem", "F
                            "GunnerEmblem", "InvokerEmblem", "IxtalEmblem", "PiltoverEmblem", "RogueEmblem",
                            "SlayerEmblem", "StrategistEmblem", "TargonEmblem", "VoidEmblem", "ZaunEmblem"}
 
-ORNN_ITEMS: set[str] = {"AnimaVisage", "BlacksmithsGloves", "DeathsDefiance", "DeathfireGrasp", "EternalWinter",
+ORNN_ITEMS: set[str] = {"AnimaVisage", "BlacksmithsGloves", "DeathfireGrasp", "DeathsDefiance", "EternalWinter",
                         "GoldCollector", "GoldmancersStaff", "Hullcrusher", "InfinityForce", "Manazane", "MogulsMail",
-                        "RaduinsSanctum", "RocketPropelledFist", "SnipersFocus", "TrickstersGlass",
+                        "Muramana", "RanduinsSanctum", "RocketPropelledFist", "SnipersFocus", "TrickstersGlass",
                         "ZhonyasParadox"}
 
 RADIANT_ITEMS: set[str] = {"Absolution", "BlessedBloodthirster", "BlueBlessing", "BrinkofDawn", "BulkwarsOath",
@@ -44,7 +47,7 @@ RADIANT_ITEMS: set[str] = {"Absolution", "BlessedBloodthirster", "BlueBlessing",
                            "HextechLifeblade", "LocketofTargonPrime", "LuminousDeathblade", "Mistral",
                            "MoreMoreellonomicon", "Quickestsilver", "RabadonsAscendedDeathcap", "RapidLightcannon",
                            "RascalsGloves", "RosethornVest", "RunaansTempest", "ShroudofReverance", "SpearofHirana",
-                           "StatikkFavor", "SteraksMegashield", "Stridebreaker", "SunlightCape", "TitansVow",
+                           "StatikkFavor", "SteraksMegashield", "StrideBreaker", "SunlightCape", "TitansVow",
                            "UrfAngelsStaff", "WarmogsPride", "ZekesHarmony", "ZenithEdge", "ZzrotsInvitation"}
 
 MOGUL_ITEMS: set[str] = {"DeterminedInvestor", "DiamondHands", "DravensAxe", "GamblersBlade"}
@@ -53,7 +56,9 @@ MOGUL_ITEMS: set[str] = {"DeterminedInvestor", "DiamondHands", "DravensAxe", "Ga
 ZAUN_ITEMS: set[str] = {"AdaptiveImplant", "HextechExoskeleton", "RoboticArm", "ShimmerInjector", "UnstableChemtank"
                                                                                                   "VirulentBioware"}
 
-MISC_ITEMS: set[str] = {"CrownofDemacia", "Masterworkupgrade", "ScrollofKnowledge", "TheDarkinBlade", "Reforger"}
+MISC_ITEMS: set[str] = {"ChampionDuplicator", "CrownofDemacia", "ImperfectSoulCrown", "LesserChampionDuplicator",
+                        "LoadedDice", "MagneticRemover", "MasterworkUpgrade",
+                        "Reforger", "ScrollofKnowledge", "TheDarkinBlade"}
 
 HOLDABLE_ITEMS: set[str] = COMPONENT_AND_CRAFTABLE_ITEMS.union(ELUSIVE_ITEMS)\
                                                         .union(SUPPORT_ITEMS)\
@@ -247,6 +252,50 @@ CRAFTABLE_ITEMS_DICT = {"ChallengerEmblem": ("Spatula", "RecurveBow"),
                         # "Zephyr": ("GiantsBelt", "NegatronCloak"),
                         # "ZzRotPortal": ("GiantsBelt", "RecurveBow")
                         }
+
+RADIANT_ITEMS_DICT = {"Absolution": "Redemption",
+                      "BlessedBloodthirster": "Bloodthirster",
+                      "BlueBlessing": "BlueBuff",
+                      "BrinkofDawn": "EdgeofNight",
+                      "BulkwarsOath": "ProtectorsVow",
+                      "ChaliceofCharity": "ChaliceofPower",
+                      "CovalentSpark": "IonicSpark",
+                      "DemonSlayer": "GiantSlayer",
+                      "DragonsWill": "DragonsClaw",
+                      "DvarapalaStoneplate": "GargoyleStoneplate",
+                      "Equinox": "Evenshroud",
+                      "EternalWhisper": "LastWhisper",
+                      "FistofFairness": "HandofJustice",
+                      "GlamorousGauntlet": "JeweledGauntlet",
+                      "GuinsoosReckoning": "GuinsoosRageblade",
+                      "HextechLifeblade": "HextechGunblade",
+                      "JakshotheProtean": "AdaptiveHelm",
+                      "LocketofTargonPrime": "LocketoftheIronSolari",
+                      "LuminousDeathblade": "Deathblade",
+                      "MidnightReaper": "NightHarvester",
+                      "Mistral": "Zephyr",
+                      "MoreMoreellonomicon": "Morellonomicon",
+                      "Quickestsilver": "Quicksilver",
+                      "RabadonsAscendedDeathcap": "RabadonsDeathcap",
+                      "RapidLightcannon": "RapidFirecannon",
+                      "RascalsGloves": "ThiefsGloves",
+                      "RosethornVest": "BrambleVest",
+                      "RoyalCrownshield": "Crownguard",
+                      "RunaansTempest": "RunaansHurricane",
+                      "ShroudofReverance": "ShroudofStillness",
+                      "SpearofHirana": "SpearofShojin",
+                      "StatikkFavor": "StatikkShiv",
+                      "SteraksMegashield": "SteraksGage",
+                      "StrideBreaker": "Guardbreaker",
+                      "SunlightCape": "SunfireCape",
+                      "TheBaronsGift": "NashorsTooth",
+                      "TitansVow": "TitansResolve",
+                      "UrfAngelsStaff": "ArchangelsStaff",
+                      "WarmogsPride": "WarmogsArmor",
+                      "Willbreaker": "Guardbreaker",
+                      "ZekesHarmony": "ZekesHerald",
+                      "ZenithEdge": "InfinityEdge",
+                      "ZzRotsInvitation": "ZzRotPortal"}
 
 
 def champion_board_size(champion: str) -> int:
