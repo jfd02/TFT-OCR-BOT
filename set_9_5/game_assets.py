@@ -18,20 +18,20 @@ COMPONENT_AND_CRAFTABLE_ITEMS: set[str] = {"BFSword", "ChainVest", "GiantsBelt",
                        "SpearofShojin", "StatikkShiv", "SunfireCape", "TacticiansCrown",
                        "ThiefsGloves", "TitansResolve", "WarmogsArmor"}
 
-SUPPORT_ITEMS: set[str] = {"AegisoftheLegion", "BansheesVeil", "CrestOfCinders", "VirtueoftheMartyr", "ChaliceofPower"
+SUPPORT_ITEMS: set[str] = {"AegisoftheLegion", "BansheesVeil", "CrestOfCinders", "ChaliceofPower"
                            "LocketoftheIronSolari", "NeedlesslyBigGem", "ObsidianCleaver", "RanduinsOmen",
-                           "ShroudofStillness", "ZekesHerald", "Zephyr", "ZzRotPortal"}
+                           "ShroudofStillness", "VirtueoftheMartyr", "ZekesHerald", "Zephyr", "ZzRotPortal"}
 
-TRAIT_ITEMS: set[str] = {"BastionEmblem", "BruiserEmblem", "ChallengerEmblem", "DeadeyeEmblem", "DemaciaEmblem",
-                           "FreljordEmblem", "GunnerEmblem", "InvokerEmblem", "IoniaEmblem", "JuggernautEmblem",
-                           "NoxusEmblem", "PiltoverEmblem", "RogueEmblem", "ShadowIslesEmblem", "ShurimaEmblem",
-                           "SlayerEmblem", "SorcererEmblem", "StrategistEmblem", "TargonEmblem", "VoidEmblem",
-                           "ZaunEmblem"}
+TRAIT_ITEMS: set[str] = {"BastionEmblem", "BilgewaterEmblem", "BruiserEmblem", "ChallengerEmblem", "DeadeyeEmblem",
+                         "DemaciaEmblem", "FreljordEmblem", "GunnerEmblem", "InvokerEmblem", "IoniaEmblem",
+                         "IxtalEmblem",  "JuggernautEmblem", "NoxusEmblem", "PiltoverEmblem", "RogueEmblem",
+                         "ShadowIslesEmblem", "ShurimaEmblem", "SlayerEmblem", "SorcererEmblem", "StrategistEmblem",
+                         "TargonEmblem", "VanquisherEmblem", "VoidEmblem", "ZaunEmblem"}
 
 # Trait Items that cannot be crafted
-ELUSIVE_ITEMS: set[str] = {"BastionEmblem", "BruiserEmblem", "DeadeyeEmblem", "FreljordEmblem",
-                           "GunnerEmblem", "InvokerEmblem", "PiltoverEmblem", "RogueEmblem",
-                           "StrategistEmblem", "TargonEmblem", "VoidEmblem", "ZaunEmblem"}
+ELUSIVE_ITEMS: set[str] = {"BastionEmblem", "BruiserEmblem", "DemaciaEmblem", "FreljordEmblem",
+                           "GunnerEmblem", "InvokerEmblem", "IxtalEmblem", "PiltoverEmblem", "RogueEmblem",
+                           "SlayerEmblem", "StrategistEmblem", "TargonEmblem", "VoidEmblem", "ZaunEmblem"}
 
 ORNN_ITEMS: set[str] = {"AnimaVisage", "BlacksmithsGloves", "DeathsDefiance", "DeathfireGrasp", "EternalWinter",
                         "GoldCollector", "GoldmancersStaff", "Hullcrusher", "InfinityForce", "Manazane", "MogulsMail",
@@ -55,13 +55,14 @@ ZAUN_ITEMS: set[str] = {"AdaptiveImplant", "HextechExoskeleton", "RoboticArm", "
 
 MISC_ITEMS: set[str] = {"CrownofDemacia", "Masterworkupgrade", "ScrollofKnowledge", "TheDarkinBlade", "Reforger"}
 
-ITEMS: set[str] = COMPONENT_AND_CRAFTABLE_ITEMS.union(ELUSIVE_ITEMS)\
-                                               .union(SUPPORT_ITEMS)\
-                                               .union(TRAIT_ITEMS)\
-                                               .union(ORNN_ITEMS)\
-                                               .union(RADIANT_ITEMS)\
-                                               .union(ZAUN_ITEMS)\
-                                               .union(MISC_ITEMS)
+HOLDABLE_ITEMS: set[str] = COMPONENT_AND_CRAFTABLE_ITEMS.union(ELUSIVE_ITEMS)\
+                                                        .union(SUPPORT_ITEMS)\
+                                                        .union(TRAIT_ITEMS)\
+                                                        .union(ORNN_ITEMS)\
+                                                        .union(RADIANT_ITEMS)\
+                                                        .union(ZAUN_ITEMS)
+
+ALL_ITEMS: set[str] = HOLDABLE_ITEMS.union(MISC_ITEMS)
 
 # All the augments in the game that won't require the bot to react to
 # (i.e. don't give a unit or item, affect level, cost to buy xp, etc.).

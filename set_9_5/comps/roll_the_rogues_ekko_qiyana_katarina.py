@@ -19,8 +19,8 @@ RECOMMENDED_LEGEND = "Twisted Fate"
 COMP = {
     "Qiyana": {
         "board_position": 26,
-        "items_to_build": ["InfinityEdge", "SteraksGage", "HandofJustice"],
-        "completed_items_to_accept": ["TitansResolve"],
+        "items_to_build": [ "HandofJustice", "InfinityEdge", "SteraksGage"],
+        "completed_items_to_accept": ["HandofJustice", "InfinityEdge", "SteraksGage", "TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -44,7 +44,7 @@ COMP = {
     "Katarina": {
         "board_position": 24,
         "items_to_build": ["IonicSpark", "NightHarvester"],
-        "completed_items_to_accept": ["Crownguard", "RabadonsDeathcap"],
+        "completed_items_to_accept": ["Crownguard", "IonicSpark", "NightHarvester", "RabadonsDeathcap"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["SlayerEmblem"],
         "ornn_items_to_accept": [],
@@ -68,8 +68,8 @@ COMP = {
     "Taric": {
         "board_position": 23,
         "items_to_build": [],
-        "completed_items_to_accept": [],
-        "support_items_to_accept": [],
+        "completed_items_to_accept": ["BrambleVest", "DragonsClaw", "IonicSpark", "Redemption", "SunfireCape"],
+        "support_items_to_accept": ["ChaliceofPower", "LocketoftheIronSolari", "VirtueoftheMartyr", "ZzRotPortal"],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
         "radiant_items_to_accept": [],
@@ -105,7 +105,7 @@ COMP = {
         "board_position": 6,
         "items_to_build": [],
         "completed_items_to_accept": [],
-        "support_items_to_accept": [],
+        "support_items_to_accept": ["NeedlesslyBigGem"],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
         "radiant_items_to_accept": [],
