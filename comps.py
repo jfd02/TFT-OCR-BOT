@@ -9,10 +9,12 @@ Strategies:
 import set_9_5.comps.roll_the_rogues_ekko_qiyana_katarina
 import set_9_5.comps.heart_of_the_cards_twisted_fate_illaoi_nilah_miss_fortune
 import set_9_5.comps.arcane_domain_jayce_vi_silco
+import set_9_5.comps.walk_the_plank_nilah_miss_fortune_gangplank_nautilus
 
-COMP = set_9_5.comps.arcane_domain_jayce_vi_silco.COMP
+COMP = set_9_5.comps.walk_the_plank_nilah_miss_fortune_gangplank_nautilus.COMP
 
-AUGMENTS = set_9_5.comps.arcane_domain_jayce_vi_silco.AUGMENTS
+PRIMARY_AUGMENTS = set_9_5.comps.walk_the_plank_nilah_miss_fortune_gangplank_nautilus.PRIMARY_AUGMENTS
+SECONDARY_AUGMENTS = set_9_5.comps.walk_the_plank_nilah_miss_fortune_gangplank_nautilus.SECONDARY_AUGMENTS
 
 def champions_to_buy() -> list:
     """Creates a list of champions to buy during the game"""

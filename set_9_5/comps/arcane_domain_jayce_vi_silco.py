@@ -141,20 +141,31 @@ COMP = {
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
 # (Anything that changes gameplay or adds something to the bench).
-AUGMENTS: list[str] = [
-    "Battle Ready I",
+# Picks these augments 100% of the time.
+PRIMARY_AUGMENTS: list[str] = [
     "Branching Out",
     "Consistency",
     "Cybernetic Bulk I",
+
+    "Ancient Archives I",
+    "Dueling Gunners",
+    "Shimmering Inventors",
+
+    "Ancient Archives II",
+    "Cybernetic Bulk III",
+    "Piltover Soul"
+]
+
+# Picks these augments when there are no primary augments to pick from after re-rolling augments in neither list.
+SECONDARY_AUGMENTS: list[str] = [
+    "Battle Ready I",
     "Money!",
     "Pandora's Items I",
     "Tiny Power I",
     "Unified Resistance I",
 
-    "Ancient Archives I",
     "Balanced Budget II",
     "Battle Ready II",
-    "Dueling Gunners",
     "Gunner Crest",
     "Last Stand",
     "Money Money!",
@@ -163,20 +174,16 @@ AUGMENTS: list[str] = [
     "Perfected Repetition",
     "Piltover Heart",
     "Pumping Up II",
-    "Shimmering Inventors",
     "Tiny Power II",
     "Unified Resistance II",
     "You Have My Bow",
     "Zaun Crest",
 
-    "Ancient Archives II",
     "Battle Ready III",
-    "Cybernetic Bulk III",
     "Gunner Crown",
     "Lucky Gloves",
     "Money Money Money!",
     "Pandora's Items III",
-    "Piltover Soul",
     "Radiant Relics",
     "Tiny Power III",
     "Unified Resistance III",

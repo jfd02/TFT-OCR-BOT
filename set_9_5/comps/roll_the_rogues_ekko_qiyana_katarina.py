@@ -20,7 +20,7 @@ COMP = {
     "Qiyana": {
         "board_position": 26,
         "items_to_build": ["InfinityEdge", "SteraksGage", "HandofJustice"],
-        "completed_items_to_accept": [],
+        "completed_items_to_accept": ["TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -32,21 +32,21 @@ COMP = {
     "Ekko": {
         "board_position": 22,
         "items_to_build": ["HandofJustice", "JeweledGauntlet", "HandofJustice"],
-        "completed_items_to_accept": [],
+        "completed_items_to_accept": ["Crownguard", "HandofJustice", "RabadonsDeathcap"],
         "support_items_to_accept": [],
-        "trait_items_to_accept": [],
+        "trait_items_to_accept": ["SlayerEmblem"],
         "ornn_items_to_accept": [],
         "radiant_items_to_accept": [],
-        "zaun_items_to_accept": [],
+        "zaun_items_to_accept": ["HextechExoskeleton", "ShimmerInjector", "UnstableChemtech", "VirulentBioware"],
         "level": 3,
         "final_comp": True
     },
     "Katarina": {
         "board_position": 24,
         "items_to_build": ["IonicSpark", "NightHarvester"],
-        "completed_items_to_accept": [],
+        "completed_items_to_accept": ["Crownguard", "RabadonsDeathcap"],
         "support_items_to_accept": [],
-        "trait_items_to_accept": [],
+        "trait_items_to_accept": ["SlayerEmblem"],
         "ornn_items_to_accept": [],
         "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
@@ -56,12 +56,12 @@ COMP = {
     "Silco": {
         "board_position": 0,
         "items_to_build": [],
-        "completed_items_to_accept": [],
+        "completed_items_to_accept": ["BlueBuff", "Morellonomicon", "RabadonsDeathcap"],
         "support_items_to_accept": [],
-        "trait_items_to_accept": [],
+        "trait_items_to_accept": ["RogueEmblem"],
         "ornn_items_to_accept": [],
         "radiant_items_to_accept": [],
-        "zaun_items_to_accept": [],
+        "zaun_items_to_accept": ["AdaptiveImplant", "VirulentBioware"],
         "level": 2,
         "final_comp": True
     },
@@ -129,34 +129,39 @@ COMP = {
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
 # (Anything that changes gameplay or adds something to the bench).
-AUGMENTS: list[str] = [
-    "Battle Ready I",
-    "Consistency",
+PRIMARY_AUGMENTS: list[str] = [
     "Cybernetic Leech I",
-    "Money!",
     "Pandora's Items I",
     "Rogue Heart",
+
+    "Idealism",
+    "Pandora's Items II",
+    "Vampiric Blades",
+
+    "Golden Ticket",
+    "Pandora's Items III",
+    "Rogue Crown"
+]
+
+SECONDARY_AUGMENTS: list[str] = [
+    "Battle Ready I",
+    "Consistency",
+    "Money!",
     "Tiny Power I",
     "Unified Resistance I",
 
     "Balanced Budget II",
     "Battle Ready II",
-    "Idealism",
     "Last Stand",
     "Money Money!",
-    "Pandora's Items II",
     "Patient Study",
     "Pumping Up II",
     "Tiny Power II",
     "Unified Resistance II"
-    "Vampiric Blades",
 
     "Battle Ready III",
-    "Golden Ticket",
     "Lucky Gloves",
     "Money Money Money!",
-    "Pandora's Items III",
-    "Rogue Crown",
     "Tiny Power III",
     "Unified Resistance III",
 ]
