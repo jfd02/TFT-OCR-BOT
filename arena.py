@@ -581,11 +581,12 @@ class Arena:
                             self.champs_to_buy.remove(champion[1])
             first_run = False
 
-    def pick_augment(self, have_rerolled: bool, secondary_augments: list) -> None:
+    def pick_augment(self, have_rerolled: bool, secondary_augments: list) -> bool:
         """Picks an augment from user defined primary augments. If none from that list exist,
            it re-rolls any augments that aren't the defined secondary augments.
            It then tries to choose from any new primary and secondary augments again.
-           If none exist, it picks the first augment on the left."""
+           If none exist, it picks the first augment on the left.
+           Returns True if this function picked an augment non-randomly."""
         sleep(2)  # So that when I'm watching the screen I can actually read the augments' descriptions.
         augments: list = []
         for coords in screen_coords.AUGMENT_POS:
@@ -601,7 +602,7 @@ class Arena:
                     print(f"    Augment: {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                     self.augments.append(augment)
-                    return
+                    return True
             for potential2 in comps.SECONDARY_AUGMENTS:
                 if potential2 in augment:
                     if have_rerolled:
@@ -609,24 +610,25 @@ class Arena:
                         print(f"    Augment: {augment}")
                         mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                         self.augments.append(augment)
-                        return
+                        return True
                     else:
                         secondary_augments.append(potential2)
                 else:
                     secondary_augments.append(None)
-
-        if self.augment_roll:
-            print("  Rolling for augment")
+        # If we decided before game that we would re-roll augments, and we have not re-rolled the first augments yet.
+        if self.augment_roll and not have_rerolled:
+            print("  Re-rolling augments.")
             # Only re-rolls the augments that are not secondary augments.
             # If a primary augment was on the screen, it should have already been picked.
             for index, reroll_button in enumerate(screen_coords.AUGMENT_ROLL):
-                if secondary_augments[index] is not None:
+                if secondary_augments[index] is None:
                     mk_functions.left_click(reroll_button.get_coords())
-            self.augment_roll = False  # Is this only allowing us to use the re-rolls once per game?
-            self.pick_augment(True, secondary_augments)
-
-        print(AnsiColors.YELLOW_REGULAR + "  None of the augments were a desired augments." + AnsiColors.RESET)
-        mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
+            if self.pick_augment(True, secondary_augments):
+                return True
+            else:
+                print(AnsiColors.YELLOW_REGULAR + "  None of the augments were a desired augments." + AnsiColors.RESET)
+                mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
+        return False
 
     def check_health(self) -> int:
         """Checks if current health is below 30 and conditionally activates spam roll"""
