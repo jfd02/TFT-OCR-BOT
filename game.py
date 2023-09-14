@@ -251,7 +251,9 @@ class Game:
         if self.round in game_assets.ITEM_PLACEMENT_ROUNDS \
                 or arena_functions.get_health() <= 15 or len(self.arena.items) >= 8:
             sleep(1)  # why do we sleep here?
-            self.arena.place_items()
+            self.arena.place_items_by_looping_through_items_first()
+            #self.arena.give_items_to_units()
+
         self.end_round_tasks()
 
     def end_round_tasks(self) -> None:

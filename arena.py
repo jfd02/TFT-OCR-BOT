@@ -332,47 +332,35 @@ class Arena:
         if item in game_assets.SUPPORT_ITEMS:
             if champ.name in comps.COMP and item in comps.COMP[champ.name]["support_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Support item it accepts.")
-                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
-                arena_functions.print_item_placed_on_champ(item, champ)
+                self.add_one_item_to_unit(champ, item_index)
                 champ.completed_items.append(item)
-                self.items[self.items.index(item)] = None
         if item in game_assets.TRAIT_ITEMS:
             if champ.name in comps.COMP and item in comps.COMP[champ.name]["trait_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Trait item it accepts.")
-                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
-                arena_functions.print_item_placed_on_champ(item, champ)
+                self.add_one_item_to_unit(champ, item_index)
                 champ.completed_items.append(item)
-                self.items[self.items.index(item)] = None
         if item in game_assets.ORNN_ITEMS:
             if champ.name in comps.COMP and item in comps.COMP[champ.name]["ornn_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is an Ornn item it accepts.")
-                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
-                arena_functions.print_item_placed_on_champ(item, champ)
+                self.add_one_item_to_unit(champ, item_index)
                 champ.completed_items.append(item)
-                self.items[self.items.index(item)] = None
         if item in game_assets.RADIANT_ITEMS:
             if champ.name in comps.COMP and item in comps.COMP[champ.name]["radiant_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Radiant item it accepts.")
-                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
-                arena_functions.print_item_placed_on_champ(item, champ)
+                self.add_one_item_to_unit(champ, item_index)
                 champ.completed_items.append(item)
-                self.items[self.items.index(item)] = None
         if item in game_assets.ZAUN_ITEMS:
             if champ.name in comps.COMP and item in comps.COMP[champ.name]["zaun_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Zaun item it accepts.")
-                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
-                arena_functions.print_item_placed_on_champ(item, champ)
+                self.add_one_item_to_unit(champ, item_index)
                 champ.completed_items.append(item)
-                self.items[self.items.index(item)] = None
         if item in game_assets.CRAFTABLE_ITEMS_DICT:
             if item in champ.build:
                 print(
                     f"        Attempting to add item {item} to {champ.name} because it is a completed item it builds.")
-                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
-                arena_functions.print_item_placed_on_champ(item, champ)
+                self.add_one_item_to_unit(champ, item_index)
                 champ.completed_items.append(item)
                 champ.build.remove(item)
-                self.items[self.items.index(item)] = None
         elif len(champ.current_building) == 0:
             item_to_move: None = None
             for build_item in champ.build:
@@ -920,11 +908,22 @@ class Arena:
     def give_items_to_units(self):
         """Loops through the units first so that we can add multiple items to one unit first,
            before moving onto the next unit."""
-        self.arena.items = arena_functions.get_items()
-        for unit in self.arena.board:
+        self.items = arena_functions.get_items()
+        for unit in self.board:
             if isinstance(unit, Champion):
                 # If we have completed BIS items waiting on the bench, give them to the unit.
                 for item_index, completed_item in enumerate(unit.build):
-                    if completed_item in self.arena.items:
-                        self.arena.add_item_to_champ(item_index, unit)
+                    if completed_item in self.items:
+                        self.add_one_item_to_unit(unit, item_index)
                         unit.build.remove(completed_item)
+
+    def add_one_item_to_unit(self, unit: Champion, the_items_index: int):
+        """Move the item from its location on the board to the unit.
+           Prints out the name of the item and the unit it was placed on.
+           Adds it to the units list of items it has.
+           Removes the instance of the item from the board's list of items."""
+        item = self.items[the_items_index]
+        arena_functions.move_item(screen_coords.ITEM_POS[the_items_index][0].get_coords(), unit.coords)
+        arena_functions.print_item_placed_on_champ(item, unit)
+        unit.items.append(item)
+        self.items[the_items_index] = None
