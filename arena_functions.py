@@ -368,7 +368,7 @@ def valid_tome_of_traits(anvil_text: str) -> bool:
     return anvil_text == "Tome of Traits" or SequenceMatcher(a=anvil_text, b="Tome of Traits").ratio() >= 0.7
 
 
-def number_of_item_slots_filled_on_unit(unit: Champion) -> int:
+def count_number_of_item_slots_filled_on_unit(unit: Champion):
     """Assumes the unit actually exists. Opens the info panel on a unit and then hovers over
        the center of each item slot that displays in that screen. If the color of that slot is not close to black,
        then we assume the item slot is filled. As soon as the check fails, we find a color close to black,
@@ -383,7 +383,13 @@ def number_of_item_slots_filled_on_unit(unit: Champion) -> int:
         if not (np.abs(screenshot_array - (0, 0, 0)) <= 2).all(axis=2).any():
             item_slots_filled += 1
         else:
-            return item_slots_filled
-    return item_slots_filled
+            set_number_of_item_slot_filled_on_unit(unit, item_slots_filled)
+            return
+    set_number_of_item_slot_filled_on_unit(unit, item_slots_filled)
+    return
 
+
+def set_number_of_item_slot_filled_on_unit(unit: Champion, item_slots_filled: int):
+    print(f"  {unit.name} has had their number of item-slots-filled set from {unit.item_slots_filled} to {item_slots_filled}.")
+    unit.item_slots_filled = item_slots_filled
 
