@@ -124,7 +124,7 @@ def valid_item(item: str) -> str | None:
     return next(
         (
             valid_item_name
-            for valid_item_name in game_assets.ITEMS
+            for valid_item_name in game_assets.ALL_ITEMS
             if valid_item_name in item
                or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7
         ),
