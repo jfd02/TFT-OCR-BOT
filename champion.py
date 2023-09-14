@@ -8,7 +8,7 @@ class Champion:
 
     # pylint: disable=too-many-instance-attributes,too-few-public-methods,too-many-arguments
 
-    def __init__(self, name: str, coords: tuple, item_slots_filled: int, build: list[str], slot: int, size: int, final_comp: bool) -> None:
+    def __init__(self, name: str, coords: tuple, item_slots_filled: int, build: list[str], build2: list[str], slot: int, size: int, final_comp: bool) -> None:
         # The units name.
         self.name: str = name
         # Where the unit is located on the bench or board in Vec2 coordinates.
@@ -17,22 +17,26 @@ class Champion:
         self.item_slots_filled: int = item_slots_filled
         # A list of the items that are likely the unit's best items it can be given, a.k.a. their "Best In Slot" (BIS)
         self.build: list[str] = build
+        # A list of completed items that aren't BIS, but would also work on this unit.
+        self.completed_items_will_accept: list[str] = build2
         # The position on the board where the unit is designated in comps.py to be placed.
         self.index: int = slot
         # The 'amount of units' this unit counts as, because sometimes a unit counts as 2 of your total possible units.
         self.size: int = size
         # The list of every item the unit has.
         self.items: list = []
-        # The list of completed items the unit has.
-        self.completed_items: list = []
+        # The list of non-component items the unit has that aren't Zaun items.
+        self.non_component_items: list = []
         # The list of component items that the unit has.
         self.current_building: list = []
+        # The list of Zaun items the unit has.
+        self.held_zaun_items: list = []
         # Whether the unit is a part of the final comp.
         self.final_comp: bool = final_comp
 
     def does_need_items(self) -> bool:
         """Returns if the champion instance needs items"""
-        return len(self.completed_items) != 3 or len(self.build) + len(self.current_building) == 0
+        return len(self.non_component_items) != 3 or len(self.build) + len(self.current_building) == 0
 
     def print_all_class_variables(self):
         """Prints out all of a unit's information."""
@@ -42,6 +46,6 @@ class Champion:
         print(f"\t\tItems The Unit is Designated to Build: {self.build}")
         print(f"\t\tLocation on the Board: {self.index}")
         print(f"\t\tAmount of Spaces This Unit Takes Up on the Board: {self.size}")
-        print(f"\t\tCompleted Items: {self.completed_items}")
+        print(f"\t\tCompleted Items: {self.non_component_items}")
         print(f"\t\tComponent Items: {self.current_building}")
         print(f"\t\tFinal Comp? {self.final_comp}")
