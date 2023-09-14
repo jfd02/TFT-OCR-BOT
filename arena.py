@@ -575,7 +575,7 @@ class Arena:
                             self.champs_to_buy.remove(champion[1])
             first_run = False
 
-    def pick_augment(self, have_rerolled: bool, secondary_augments: list) -> bool:
+    def pick_augment(self, have_rerolled: bool, secondary_augments: list) -> bool | list:
         """Picks an augment from user defined primary augments. If none from that list exist,
            it re-rolls any augments that aren't the defined secondary augments.
            It then tries to choose from any new primary and secondary augments again.
@@ -618,14 +618,16 @@ class Arena:
                 if secondary_augments[index] is None:
                     mk_functions.left_click(reroll_button.get_coords())
             # if we successfully chose a primary or secondary augment
-            if self.pick_augment(True, secondary_augments):
+            response = self.pick_augment(True, secondary_augments)
+            if response:
                 return True
-            # if we didn't we pick the first augment on the left side of the screen
-            else:
+            # if we didn't we pick the first augment on the left side of the screen,
+            # we were returned the new list of augments
+            elif isinstance(response, list):
                 print(AnsiColors.YELLOW_REGULAR + "  None of the augments were a desired augment." + AnsiColors.RESET)
                 mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
-                print(f"    Augment Chosen: {augments[0]}")
-                self.augments.append(augments[0])
+                print(f"    Augment Chosen: {response[0]}")
+                self.augments.append(response[0])
         return False
 
     def check_health(self) -> int:
@@ -689,7 +691,7 @@ class Arena:
                        screen_coords.MAX_AMOUNT_OF_CHAMPIONS_ON_BOARD_LOC.get_coords(), 0, 0))
         # Create label for the item orbs.
         for item_orb_vec2 in arena_functions.get_center_position_of_item_orbs():
-            labels.append((f"?", item_orb_vec2.get_coords(), 0, 0))
+            labels.append((f"Item Orb", item_orb_vec2.get_coords(), 0, 0))
         self.message_queue.put(("LABEL", labels))
 
     def count_items_on_bench(self) -> int:
