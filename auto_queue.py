@@ -14,7 +14,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def create_lobby(client_info: tuple) -> bool:
     """Creates a lobby"""
-    payload: dict[str, int] = {"queueId": 1100}  # Normals is 1090, Ranked TFT is 1100
+    payload: dict[str, int] = {"queueId": 1090}  # Normals is 1090, Ranked TFT is 1100
     payload: dict[str, int] = json.dumps(payload)
     try:
         status = requests.post(
@@ -128,6 +128,7 @@ def queue() -> None:
     """Function that handles getting into a game"""
     client_info: tuple = get_client()
     while not create_lobby(client_info):
+        print("  Creating the lobby failed. Sleeping for 3 seconds.")
         sleep(3)
 
     change_arena_skin(client_info)

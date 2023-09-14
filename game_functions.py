@@ -6,6 +6,7 @@ from time import sleep
 from PIL import ImageGrab
 
 import arena_functions
+import comps
 import screen_coords
 import ocr
 from set_9_5 import game_assets
@@ -132,3 +133,11 @@ def forfeit() -> None:
     sleep(0.1)
     mk_functions.left_click(screen_coords.SURRENDER_TWO_LOC.get_coords())
     sleep(1)
+
+
+def pick_a_random_comp_to_play():
+    """Make the bot play a random comp from the comps we have created."""
+    random_comp = comps.return_random_comp()
+    comps.COMP = random_comp.COMP
+    comps.PRIMARY_AUGMENTS = random_comp.PRIMARY_AUGMENTS
+    comps.SECONDARY_AUGMENTS = random_comp.SECONDARY_AUGMENTS

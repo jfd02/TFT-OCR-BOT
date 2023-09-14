@@ -68,12 +68,11 @@ class Game:
     def loading_screen(self) -> None:
         """Loop that runs while the game is in the loading screen"""
         game_functions.default_pos()
+        print("\nLooking for stage 1-1...")
         while game_functions.get_round() != "1-1":
             sleep(1)
         print("\n\nStarting match...")
-        # Make the bot play a random comp from the comps we have created.
-        random_comp = comps.return_random_comp()
-        comps.COMP = random_comp.COMP
+        game_functions.pick_a_random_comp_to_play()
         self.start_time: float = perf_counter()
         self.game_loop()
 

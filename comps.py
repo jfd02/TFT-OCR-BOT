@@ -6,17 +6,18 @@ Strategies:
     Fast 8: This comp looks to level up to 8 aggressively with a strong economy.
     Slow Roll: This comp rolls gold above 50 to look for 3-star champions.
 """
-import set_9_5.comps.roll_the_rogues_ekko_qiyana_katarina as roll_the_rogues
-import set_9_5.comps.heart_of_the_cards_twisted_fate_illaoi_nilah_miss_fortune as heart_of_the_cards
 import set_9_5.comps.arcane_domain_jayce_vi_silco as arcane_domain
+import set_9_5.comps.heart_of_the_cards_twisted_fate_illaoi_nilah_miss_fortune as heart_of_the_cards
+import set_9_5.comps.roll_the_rogues_ekko_qiyana_katarina as roll_the_rogues
 import set_9_5.comps.walk_the_plank_nilah_miss_fortune_gangplank_nautilus as walk_the_plank
-from Lib.random import random
+import random
 
-COMP = {}
+
 COMPS_TO_SELECT_RANDOMLY_FROM: list = [arcane_domain, heart_of_the_cards, roll_the_rogues, walk_the_plank]
 
-PRIMARY_AUGMENTS = walk_the_plank.PRIMARY_AUGMENTS
-SECONDARY_AUGMENTS = walk_the_plank.SECONDARY_AUGMENTS
+COMP = {}
+PRIMARY_AUGMENTS = []
+SECONDARY_AUGMENTS = []
 
 def champions_to_buy() -> list:
     """Creates a list of champions to buy during the game"""
