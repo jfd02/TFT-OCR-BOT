@@ -142,7 +142,7 @@ CHAMPIONS: dict[str, dict[str, int]] = {
     # "Senna": {"Gold": 5, "Board Size": 1},
     "Sett": {"Gold": 2, "Board Size": 1},
     "Shen": {"Gold": 4, "Board Size": 1},
-    "Silco": {"Gold": 4, "Board Size": 1},
+    "Silco": {"Gold": 4, "Board Size": 1},  # does he technically count as a champion tho
     "Sion": {"Gold": 5, "Board Size": 1},
     "Sona": {"Gold": 3, "Board Size": 1},
     "Soraka": {"Gold": 2, "Board Size": 1},
@@ -162,6 +162,21 @@ CHAMPIONS: dict[str, dict[str, int]] = {
     # "Zed": {"Gold": 2, "Board Size": 1},
     # "Zeri": {"Gold": 4, "Board Size": 1}
     }
+
+# Units that have unique circumstances for what items they can have. These units can't be benched.
+# Gold is set to zero because they can't be sold. Could possibly be set to -1.
+# Board size is set to zero because they don't affect the limit on how many champion units the player can field.
+# And usually they can't be removed from the board anyways.
+NON_CHAMPION_UNITS: dict[str, dict[str, int]] = \
+    {"Apex Turret": {"Gold": 0, "Board Size": 0},
+     "Baron Nashor": {"Gold": 0, "Board Size": 0},
+     "Rift Herald": {"Gold": 0, "Board Size": 0},
+     "Target Dummy": {"Gold": 0, "Board Size": 0},
+     "T-Hex": {"Gold": 0, "Board Size": 0},
+     "Void Remora": {"Gold": 0, "Board Size": 0},}
+
+# Anything that takes up a space on the board.
+ALL_UNITS: set[str]
 
 ROUNDS: set[str] = {"1-1", "1-2", "1-3", "1-4",
                     "2-1", "2-2", "2-3", "2-4", "2-5", "2-6", "2-7",
