@@ -190,6 +190,7 @@ class Arena:
                         # Set default values if we don't want to use this champ in our comp.
                         items_to_build = []
                         final_comp = False
+                        units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BENCH_LOC[empty_bench_slot].get_coords())
                         # If we actually plan on using this champ in our comp:
                         if purchaseable_unit[1] in comps.COMP:
                             items_to_build = comps.COMP[purchaseable_unit[1]]["items_to_build"].copy()
@@ -197,6 +198,7 @@ class Arena:
                         # Create the Champion object.
                         champion = Champion(name=purchaseable_unit[1],
                                             coords=screen_coords.BENCH_LOC[empty_bench_slot].get_coords(),
+                                            item_slots_filled=units_current_item_count,
                                             build=items_to_build,
                                             slot=empty_bench_slot,
                                             size=game_assets.CHAMPIONS[purchaseable_unit[1]]["Board Size"],
@@ -835,14 +837,15 @@ class Arena:
                     # Set default values if we don't want to use this champ in our comp.
                     items_to_build = []
                     final_comp = False
+                    units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BENCH_LOC[index].get_coords())
                     # If we actually plan on using this champ in our comp:
                     if champ_name in comps.COMP:
                         items_to_build = comps.COMP[champ_name]["items_to_build"].copy()
                         final_comp = comps.COMP[champ_name]["final_comp"]
                     # Create the Champion object.
                     self.bench[index] = Champion(name=champ_name,
-                                                 coords=screen_coords.BENCH_LOC[index].get_coords(
-                                                 ),
+                                                 coords=screen_coords.BENCH_LOC[index].get_coords(),
+                                                 item_slots_filled=units_current_item_count,
                                                  build=items_to_build,
                                                  slot=index,
                                                  size=game_assets.CHAMPIONS[champ_name]["Board Size"],
@@ -879,6 +882,7 @@ class Arena:
         print(f"      Created the Champion object for the {unit_name}.")
         self.board_names.append(unit_name)
         size = game_assets.CHAMPIONS[unit_name]["Board Size"]
+        units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BOARD_LOC[index].get_coords())
         # Why do we do this?
         self.set_board_size(self.board_size + size)
         # Remove the unit that was unknown, and is now no longer unknown, from the unknown list.
@@ -886,8 +890,8 @@ class Arena:
             print(f"      Removing the unknown unit {unit_name} from the list of unknown units.")
             self.board_unknown.remove(unit_name)
         self.board.append(Champion(name=unit_name,
-                                   coords=screen_coords.BOARD_LOC[index].get_coords(
-                                   ),
+                                   coords=screen_coords.BOARD_LOC[index].get_coords(),
+                                   item_slots_filled=units_current_item_count,
                                    build=items_to_build,
                                    slot=index,
                                    size=size,

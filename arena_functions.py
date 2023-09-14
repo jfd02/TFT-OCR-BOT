@@ -369,12 +369,17 @@ def valid_tome_of_traits(anvil_text: str) -> bool:
 
 
 def count_number_of_item_slots_filled_on_unit(unit: Champion):
+    item_slots_filled = count_number_of_item_slots_filled_on_unit_at_coords(unit.coords)
+    set_number_of_item_slot_filled_on_unit(unit, item_slots_filled)
+
+
+def count_number_of_item_slots_filled_on_unit_at_coords(coordinates: tuple) -> int:
     """Assumes the unit actually exists. Opens the info panel on a unit and then hovers over
        the center of each item slot that displays in that screen. If the color of that slot is not close to black,
        then we assume the item slot is filled. As soon as the check fails, we find a color close to black,
        we can return how many items we've counted, because the item slots of a unit are filled up like a stack."""
     item_slots_filled = 0
-    mk_functions.right_click(unit.coords)
+    mk_functions.right_click(coordinates)
     mk_functions.press_s()
     # Search the unit's item slots from left to right.
     for positions in screen_coords.UNIT_INFO_MENU_ITEM_SLOTS_POS:
@@ -383,10 +388,8 @@ def count_number_of_item_slots_filled_on_unit(unit: Champion):
         if not (np.abs(screenshot_array - (0, 0, 0)) <= 2).all(axis=2).any():
             item_slots_filled += 1
         else:
-            set_number_of_item_slot_filled_on_unit(unit, item_slots_filled)
-            return
-    set_number_of_item_slot_filled_on_unit(unit, item_slots_filled)
-    return
+            return item_slots_filled
+    return item_slots_filled
 
 
 def set_number_of_item_slot_filled_on_unit(unit: Champion, item_slots_filled: int):
