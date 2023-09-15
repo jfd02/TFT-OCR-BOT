@@ -137,7 +137,7 @@ class Game:
         print(f"\n\n[Second Round] {self.round}")
         self.print_arena_values()
         self.message_queue.put("CLEAR")
-        sleep(1)
+        sleep(0.8)  # 1 second is sometimes too long
         self.arena.identify_champions_on_board()
         self.arena.identify_champions_on_bench()
         self.arena.move_champions()

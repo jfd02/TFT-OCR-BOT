@@ -82,7 +82,7 @@ def pick_up_items_holding_down_right_click() -> None:
             if index == 0:
                 sleep(1.5)  # need more time to set the tactician in the correct starting position
             else:
-                sleep(0.6)  # guessing that 0.6 might work.
+                sleep(0.8)  # 0.6 is too little sometimes.
     # Hopefully we went in the complete arc and picked up all items.
     mk_functions.release_right_mouse_button()
     mk_functions.move_mouse(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
