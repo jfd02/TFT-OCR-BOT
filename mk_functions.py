@@ -9,17 +9,13 @@ import pydirectinput
 def left_click(coords: tuple) -> None:
     """Left clicks at argument ones coordinates"""
     offset: int = random.randint(-3, 3)
-    pydirectinput.moveTo(coords[0] - offset, coords[1] - offset)
-    pydirectinput.mouseDown()
-    pydirectinput.mouseUp()
+    pydirectinput.click(coords[0] - offset, coords[1] - offset)
 
 
 def right_click(coords: tuple) -> None:
     """Right clicks at argument ones coordinates"""
     offset: int = random.randint(-3, 3)
-    pydirectinput.moveTo(coords[0] - offset, coords[1] - offset)
-    pydirectinput.mouseDown(button="right")
-    pydirectinput.mouseUp(button="right")
+    pydirectinput.rightClick(coords[0] - offset, coords[1] - offset)
 
 
 def press_e(coords: tuple) -> None:
