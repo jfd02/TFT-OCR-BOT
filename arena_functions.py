@@ -55,7 +55,8 @@ def get_valid_champ(champ_name: str) -> str:
     for champion in game_assets.CHAMPIONS:
         if SequenceMatcher(a=champion, b=champ_name).ratio() >= 0.7:
             return champion
-    print(f"  [!] The champ_name {champ_name} did not match any unit in game_assets.CHAMPIONS!")
+    if champ_name is not None and len(champ_name) > 0:
+        print(f"  [!] The champ_name {champ_name} did not match any unit in game_assets.CHAMPIONS!")
 
 
 def is_valid_champ(champ_name: str) -> bool:
@@ -132,8 +133,10 @@ def valid_item_from_holdable_items(item: str) -> str | None:
     """Checks if the item passed in arg one is valid item and that item is holdable, not a consumable item."""
     for valid_item_name in game_assets.HOLDABLE_ITEMS:
         if valid_item_name in item or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7:
+            print(f"    Item: {item} --- matched with --- Valid Item: {valid_item_name}")
             return valid_item_name
-    print(f"  [!] The item {item} did not match any items in game_assets.HOLDABLE_ITEMS!")
+    if len(item) > 3:
+        print(f"  [!] The item {item} did not match any items in game_assets.HOLDABLE_ITEMS!")
 
 
 def get_items() -> list:
@@ -141,6 +144,7 @@ def get_items() -> list:
     item_bench: list = []
     for positions in screen_coords.ITEM_POS:
         mk_functions.move_mouse(positions[0].get_coords())
+        # TODO: why is this using psm=13 ? wouldn't psm = 7 or 8 be better ?
         item: str = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=13,
                                  whitelist=ocr.ALPHABET_WHITELIST)
         item_bench.append(valid_item_from_holdable_items(item))  # change to use holdable items since the AI is dumb
