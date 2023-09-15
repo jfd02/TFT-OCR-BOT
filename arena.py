@@ -35,7 +35,7 @@ class Arena:
         self.board_unknown_and_pos: list = []
         # All the spaces on the board that we haven't designated to put a unit from our comp on.
         self.board_slots_for_non_comp_units: list = self.comp_to_play.get_unknown_slots()  # initializing this way is probably bad practice?
-        self.champs_to_buy: list = self.comp_to_play.champions_to_buy()  # initializing this way is probably bad practice?
+        self.champs_to_buy: list[str] = self.comp_to_play.champions_to_buy()  # initializing this way is probably bad practice?
         # A list of the names of all units on the board (not the bench), including duplicates.
         self.board_names: list = []
         # Items on the player's bench. A max of 10 items can be on the bench.
@@ -991,13 +991,16 @@ class Arena:
                         self.add_radiant_version_of_accepted_completed_items_to_unit(unit)
                         self.add_support_item_to_unit(unit)
                         self.add_trait_item_to_unit(unit)
+                    # Should this be placed before the above if block?
                     elif unit.item_slots_filled % 2 == 0:
                         self.add_any_bis_item_from_combining_two_component_items_on_unit(unit)
-                    else:
-                        self.throwaway_reforger_item(unit)
                 # Zaun units can hold 3 Zaun mods.
                 for j in range(len(unit.held_zaun_items), 3):
                     self.add_zaun_item_to_unit(unit)
+                # Champion duplicators and items removers can be used any number of times on one unit.
+                self.use_champion_duplicators(unit)
+                self.throwaway_reforger_item(unit)
+                self.throwaway_magnetic_remover_item()
 
     def add_one_item_to_unit(self, unit: Champion, the_items_bench_index: int, consumable: bool = False):
         """Move the item from its location on the board to the unit.
@@ -1126,6 +1129,17 @@ class Arena:
                       "but couldn't find a nearly itemless unit.")
                 return False
 
+    def throwaway_magnetic_remover_item(self, unit: Champion) -> bool:
+        """Simply tries to use a Magnetic Remover on a unit with 1 or 0 items."""
+        if "MagneticRemover" in self.items:
+            if unit.item_slots_filled <= 1:
+                self.add_consumable_item_to_unit(unit, self.items.index("MagneticRemover"))
+                return True
+            else:
+                print("  Tried to throw away a MagneticRemover on a nearly-itemless unit, "
+                      "but couldn't find a nearly itemless unit.")
+                return False
+
     def is_possible_to_combine_two_components_into_given_bis_item(self, unit: Champion, complete_item: str) -> bool:
         """Assumes that the complete item in the unit's build, exists as a CRAFTABLE item.
            Returns a boolean value that represent if BOTH component items for a complete item exist in self.items."""
@@ -1156,3 +1170,44 @@ class Arena:
             if complete_item in unit.completed_items_will_accept:
                 unit.completed_items_will_accept.remove(complete_item)
             unit.item_slots_filled += 2
+
+    def get_list_of_units_on_board_in_order_of_amount_of_bis_items(self) -> list[Champion]:
+        """Returns a list of Champion objects that are on the board,
+           ordered by how many items they have listed in BIS, in descending order.
+           Extremely unlikely, but the list might return as empty."""
+        units_on_board_by_item_amount = []
+        for unit in self.board:
+            units_on_board_by_item_amount.append(unit)
+        return sorted(units_on_board_by_item_amount, key=lambda u: len(u.build), reverse=True)
+
+    def get_index_of_one_lesser_champion_duplicators_on_bench(self) -> int | None:
+        if "LesserChampionDuplicator" in self.items:
+            return self.items.index("LesserChampionDuplicator")
+        else:
+            return None
+
+    def get_index_of_one_champion_duplicators_on_bench(self) -> int | None:
+        if "ChampionDuplicator" in self.items:
+            return self.items.index("ChampionDuplicator")
+        else:
+            return None
+
+    def use_champion_duplicators(self, unit: Champion) -> None:
+        """Uses Champion Duplicators on units.
+           Makes a list of all units that are on the board and that still need to be bought to be raised
+           to the desire star level. Sorts that list of units, by the amount of items they need, in descending order
+           so that we duplicate most important champions first."""
+        units_on_board_sorted_by_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_bis_items()
+        lesser_duplicator_index = self.get_index_of_one_lesser_champion_duplicators_on_bench()
+        normal_duplicator_index = self.get_index_of_one_champion_duplicators_on_bench()
+        # Exit the function sooner if we don't have any champion duplicators
+        if lesser_duplicator_index is None and normal_duplicator_index is None:
+            return
+        for unit in units_on_board_sorted_by_items:
+            if unit in game_assets.CHAMPIONS:
+                cost = game_assets.CHAMPIONS[unit.name]["Gold"]
+                if cost <= 3 and lesser_duplicator_index is not None:
+                    self.add_one_item_to_unit(unit, lesser_duplicator_index, True)
+                elif cost > 3 and normal_duplicator_index is not None:
+                    self.add_one_item_to_unit(unit, normal_duplicator_index, True)
+

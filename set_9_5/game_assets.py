@@ -173,7 +173,7 @@ NON_CHAMPION_UNITS: dict[str, dict[str, int]] = \
      "Rift Herald": {"Gold": 0, "Board Size": 0},
      "Target Dummy": {"Gold": 0, "Board Size": 0},
      "T-Hex": {"Gold": 0, "Board Size": 0},
-     "Void Remora": {"Gold": 0, "Board Size": 0},}
+     "Void Remora": {"Gold": 0, "Board Size": 0}}
 
 # Anything that takes up a space on the board.
 ALL_UNITS: set[str]

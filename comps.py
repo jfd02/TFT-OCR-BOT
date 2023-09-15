@@ -40,9 +40,9 @@ class Comp:
         self.primary_augments: list = composition.PRIMARY_AUGMENTS
         self.secondary_augments: list = composition.SECONDARY_AUGMENTS
 
-    def champions_to_buy(self) -> list:
+    def champions_to_buy(self) -> list[str]:
         """Creates a list of champions to buy during the game"""
-        champs_to_buy: list = []
+        champs_to_buy: list[str] = []
         for champion, champion_data in self.comp.items():
             if champion_data["level"] == 1:
                 champs_to_buy.append(champion)
