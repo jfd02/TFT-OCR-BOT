@@ -26,7 +26,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
@@ -38,7 +37,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": ["JuggernautEmblem"],
         "ornn_items_to_accept": [],
-        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
@@ -50,7 +48,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "radiant_items_to_accept": [],
         "zaun_items_to_accept": ["AdaptiveImplant", "VirulentBioware"],
         "level": 3,
         "final_comp": True
@@ -62,7 +59,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -74,7 +70,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": ["BilgewaterEmblem", "PiltoverEmblem"],
         "ornn_items_to_accept": [],
-        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -86,7 +81,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": ["JuggernautEmblem", "BilgewaterEmblem", "BruiserEmblem"],
         "ornn_items_to_accept": [],
-        "radiant_items_to_accept": [],
         "zaun_items_to_accept": ["HextechExoskeleton", "ShimmerInjector", "UnstableChemtech", "VirulentBioware"],
         "level": 2,
         "final_comp": True
@@ -98,7 +92,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": ["PiltoverEmblem"],
         "ornn_items_to_accept": [],
-        "radiant_items_to_accept": [],
         "zaun_items_to_accept": ["AdaptiveImplant", "RoboticArm", "ShimmerInjector"],
         "level": 2,
         "final_comp": True
@@ -110,7 +103,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": ["GunnerEmblem", "RogueEmblem", "BilgewaterEmblem", "PiltoverEmblem", "BruiserEmblem"],
         "ornn_items_to_accept": [],
-        "radiant_items_to_accept": [],
         "zaun_items_to_accept": ["AdaptiveImplant", "HextechExoskeleton", "RoboticArm", "ShimmerInjector", "UnstableChemtech"],
         "level": 2,
         "final_comp": True
@@ -122,7 +114,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False
@@ -134,7 +125,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-        "radiant_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False
