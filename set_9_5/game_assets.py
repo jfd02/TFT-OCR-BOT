@@ -53,8 +53,8 @@ RADIANT_ITEMS: set[str] = {"Absolution", "BlessedBloodthirster", "BlueBlessing",
 MOGUL_ITEMS: set[str] = {"DeterminedInvestor", "DiamondHands", "DravensAxe", "GamblersBlade"}
 
 # Items that can only be given to Zaun trait units and pop off after each round.
-ZAUN_ITEMS: set[str] = {"AdaptiveImplant", "HextechExoskeleton", "RoboticArm", "ShimmerInjector", "UnstableChemtank"
-                                                                                                  "VirulentBioware"}
+ZAUN_ITEMS: set[str] = {"AdaptiveImplant", "HextechExoskeleton", "RoboticArm",
+                        "ShimmerInjector", "UnstableChemtank", "VirulentBioware"}
 
 MISC_ITEMS: set[str] = {"ChampionDuplicator", "CrownofDemacia", "ImperfectSoulCrown", "LesserChampionDuplicator",
                         "LoadedDice", "MagneticRemover", "MasterworkUpgrade",

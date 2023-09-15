@@ -421,14 +421,16 @@ class Arena:
 
     def add_thiefs_gloves_to_champ(self, champ: Champion) -> bool:
         """Makes Thiefs Gloves if possible and gives them to a champ with no items."""
-        print("    Attempting to add Thief's Gloves to a random itemless champ.")
+        # print("    Attempting to add Thief's Gloves to a random itemless champ.")
         gloves_index_1 = -1
         gloves_index_2 = -1
         for index, _ in enumerate(self.items):
             if self.items[index] == "SparringGloves":
                 if gloves_index_1 == -1:
+                    print("    Found Sparring Gloves #1 for a Thief's Gloves.")
                     gloves_index_1 = index
                 if gloves_index_1 != -1 and gloves_index_2 == -1:
+                    print("    Found Sparring Gloves #2 for a Thief's Gloves.")
                     gloves_index_2 = index
         if gloves_index_1 != -1 and gloves_index_2 != -1 and gloves_index_1 != gloves_index_2:
             print("    We have 2 Sparring Gloves to make Thief's Gloves with!")
