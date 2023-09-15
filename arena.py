@@ -586,13 +586,18 @@ class Arena:
            If none exist, it picks the first augment on the left.
            Returns True if this function picked an augment non-randomly."""
         sleep(1.5)  # So that when I'm watching the screen I can actually read the augments' descriptions.
+        # Print what augments are in the comp we're using.
+        if not have_rerolled:
+            print("      Primary Augments")
+            print(f"          {self.comp_to_play.primary_augments}")
+            print("      Secondary Augments")
+            print(f"          {self.comp_to_play.secondary_augments}")
         augments: list = []
         for coords in screen_coords.AUGMENT_POS:
             augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
             augments.append(augment)
-
         print("  Augments to Choose From:")
-        print(f"    {augments}")
+        print(f"      {augments}")
         for augment in augments:
             if augment in self.comp_to_play.primary_augments:
                 print(f"  Choosing augment.")
@@ -608,17 +613,16 @@ class Arena:
                     self.augments.append(augment)
                     return True
                 else:
-                    print(f"  Adding {augment} to the list of secondary augments (to not re-roll).")
+                    print(f"    Adding {augment} to the list of secondary augments (to not re-roll).")
                     secondary_augments.append(augment)
             elif not have_rerolled:
-                print("  Adding nothing to the list of secondary augments.")
+                print("    Adding nothing to the list of secondary augments.")
                 secondary_augments.append(None)
-            else:
-                print("  Returning the list of secondary augments:")
-                print(f"    {secondary_augments}")
-                return secondary_augments
-        print(f"  Secondary Augments:")
-        print(f"    {secondary_augments}")
+        print(f"    Secondary Augments:")
+        print(f"      {secondary_augments}")
+        if have_rerolled:
+            print("  Returning the list of augments after re-rolling:")
+            return augments
         # If we decided before game that we would re-roll augments, and we have not re-rolled the first augments yet.
         if self.augment_roll and not have_rerolled:
             print("  Re-rolling augments.")
