@@ -9,8 +9,8 @@ class Champion:
     # pylint: disable=too-many-instance-attributes,too-few-public-methods,too-many-arguments
 
     def __init__(self, name: str, coords: tuple, item_slots_filled: int, build: list[str], build2: list[str],
-                 ornn_items: list[str], support_items: list[str], trait_items: list[str], slot: int, size: int,
-                 final_comp: bool) -> None:
+                 ornn_items: list[str], support_items: list[str], trait_items: list[str], zaun_items: list[str],
+                 slot: int, size: int, final_comp: bool) -> None:
         # The units name.
         self.name: str = name
         # Where the unit is located on the bench or board in Vec2 coordinates.
@@ -28,6 +28,8 @@ class Champion:
         self.support_items_will_accept: list[str] = support_items
         # The Trait items this unit would like.
         self.trait_items_will_accept: list[str] = trait_items
+        # The Trait items this unit would like.
+        self.zaun_items_will_accept: list[str] = zaun_items
         # The position on the board where the unit is designated in comps.py to be placed.
         self.index: int = slot
         # The 'amount of units' this unit counts as, because sometimes a unit counts as 2 of your total possible units.

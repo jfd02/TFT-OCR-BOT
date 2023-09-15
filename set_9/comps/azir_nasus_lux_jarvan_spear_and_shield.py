@@ -9,12 +9,11 @@ COMP = {
     "Azir": {
         "board_position": 6,
         "items_to_build": ["GuinsoosRageblade", "HextechGunblade", "StatikkShiv", "RapidFirecannon", "Guardbreaker",
-                  "GiantSlayer"],
+                           "GiantSlayer"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
@@ -26,7 +25,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
@@ -38,7 +36,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -50,7 +47,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -62,7 +58,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -74,7 +69,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -86,7 +80,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -98,7 +91,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -110,7 +102,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
@@ -122,7 +113,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False
@@ -134,7 +124,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False
@@ -146,7 +135,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False
@@ -158,7 +146,6 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False

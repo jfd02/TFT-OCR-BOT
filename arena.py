@@ -980,7 +980,10 @@ class Arena:
                         self.add_support_item_to_unit(unit)
                         self.add_trait_item_to_unit(unit)
                     else:
-                        self.throwaway_reforger_item()
+                        self.throwaway_reforger_item(unit)
+                # Zaun units can hold 3 Zaun mods.
+                for j in range(len(unit.held_zaun_items), 3):
+                    self.add_zaun_item_to_unit(unit)
 
     def add_one_item_to_unit(self, unit: Champion, the_items_bench_index: int, consumable: bool = False):
         """Move the item from its location on the board to the unit.
@@ -1045,7 +1048,7 @@ class Arena:
                 unit.non_component_items.append(support_item)
 
     def add_trait_item_to_unit(self, unit: Champion) -> None:
-        """If there is a Support item on the bench that this unit wants, give it to 'em."""
+        """If there is a trait emblem item on the bench that this unit wants, give it to 'em."""
         for trait_item in unit.trait_items_will_accept:
             if trait_item in self.items:
                 self.add_one_item_to_unit(unit, self.items.index(trait_item))
@@ -1054,13 +1057,13 @@ class Arena:
                 unit.non_component_items.append(trait_item)
 
     def add_zaun_item_to_unit(self, unit: Champion) -> None:
-        """If there is a Support item on the bench that this unit wants, give it to 'em."""
-        for trait_item in unit.trait_items_will_accept:
-            if trait_item in self.items:
-                self.add_one_item_to_unit(unit, self.items.index(trait_item))
+        """If there is a Zaun item on the bench that this unit wants, give it to 'em."""
+        for zaun_item in unit.zaun_items_will_accept:
+            if zaun_item in self.items:
+                self.add_one_item_to_unit(unit, self.items.index(zaun_item))
                 unit.item_slots_filled += 1
-                unit.trait_items_will_accept.remove(trait_item)
-                unit.non_component_items.append(trait_item)
+                unit.zaun_items_will_accept.remove(zaun_item)
+                unit.held_zaun_items.append(zaun_item)
 
     def pick_one_of_four_emblems_from_shop(self) -> int:
         """Returns the index position of the emblem in the shop that we want to pick.
