@@ -10,9 +10,11 @@ import set_9_5.comps.arcane_domain_jayce_vi_silco as arcane_domain
 import set_9_5.comps.heart_of_the_cards_twisted_fate_illaoi_nilah_miss_fortune as heart_of_the_cards
 import set_9_5.comps.roll_the_rogues_ekko_qiyana_katarina as roll_the_rogues
 import set_9_5.comps.walk_the_plank_nilah_miss_fortune_gangplank_nautilus as walk_the_plank
+import set_9_5.comps.super_nash_bros_kaisa_chogath_belveth as super_nash_bros
+import set_9_5.comps.milio_cr7_shen_taric_ryze as milio_cr7
 import random
 
-COMPS_TO_SELECT_RANDOMLY_FROM: list = [arcane_domain, heart_of_the_cards, roll_the_rogues, walk_the_plank]
+COMPS_TO_SELECT_RANDOMLY_FROM: list = [arcane_domain, super_nash_bros, milio_cr7]
 
 
 def return_random_comp():

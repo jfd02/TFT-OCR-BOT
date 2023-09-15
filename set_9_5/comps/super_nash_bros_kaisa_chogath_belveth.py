@@ -1,28 +1,28 @@
 """
-Milio CR7 - ? Tier - Community Comp
-This comp is a bit of a meme: CR7 refers to Cristiano Ronaldo and his jersey number.
-Comp from https://app.mobalytics.gg/tft/comps-guide/millio-cr7-2VMjGJBsC4FWcslLvfM7pRG3Ekq
+Super Nash Bros - S Tier - Meta Comp
+Comp from https://app.mobalytics.gg/tft/comps-guide/super-nash-bros-2UiEdDoF20ICXwQnw5Kd3nwkeIP
 Strategy: Default: This comp uses the standard leveling strategy that revolves around a 4-cost carry.
-Difficulty: Unknown
-Legend: Caitlyn, Urf, Poro
+Difficulty: Medium
+Legend: Urf
 Items are in camel case and a-Z
 """
 
-NAME = "Milio CR7"
+NAME = "Super Nash Bros"
 
 STRATEGY = "Default"
 
-DIFFICULTY = "Unknown"
+DIFFICULTY = "Medium"
 
-TRAITS = ["Ixtal", "Wanderer", "Bastion", "Invoker", "Targon"]
+TRAITS = ["Void", "Empress", "Bruiser", "Challenger", "Sorcerer"]
 
 RECOMMENDED_LEGEND = "Urf"
 
 COMP = {
-    "Milio": {
-        "board_position": 0,
-        "items_to_build": ["ArchangelsStaff", "BlueBuff", "JeweledGauntlet"],
-        "completed_items_to_accept": ["ArchangelsStaff", "BlueBuff", "JeweledGauntlet", "GiantSlayer"],
+    "KaiSa": {
+        "board_position": 4,
+        "items_to_build": ["Guardbreaker", "JeweledGauntlet", "SpearofShojin"],
+        "completed_items_to_accept": ["Guardbreaker", "Guinsoo's Rageblade", "JeweledGauntlet",
+                                      "GiantSlayer", "SpearofShojin", "StatikkShiv"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -30,78 +30,78 @@ COMP = {
         "level": 3,
         "final_comp": True
     },
-    "Shen": {
-        "board_position": 23,
-        "items_to_build": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
-        "completed_items_to_accept": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
+    "BelVeth": {
+        "board_position": 18,
+        "items_to_build": ["Bloodthirster", "TitansResolve"],
+        "completed_items_to_accept": ["Bloodthirster", "LastWhisper", "Quicksilver", "SteraksGage", "TitansResolve"],
         "support_items_to_accept": ["VirtueoftheMartyr", "ZzRotPortal"],
+        "trait_items_to_accept": ["ChallengerEmblem"],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "final_comp": True
+    },
+    "ChoGath": {
+        "board_position": 25,
+        "items_to_build": ["IonicSpark", "Redemption", "SunfireCape"],
+        "completed_items_to_accept": ["Evenshroud", "GargoyleStoneplate", "IonicSpark", "Redemption", "SunfireCape"],
+        "support_items_to_accept": ["AegisoftheLegion", "LocketoftheIronSolari"],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
         "final_comp": True
     },
-    "Taric": {
-        "board_position": 24,
-        "items_to_build": ["IonicSpark", "Redemption", "SunfireCape"],
-        "completed_items_to_accept": ["IonicSpark", "Redemption", "SunfireCape"],
-        "support_items_to_accept": ["Crest of Cinders", "LocketoftheIronSolari", "RanduinsOmen", "VirtueoftheMartyr"],
-        "trait_items_to_accept": [],
-        "ornn_items_to_accept": [],
-        "zaun_items_to_accept": [],
-        "level": 2,
-        "final_comp": True
-    },
-    "Ryze": {
-        "board_position": 2,
+    "Fiora": {
+        "board_position": 27,
         "items_to_build": ["BlueBuff", "JeweledGauntlet"],
         "completed_items_to_accept": ["BlueBuff", "JeweledGauntlet", "RabadonsDeathcap"],
-        "support_items_to_accept": ["NeedlesslyBigGem", "Zephyr"],
-        "trait_items_to_accept": ["IxtalEmblem"],
-        "ornn_items_to_accept": [],
-        "zaun_items_to_accept": [],
-        "level": 3,
-        "final_comp": True
-    },
-    "Neeko": {
-        "board_position": 21,
-        "items_to_build": [],
-        "completed_items_to_accept": [],
-        "support_items_to_accept": ["VirtueoftheMartyr"],
-        "trait_items_to_accept": ["InvokerEmblem", "TargonEmblem"],
+        "support_items_to_accept": ["Obsidian Cleaver", "VirtueoftheMartyr"],
+        "trait_items_to_accept": ["VoidEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
     },
-    "Soraka": {
-        "board_position": 4,
+    "RekSai": {
+        "board_position": 20,
         "items_to_build": [],
         "completed_items_to_accept": [],
-        "support_items_to_accept": [],
-        "trait_items_to_accept": ["IxtalEmblem"],
+        "support_items_to_accept": ["Obsidian Cleaver", "VirtueoftheMartyr"],
+        "trait_items_to_accept": ["ChallengerEmblem"],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "final_comp": True
+    },
+    "VelKoz": {
+        "board_position": 6,
+        "items_to_build": [],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": ["Zephyr"],
+        "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
     },
     "Kassadin": {
-        "board_position": 25,
+        "board_position": 23,
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["VirtueoftheMartyr"],
-        "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem", "SlayerEmblem", "TargonEmblem"],
+        "trait_items_to_accept": ["BastionEmblem", "BruiserEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
     },
-    "Qiyana": {
-        "board_position": 20,
+    "Malzahar": {
+        "board_position": 0,
         "items_to_build": [],
         "completed_items_to_accept": [],
-        "support_items_to_accept": ["Obsidian Cleaver"],
-        "trait_items_to_accept": ["InvokerEmblem", "TargonEmblem"],
+        "support_items_to_accept": ["Zephyr"],
+        "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
@@ -112,40 +112,40 @@ COMP = {
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["Zephyr"],
-        "trait_items_to_accept": ["IxtalEmblem", "TargonEmblem"],
+        "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": True
     },
-    "Poppy": {
-        "board_position": 17,
-        "items_to_build": [],
+    "Orianna": {
+        "board_position": 1,
+        "items_to_build": ["SpearofShojin"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem", "TargonEmblem"],
+        "trait_items_to_accept": ["VoidEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False
     },
-    "Galio": {
-        "board_position": 16,
+    "Renekton": {
+        "board_position": 24,
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": ["IxtalEmblem", "TargonEmblem"],
+        "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "final_comp": False
     },
-    "Kayle": {
-        "board_position": 3,
+    "Vi": {
+        "board_position": 21,
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem", "TargonEmblem"],
+        "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
@@ -156,32 +156,25 @@ COMP = {
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
 # (Anything that changes gameplay or adds something to the bench).
 PRIMARY_AUGMENTS: list[str] = [
-    "Invoker Heart",
-    "Pandora's Items",
-    "Red Buff"
-    # "Army Building",
+    "Challenger Heart",
+    "Branching Out",
+    "Tiny Grab Bag"
 
-    "Early Education",
-    "Infusion",
-    "Ixtal Heart",
-    "Invoker Crest",
-    "Loving Invocation",
-    "Magic Wand",
+    "Ancient Archives",
+    "Void Heart",
     "Social Distancing II",
+    "Stable Evolution",
 
-    "Golden Ticket",
-    "Invoker Crown",
+    "Ancient Archives II",
+    "Challenger Crown",
     "Ixtal Soul",
-    "Pandora's Box",
-    "Social Distancing III",
-    "Targon Soul",
+    "Void Soul",
 ]
 SECONDARY_AUGMENTS: list[str] = [
     "Balanced Budget I",
     "Battle Ready I",
     "Blood Money",
     "Buried Treasures I",
-    "Cybernetic Bulk I",
     "Gotta Go Fast!!! I",
     "It Pays to Learn I",
     "Jeweled Lotus I",
@@ -204,8 +197,8 @@ SECONDARY_AUGMENTS: list[str] = [
     "Buried Treasures II",
     "Capricious Forge",
     "Caretaker's Favor",
-    "Cybernetic Bulk II",
     "Dedication",
+    "Early Education",
     "Escort Quest",
     "Gotta Go Fast!!! II",
     "Infusion",
@@ -219,7 +212,6 @@ SECONDARY_AUGMENTS: list[str] = [
     "Patient Study",
     "Rolling for Days II",
     "Shoplifting",
-    "Targon Heart",
     "Tiny Power II",
     "Tons of Stats!",
     "Unified Resistance II",
@@ -232,7 +224,6 @@ SECONDARY_AUGMENTS: list[str] = [
     "Binary Airdrop",
     "Buried Treasure III",
     "Caretaker's Chosen",
-    "Cybernetic Bulk III",
     "Final Ascension",
     "Final Reserves",
     "Giant Grab Bag",
