@@ -13,9 +13,9 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Katarina": {
@@ -25,9 +25,9 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Lissandra": {
@@ -37,9 +37,9 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Sejuani": {
@@ -49,9 +49,9 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Urgot": {
@@ -61,9 +61,9 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Sion": {
@@ -73,9 +73,9 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Heimerdinger": {
@@ -85,9 +85,9 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Ashe": {
@@ -97,9 +97,9 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Viego": {
@@ -109,9 +109,9 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     },
     "Maokai": {
@@ -121,9 +121,9 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     },
     "Zed": {
@@ -133,9 +133,9 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     },
     "Poppy": {
@@ -145,9 +145,9 @@ COMP = {
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
-
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     },
     "Vi": {
@@ -159,6 +159,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     },
     "Orianna": {
@@ -170,6 +171,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     },
     "Cassiopeia": {
@@ -181,6 +183,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     },
     "Galio": {
@@ -192,6 +195,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     },
     "Soraka": {
@@ -203,6 +207,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     }
 }

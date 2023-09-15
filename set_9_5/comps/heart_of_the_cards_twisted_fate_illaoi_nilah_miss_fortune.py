@@ -31,6 +31,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Illaoi": {
@@ -42,6 +43,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Nilah": {
@@ -53,6 +55,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Miss Fortune": {
@@ -64,6 +67,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Nautilus": {
@@ -75,6 +79,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Poppy": {
@@ -86,6 +91,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Sona": {
@@ -97,6 +103,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Taliyah": {
@@ -108,6 +115,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     },
     "Swain": {
@@ -119,6 +127,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     }
 }

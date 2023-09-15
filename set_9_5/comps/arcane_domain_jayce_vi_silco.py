@@ -31,6 +31,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Vi": {
@@ -42,6 +43,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Silco": {
@@ -53,6 +55,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": ["AdaptiveImplant", "VirulentBioware"],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Gangplank": {
@@ -64,6 +67,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Aphelios": {
@@ -75,6 +79,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Ekko": {
@@ -87,6 +92,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": ["HextechExoskeleton", "ShimmerInjector", "UnstableChemtech", "VirulentBioware"],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Jinx": {
@@ -98,6 +104,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": ["AdaptiveImplant", "RoboticArm", "ShimmerInjector"],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Warwick": {
@@ -109,6 +116,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": ["AdaptiveImplant", "HextechExoskeleton", "RoboticArm", "ShimmerInjector", "UnstableChemtech"],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Graves": {
@@ -120,6 +128,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     },
     "Orianna": {
@@ -131,6 +140,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     }
 }

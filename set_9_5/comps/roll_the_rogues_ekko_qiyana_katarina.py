@@ -33,6 +33,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Ekko": {
@@ -44,6 +45,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": ["HextechExoskeleton", "ShimmerInjector", "UnstableChemtech", "VirulentBioware"],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Katarina": {
@@ -55,6 +57,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Silco": {
@@ -66,6 +69,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": ["AdaptiveImplant", "VirulentBioware"],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Taric": {
@@ -77,6 +81,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Neeko": {
@@ -88,6 +93,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Graves": {
@@ -99,6 +105,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Milio": {
@@ -110,6 +117,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Illaoi": {
@@ -121,6 +129,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     }
 }

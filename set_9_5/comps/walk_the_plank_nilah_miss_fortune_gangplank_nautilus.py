@@ -32,6 +32,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Miss Fortune": {
@@ -43,6 +44,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Gangplank": {
@@ -54,6 +56,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Nautilus": {
@@ -65,6 +68,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Darius": {
@@ -76,6 +80,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Twisted Fate": {
@@ -87,6 +92,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Graves": {
@@ -98,6 +104,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Illaoi": {
@@ -109,6 +116,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Kassadin": {
@@ -120,6 +128,7 @@ COMP = {
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
+        "max_amount_of_items": 3,
         "final_comp": False
     }
 }

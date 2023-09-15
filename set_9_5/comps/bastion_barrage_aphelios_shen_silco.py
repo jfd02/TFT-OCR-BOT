@@ -1,167 +1,182 @@
 """
-Super Nash Bros - S Tier - Meta Comp
-Comp from https://app.mobalytics.gg/tft/comps-guide/super-nash-bros-2UiEdDoF20ICXwQnw5Kd3nwkeIP
+Bastion Barrage - A Tier - Meta Comp
+Comp from https://app.mobalytics.gg/tft/comps-guide/bastion-barrage-2VFVBh0WEe8SVFe78rMEMX1klCS
 Set: 9.5
 Strategy: Default: This comp uses the standard leveling strategy that revolves around a 4-cost carry.
 Difficulty: Medium
-Legend: Urf
+Legend: Ezreal
 """
 
-NAME = "Super Nash Bros"
+NAME = "Bastion Barrage"
 
 STRATEGY = "Default"
 
 DIFFICULTY = "Medium"
 
 # In the order from most active to least active.
-ACTIVE_FINAL_COMP_TRAITS = ["Void", "Empress", "Bruiser", "Challenger", "Sorcerer"]
+ACTIVE_FINAL_COMP_TRAITS = ["Targon", "Bastion", "Sorcerer", "Invoker", "Zaun", "Gunner"]
 
 # just alphabetical order
-INACTIVE_FINAL_COMP_TRAITS = ["Bastion", "Demacia", "Multicaster", "Slayer"]
+INACTIVE_FINAL_COMP_TRAITS = ["Ionia", "Ixtal", "Shurima"]
 
-RECOMMENDED_LEGEND = "Urf"
+RECOMMENDED_LEGEND = "Ezreal"
 
 COMP = {
-    "KaiSa": {
-        "board_position": 4,
-        "items_to_build": ["Guardbreaker", "JeweledGauntlet", "SpearofShojin"],
-        "completed_items_to_accept": ["Guardbreaker", "GuinsoosRageblade", "JeweledGauntlet",
-                                      "GiantSlayer", "SpearofShojin", "StatikkShiv"],
-        "support_items_to_accept": [],
-        "trait_items_to_accept": [],
-        "ornn_items_to_accept": [],
-        "zaun_items_to_accept": [],
-        "level": 3,
-        "max_amount_of_items": 3,
-        "final_comp": True
-    },
-    "BelVeth": {
-        "board_position": 18,
-        "items_to_build": ["Bloodthirster", "TitansResolve"],
-        "completed_items_to_accept": ["Bloodthirster", "HandofJustice", "LastWhisper", "Quicksilver",
-                                      "SteraksGage", "TitansResolve"],
-        "support_items_to_accept": ["VirtueoftheMartyr", "ZzRotPortal"],
-        "trait_items_to_accept": ["ChallengerEmblem"],
-        "ornn_items_to_accept": [],
-        "zaun_items_to_accept": [],
-        "level": 2,
-        "max_amount_of_items": 3,
-        "final_comp": True
-    },
-    "ChoGath": {
-        "board_position": 25,
-        "items_to_build": ["IonicSpark", "Redemption", "SunfireCape"],
-        "completed_items_to_accept": ["Evenshroud", "GargoyleStoneplate", "IonicSpark", "Redemption", "SunfireCape"],
-        "support_items_to_accept": ["AegisoftheLegion", "LocketoftheIronSolari"],
-        "trait_items_to_accept": [],
-        "ornn_items_to_accept": [],
-        "zaun_items_to_accept": [],
-        "level": 3,
-        "max_amount_of_items": 3,
-        "final_comp": True
-    },
-    "Fiora": {
-        "board_position": 27,
-        "items_to_build": [],
-        "completed_items_to_accept": [],
-        "support_items_to_accept": ["ObsidianCleaver", "VirtueoftheMartyr"],
-        "trait_items_to_accept": ["VoidEmblem"],
-        "ornn_items_to_accept": [],
-        "zaun_items_to_accept": [],
-        "level": 2,
-        "max_amount_of_items": 3,
-        "final_comp": True
-    },
-    "RekSai": {
-        "board_position": 20,
-        "items_to_build": [],
-        "completed_items_to_accept": [],
-        "support_items_to_accept": ["ObsidianCleaver", "VirtueoftheMartyr"],
-        "trait_items_to_accept": ["ChallengerEmblem"],
-        "ornn_items_to_accept": [],
-        "zaun_items_to_accept": [],
-        "level": 2,
-        "max_amount_of_items": 3,
-        "final_comp": True
-    },
-    "VelKoz": {
+    "Aphelios": {
         "board_position": 6,
-        "items_to_build": [],
-        "completed_items_to_accept": [],
-        "support_items_to_accept": ["Zephyr"],
+        "items_to_build": ["Deathblade", "GuinsoosRageblade", "GuinsoosRageblade"],
+        "completed_items_to_accept": ["Deathblade", "GuinsoosRageblade", "InfinityEdge"],
+        "support_items_to_accept": ["VirtueoftheMartyr", "ZzRotPortal"],
+        "trait_items_to_accept": ["ZaunEmblem"],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 3,
+        "max_amount_of_items": 3,
+        "max_amount_of_items": 3,
+        "final_comp": True
+    },
+    "Silco": {
+        "board_position": 4,
+        "items_to_build": ["ArchangelsStaff", "BlueBuff", "Morellonomicon"],
+        "completed_items_to_accept": ["ArchangelsStaff", "BlueBuff", "JeweledGauntlet",
+                                      "HextechGunblade", "Morellonomicon"],
+        "support_items_to_accept": ["ObsidianCleaver", "ZekesHerald"],
+        "trait_items_to_accept": ["InvokerEmblem"],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": ["AdaptiveImplant", "VirulentBioware"],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": True
+    },
+    "Shen": {
+        "board_position": 26,
+        "items_to_build": ["Evenshroud", "Redemption", "WarmogsArmor",],
+        "completed_items_to_accept": ["BrambleVest", "Crownguard", "Evenshroud", "GargoyleStoneplate",
+                                      "IonicSpark", "Redemption", "SunfireCape", "WarmogsArmor"],
+        "support_items_to_accept": ["ZzRotPortal"],
         "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "max_amount_of_items": 3,
+        "final_comp": True
+    },
+    "KSante": {
+        "board_position": 24,
+        "items_to_build": ["ProtectorsVow"],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": ["LocketoftheIronSolari", "VirtueoftheMartyr"],
+        "trait_items_to_accept": ["GunnerEmblem", "IoniaEmblem", "InvokerEmblem", "IxtalEmblem", "TargonEmblem", "ZaunEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "max_amount_of_items": 3,
         "final_comp": True
     },
-    "Kassadin": {
-        "board_position": 23,
+    "Taric": {
+        "board_position": 25,
+        "items_to_build": [],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": ["AegisoftheLegion", "BansheesVeil", "Crest of Cinders", "LocketoftheIronSolari",
+                                    "ShroudofStillness", "VirtueoftheMartyr", "ZzRotPortal"],
+        "trait_items_to_accept": ["ChallengerEmblem", "IoniaEmblem", "IxtalEmblem", "GunnerEmblem"],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": True
+    },
+    "Neeko": {
+        "board_position": 22,
+        "items_to_build": [],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": ["ObsidianCleaver", "ShroudofStillness", "Zephyr"],
+        "trait_items_to_accept": ["GunnerEmblem", "InvokerEmblem", "IoniaEmblem", "SorcererEmblem", "TargonEmblem", "ZaunEmblem"],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": True
+    },
+    "Jinx": {
+        "board_position": 2,
         "items_to_build": [],
         "completed_items_to_accept": ["Morellonomicon"],
         "support_items_to_accept": ["VirtueoftheMartyr"],
-        "trait_items_to_accept": ["BastionEmblem", "BruiserEmblem"],
+        "trait_items_to_accept": ["IoniaEmblem", "IxtalEmblem", "SorcererEmblem", "TargonEmblem"],
         "ornn_items_to_accept": [],
-        "zaun_items_to_accept": [],
+        "zaun_items_to_accept": ["AdaptiveImplant", "RoboticArm", "ShimmerInjector"],
         "level": 2,
         "max_amount_of_items": 3,
         "final_comp": True
     },
-    "Malzahar": {
+    "Soraka": {
         "board_position": 0,
         "items_to_build": [],
         "completed_items_to_accept": [],
-        "support_items_to_accept": ["Zephyr"],
-        "trait_items_to_accept": [],
+        "support_items_to_accept": ["NeedlesslyBigGem", "Zephyr"],
+        "trait_items_to_accept": ["BastionEmblem", "IoniaEmblem", "IxtalEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "max_amount_of_items": 3,
         "final_comp": True
     },
-    "Ahri": {
-        "board_position": 6,
+    "Galio": {
+        "board_position": 23,
         "items_to_build": [],
-        "completed_items_to_accept": [],
-        "support_items_to_accept": ["Zephyr"],
-        "trait_items_to_accept": [],
+        "completed_items_to_accept": ["LocketoftheIronSolari"],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": ["BastionEmblem", "IoniaEmblem", "IxtalEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "max_amount_of_items": 3,
         "final_comp": True
     },
-    "Orianna": {
-        "board_position": 1,
-        "items_to_build": ["SpearofShojin"],
+    "Illaoi": {
+        "board_position": 21,
+        "items_to_build": ["Evenshroud", "WarmogsArmor"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": ["VoidEmblem"],
+        "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "max_amount_of_items": 3,
         "final_comp": False
     },
-    "Renekton": {
-        "board_position": 24,
-        "items_to_build": [],
+    "Kayle": {
+        "board_position": 1,
+        "items_to_build": ["GuinsoosRageblade", "GuinsoosRageblade"],
         "completed_items_to_accept": ["Bloodthirster", "HandofJustice", "TitansResolve"],
         "support_items_to_accept": [],
-        "trait_items_to_accept": [],
+        "trait_items_to_accept": ["IoniaEmblem", "IxtalEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "max_amount_of_items": 3,
         "final_comp": False
     },
-    "Vi": {
-        "board_position": 21,
+    "Poppy": {
+        "board_position": 16,
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": [],
+        "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem"],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
+    },
+    "Kassadin": {
+        "board_position": 27,
+        "items_to_build": [],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
@@ -173,19 +188,17 @@ COMP = {
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
 # (Anything that changes gameplay or adds something to the bench).
 PRIMARY_AUGMENTS: list[str] = [
-    "Challenger Heart",
-    "Branching Out",
-    "Tiny Grab Bag"
+    "Bastion Heart",
+    "Buried Treasures I",
+    "Red Buff",
 
-    "Ancient Archives",
-    "Void Heart",
-    "Social Distancing II",
-    "Stable Evolution",
+    "Buried Treasures II",
+    "Targon Heart",
+    "Morning Light",
 
-    "Ancient Archives II",
-    "Challenger Crown",
-    "Ixtal Soul",
-    "Void Soul",
+    "Bastion Crown",
+    "Buried Treasures III",
+    "Targon Soul",
 ]
 SECONDARY_AUGMENTS: list[str] = [
     "Balanced Budget I",
@@ -194,7 +207,6 @@ SECONDARY_AUGMENTS: list[str] = [
     "Buried Treasures I",
     "Gotta Go Fast!!! I",
     "It Pays to Learn I",
-    "Jeweled Lotus I",
     "Knowledge Download I",
     "Money!",
     "On a Roll",
@@ -220,7 +232,6 @@ SECONDARY_AUGMENTS: list[str] = [
     "Gotta Go Fast!!! II",
     "Infusion",
     "It Pays to Learn II",
-    "Jeweled Lotus II",
     "Knowledge Download II",
     "Last Stand",
     "Metabolic Accelerator",
@@ -236,7 +247,6 @@ SECONDARY_AUGMENTS: list[str] = [
 
     "Ancient Archives II",
     "Balanced Budget III",
-    "Bastion Crown",
     "Battle Ready III",
     "Binary Airdrop",
     "Buried Treasure III",
@@ -248,7 +258,6 @@ SECONDARY_AUGMENTS: list[str] = [
     "Gotta Go Fast!!! III",
     "Impenetrable Bulwark",
     "It Pays to Learn III",
-    "Jeweled Lotus III",
     "Knowledge Download III",
     "Level Up!",
     "Lucky Gloves",
