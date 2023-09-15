@@ -1000,6 +1000,8 @@ class Arena:
                 # Items removers can be used any number of times on one unit.
                 self.throwaway_reforger_item(unit)
                 self.throwaway_magnetic_remover_item(unit)
+        # TODO: These could probably be broken down so that they use a
+        #  different give_items function to all use the same list of units with most BIS items.
         # Strong items that we shouldn't use on just the first unit we see on our board.
         # They loop through a list of units that are prioritized by their Best In Slot items.
         self.use_champion_duplicators()
@@ -1123,10 +1125,14 @@ class Arena:
         self.add_one_item_to_unit(unit, the_items_bench_index, True)
 
     def throwaway_reforger_item(self, unit: Champion) -> bool:
-        """Simply tries to use a Reforger on a unit with 1 or 0 items."""
+        """Simply tries to use a Reforger on a unit with 1 component item."""
         if "Reforger" in self.items:
-            if unit.item_slots_filled <= 1:
+            if unit.item_slots_filled == 1:
                 self.add_consumable_item_to_unit(unit, self.items.index("Reforger"))
+                unit.item_slots_filled -= 1
+                for item in unit.current_building:
+                    unit.current_building.remove(item)
+                    print(f"    A Reforger removed a {item} from {unit.name} and changed it into a new item.")
                 return True
             else:
                 print("  Tried to throw away a Reforger on a nearly-itemless unit, "
@@ -1134,13 +1140,17 @@ class Arena:
                 return False
 
     def throwaway_magnetic_remover_item(self, unit: Champion) -> bool:
-        """Simply tries to use a Magnetic Remover on a unit with 1 or 0 items."""
+        """Simply tries to use a Magnetic Remover on a unit with 1 component items."""
         if "MagneticRemover" in self.items:
-            if unit.item_slots_filled <= 1:
+            if unit.item_slots_filled == 1:
                 self.add_consumable_item_to_unit(unit, self.items.index("MagneticRemover"))
+                unit.item_slots_filled -= 1
+                for item in unit.current_building:
+                    unit.current_building.remove(item)
+                    print(f"    A Magnetic Remover removed a {item} from {unit.name}.")
                 return True
             else:
-                print("  Tried to throw away a MagneticRemover on a nearly-itemless unit, "
+                print("  Tried to throw away a Magnetic Remover on a nearly-itemless unit, "
                       "but couldn't find a nearly itemless unit.")
                 return False
 
