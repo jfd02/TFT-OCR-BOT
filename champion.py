@@ -8,17 +8,26 @@ class Champion:
 
     # pylint: disable=too-many-instance-attributes,too-few-public-methods,too-many-arguments
 
-    def __init__(self, name: str, coords: tuple, item_slots_filled: int, build: list[str], build2: list[str], slot: int, size: int, final_comp: bool) -> None:
+    def __init__(self, name: str, coords: tuple, item_slots_filled: int, build: list[str], build2: list[str],
+                 ornn_items: list[str], support_items: list[str], trait_items: list[str], slot: int, size: int,
+                 final_comp: bool) -> None:
         # The units name.
         self.name: str = name
         # Where the unit is located on the bench or board in Vec2 coordinates.
         self.coords: tuple = coords
         # How many item slots are taken up by the unit. There are only 3 item slots.
+        # Could perhaps define component items as taking up half a slot?
         self.item_slots_filled: int = item_slots_filled
         # A list of the items that are likely the unit's best items it can be given, a.k.a. their "Best In Slot" (BIS)
         self.build: list[str] = build
         # A list of completed items that aren't BIS, but would also work on this unit.
         self.completed_items_will_accept: list[str] = build2
+        # The Ornn items this unit would like.
+        self.ornn_items_will_accept: list[str] = ornn_items
+        # The Support items this unit would like.
+        self.support_items_will_accept: list[str] = support_items
+        # The Trait items this unit would like.
+        self.trait_items_will_accept: list[str] = trait_items
         # The position on the board where the unit is designated in comps.py to be placed.
         self.index: int = slot
         # The 'amount of units' this unit counts as, because sometimes a unit counts as 2 of your total possible units.

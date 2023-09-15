@@ -67,10 +67,13 @@ class Arena:
     def bought_champion(self, name: str, slot: int) -> None:
         """Purchase champion and creates champion instance"""
         self.bench[slot] = Champion(name=name,
-                                    coords=screen_coords.BENCH_LOC[slot].get_coords(
-                                    ),
+                                    coords=screen_coords.BENCH_LOC[slot].get_coords(),
                                     item_slots_filled=0,
                                     build=self.comp_to_play.comp[name]["items_to_build"].copy(),
+                                    build2=self.comp_to_play.comp[name]["completed_items_to_accept"].copy(),
+                                    ornn_items=self.comp_to_play.comp[name]["ornn_items_to_accept"].copy(),
+                                    support_items=self.comp_to_play.comp[name]["support_items_to_accept"].copy(),
+                                    trait_items=self.comp_to_play.comp[name]["trait_items_to_accept"].copy(),
                                     slot=slot,
                                     size=game_assets.CHAMPIONS[name]["Board Size"],
                                     final_comp=self.comp_to_play.comp[name]["final_comp"])
@@ -191,17 +194,29 @@ class Arena:
                         sleep(0.2)
                         # Set default values if we don't want to use this champ in our comp.
                         items_to_build = []
+                        build2 = []
+                        ornn_items = []
+                        support_items = []
+                        trait_items = []
                         final_comp = False
                         units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BENCH_LOC[empty_bench_slot].get_coords())
                         # If we actually plan on using this champ in our comp:
                         if purchaseable_unit[1] in self.comp_to_play.comp:
                             items_to_build = self.comp_to_play.comp[purchaseable_unit[1]]["items_to_build"].copy()
+                            build2 = self.comp_to_play.comp[purchaseable_unit[1]]["completed_items_to_accept"].copy(),
+                            ornn_items = self.comp_to_play.comp[purchaseable_unit[1]]["ornn_items_to_accept"].copy(),
+                            support_items = self.comp_to_play.comp[purchaseable_unit[1]]["support_items_to_accept"].copy(),
+                            trait_items = self.comp_to_play.comp[purchaseable_unit[1]]["trait_items_to_accept"].copy(),
                             final_comp = self.comp_to_play.comp[purchaseable_unit[1]]["final_comp"]
                         # Create the Champion object.
                         champion = Champion(name=purchaseable_unit[1],
                                             coords=screen_coords.BENCH_LOC[empty_bench_slot].get_coords(),
                                             item_slots_filled=units_current_item_count,
                                             build=items_to_build,
+                                            build2=build2,
+                                            ornn_items=ornn_items,
+                                            support_items=support_items,
+                                            trait_items=trait_items,
                                             slot=empty_bench_slot,
                                             size=game_assets.CHAMPIONS[purchaseable_unit[1]]["Board Size"],
                                             final_comp=final_comp)
@@ -839,17 +854,29 @@ class Arena:
                     print(f"        Found a valid {champ_name} unit on the bench!")
                     # Set default values if we don't want to use this champ in our comp.
                     items_to_build = []
+                    build2 = []
+                    ornn_items = []
+                    support_items = []
+                    trait_items = []
                     final_comp = False
                     units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BENCH_LOC[index].get_coords())
                     # If we actually plan on using this champ in our comp:
                     if champ_name in self.comp_to_play.comp:
                         items_to_build = self.comp_to_play.comp[champ_name]["items_to_build"].copy()
+                        build2 = self.comp_to_play.comp[champ_name]["completed_items_to_accept"].copy(),
+                        ornn_items = self.comp_to_play.comp[champ_name]["ornn_items_to_accept"].copy(),
+                        support_items = self.comp_to_play.comp[champ_name]["support_items_to_accept"].copy(),
+                        trait_items = self.comp_to_play.comp[champ_name]["trait_items_to_accept"].copy(),
                         final_comp = self.comp_to_play.comp[champ_name]["final_comp"]
                     # Create the Champion object.
                     self.bench[index] = Champion(name=champ_name,
                                                  coords=screen_coords.BENCH_LOC[index].get_coords(),
                                                  item_slots_filled=units_current_item_count,
                                                  build=items_to_build,
+                                                 build2=build2,
+                                                 ornn_items=ornn_items,
+                                                 support_items=support_items,
+                                                 trait_items=trait_items,
                                                  slot=index,
                                                  size=game_assets.CHAMPIONS[champ_name]["Board Size"],
                                                  final_comp=final_comp)
@@ -876,10 +903,18 @@ class Arena:
            and final_comp value from the comps file and adds the unit to the board."""
         # Set default values if we don't want to use this champ in our comp.
         items_to_build = []
+        build2 = []
+        ornn_items = []
+        support_items = []
+        trait_items = []
         final_comp = False
         # If we actually plan on using this champ in our comp:
         if unit_name in self.comp_to_play.comp:
             items_to_build = self.comp_to_play.comp[unit_name]["items_to_build"].copy()
+            build2 = self.comp_to_play.comp[unit_name]["completed_items_to_accept"].copy(),
+            ornn_items = self.comp_to_play.comp[unit_name]["ornn_items_to_accept"].copy(),
+            support_items = self.comp_to_play.comp[unit_name]["support_items_to_accept"].copy(),
+            trait_items = self.comp_to_play.comp[unit_name]["trait_items_to_accept"].copy(),
             final_comp = self.comp_to_play.comp[unit_name]["final_comp"]
         # Create the Champion object.
         print(f"      Created the Champion object for the {unit_name}.")
@@ -896,6 +931,10 @@ class Arena:
                                    coords=screen_coords.BOARD_LOC[index].get_coords(),
                                    item_slots_filled=units_current_item_count,
                                    build=items_to_build,
+                                   build2=build2,
+                                   ornn_items=ornn_items,
+                                   support_items=support_items,
+                                   trait_items=trait_items,
                                    slot=index,
                                    size=size,
                                    final_comp=final_comp))
@@ -918,12 +957,20 @@ class Arena:
         self.items = arena_functions.get_items()
         for unit in self.board:
             if isinstance(unit, Champion):
-                # can't give completed items if all the slots are filled
-                if unit.item_slots_filled < 3:
-                    self.add_completed_item_to_unit(unit)
-                    self.add_radiant_version_of_bis_items_to_unit(unit)
-                    self.add_radiant_version_of_accepted_completed_items_to_unit(unit)
-                # but can give component items and zaun items
+                # try to give completed items first
+                # for loop like this because a unit can have 3 complete/non-component items
+                for i in range(unit.item_slots_filled, 3):
+                    # can't give completed items if all the slots are filled
+                    if unit.item_slots_filled < 3:
+                        self.add_ornn_item_to_unit()
+                        self.add_radiant_version_of_bis_items_to_unit(unit)
+                        self.add_completed_item_to_unit(unit)
+                        self.add_radiant_version_of_accepted_completed_items_to_unit(unit)
+                        self.add_support_item_to_unit(unit)
+                        self.add_trait_item_to_unit(unit)
+                # I CAN give component items and zaun items if all the slots are filled,
+                # except the last one is a component though.
+                # for i in range(unit.item_slots_filled, 3):
 
     def add_one_item_to_unit(self, unit: Champion, the_items_bench_index: int):
         """Move the item from its location on the board to the unit.
@@ -967,3 +1014,39 @@ class Arena:
                 unit.item_slots_filled += 1
                 unit.completed_items_will_accept.remove(completed_item)
                 unit.non_component_items.append(radiant_item)
+
+    def add_ornn_item_to_unit(self, unit: Champion) -> None:
+        """If there is an Ornn item on the bench that this unit wants, give it to 'em."""
+        for ornn_item in unit.ornn_items_will_accept:
+            if ornn_item in self.items:
+                self.add_one_item_to_unit(unit, self.items.index(ornn_item))
+                unit.item_slots_filled += 1
+                unit.ornn_items_will_accept.remove(ornn_item)
+                unit.non_component_items.append(ornn_item)
+
+    def add_support_item_to_unit(self, unit: Champion) -> None:
+        """If there is a Support item on the bench that this unit wants, give it to 'em."""
+        for support_item in unit.support_items_will_accept:
+            if support_item in self.items:
+                self.add_one_item_to_unit(unit, self.items.index(support_item))
+                unit.item_slots_filled += 1
+                unit.support_items_will_accept.remove(support_item)
+                unit.non_component_items.append(support_item)
+
+    def add_trait_item_to_unit(self, unit: Champion) -> None:
+        """If there is a Support item on the bench that this unit wants, give it to 'em."""
+        for trait_item in unit.trait_items_will_accept:
+            if trait_item in self.items:
+                self.add_one_item_to_unit(unit, self.items.index(trait_item))
+                unit.item_slots_filled += 1
+                unit.trait_items_will_accept.remove(trait_item)
+                unit.non_component_items.append(trait_item)
+
+    def add_zaun_item_to_unit(self, unit: Champion) -> None:
+        """If there is a Support item on the bench that this unit wants, give it to 'em."""
+        for trait_item in unit.trait_items_will_accept:
+            if trait_item in self.items:
+                self.add_one_item_to_unit(unit, self.items.index(trait_item))
+                unit.item_slots_filled += 1
+                unit.trait_items_will_accept.remove(trait_item)
+                unit.non_component_items.append(trait_item)
