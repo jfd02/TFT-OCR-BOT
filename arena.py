@@ -997,10 +997,14 @@ class Arena:
                 # Zaun units can hold 3 Zaun mods.
                 for j in range(len(unit.held_zaun_items), 3):
                     self.add_zaun_item_to_unit(unit)
-                # Champion duplicators and items removers can be used any number of times on one unit.
-                self.use_champion_duplicators(unit)
+                # Items removers can be used any number of times on one unit.
                 self.throwaway_reforger_item(unit)
-                self.throwaway_magnetic_remover_item()
+                self.throwaway_magnetic_remover_item(unit)
+        # Strong items that we shouldn't use on just the first unit we see on our board.
+        # They loop through a list of units that are prioritized by their Best In Slot items.
+        self.use_champion_duplicators()
+        self.use_scroll_of_knowledge()
+        self.use_masterwork_upgrade()
 
     def add_one_item_to_unit(self, unit: Champion, the_items_bench_index: int, consumable: bool = False):
         """Move the item from its location on the board to the unit.
@@ -1192,18 +1196,19 @@ class Arena:
         else:
             return None
 
-    def use_champion_duplicators(self, unit: Champion) -> None:
+    def use_champion_duplicators(self) -> None:
         """Uses Champion Duplicators on units.
            Makes a list of all units that are on the board and that still need to be bought to be raised
            to the desire star level. Sorts that list of units, by the amount of items they need, in descending order
-           so that we duplicate most important champions first."""
-        units_on_board_sorted_by_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_bis_items()
+           so that we duplicate most important champions first.
+           Will only use non-lesser champion duplicators on units that cost 4 or 5."""
+        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_bis_items()
         lesser_duplicator_index = self.get_index_of_one_lesser_champion_duplicators_on_bench()
         normal_duplicator_index = self.get_index_of_one_champion_duplicators_on_bench()
         # Exit the function sooner if we don't have any champion duplicators
         if lesser_duplicator_index is None and normal_duplicator_index is None:
             return
-        for unit in units_on_board_sorted_by_items:
+        for unit in units_on_board_sorted_by_bis_items:
             if unit in game_assets.CHAMPIONS:
                 cost = game_assets.CHAMPIONS[unit.name]["Gold"]
                 if cost <= 3 and lesser_duplicator_index is not None:
@@ -1211,3 +1216,35 @@ class Arena:
                 elif cost > 3 and normal_duplicator_index is not None:
                     self.add_one_item_to_unit(unit, normal_duplicator_index, True)
 
+    def use_scroll_of_knowledge(self) -> None:
+        """Uses a Scroll of Knowledge on a unit.
+           Uses it on the first unit with the most BIS items,
+           as I'm guessing those units will have the most traits active
+           and therefore make the most value out of getting an Emblem of one of their traits.
+           This function doesn't select the Emblem from the Armory shop."""
+        if "ScrollofKnowledge" not in self.items:
+            return
+        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_bis_items()
+        if len(units_on_board_sorted_by_bis_items) > 0:
+            self.add_one_item_to_unit(units_on_board_sorted_by_bis_items.pop(), self.items.index("ScrollofKnowledge"))
+        else:
+            print("    We have a Scroll of Knowledge to use, but no champion to use it on. This shouldn't happen...")
+
+    def use_masterwork_upgrade(self) -> None:
+        """Uses a Masterwork Upgrade on a unit.
+           Uses it on the first unit with the most BIS items, since the item upgrades craftable completed items
+           to Radiant versions. This will fail if the unit isn't holding any completed items.
+           This function doesn't select the item from the Armory shop."""
+        if "MasterworkUpgrade" not in self.items:
+            return
+        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_bis_items()
+        if len(units_on_board_sorted_by_bis_items) > 0:
+            # Try to add the Masterwork Upgrade to our most important units: the ones that build the most items.
+            for unit in units_on_board_sorted_by_bis_items:
+                if len(unit.non_component_items) > 0:
+                    self.add_one_item_to_unit(units_on_board_sorted_by_bis_items.pop(), self.items.index("MasterworkUpgrade"))
+                # If the unit doesn't have any craftable-completed items, we need to look for another unit.
+                else:
+                    continue
+        else:
+            print("    We have a Masterwork Upgrade to use, but no champion to use it on. This shouldn't happen...")
