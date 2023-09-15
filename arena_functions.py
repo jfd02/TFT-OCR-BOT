@@ -119,12 +119,25 @@ def bench_occupied_check() -> list:
     return bench_occupied
 
 
-def valid_item(item: str) -> str | None:
+def valid_item_from_all_items(item: str) -> str | None:
     """Checks if the item passed in arg one is valid"""
     return next(
         (
             valid_item_name
             for valid_item_name in game_assets.ALL_ITEMS
+            if valid_item_name in item
+               or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7
+        ),
+        None,
+    )
+
+
+def valid_item_from_holdable_items(item: str) -> str | None:
+    """Checks if the item passed in arg one is valid item and that item is holdable, not a consumable item."""
+    return next(
+        (
+            valid_item_name
+            for valid_item_name in game_assets.HOLDABLE_ITEMS
             if valid_item_name in item
                or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7
         ),
@@ -139,7 +152,7 @@ def get_items() -> list:
         mk_functions.move_mouse(positions[0].get_coords())
         item: str = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=13,
                                  whitelist=ocr.ALPHABET_WHITELIST)
-        item_bench.append(valid_item(item))
+        item_bench.append(valid_item_from_holdable_items(item))  # change to use holdable items since the AI is dumb
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
     return item_bench
 
@@ -151,7 +164,7 @@ def tacticians_crown_check(self) -> None:
     sleep(0.5)
     item: str = ocr.get_text(screenxy=screen_coords.ITEM_POS[0][1].get_coords(), scale=3, psm=13,
                              whitelist=ocr.ALPHABET_WHITELIST)
-    item: str = valid_item(item)
+    item: str = valid_item_from_all_items(item)
     try:
         if "TacticiansCrown" in item:
             print("  Tacticians Crown on bench, adding extra slot to board")
