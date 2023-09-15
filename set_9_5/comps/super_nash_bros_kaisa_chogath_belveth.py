@@ -25,7 +25,7 @@ COMP = {
     "KaiSa": {
         "board_position": 4,
         "items_to_build": ["Guardbreaker", "JeweledGauntlet", "SpearofShojin"],
-        "completed_items_to_accept": ["Guardbreaker", "Guinsoo's Rageblade", "JeweledGauntlet",
+        "completed_items_to_accept": ["Guardbreaker", "GuinsoosRageblade", "JeweledGauntlet",
                                       "GiantSlayer", "SpearofShojin", "StatikkShiv"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
