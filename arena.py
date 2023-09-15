@@ -460,30 +460,30 @@ class Arena:
         """
         # print("  Found a champ to add an item to before dying.")
         item = self.items[item_index]
-        if item in game_assets.ORNN_ITEMS or game_assets.RADIANT_ITEMS:
+        if item in game_assets.ORNN_ITEMS or item in game_assets.RADIANT_ITEMS:
             if champ.does_need_items():
-                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
-                arena_functions.print_item_placed_on_champ(item, champ)
+                self.add_one_item_to_unit(champ, item_index)
                 champ.non_component_items.append(item)
-                self.items[self.items.index(item)] = None
-        elif item in game_assets.ELUSIVE_ITEMS:
+        elif item in game_assets.TRAIT_ITEMS:
             if champ.does_need_items():
-                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
-                arena_functions.print_item_placed_on_champ(item, champ)
+                self.add_one_item_to_unit(champ, item_index)
                 champ.non_component_items.append(item)
-                self.items[self.items.index(item)] = None
+        elif item in game_assets.SUPPORT_ITEMS:
+            if champ.does_need_items():
+                self.add_one_item_to_unit(champ, item_index)
+                champ.non_component_items.append(item)
+        elif item in game_assets.ZAUN_ITEMS:
+            if champ.does_need_items():
+                self.add_one_item_to_unit(champ, item_index)
+                champ.non_component_items.append(item)
         elif item in game_assets.CRAFTABLE_ITEMS_DICT:
             if champ.does_need_items():
-                arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
-                arena_functions.print_item_placed_on_champ(item, champ)
+                self.add_one_item_to_unit(champ, item_index)
                 champ.non_component_items.append(item)
-                self.items[self.items.index(item)] = None
         elif len(champ.non_component_items) < 3:
             print("  ADD ITEMS BEFORE DYING:")
             print(f"   {champ.name} is building {len(champ.current_building)} items.")
-            arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
-            arena_functions.print_item_placed_on_champ(item, champ)
-            self.items[self.items.index(item)] = None
+            self.add_one_item_to_unit(champ, item_index)
 
     def fix_unknown(self) -> None:
         """Removes the first unknown unit that is on the board."""
@@ -1132,7 +1132,11 @@ class Arena:
                 unit.item_slots_filled -= 1
                 for item in unit.current_building:
                     unit.current_building.remove(item)
-                    print(f"    A Reforger removed a {item} from {unit.name} and changed it into a new item.")
+                    print(f"    {unit.name} is no longer trying to build {unit.current_building} due to a Reforger.")
+                if unit.component_item != "":
+                    print(f"    A Reforger removed {unit.component_item} from {unit.name} and changed it into a new item.")
+                else:
+                    print(f"    [!] We removed a component item from a unit, but we didn't know what component it was!")
                 return True
             else:
                 print("  Tried to throw away a Reforger on a nearly-itemless unit, "
@@ -1145,9 +1149,14 @@ class Arena:
             if unit.item_slots_filled == 1:
                 self.add_consumable_item_to_unit(unit, self.items.index("MagneticRemover"))
                 unit.item_slots_filled -= 1
+                # Removes the tuple of (completed_item, needed_component_item) that the unit had.
                 for item in unit.current_building:
                     unit.current_building.remove(item)
-                    print(f"    A Magnetic Remover removed a {item} from {unit.name}.")
+                    print(f"    {unit.name} is no longer trying to build {unit.current_building} due to a Magnetic Remover.")
+                if unit.component_item != "":
+                    print(f"    A Magnetic Remover removed {unit.component_item} from {unit.name}.")
+                else:
+                    print(f"    [!] We removed a component item from a unit, but we didn't know what component it was!")
                 return True
             else:
                 print("  Tried to throw away a Magnetic Remover on a nearly-itemless unit, "

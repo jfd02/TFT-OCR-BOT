@@ -39,9 +39,13 @@ class Champion:
         self.items: list = []
         # The list of non-component items the unit has that aren't Zaun items.
         self.non_component_items: list = []
-        # The list of component items that the unit has.
+        # The unit can only hold one component item at a time.
+        self.component_item: str = ""
+        # A list that should only be a tuple of (completed_item, component_item), where the component item in the tuple
+        # combines with another component item the unit is currently holding to create the completed item.
+        # TODO: this shouldn't be a list. might not even be needed
         self.current_building: list = []
-        # The list of Zaun items the unit has.
+        # The list of Zaun items the unit has. Max of 3 items.
         self.held_zaun_items: list = []
         # Whether the unit is a part of the final comp.
         self.final_comp: bool = final_comp
