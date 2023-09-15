@@ -365,12 +365,6 @@ class Arena:
                 print(f"        Attempting to add item {item} to {champ.name} because it is an Ornn item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
                 champ.non_component_items.append(item)
-        if item in game_assets.RADIANT_ITEMS:
-            if champ.name in self.comp_to_play.comp \
-                    and item in self.comp_to_play.comp[champ.name]["radiant_items_to_accept"]:
-                print(f"        Attempting to add item {item} to {champ.name} because it is a Radiant item it accepts.")
-                self.add_one_item_to_unit(champ, item_index)
-                champ.non_component_items.append(item)
         if item in game_assets.ZAUN_ITEMS:
             if champ.name in self.comp_to_play.comp \
                     and item in self.comp_to_play.comp[champ.name]["zaun_items_to_accept"]:
