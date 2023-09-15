@@ -585,7 +585,7 @@ class Arena:
            It then tries to choose from any new primary and secondary augments again.
            If none exist, it picks the first augment on the left.
            Returns True if this function picked an augment non-randomly."""
-        sleep(2)  # So that when I'm watching the screen I can actually read the augments' descriptions.
+        sleep(1.5)  # So that when I'm watching the screen I can actually read the augments' descriptions.
         augments: list = []
         for coords in screen_coords.AUGMENT_POS:
             augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
