@@ -351,7 +351,7 @@ class Arena:
             if champ.does_need_items() and self.items[item_index] is not None:
                 # print(f"      {champ.name} needs items.", end=" ")
                 self.add_item_to_champ(item_index, champ)
-        print("")
+        # print("")
 
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
@@ -979,9 +979,10 @@ class Arena:
                         self.add_radiant_version_of_accepted_completed_items_to_unit(unit)
                         self.add_support_item_to_unit(unit)
                         self.add_trait_item_to_unit(unit)
-                    #
+                    else:
+                        self.throwaway_reforger_item()
 
-    def add_one_item_to_unit(self, unit: Champion, the_items_bench_index: int):
+    def add_one_item_to_unit(self, unit: Champion, the_items_bench_index: int, consumable: bool = False):
         """Move the item from its location on the board to the unit.
            Prints out the name of the item and the unit it was placed on.
            Adds it to the units list of items it has.
@@ -989,7 +990,8 @@ class Arena:
         item = self.items[the_items_bench_index]
         arena_functions.move_item(screen_coords.ITEM_POS[the_items_bench_index][0].get_coords(), unit.coords)
         arena_functions.print_item_placed_on_champ(item, unit)
-        unit.items.append(item)
+        if not consumable:
+            unit.items.append(item)
         self.items[the_items_bench_index] = None
 
     def add_completed_item_to_unit(self, unit: Champion) -> None:
@@ -1091,3 +1093,18 @@ class Arena:
                 return emblem_shop_index
             else:
                 print(f"          An emblem for {trait} was not in the Tome of Traits shop.")
+
+    def add_consumable_item_to_unit(self, unit: Champion, the_items_bench_index: int):
+        """Simply calls the self.add_one_item_to_unit() function with a consumable value of True."""
+        self.add_one_item_to_unit(unit, the_items_bench_index, True)
+
+    def throwaway_reforger_item(self, unit: Champion) -> bool:
+        """Simply tries to use a Reforger on a unit with 1 or 0 items."""
+        if "Reforger" in self.items:
+            if unit.item_slots_filled <= 1:
+                self.add_consumable_item_to_unit(unit, self.items.index("Reforger"))
+                return True
+            else:
+                print("  Tried to throw away a Reforger on a nearly-itemless unit, "
+                      "but couldn't find a nearly itemless unit.")
+                return False
