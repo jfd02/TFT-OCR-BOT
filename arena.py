@@ -148,6 +148,7 @@ class Arena:
                 self.set_board_size(self.board_size + 1)
                 print(f"      There are now {self.board_size} units on the board.")
                 return
+        return
 
     def sell_bench(self) -> None:
         """Sells all of the champions on the bench"""
@@ -155,11 +156,13 @@ class Arena:
         for index, _ in enumerate(self.bench):
             mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
             self.bench[index] = None
+        return
 
     def unknown_in_bench(self) -> bool:
         """Returns True if there is a spot on the bench taken up and that spot is not recognized as a champion/unit."""
         return any(isinstance(slot, str) for slot in self.bench)
 
+    # TODO: This function is way too long and needs to be cleaned up.
     def move_champions(self) -> None:
         """Moves champions to the board"""
         self.level: int = arena_functions.get_level_via_https_request()
@@ -233,6 +236,7 @@ class Arena:
                 #    print("  Need to sell entire bench to keep track of board")
                 #    self.sell_bench()
                 #    return
+        return
 
     def replace_unknown(self) -> None:
         """Removes an unknown champion on the board.
@@ -245,6 +249,7 @@ class Arena:
             mk_functions.press_e(value)
             self.set_board_size(self.board_size - 1)
             self.move_known(champion)
+        return
 
     def replace_units_not_in_our_comp(self) -> None:
         """Replaces a unit on the board with a unit from the bench that is in our comp."""
@@ -260,6 +265,7 @@ class Arena:
                     self.board_names.remove(unit.name)
                     self.set_board_size(self.board_size - unit.size)
                     self.move_known(champion)
+        return
 
     def bench_cleanup(self) -> None:
         """Sells unknown champions"""
@@ -274,6 +280,7 @@ class Arena:
                     print(f"  Champion not in champs_to_buy: {champion} - Name: {champion.name}")
                     mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                     self.bench[index] = None
+        return
 
     def clear_anvil(self) -> None:
         """Clears anvil on the bench,
@@ -293,7 +300,9 @@ class Arena:
                 else:
                     print("    Selecting middle item from Anvil/Ornn Item Anvil.")
                 mk_functions.left_click(screen_coords_vec2_tuple)
+        return
 
+    # Pretty much deprecated. Use Arena.give_items_to_units() instead
     def place_items_by_looping_through_items_first(self) -> None:
         """Iterates through items and tries to add them to champion"""
         self.items = arena_functions.get_items()
@@ -349,7 +358,9 @@ class Arena:
                 will_try_to_place_item = False
             if not will_try_to_place_item:
                 print("    No longer placing items this round.")
+        return
 
+    # Pretty much deprecated. Use Arena.give_items_to_units() instead
     def add_item_to_champs(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
         for champ in self.board:
@@ -358,6 +369,7 @@ class Arena:
                 self.add_item_to_champ(item_index, champ)
         # print("")
 
+    # Pretty much deprecated. Use Arena.give_items_to_units() instead
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
         item = self.items[item_index]
@@ -423,6 +435,7 @@ class Arena:
                     arena_functions.print_item_placed_on_champ(item, champ)
                     print(f"  Completed {builditem[0]}")
                     return
+        return
 
     def add_thiefs_gloves_to_champ(self, champ: Champion) -> bool:
         """Makes Thiefs Gloves if possible and gives them to a champ with no items."""
@@ -448,12 +461,15 @@ class Arena:
             return True
         return False
 
+    # Pretty much deprecated. Use arena.add_random_items_on_strongest_units_at_one_loss_left() instead.
     def add_item_to_champs_before_dying(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
         for champ in self.board:
             if champ.does_need_items() and self.items[item_index] is not None:
                 self.add_item_before_dying(item_index, champ)
+        return
 
+    # Pretty much deprecated. Use arena.add_random_items_on_strongest_units_at_one_loss_left() instead.
     def add_item_before_dying(self, item_index: int, champ: Champion) -> None:
         """Takes the remaining full items and gives them to champs that already have items.
             Then takes remaining component items and tries to give them to champs that already have items.
@@ -484,6 +500,7 @@ class Arena:
             print("  ADD ITEMS BEFORE DYING:")
             print(f"   {champ.name} is building {len(champ.current_building)} items.")
             self.add_one_item_to_unit(champ, item_index)
+        return
 
     def fix_unknown(self) -> None:
         """Removes the first unknown unit that is on the board."""
@@ -518,6 +535,7 @@ class Arena:
         if champion in self.board and champion.name not in self.board_names:
             print(AnsiColors.RED_REGULAR + f"      [!] Unit {champion} is registered as in self.board, "
                                            f"but its name is not registered as in self.board_names." + AnsiColors.RESET)
+        return
 
     def final_comp_check(self) -> None:
         """Checks the board and replaces champions not in final comp"""
@@ -534,6 +552,7 @@ class Arena:
                         champion.print_all_class_variables()
                         self.move_known(slot)
                         break
+        return
 
     def spend_gold(self) -> None:
         """Spends gold every round.
@@ -584,6 +603,7 @@ class Arena:
                             print(f"    Bench no longer full. Purchased {champion[1]}")
                             self.champs_to_buy.remove(champion[1])
             first_run = False
+        return
 
     def pick_augment(self, have_rerolled: bool, secondary_augments: list) -> bool | list:
         """Picks an augment from user defined primary augments. If none from that list exist,
@@ -730,15 +750,14 @@ class Arena:
         return item_amount
 
     def is_same_amount_or_more_items_on_bench(self, item_amount_at_start: int) -> bool:
-        """
-        Returns a boolean representing if the current amount of items on the bench
-        is greater than or equal to the given amount.
-        """
+        """Returns a boolean representing if the current amount of items on the bench
+           is greater than or equal to the given amount."""
         i = self.count_items_on_bench()
         if i >= item_amount_at_start:
             # print(f"    Started Item Amount: {item_amount_at_start}")
             # print(f"      Current Item Amount: {i}")
             return True
+        return False
 
     def check_if_we_should_spam_sparring_gloves(self) -> bool:
         """Checks if our health is at 30 or less and then calls the function to spam thief's gloves."""
@@ -843,6 +862,7 @@ class Arena:
                     # max amount of units/board_size on the board already.
                 else:
                     positions_of_all_unit.append(unit.index)
+        return
 
     def identify_champions_on_bench(self):
         print("  Identifying units on the bench:")
@@ -909,6 +929,7 @@ class Arena:
                         and self.board_size >= self.level \
                         and unit_on_bench.name not in self.board_names:
                     self.sell_unit(unit_on_bench, index)
+        return
 
     def sell_unit(self, unit: Champion, index: int) -> None:
         """Sell a single unit on the bench."""
@@ -973,6 +994,7 @@ class Arena:
         else:
             print("      The board size cannot be less than 0!")
             return False
+        return False
 
     def give_items_to_units(self):
         """Loops through the units first so that we can add multiple items to one unit first,
@@ -1029,6 +1051,7 @@ class Arena:
                 unit.item_slots_filled += 1
                 unit.build.remove(completed_item)
                 unit.non_component_items.append(completed_item)
+        return
 
     def add_radiant_version_of_bis_items_to_unit(self, unit: Champion) -> None:
         """If we have radiant items waiting on the bench,
@@ -1041,6 +1064,7 @@ class Arena:
                 unit.item_slots_filled += 1
                 unit.build.remove(completed_item)
                 unit.non_component_items.append(radiant_item)
+        return
 
     def add_radiant_version_of_accepted_completed_items_to_unit(self, unit: Champion) -> None:
         """If we have radiant items waiting on the bench,
@@ -1051,6 +1075,7 @@ class Arena:
                 unit.item_slots_filled += 1
                 unit.completed_items_will_accept.remove(completed_item)
                 unit.non_component_items.append(radiant_item)
+        return
 
     def add_ornn_item_to_unit(self, unit: Champion) -> None:
         """If there is an Ornn item on the bench that this unit wants, give it to 'em."""
@@ -1060,6 +1085,7 @@ class Arena:
                 unit.item_slots_filled += 1
                 unit.ornn_items_will_accept.remove(ornn_item)
                 unit.non_component_items.append(ornn_item)
+        return
 
     def add_support_item_to_unit(self, unit: Champion) -> None:
         """If there is a Support item on the bench that this unit wants, give it to 'em."""
@@ -1069,6 +1095,7 @@ class Arena:
                 unit.item_slots_filled += 1
                 unit.support_items_will_accept.remove(support_item)
                 unit.non_component_items.append(support_item)
+        return
 
     def add_trait_item_to_unit(self, unit: Champion) -> None:
         """If there is a trait emblem item on the bench that this unit wants, give it to 'em."""
@@ -1078,6 +1105,7 @@ class Arena:
                 unit.item_slots_filled += 1
                 unit.trait_items_will_accept.remove(trait_item)
                 unit.non_component_items.append(trait_item)
+        return
 
     def add_zaun_item_to_unit(self, unit: Champion) -> None:
         """If there is a Zaun item on the bench that this unit wants, give it to 'em."""
@@ -1087,6 +1115,7 @@ class Arena:
                 unit.item_slots_filled += 1
                 unit.zaun_items_will_accept.remove(zaun_item)
                 unit.held_zaun_items.append(zaun_item)
+        return
 
     def pick_one_of_four_emblems_from_shop(self) -> int:
         """Returns the index position of the emblem in the shop that we want to pick.
@@ -1125,7 +1154,8 @@ class Arena:
         self.add_one_item_to_unit(unit, the_items_bench_index, True)
 
     def throwaway_reforger_item(self, unit: Champion) -> bool:
-        """Simply tries to use a Reforger on a unit with 1 component item."""
+        """Simply tries to use a Reforger on a unit with 1 component item.
+           Returns True if we used it."""
         if "Reforger" in self.items:
             if unit.item_slots_filled == 1:
                 self.add_consumable_item_to_unit(unit, self.items.index("Reforger"))
@@ -1142,9 +1172,11 @@ class Arena:
                 print("  Tried to throw away a Reforger on a nearly-itemless unit, "
                       "but couldn't find a nearly itemless unit.")
                 return False
+        return False
 
     def throwaway_magnetic_remover_item(self, unit: Champion) -> bool:
-        """Simply tries to use a Magnetic Remover on a unit with 1 component items."""
+        """Simply tries to use a Magnetic Remover on a unit with 1 component items.
+           Returns True if we used it."""
         if "MagneticRemover" in self.items:
             if unit.item_slots_filled == 1:
                 self.add_consumable_item_to_unit(unit, self.items.index("MagneticRemover"))
@@ -1162,6 +1194,7 @@ class Arena:
                 print("  Tried to throw away a Magnetic Remover on a nearly-itemless unit, "
                       "but couldn't find a nearly itemless unit.")
                 return False
+        return False
 
     def is_possible_to_combine_two_components_into_given_bis_item(self, unit: Champion, complete_item: str) -> bool:
         """Assumes that the complete item in the unit's build, exists as a CRAFTABLE item.
@@ -1176,6 +1209,7 @@ class Arena:
                 return complete_item
             else:
                 return None
+        return
 
     def add_any_bis_item_from_combining_two_component_items_on_unit(self, unit: Champion):
         """Assumes that the unit has no component items on them.
@@ -1194,6 +1228,7 @@ class Arena:
             if complete_item in unit.completed_items_will_accept:
                 unit.completed_items_will_accept.remove(complete_item)
             unit.item_slots_filled += 2
+        return
 
     def get_list_of_units_on_board_in_order_of_amount_of_total_bis_items(self) -> list[Champion]:
         """Returns a list of Champion objects that are on the board,
@@ -1237,6 +1272,7 @@ class Arena:
                     self.add_one_item_to_unit(unit, lesser_duplicator_index, True)
                 elif cost > 3 and normal_duplicator_index is not None:
                     self.add_one_item_to_unit(unit, normal_duplicator_index, True)
+        return
 
     def use_scroll_of_knowledge(self) -> None:
         """Uses a Scroll of Knowledge on a unit.
@@ -1272,9 +1308,15 @@ class Arena:
             print("    We have a Masterwork Upgrade to use, but no champion to use it on. This shouldn't happen...")
 
     # TODO: Clean this up and break down into smaller functions.
+    # TODO: Possibly should change it to give the rest of the component items before giving emblem and support items.
     def add_random_items_on_strongest_units_at_one_loss_left(self):
-        """Takes the remaining full items and gives them to champs that have item slots to be filled.
-            Then takes remaining component items and tries to give them to champs that already have items.
+        """This function tries to add all the leftover items on the board before the bot loses the game.
+           It focuses on placing items onto the most important units, as defined by how many BIS items they have in their comp file.
+           It will place the strongest items first (e.g. Ornn Artifact Items and Radiant Items).
+           Then place the normal completed items, because it's most likely those will help the damage-dealing carries the most.
+           Then emblem items and support items. Hopefully by the time we are placing those items
+             we are giving them to non-carries that will buff the carries.
+           Then we take the remaining Mogul items and component items and try to give them too.
         """
         # TODO: maybe put this value into data files, so it's not hardcoded for every comp ?
         if self.check_health() > 16:
