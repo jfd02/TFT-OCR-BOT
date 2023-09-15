@@ -257,7 +257,7 @@ class Arena:
                     print(f"    Replacing {unit.name} with {champion.name} because {unit.name} is not in our comp.")
                     mk_functions.press_e(unit.coords)
                     self.board.remove(unit)
-                    self.board_names.remove(unit.name)\
+                    self.board_names.remove(unit.name)
                     self.set_board_size(self.board_size - unit.size)
                     self.move_known(champion)
 
@@ -991,6 +991,8 @@ class Arena:
                         self.add_radiant_version_of_accepted_completed_items_to_unit(unit)
                         self.add_support_item_to_unit(unit)
                         self.add_trait_item_to_unit(unit)
+                    elif unit.item_slots_filled % 2 == 0:
+                        self.add_any_bis_item_from_combining_two_component_items_on_unit(unit)
                     else:
                         self.throwaway_reforger_item(unit)
                 # Zaun units can hold 3 Zaun mods.
@@ -1123,3 +1125,34 @@ class Arena:
                 print("  Tried to throw away a Reforger on a nearly-itemless unit, "
                       "but couldn't find a nearly itemless unit.")
                 return False
+
+    def is_possible_to_combine_two_components_into_given_bis_item(self, unit: Champion, complete_item: str) -> bool:
+        """Assumes that the complete item in the unit's build, exists as a CRAFTABLE item.
+           Returns a boolean value that represent if BOTH component items for a complete item exist in self.items."""
+        return all([item in self.items for item in game_assets.CRAFTABLE_ITEMS_DICT[complete_item]] and complete_item in unit.build)
+
+    def get_bis_item_that_is_possible_to_combine_from_components(self, unit: Champion) -> str | None:
+        """Searches through the unit's BIS items it wants to build and returns the complete BIS item
+           if it can be crafted from component items currently on the bench."""
+        for complete_item in unit.build:
+            if self.is_possible_to_combine_two_components_into_given_bis_item(unit, complete_item):
+                return complete_item
+            else:
+                return None
+
+    def add_any_bis_item_from_combining_two_component_items_on_unit(self, unit: Champion):
+        """Assumes that the unit has no component items on them.
+           Gets any Best In Slot (BIS) craftable item from the unit
+           that we have determined we have both components for.
+           Then adds both components to the unit to create a completed item."""
+        complete_item = self.get_bis_item_that_is_possible_to_combine_from_components(unit)
+        if complete_item is not None:
+            component_one = game_assets.CRAFTABLE_ITEMS_DICT[complete_item][0]
+            component_two = game_assets.CRAFTABLE_ITEMS_DICT[complete_item][1]
+            self.add_one_item_to_unit(unit, self.items.index(component_one))
+            self.add_one_item_to_unit(unit, self.items.index(component_two))
+            unit.non_component_items.append(complete_item)
+            unit.build.remove(complete_item)
+            if complete_item in unit.completed_items_will_accept:
+                unit.completed_items_will_accept.remove(complete_item)
+            unit.item_slots_filled += 2

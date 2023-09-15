@@ -8,6 +8,7 @@ class Champion:
 
     # pylint: disable=too-many-instance-attributes,too-few-public-methods,too-many-arguments
 
+    # TODO: make some of these have default parameters
     def __init__(self, name: str, coords: tuple, item_slots_filled: int, build: list[str], build2: list[str],
                  ornn_items: list[str], support_items: list[str], trait_items: list[str], zaun_items: list[str],
                  slot: int, size: int, final_comp: bool) -> None:
