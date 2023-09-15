@@ -73,6 +73,7 @@ class Arena:
                                     ornn_items=self.comp_to_play.comp[name]["ornn_items_to_accept"].copy(),
                                     support_items=self.comp_to_play.comp[name]["support_items_to_accept"].copy(),
                                     trait_items=self.comp_to_play.comp[name]["trait_items_to_accept"].copy(),
+                                    zaun_items=self.comp_to_play.comp[name]["zaun_items_to_accept"].copy(),
                                     slot=slot,
                                     size=game_assets.CHAMPIONS[name]["Board Size"],
                                     final_comp=self.comp_to_play.comp[name]["final_comp"])
@@ -197,6 +198,7 @@ class Arena:
                         ornn_items = []
                         support_items = []
                         trait_items = []
+                        zaun_items = []
                         final_comp = False
                         units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BENCH_LOC[empty_bench_slot].get_coords())
                         # If we actually plan on using this champ in our comp:
@@ -206,6 +208,7 @@ class Arena:
                             ornn_items = self.comp_to_play.comp[purchaseable_unit[1]]["ornn_items_to_accept"].copy(),
                             support_items = self.comp_to_play.comp[purchaseable_unit[1]]["support_items_to_accept"].copy(),
                             trait_items = self.comp_to_play.comp[purchaseable_unit[1]]["trait_items_to_accept"].copy(),
+                            zaun_items = self.comp_to_play.comp[purchaseable_unit[1]]["zaun_items_to_accept"].copy(),
                             final_comp = self.comp_to_play.comp[purchaseable_unit[1]]["final_comp"]
                         # Create the Champion object.
                         champion = Champion(name=purchaseable_unit[1],
@@ -216,6 +219,7 @@ class Arena:
                                             ornn_items=ornn_items,
                                             support_items=support_items,
                                             trait_items=trait_items,
+                                            zaun_items=zaun_items,
                                             slot=empty_bench_slot,
                                             size=game_assets.CHAMPIONS[purchaseable_unit[1]]["Board Size"],
                                             final_comp=final_comp)
@@ -867,6 +871,7 @@ class Arena:
                     ornn_items = []
                     support_items = []
                     trait_items = []
+                    zaun_items = []
                     final_comp = False
                     units_current_item_count = arena_functions.\
                         count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BENCH_LOC[index].get_coords())
@@ -877,6 +882,7 @@ class Arena:
                         ornn_items = self.comp_to_play.comp[champ_name]["ornn_items_to_accept"].copy(),
                         support_items = self.comp_to_play.comp[champ_name]["support_items_to_accept"].copy(),
                         trait_items = self.comp_to_play.comp[champ_name]["trait_items_to_accept"].copy(),
+                        zaun_items = self.comp_to_play.comp[champ_name]["zaun_items_to_accept"].copy(),
                         final_comp = self.comp_to_play.comp[champ_name]["final_comp"]
                     # Create the Champion object.
                     self.bench[index] = Champion(name=champ_name,
@@ -887,6 +893,7 @@ class Arena:
                                                  ornn_items=ornn_items,
                                                  support_items=support_items,
                                                  trait_items=trait_items,
+                                                 zaun_items=zaun_items,
                                                  slot=index,
                                                  size=game_assets.CHAMPIONS[champ_name]["Board Size"],
                                                  final_comp=final_comp)
@@ -917,6 +924,7 @@ class Arena:
         ornn_items = []
         support_items = []
         trait_items = []
+        zaun_items = []
         final_comp = False
         # If we actually plan on using this champ in our comp:
         if unit_name in self.comp_to_play.comp:
@@ -925,6 +933,7 @@ class Arena:
             ornn_items = self.comp_to_play.comp[unit_name]["ornn_items_to_accept"].copy(),
             support_items = self.comp_to_play.comp[unit_name]["support_items_to_accept"].copy(),
             trait_items = self.comp_to_play.comp[unit_name]["trait_items_to_accept"].copy(),
+            zaun_items = self.comp_to_play.comp[unit_name]["zaun_items_to_accept"].copy(),
             final_comp = self.comp_to_play.comp[unit_name]["final_comp"]
         # Create the Champion object.
         print(f"      Created the Champion object for the {unit_name}.")
@@ -946,6 +955,7 @@ class Arena:
                                    ornn_items=ornn_items,
                                    support_items=support_items,
                                    trait_items=trait_items,
+                                   zaun_items=zaun_items,
                                    slot=index,
                                    size=size,
                                    final_comp=final_comp))
