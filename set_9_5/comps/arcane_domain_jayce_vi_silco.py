@@ -13,7 +13,11 @@ STRATEGY = "Slow Roll"
 
 DIFFICULTY = "Easy"
 
-TRAITS = ["Zaun", "Gunner", "Piltover", "Reaver King"]
+# In the order from most active to least active.
+ACTIVE_FINAL_COMP_TRAITS = ["Zaun", "Gunner", "Piltover", "Reaver King"]
+
+# just alphabetical order
+INACTIVE_FINAL_COMP_TRAITS = ["Bilgewater", "Bruiser", "Challenger", "Juggernaut", "Rogue", "Sorcerer", "Targon"]
 
 RECOMMENDED_LEGEND = "Urf"
 
@@ -34,7 +38,7 @@ COMP = {
         "items_to_build": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
         "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
         "support_items_to_accept": [],
-        "trait_items_to_accept": ["JuggernautEmblem"],
+        "trait_items_to_accept": ["JuggernautEmblem", "ZaunEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 3,
@@ -56,7 +60,7 @@ COMP = {
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": [],
+        "trait_items_to_accept": ["ZaunEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
@@ -67,7 +71,7 @@ COMP = {
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": ["BilgewaterEmblem", "PiltoverEmblem"],
+        "trait_items_to_accept": ["BilgewaterEmblem", "PiltoverEmblem", "ZaunEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
@@ -78,7 +82,8 @@ COMP = {
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": ["JuggernautEmblem", "BilgewaterEmblem", "BruiserEmblem"],
+        "trait_items_to_accept": ["BilgewaterEmblem", "BruiserEmblem", "JuggernautEmblem", "NoxusEmblem",
+                                  "ShurimaEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": ["HextechExoskeleton", "ShimmerInjector", "UnstableChemtech", "VirulentBioware"],
         "level": 2,

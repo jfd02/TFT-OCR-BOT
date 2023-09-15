@@ -15,7 +15,11 @@ STRATEGY = "Slow Roll"
 
 DIFFICULTY = "Easy"
 
-TRAITS = ["Rogue", "Ixtal", "Zaun", "Bastion", "Sorcerer"]
+# In the order from most active to least active.
+ACTIVE_FINAL_COMP_TRAITS = ["Rogue", "Ixtal", "Zaun", "Bastion", "Sorcerer"]
+
+# just alphabetical order
+INACTIVE_FINAL_COMP_TRAITS = ["Bilgewater", "Gunner", "Invoker", "Noxus", "Piltover", "Slayer", "Targon"]
 
 RECOMMENDED_LEGEND = "Twisted Fate"
 

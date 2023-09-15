@@ -13,7 +13,11 @@ STRATEGY = "Slow Roll"
 
 DIFFICULTY = "Easy"
 
-TRAITS = ["Bilgewater", "Bastion", "Multicaster"]
+# In the order from most active to least active.
+ACTIVE_FINAL_COMP_TRAITS = ["Bilgewater", "Bastion", "Multicaster"]
+
+# just alphabetical order
+INACTIVE_FINAL_COMP_TRAITS = ["Demacia", "Juggernaut", "Strategist", "Vanquisher"]
 
 RECOMMENDED_LEGEND = "Lee Sin"
 

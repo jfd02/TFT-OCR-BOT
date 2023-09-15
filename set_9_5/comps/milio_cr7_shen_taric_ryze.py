@@ -14,7 +14,11 @@ STRATEGY = "Default"
 
 DIFFICULTY = "Unknown"
 
-TRAITS = ["Ixtal", "Wanderer", "Bastion", "Invoker", "Targon"]
+# In the order from most active to least active.
+ACTIVE_FINAL_COMP_TRAITS = ["Ixtal", "Wanderer", "Bastion", "Invoker", "Targon"]
+
+# just alphabetical order
+INACTIVE_FINAL_COMP_TRAITS = ["Ionia", "Rogue", "Slayer", "Sorcerer", "Void"]
 
 RECOMMENDED_LEGEND = "Urf"
 
@@ -101,7 +105,7 @@ COMP = {
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["Obsidian Cleaver"],
-        "trait_items_to_accept": ["InvokerEmblem", "TargonEmblem"],
+        "trait_items_to_accept": ["BastionEmblem", "InvokerEmblem", "TargonEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
@@ -134,7 +138,7 @@ COMP = {
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": ["IxtalEmblem", "TargonEmblem"],
+        "trait_items_to_accept": ["BastionEmblem", "IxtalEmblem", "TargonEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,

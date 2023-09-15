@@ -13,7 +13,11 @@ STRATEGY = "Default"
 
 DIFFICULTY = "Medium"
 
-TRAITS = ["Bilgewater", "Reaver King", "Juggernaut", "Vanquisher", "Gunner"]
+# In the order from most active to least active.
+ACTIVE_FINAL_COMP_TRAITS = ["Bilgewater", "Reaver King", "Juggernaut", "Vanquisher", "Gunner"]
+
+# just alphabetical order
+INACTIVE_FINAL_COMP_TRAITS = ["Bastion", "Multicaster", "Noxus", "Rogue", "Strategist"]
 
 RECOMMENDED_LEGEND = "Poro"
 

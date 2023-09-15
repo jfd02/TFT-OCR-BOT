@@ -13,7 +13,11 @@ STRATEGY = "Default"
 
 DIFFICULTY = "Medium"
 
-TRAITS = ["Void", "Empress", "Bruiser", "Challenger", "Sorcerer"]
+# In the order from most active to least active.
+ACTIVE_FINAL_COMP_TRAITS = ["Void", "Empress", "Bruiser", "Challenger", "Sorcerer"]
+
+# just alphabetical order
+INACTIVE_FINAL_COMP_TRAITS = ["Bastion", "Demacia", "Multicaster", "Slayer"]
 
 RECOMMENDED_LEGEND = "Urf"
 

@@ -31,8 +31,10 @@ class Comp:
         # How difficult it is to obtain all the units and items.
         self.difficulty_to_play: str = composition.DIFFICULTY
         # The traits that are being used when the final version of the comp is in play.
-        self.final_comp_traits: list = composition.TRAITS
-        # The lege
+        self.active_final_comp_traits: list = composition.ACTIVE_FINAL_COMP_TRAITS
+        # The traits that are inactive when the final version of the comp is in play.
+        self.inactive_final_comp_traits: list = composition.INACTIVE_FINAL_COMP_TRAITS
+        # The legend that was recommended by whatever website the comp is from.
         self.recommended_legend: str = composition.RECOMMENDED_LEGEND
         self.comp: dict = composition.COMP
         self.primary_augments: list = composition.PRIMARY_AUGMENTS

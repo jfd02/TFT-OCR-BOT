@@ -271,14 +271,23 @@ class Arena:
                     self.bench[index] = None
 
     def clear_anvil(self) -> None:
-        """Clears anvil on the bench, selects middle item"""
+        """Clears anvil on the bench,
+           selects a good Emblem if a Tome of Traits was sold,
+           otherwise select the middle item."""
         print("  Looking for anvils to sell.")
         for index, unit in enumerate(self.bench):
-            if unit is None and arena_functions.identify_component_anvil(index):
+            returned_number = arena_functions.identify_component_anvil(index)
+            if unit is None and returned_number != 0:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                 sleep(0.2)
-                print("  Selecting middle item from Anvil/Ornn Item Anvil/Tome of Traits.")
-                mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
+                screen_coords_vec2_tuple = screen_coords.BUY_LOC[2].get_coords()
+                if returned_number == 3:
+                    print("    Selecting emblem from the Tome of Traits shop.")
+                    emblem_shop_index = self.pick_one_of_four_emblems_from_shop()
+                    screen_coords_vec2_tuple = screen_coords.CHOOSE_FROM_TOME_OF_TRAITS_SHOP_LOC[emblem_shop_index].get_coords()
+                else:
+                    print("    Selecting middle item from Anvil/Ornn Item Anvil.")
+                mk_functions.left_click(screen_coords_vec2_tuple)
 
     def place_items_by_looping_through_items_first(self) -> None:
         """Iterates through items and tries to add them to champion"""
@@ -1034,3 +1043,35 @@ class Arena:
                 unit.item_slots_filled += 1
                 unit.trait_items_will_accept.remove(trait_item)
                 unit.non_component_items.append(trait_item)
+
+    def pick_one_of_four_emblems_from_shop(self) -> int:
+        """Returns the index position of the emblem in the shop that we want to pick.
+           Prioritizes emblems by whether they are:
+              1. an active trait in the final comp
+                a. tries to grab the largest trait first
+              2. an inactive trait that is in the final comp
+              3. I guess next should just be random                    
+        """
+        # If one of the trait in our comp's list of ACTIVE traits
+        # exists as an Emblem in the shop, return the index of that Emblem
+        trait_emblem_names_in_shop = arena_functions.identify_emblems_in_shop()
+        for trait in self.comp_to_play.final_comp_active_traits:
+            trait_emblem = trait + " Emblem"
+            if trait_emblem in trait_emblem_names_in_shop:
+                emblem_shop_index = trait_emblem_names_in_shop.index(trait_emblem)
+                print(f"    Prioritizing emblems that are for the most used ACTIVE traits in our final comp.")
+                print(f"      Emblem: {trait_emblem}      Index in Shop: {emblem_shop_index}")
+                return emblem_shop_index
+            else:
+                print(f"          An emblem for {trait} was not in the Tome of Traits shop.")
+        # If one of the trait in our comp's list of INACTIVE traits
+        # exists as an Emblem in the shop, return the index of that Emblem
+        for trait in self.comp_to_play.inactive_final_comp_traits:
+            trait_emblem = trait + " Emblem"
+            if trait_emblem in trait_emblem_names_in_shop:
+                emblem_shop_index = trait_emblem_names_in_shop.index(trait_emblem)
+                print(f"    Grabbing an emblem for a INACTIVE trait in our final comp.")
+                print(f"      Emblem: {trait_emblem}      Index in Shop: {emblem_shop_index}")
+                return emblem_shop_index
+            else:
+                print(f"          An emblem for {trait} was not in the Tome of Traits shop.")

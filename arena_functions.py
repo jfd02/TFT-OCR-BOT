@@ -368,7 +368,7 @@ def move_item(start_location: tuple, destination: tuple):
     mk_functions.left_click(destination)
 
 
-def identify_component_anvil(index: int) -> bool:
+def identify_component_anvil(index: int) -> int:
     """Right-clicks a spot on the bench and if this can find the 'Component Anvil' text
        then it declares this spot on the bench as containing an anvil."""
     # setup coordinate values
@@ -384,7 +384,14 @@ def identify_component_anvil(index: int) -> bool:
     mk_functions.press_s()  # make sure the tactician doesn't move around too much
     anvil_text: str = ocr.get_text(screenxy=anvil_coords_tuple, scale=3, psm=7,
                                    whitelist=ocr.ALPHABET_WHITELIST)
-    return valid_anvil(anvil_text) or valid_ornn_anvil(anvil_text) or valid_tome_of_traits(anvil_text)
+    if valid_anvil(anvil_text):
+        return 1
+    elif valid_ornn_anvil(anvil_text):
+        return 2
+    elif valid_tome_of_traits(anvil_text):
+        return 3
+    else:
+        return 0
 
 
 def valid_anvil(anvil_text: str) -> bool:
@@ -430,3 +437,39 @@ def set_number_of_item_slot_filled_on_unit(unit: Champion, item_slots_filled: in
     print(f"  {unit.name} has had their number of item-slots-filled set from {unit.item_slots_filled} to {item_slots_filled}.")
     unit.item_slots_filled = item_slots_filled
 
+
+def is_valid_trait_item(trait_item: str):
+    if trait_item in game_assets.TRAIT_ITEMS:
+        print(f"    Found a valid trait item: {trait_item}")
+        return trait_item
+    return next(
+        (
+            item
+            for item in game_assets.TRAIT_ITEMS
+            if SequenceMatcher(a=item, b=trait_item).ratio() >= 0.7
+        ),
+        "",
+    )
+
+
+def identify_emblem_name(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, shop_array: list) -> str:
+    """Returns a tuple containing the shop position and champion name"""
+    trait_item: str = screen_capture.crop(name_pos.get_coords())
+    trait_item: str = ocr.get_text_from_image(image=trait_item, whitelist="")
+    shop_array.append((shop_pos, is_valid_trait_item(trait_item)))
+
+
+# TODO: Possibly rework this and the get_shop function into one functino that has arguments passed in.
+def identify_emblems_in_shop() -> list[str]:
+    """Make a list of the Emblems that appear in the Tome of Traits shop and return it."""
+    screen_capture = ImageGrab.grab(bbox=screen_coords.TOME_OF_TRAITS_SHOP_POS.get_coords())
+    emblem_shop: list = []
+    thread_list: list = []
+    for shop_index, name_pos in enumerate(screen_coords.TOME_OF_TRAITS_SHOP_NAMES_POS):
+        thread = threading.Thread(target=identify_emblem_name, args=(screen_capture, name_pos, shop_index, emblem_shop))
+        thread_list.append(thread)
+    for thread in thread_list:
+        thread.start()
+    for thread in thread_list:
+        thread.join()
+    return emblem_shop
