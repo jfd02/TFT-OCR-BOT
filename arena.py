@@ -11,7 +11,6 @@ import mk_functions
 import screen_coords
 from ansi_colors import AnsiColors
 from champion import Champion
-import comps
 import ocr
 import game_functions
 import arena_functions
@@ -349,27 +348,32 @@ class Arena:
         """Takes item index and champ and applies the item"""
         item = self.items[item_index]
         if item in game_assets.SUPPORT_ITEMS:
-            if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["support_items_to_accept"]:
+            if champ.name in self.comp_to_play.comp \
+                    and item in self.comp_to_play.comp[champ.name]["support_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Support item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
                 champ.non_component_items.append(item)
         if item in game_assets.TRAIT_ITEMS:
-            if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["trait_items_to_accept"]:
+            if champ.name in self.comp_to_play.comp \
+                    and item in self.comp_to_play.comp[champ.name]["trait_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Trait item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
                 champ.non_component_items.append(item)
         if item in game_assets.ORNN_ITEMS:
-            if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["ornn_items_to_accept"]:
+            if champ.name in self.comp_to_play.comp \
+                    and item in self.comp_to_play.comp[champ.name]["ornn_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is an Ornn item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
                 champ.non_component_items.append(item)
         if item in game_assets.RADIANT_ITEMS:
-            if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["radiant_items_to_accept"]:
+            if champ.name in self.comp_to_play.comp \
+                    and item in self.comp_to_play.comp[champ.name]["radiant_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Radiant item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
                 champ.non_component_items.append(item)
         if item in game_assets.ZAUN_ITEMS:
-            if champ.name in self.comp_to_play.comp and item in self.comp_to_play.comp[champ.name]["zaun_items_to_accept"]:
+            if champ.name in self.comp_to_play.comp \
+                    and item in self.comp_to_play.comp[champ.name]["zaun_items_to_accept"]:
                 print(f"        Attempting to add item {item} to {champ.name} because it is a Zaun item it accepts.")
                 self.add_one_item_to_unit(champ, item_index)
         if item in game_assets.CRAFTABLE_ITEMS_DICT:
@@ -391,7 +395,8 @@ class Arena:
                     item_to_move: None = item
                     build_item_components.remove(item_to_move)
                     print(
-                        f"        Adding item {build_item_components[0]} to the list of component items {champ.name} needs next.")
+                        f"        Adding item {build_item_components[0]} to the list of "
+                        f"component items {champ.name} needs next.")
                     champ.current_building.append(
                         (build_item, build_item_components[0]))
                     champ.build.remove(build_item)
@@ -404,7 +409,7 @@ class Arena:
             for builditem in champ.current_building:
                 if item == builditem[1]:
                     arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
-                    champ.completed_items.append(builditem[0])
+                    champ.non_component_items.append(builditem[0])
                     champ.current_building.clear()
                     self.items[self.items.index(item)] = None
                     arena_functions.print_item_placed_on_champ(item, champ)
@@ -461,7 +466,7 @@ class Arena:
             if champ.does_need_items():
                 arena_functions.move_item(screen_coords.ITEM_POS[item_index][0].get_coords(), champ.coords)
                 arena_functions.print_item_placed_on_champ(item, champ)
-                champ.completed_items.append(item)
+                champ.non_component_items.append(item)
                 self.items[self.items.index(item)] = None
         elif len(champ.non_component_items) < 3:
             print("  ADD ITEMS BEFORE DYING:")
@@ -519,24 +524,6 @@ class Arena:
                         champion.print_all_class_variables()
                         self.move_known(slot)
                         break
-
-    def tacticians_crown_check(self) -> None:
-        """Checks if the item from carousel is tacticians crown"""
-        print("    Checking for a Tacticians Crown.")
-        mk_functions.move_mouse(screen_coords.ITEM_POS[0][0].get_coords())
-        sleep(0.5)
-        item: str = ocr.get_text(screenxy=screen_coords.ITEM_POS[0][1].get_coords(), scale=3, psm=13,
-                                 whitelist=ocr.ALPHABET_WHITELIST)
-        item: str = arena_functions.valid_item(item)
-        try:
-            if "TacticiansCrown" in item:
-                print("  Tacticians Crown on bench, adding extra slot to board")
-                # TODO: why is this written this way
-                # self.board_size -= 1
-            else:
-                print(f"{item} is not TacticiansCrown")
-        except TypeError:
-            print("  Item could not be read for Tacticians Check")
 
     def spend_gold(self) -> None:
         """Spends gold every round.
@@ -674,7 +661,10 @@ class Arena:
         # Create labels for unknown units on the board.
         for index, name_and_pos in enumerate(self.board_unknown_and_pos):
             print(
-                f" name_and_pos: {name_and_pos}, name_and_pos[0]: {name_and_pos[0]}, name_and_pos[1]: {name_and_pos[1]}")
+                f" name_and_pos: {name_and_pos}, name_and_pos[0]: "
+                f"{name_and_pos[0]}, "
+                f"name_and_pos[1]: {name_and_pos[1]}"
+            )
             labels.append(("u:" + str(name_and_pos[0]), screen_coords.BOARD_LOC[name_and_pos[1]].get_coords(), 15, 30))
         # Create label for level of the tactician.
         labels.append(
@@ -859,7 +849,8 @@ class Arena:
                     support_items = []
                     trait_items = []
                     final_comp = False
-                    units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BENCH_LOC[index].get_coords())
+                    units_current_item_count = arena_functions.\
+                        count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BENCH_LOC[index].get_coords())
                     # If we actually plan on using this champ in our comp:
                     if champ_name in self.comp_to_play.comp:
                         items_to_build = self.comp_to_play.comp[champ_name]["items_to_build"].copy()
@@ -920,7 +911,8 @@ class Arena:
         print(f"      Created the Champion object for the {unit_name}.")
         self.board_names.append(unit_name)
         size = game_assets.CHAMPIONS[unit_name]["Board Size"]
-        units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BOARD_LOC[index].get_coords())
+        units_current_item_count = arena_functions.\
+            count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BOARD_LOC[index].get_coords())
         # Why do we do this?
         self.set_board_size(self.board_size + size)
         # Remove the unit that was unknown, and is now no longer unknown, from the unknown list.
@@ -959,18 +951,16 @@ class Arena:
             if isinstance(unit, Champion):
                 # try to give completed items first
                 # for loop like this because a unit can have 3 complete/non-component items
-                for i in range(unit.item_slots_filled, 3):
-                    # can't give completed items if all the slots are filled
-                    if unit.item_slots_filled < 3:
-                        self.add_ornn_item_to_unit()
+                for i in range(unit.item_slots_filled, 6):
+                    # can't give completed items if there aren't two slots or more available
+                    if unit.item_slots_filled < 5:
+                        self.add_ornn_item_to_unit(unit)
                         self.add_radiant_version_of_bis_items_to_unit(unit)
                         self.add_completed_item_to_unit(unit)
                         self.add_radiant_version_of_accepted_completed_items_to_unit(unit)
                         self.add_support_item_to_unit(unit)
                         self.add_trait_item_to_unit(unit)
-                # I CAN give component items and zaun items if all the slots are filled,
-                # except the last one is a component though.
-                # for i in range(unit.item_slots_filled, 3):
+                    #
 
     def add_one_item_to_unit(self, unit: Champion, the_items_bench_index: int):
         """Move the item from its location on the board to the unit.

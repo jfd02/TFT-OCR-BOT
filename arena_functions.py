@@ -144,6 +144,25 @@ def get_items() -> list:
     return item_bench
 
 
+def tacticians_crown_check(self) -> None:
+    """Checks if the item from carousel is tacticians crown"""
+    print("    Checking for a Tacticians Crown.")
+    mk_functions.move_mouse(screen_coords.ITEM_POS[0][0].get_coords())
+    sleep(0.5)
+    item: str = ocr.get_text(screenxy=screen_coords.ITEM_POS[0][1].get_coords(), scale=3, psm=13,
+                             whitelist=ocr.ALPHABET_WHITELIST)
+    item: str = valid_item(item)
+    try:
+        if "TacticiansCrown" in item:
+            print("  Tacticians Crown on bench, adding extra slot to board")
+            # TODO: why is this written this way
+            # self.board_size -= 1
+        else:
+            print(f"{item} is not TacticiansCrown")
+    except TypeError:
+        print("  Item could not be read for Tacticians Check")
+
+
 def get_level_via_ocr() -> int:
     """Returns the level of the tactician"""
     level: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_LEVEL_POS.get_coords(), scale=3, psm=7,

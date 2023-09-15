@@ -15,8 +15,8 @@ class Champion:
         self.name: str = name
         # Where the unit is located on the bench or board in Vec2 coordinates.
         self.coords: tuple = coords
-        # How many item slots are taken up by the unit. There are only 3 item slots.
-        # Could perhaps define component items as taking up half a slot?
+        # How many item slots are taken up by the unit. There are only 3 item slots, which get translated to 6 slots:
+        # completed/non-component items fill up two slots and component items fill up 1. Zaun items fill up 0.
         self.item_slots_filled: int = item_slots_filled
         # A list of the items that are likely the unit's best items it can be given, a.k.a. their "Best In Slot" (BIS)
         self.build: list[str] = build
