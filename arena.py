@@ -608,11 +608,17 @@ class Arena:
                     self.augments.append(augment)
                     return True
                 else:
+                    print(f"  Adding {augment} to the list of secondary augments (to not re-roll).")
                     secondary_augments.append(augment)
             elif not have_rerolled:
+                print("  Adding nothing to the list of secondary augments.")
                 secondary_augments.append(None)
             else:
+                print("  Returning the list of secondary augments:")
+                print(f"    {secondary_augments}")
                 return secondary_augments
+        print(f"  Secondary Augments:")
+        print(f"    {secondary_augments}")
         # If we decided before game that we would re-roll augments, and we have not re-rolled the first augments yet.
         if self.augment_roll and not have_rerolled:
             print("  Re-rolling augments.")
@@ -623,7 +629,8 @@ class Arena:
                     mk_functions.left_click(reroll_button.get_coords())
             # if we successfully chose a primary or secondary augment
             response = self.pick_augment(True, secondary_augments)
-            if response:
+            # need to explicitly verify that this is a bool because a non-empty list is truthy
+            if isinstance(response, bool) and response:
                 return True
             else:
                 print(AnsiColors.YELLOW_REGULAR + "  None of the augments were a desired augment." + AnsiColors.RESET)

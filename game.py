@@ -168,6 +168,7 @@ class Game:
         # because it picks a random one on its own.
         if self.arena.board_size > len(self.arena.board):
             print("    Moving our view from the carousel to the game board.")
+            sleep(0.4)  # add a small delay so that we aren't trying to click the button before it is active.
             mk_functions.left_click(screen_coords.CAROUSEL_TO_BOARD_BUTTON_LOC.get_coords())
             valid_champs = self.arena.identify_unknown_champions_on_board()
             for name_and_pos in valid_champs:
