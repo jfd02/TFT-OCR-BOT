@@ -256,7 +256,8 @@ class Arena:
                 if unit.name not in self.comp_to_play.comp and champion.name in self.comp_to_play.comp:
                     print(f"    Replacing {unit.name} with {champion.name} because {unit.name} is not in our comp.")
                     mk_functions.press_e(unit.coords)
-                    # Might set the wrong size because an unknown unit could have a size of two.
+                    self.board.remove(unit)
+                    self.board_names.remove(unit.name)\
                     self.set_board_size(self.board_size - unit.size)
                     self.move_known(champion)
 
@@ -563,8 +564,7 @@ class Arena:
             print(f"    Shop: {shop}")
             for champion in shop:
                 if (champion[1] in self.champs_to_buy and
-                        arena_functions.get_gold() - game_assets.CHAMPIONS[champion[1]]["Gold"] >= 0
-                ):
+                        arena_functions.get_gold() - game_assets.CHAMPIONS[champion[1]]["Gold"] >= 0):
                     none_slot: int = arena_functions.empty_bench_slot()
                     if none_slot != -1:
                         mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
@@ -897,6 +897,8 @@ class Arena:
                                                  slot=index,
                                                  size=game_assets.CHAMPIONS[champ_name]["Board Size"],
                                                  final_comp=final_comp)
+        mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
+        sleep(1.0)
 
     def sell_non_comp_units_on_bench(self):
         """Sells any units on the bench that aren't in our comp,
