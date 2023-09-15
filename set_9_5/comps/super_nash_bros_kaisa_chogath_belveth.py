@@ -37,7 +37,8 @@ COMP = {
     "BelVeth": {
         "board_position": 18,
         "items_to_build": ["Bloodthirster", "TitansResolve"],
-        "completed_items_to_accept": ["Bloodthirster", "LastWhisper", "Quicksilver", "SteraksGage", "TitansResolve"],
+        "completed_items_to_accept": ["Bloodthirster", "HandofJustice", "LastWhisper", "Quicksilver",
+                                      "SteraksGage", "TitansResolve"],
         "support_items_to_accept": ["VirtueoftheMartyr", "ZzRotPortal"],
         "trait_items_to_accept": ["ChallengerEmblem"],
         "ornn_items_to_accept": [],
@@ -58,8 +59,8 @@ COMP = {
     },
     "Fiora": {
         "board_position": 27,
-        "items_to_build": ["BlueBuff", "JeweledGauntlet"],
-        "completed_items_to_accept": ["BlueBuff", "JeweledGauntlet", "RabadonsDeathcap"],
+        "items_to_build": [],
+        "completed_items_to_accept": [],
         "support_items_to_accept": ["Obsidian Cleaver", "VirtueoftheMartyr"],
         "trait_items_to_accept": ["VoidEmblem"],
         "ornn_items_to_accept": [],
@@ -136,7 +137,7 @@ COMP = {
     "Renekton": {
         "board_position": 24,
         "items_to_build": [],
-        "completed_items_to_accept": [],
+        "completed_items_to_accept": ["Bloodthirster", "HandofJustice", "TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
