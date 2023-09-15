@@ -72,7 +72,6 @@ class Game:
         while game_functions.get_round() != "1-1":
             sleep(1)
         print("\n\nStarting match...")
-        game_functions.pick_a_random_comp_to_play()
         self.start_time: float = perf_counter()
         self.game_loop()
 
