@@ -305,7 +305,7 @@ class Arena:
         while will_try_to_place_item:
             item_count += 1
             # print(f"  Looking for item #{item_count} to place:")
-            print("    Item Loop 1")
+            # print("    Item Loop 1")
             # TODO: should loop through units first before looping through items
             # so that we can place multiple items on a unit at once
             for index, _ in enumerate(self.items):
@@ -331,7 +331,7 @@ class Arena:
                     if self.check_if_we_should_spam_items_before_dying(index):
                         if self.is_same_amount_or_more_items_on_bench(item_amount_at_start):
                             will_try_to_place_item = False
-            print("    Item Loop 2")
+            # print("    Item Loop 2")
             for index, _ in enumerate(self.items):
                 if self.items[index] is not None:
                     self.add_item_to_champs(index)
@@ -349,7 +349,7 @@ class Arena:
         """Iterates through champions in the board and checks if the champion needs items"""
         for champ in self.board:
             if champ.does_need_items() and self.items[item_index] is not None:
-                print(f"      {champ.name} needs items.", end=" ")
+                # print(f"      {champ.name} needs items.", end=" ")
                 self.add_item_to_champ(item_index, champ)
         print("")
 
@@ -587,11 +587,11 @@ class Arena:
            Returns True if this function picked an augment non-randomly."""
         sleep(1.5)  # So that when I'm watching the screen I can actually read the augments' descriptions.
         # Print what augments are in the comp we're using.
-        if not have_rerolled:
-            print("      Primary Augments")
-            print(f"          {self.comp_to_play.primary_augments}")
-            print("      Secondary Augments")
-            print(f"          {self.comp_to_play.secondary_augments}")
+        # if not have_rerolled:
+            # print("      Primary Augments")
+            # print(f"          {self.comp_to_play.primary_augments}")
+            # print("      Secondary Augments")
+            # print(f"          {self.comp_to_play.secondary_augments}")
         augments: list = []
         for coords in screen_coords.AUGMENT_POS:
             augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
@@ -616,10 +616,12 @@ class Arena:
                     print(f"    Adding {augment} to the list of secondary augments (to not re-roll).")
                     secondary_augments.append(augment)
             elif not have_rerolled:
-                print("    Adding nothing to the list of secondary augments.")
+                # print("    Adding nothing to the list of secondary augments.")
                 secondary_augments.append(None)
-        print(f"    Secondary Augments:")
-        print(f"      {secondary_augments}")
+        # Only share that there were augments saved if we actually saved augments.
+        if not all(x is None for x in secondary_augments):
+            print(f"    Secondary Augments:")
+            print(f"        {secondary_augments}")
         if have_rerolled:
             print("  Returning the list of augments after re-rolling:")
             return augments
@@ -637,7 +639,7 @@ class Arena:
             if isinstance(response, bool) and response:
                 return True
             else:
-                print(AnsiColors.YELLOW_REGULAR + "  None of the augments were a desired augment." + AnsiColors.RESET)
+                print("  None of the augments were a desired augment.")
                 # if we didn't we pick the first augment on the left side of the screen,
                 # we were returned the new list of augments
                 if isinstance(response, list):
@@ -728,8 +730,8 @@ class Arena:
         """
         i = self.count_items_on_bench()
         if i >= item_amount_at_start:
-            print(f"    Started Item Amount: {item_amount_at_start}")
-            print(f"      Current Item Amount: {i}")
+            # print(f"    Started Item Amount: {item_amount_at_start}")
+            # print(f"      Current Item Amount: {i}")
             return True
 
     def check_if_we_should_spam_sparring_gloves(self) -> bool:
