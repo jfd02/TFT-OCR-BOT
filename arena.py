@@ -594,25 +594,25 @@ class Arena:
         print("  Augments to Choose From:")
         print(f"    {augments}")
         for augment in augments:
-            for potential1 in self.comp_to_play.primary_augments:
-                if potential1 in augment:
+            if augment in self.comp_to_play.primary_augments:
+                print(f"  Choosing augment.")
+                print(f"    Augment: {augment}")
+                mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
+                self.augments.append(augment)
+                return True
+            if augment in self.comp_to_play.secondary_augments:
+                if have_rerolled:
                     print(f"  Choosing augment.")
                     print(f"    Augment: {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                     self.augments.append(augment)
                     return True
-            for potential2 in self.comp_to_play.secondary_augments:
-                if potential2 in augment:
-                    if have_rerolled:
-                        print(f"  Choosing augment.")
-                        print(f"    Augment: {augment}")
-                        mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
-                        self.augments.append(augment)
-                        return True
-                    else:
-                        secondary_augments.append(potential2)
                 else:
-                    secondary_augments.append(None)
+                    secondary_augments.append(augment)
+            elif not have_rerolled:
+                secondary_augments.append(None)
+            else:
+                return secondary_augments
         # If we decided before game that we would re-roll augments, and we have not re-rolled the first augments yet.
         if self.augment_roll and not have_rerolled:
             print("  Re-rolling augments.")
@@ -625,13 +625,14 @@ class Arena:
             response = self.pick_augment(True, secondary_augments)
             if response:
                 return True
-            # if we didn't we pick the first augment on the left side of the screen,
-            # we were returned the new list of augments
-            elif isinstance(response, list):
+            else:
                 print(AnsiColors.YELLOW_REGULAR + "  None of the augments were a desired augment." + AnsiColors.RESET)
-                mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
-                print(f"    Augment Chosen: {response[0]}")
-                self.augments.append(response[0])
+                # if we didn't we pick the first augment on the left side of the screen,
+                # we were returned the new list of augments
+                if isinstance(response, list):
+                    mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
+                    print(f"    Augment Chosen: {response[0]}")
+                    self.augments.append(response[0])
         return False
 
     def check_health(self) -> int:
