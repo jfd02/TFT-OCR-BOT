@@ -2,16 +2,11 @@
 Contains static item & champion data
 """
 
-COMPONENT_AND_CRAFTABLE_ITEMS: set[str] = \
-    {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod",
-     "NegatronCloak", "RecurveBow", "SparringGloves", "Spatula",
-     "TearoftheGoddess",
+COMPONENT_ITEMS: set[str] = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod",
+                             "NegatronCloak", "RecurveBow", "SparringGloves", "Spatula", "TearoftheGoddess"}
 
-     "ChallengerEmblem", "Crownguard", "DemaciaEmblem",
-     "IoniaEmblem", "JuggernautEmblem", "NoxusEmblem", "ShurimaEmblem", "SlayerEmblem",
-     "SorcererEmblem",
-
-     "AdaptiveHelm", "ArchangelsStaff", "Bloodthirster", "BlueBuff",
+CRAFTABLE_NON_EMBLEM_ITEMS: set[str] = \
+    {"AdaptiveHelm", "ArchangelsStaff", "Bloodthirster", "BlueBuff",
      "BrambleVest", "Deathblade", "DragonsClaw",
      "EdgeofNight", "Evenshroud", "GargoyleStoneplate", "GiantSlayer", "Guardbreaker",
      "GuinsoosRageblade", "HandofJustice", "HextechGunblade", "InfinityEdge",
@@ -21,13 +16,19 @@ COMPONENT_AND_CRAFTABLE_ITEMS: set[str] = \
      "SpearofShojin", "StatikkShiv", "SunfireCape", "TacticiansCrown",
      "ThiefsGloves", "TitansResolve", "WarmogsArmor"}
 
+CRAFTABLE_EMBLEM_ITEMS: set[str] = {"ChallengerEmblem", "Crownguard", "DemaciaEmblem",
+                                    "IoniaEmblem", "JuggernautEmblem", "NoxusEmblem", "ShurimaEmblem", "SlayerEmblem",
+                                    "SorcererEmblem"}
+
+COMPONENT_AND_CRAFTABLE_ITEMS: set[str] = COMPONENT_ITEMS.union(CRAFTABLE_NON_EMBLEM_ITEMS).union(CRAFTABLE_EMBLEM_ITEMS)
+
 SUPPORT_ITEMS: set[str] = {"AegisoftheLegion", "BansheesVeil", "ChaliceofPower", "CrestOfCinders",
                            "LocketoftheIronSolari", "NeedlesslyBigGem", "ObsidianCleaver", "RanduinsOmen",
                            "ShroudofStillness", "VirtueoftheMartyr", "ZekesHerald", "Zephyr", "ZzRotPortal"}
 
 TRAIT_ITEMS: set[str] = {"BastionEmblem", "BilgewaterEmblem", "BruiserEmblem", "ChallengerEmblem", "DeadeyeEmblem",
                          "DemaciaEmblem", "FreljordEmblem", "GunnerEmblem", "InvokerEmblem", "IoniaEmblem",
-                         "IxtalEmblem",  "JuggernautEmblem", "NoxusEmblem", "PiltoverEmblem", "RogueEmblem",
+                         "IxtalEmblem", "JuggernautEmblem", "NoxusEmblem", "PiltoverEmblem", "RogueEmblem",
                          "ShadowIslesEmblem", "ShurimaEmblem", "SlayerEmblem", "SorcererEmblem", "StrategistEmblem",
                          "TargonEmblem", "VanquisherEmblem", "VoidEmblem", "ZaunEmblem"}
 
@@ -161,7 +162,7 @@ CHAMPIONS: dict[str, dict[str, int]] = {
     # "Yasuo": {"Gold": 4, "Board Size": 1},
     # "Zed": {"Gold": 2, "Board Size": 1},
     # "Zeri": {"Gold": 4, "Board Size": 1}
-    }
+}
 
 # Units that have unique circumstances for what items they can have. These units can't be benched.
 # Gold is set to zero because they can't be sold. Could possibly be set to -1.

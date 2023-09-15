@@ -1270,3 +1270,82 @@ class Arena:
                     continue
         else:
             print("    We have a Masterwork Upgrade to use, but no champion to use it on. This shouldn't happen...")
+
+    # TODO: Clean this up and break down into smaller functions.
+    def add_random_items_on_strongest_units_at_one_loss_left(self):
+        """Takes the remaining full items and gives them to champs that have item slots to be filled.
+            Then takes remaining component items and tries to give them to champs that already have items.
+        """
+        # TODO: maybe put this value into data files, so it's not hardcoded for every comp ?
+        if self.check_health() > 16:
+            return
+        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_total_bis_items()
+        for unit in units_on_board_sorted_by_bis_items:
+            # Zaun items don't care about your other items
+            # Only put Zaun items on units with less than 3 of them, and their comp file already listed them as accepting zaun items.
+            if len(unit.held_zaun_items) < 3 and len(self.comp_to_play.comp[unit.name]["zaun_items_to_accept"]) > 0:
+                for item in game_assets.ZAUN_ITEMS:
+                    if item in self.items:
+                        self.add_one_item_to_unit(unit, self.items.index(item))
+                        unit.held_zaun_items.append(item)
+                        unit.zaun_items_will_accept.remove(item)
+            # We don't need to add items to units with max items.
+            if unit.item_slots_filled >= 6:
+                continue
+            # Give non-component items first.
+            if unit.item_slots_filled % 2 == 0:
+                # try to place all the ornn items first...
+                for item in game_assets.ORNN_ITEMS:
+                    if item in self.items and unit.item_slots_filled < 6:
+                        self.add_one_item_to_unit(unit, self.items.index(item))
+                        unit.non_component_items.append(item)
+                        unit.ornn_items_will_accept.remove(item)
+                        unit.item_slots_filled += 2
+                # then try to place all the radiant items next...
+                for item in game_assets.RADIANT_ITEMS:
+                    if item in self.items and unit.item_slots_filled < 6:
+                        self.add_one_item_to_unit(unit, self.items.index(item))
+                        unit.non_component_items.append(item)
+                        unit.build.remove(item)
+                        unit.completed_items_will_accept.remove(item)
+                        unit.item_slots_filled += 2
+                # and so on...
+                for item in game_assets.CRAFTABLE_NON_EMBLEM_ITEMS:
+                    if item in self.items and unit.item_slots_filled < 6:
+                        self.add_one_item_to_unit(unit, self.items.index(item))
+                        unit.non_component_items.append(item)
+                        unit.build.remove(item)
+                        unit.completed_items_will_accept.remove(item)
+                        unit.item_slots_filled += 2
+                # put emblem items after crafted completed items, because we are looking at our carries first
+                for item in game_assets.CRAFTABLE_EMBLEM_ITEMS:
+                    if item in self.items and unit.item_slots_filled < 6:
+                        self.add_one_item_to_unit(unit, self.items.index(item))
+                        unit.non_component_items.append(item)
+                        unit.trait_items_will_accept.remove(item)
+                        unit.item_slots_filled += 2
+                # this is here for same reasoning as CRAFTABLE_EMBLEM_ITEMS
+                for item in game_assets.SUPPORT_ITEMS:
+                    if item in self.items and unit.item_slots_filled < 6:
+                        self.add_one_item_to_unit(unit, self.items.index(item))
+                        unit.non_component_items.append(item)
+                        unit.support_items_will_accept.remove(item)
+                        unit.item_slots_filled += 2
+                for item in game_assets.MOGUL_ITEMS:
+                    if item in self.items:
+                        self.add_one_item_to_unit(unit, self.items.index(item))
+                        unit.non_component_items.append(item)
+                        unit.item_slots_filled += 2
+            for item in game_assets.COMPONENT_ITEMS:
+                if item in self.items:
+                    if unit.item_slots_filled % 2 == 0:
+                        unit.component_item = item
+                    else:
+                        for current_building in unit.current_building:
+                            print(f"    The unit {unit.name} was trying to build a {current_building}")
+                            print(f"      But we gave them a {item} component item instead.")
+                        unit.current_building.remove()
+                        unit.component_item = ""
+                        unit.items.pop()
+                    self.add_one_item_to_unit(unit, self.items.index(item))
+                    unit.item_slots_filled += 1
