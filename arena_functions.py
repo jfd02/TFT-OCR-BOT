@@ -52,14 +52,10 @@ def get_valid_champ(champ_name: str) -> str:
     """Matches champion string to a valid champion name string and returns it"""
     if champ_name in game_assets.CHAMPIONS:
         return champ_name
-    return next(
-        (
-            champion
-            for champion in game_assets.CHAMPIONS
-            if SequenceMatcher(a=champion, b=champ_name).ratio() >= 0.7
-        ),
-        "",
-    )
+    for champion in game_assets.CHAMPIONS:
+        if SequenceMatcher(a=champion, b=champ_name).ratio() >= 0.7:
+            return champion
+    print(f"  [!] The champ_name {champ_name} did not match any unit in game_assets.CHAMPIONS!")
 
 
 def is_valid_champ(champ_name: str) -> bool:
@@ -134,15 +130,10 @@ def valid_item_from_all_items(item: str) -> str | None:
 
 def valid_item_from_holdable_items(item: str) -> str | None:
     """Checks if the item passed in arg one is valid item and that item is holdable, not a consumable item."""
-    return next(
-        (
-            valid_item_name
-            for valid_item_name in game_assets.HOLDABLE_ITEMS
-            if valid_item_name in item
-               or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7
-        ),
-        None,
-    )
+    for valid_item_name in game_assets.HOLDABLE_ITEMS:
+        if valid_item_name in item or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7:
+            return valid_item_name
+    print(f"  [!] The item {item} did not match any items in game_assets.HOLDABLE_ITEMS!")
 
 
 def get_items() -> list:
