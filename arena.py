@@ -1236,8 +1236,9 @@ class Arena:
            Extremely unlikely, but the list might return as empty."""
         units_on_board_dict = {}
         for unit in self.board:
-            unit_in_comp = self.comp_to_play.comp[unit.name]
-            units_on_board_dict[unit] = len(unit_in_comp["items_to_build"])
+            if unit in self.comp_to_play.comp:
+                unit_in_comp = self.comp_to_play.comp[unit.name]
+                units_on_board_dict[unit] = len(unit_in_comp["items_to_build"])
         # using just Champion.build would mean that when a unit builds an item, they receive less priority
         return sorted(units_on_board_dict, key=units_on_board_dict.get, reverse=True)
 
@@ -1325,7 +1326,8 @@ class Arena:
         for unit in units_on_board_sorted_by_bis_items:
             # Zaun items don't care about your other items
             # Only put Zaun items on units with less than 3 of them, and their comp file already listed them as accepting zaun items.
-            if len(unit.held_zaun_items) < 3 and len(self.comp_to_play.comp[unit.name]["zaun_items_to_accept"]) > 0:
+            if unit in self.comp_to_play.comp and len(unit.held_zaun_items) < 3 \
+                    and len(self.comp_to_play.comp[unit.name]["zaun_items_to_accept"]) > 0:
                 for item in game_assets.ZAUN_ITEMS:
                     if item in self.items:
                         self.add_one_item_to_unit(unit, self.items.index(item))
