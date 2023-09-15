@@ -1181,18 +1181,21 @@ class Arena:
             self.add_one_item_to_unit(unit, self.items.index(component_two))
             unit.non_component_items.append(complete_item)
             unit.build.remove(complete_item)
+            # Just make sure we don't give them the same item twice.
             if complete_item in unit.completed_items_will_accept:
                 unit.completed_items_will_accept.remove(complete_item)
             unit.item_slots_filled += 2
 
-    def get_list_of_units_on_board_in_order_of_amount_of_bis_items(self) -> list[Champion]:
+    def get_list_of_units_on_board_in_order_of_amount_of_total_bis_items(self) -> list[Champion]:
         """Returns a list of Champion objects that are on the board,
            ordered by how many items they have listed in BIS, in descending order.
            Extremely unlikely, but the list might return as empty."""
-        units_on_board_by_item_amount = []
+        units_on_board_dict = {}
         for unit in self.board:
-            units_on_board_by_item_amount.append(unit)
-        return sorted(units_on_board_by_item_amount, key=lambda u: len(u.build), reverse=True)
+            unit_in_comp = self.comp_to_play.comp[unit.name]
+            units_on_board_dict[unit] = len(unit_in_comp["items_to_build"])
+        # using just Champion.build would mean that when a unit builds an item, they receive less priority
+        return sorted(units_on_board_dict, key=units_on_board_dict.get, reverse=True)
 
     def get_index_of_one_lesser_champion_duplicators_on_bench(self) -> int | None:
         if "LesserChampionDuplicator" in self.items:
@@ -1212,7 +1215,7 @@ class Arena:
            to the desire star level. Sorts that list of units, by the amount of items they need, in descending order
            so that we duplicate most important champions first.
            Will only use non-lesser champion duplicators on units that cost 4 or 5."""
-        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_bis_items()
+        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_total_bis_items()
         lesser_duplicator_index = self.get_index_of_one_lesser_champion_duplicators_on_bench()
         normal_duplicator_index = self.get_index_of_one_champion_duplicators_on_bench()
         # Exit the function sooner if we don't have any champion duplicators
@@ -1234,7 +1237,7 @@ class Arena:
            This function doesn't select the Emblem from the Armory shop."""
         if "ScrollofKnowledge" not in self.items:
             return
-        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_bis_items()
+        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_total_bis_items()
         if len(units_on_board_sorted_by_bis_items) > 0:
             self.add_one_item_to_unit(units_on_board_sorted_by_bis_items.pop(), self.items.index("ScrollofKnowledge"))
         else:
@@ -1247,7 +1250,7 @@ class Arena:
            This function doesn't select the item from the Armory shop."""
         if "MasterworkUpgrade" not in self.items:
             return
-        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_bis_items()
+        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_total_bis_items()
         if len(units_on_board_sorted_by_bis_items) > 0:
             # Try to add the Masterwork Upgrade to our most important units: the ones that build the most items.
             for unit in units_on_board_sorted_by_bis_items:
