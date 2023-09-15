@@ -1,11 +1,10 @@
 """
 Title: Heart of the Cards - A Tier
-Set: 9.5
 Comp: https://app.mobalytics.gg/tft/comps-guide/heart-of-the-cards-2UiFaH0he2Q79A36gooRYd56OYY
+Set: 9.5
 Strategy: Slow Roll: This comp rolls gold above 50 to look for 3-star champions.
 Difficulty: Easy
 Legend: Lee Sin
-Items are in camel case and a-Z
 """
 
 NAME = "Heart of the Cards"

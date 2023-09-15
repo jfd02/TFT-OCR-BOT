@@ -1,6 +1,7 @@
 """
 Arcane Domain - S Tier
 Comp from https://app.mobalytics.gg/tft/comps-guide/piltovers-pride-2VG56xmI0csHVkF4qX6Uo0443fa
+Set: 9.5
 Strategy: Slow Roll: This comp rolls gold above 50 to look for 3-star champions.
 Difficulty: Easy
 Legend: Twisted Fate

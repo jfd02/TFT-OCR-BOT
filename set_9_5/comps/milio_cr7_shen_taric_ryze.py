@@ -2,10 +2,10 @@
 Milio CR7 - ? Tier - Community Comp
 This comp is a bit of a meme: CR7 refers to Cristiano Ronaldo and his jersey number.
 Comp from https://app.mobalytics.gg/tft/comps-guide/millio-cr7-2VMjGJBsC4FWcslLvfM7pRG3Ekq
+Set: 9.5
 Strategy: Default: This comp uses the standard leveling strategy that revolves around a 4-cost carry.
 Difficulty: Unknown
 Legend: Caitlyn, Urf, Poro
-Items are in camel case and a-Z
 """
 
 NAME = "Milio CR7"

@@ -1,10 +1,10 @@
 """
 Walk the Plank - S Tier
 Comp from https://app.mobalytics.gg/tft/comps-guide/walk-the-plank-2UcDQkBTlGA2Y6MTIQOQXhAsWil
+Set: 9.5
 Strategy: Default: This comp uses the standard leveling strategy that revolves around a 4-cost carry.
 Difficulty: Medium
 Legend: Poro
-Items are in camel case and a-Z
 """
 
 NAME = "Walk the Plank"

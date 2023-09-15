@@ -1,10 +1,10 @@
 """
 Super Nash Bros - S Tier - Meta Comp
 Comp from https://app.mobalytics.gg/tft/comps-guide/super-nash-bros-2UiEdDoF20ICXwQnw5Kd3nwkeIP
+Set: 9.5
 Strategy: Default: This comp uses the standard leveling strategy that revolves around a 4-cost carry.
 Difficulty: Medium
 Legend: Urf
-Items are in camel case and a-Z
 """
 
 NAME = "Super Nash Bros"
@@ -88,7 +88,7 @@ COMP = {
     "Kassadin": {
         "board_position": 23,
         "items_to_build": [],
-        "completed_items_to_accept": [],
+        "completed_items_to_accept": ["Morellonomicon"],
         "support_items_to_accept": ["VirtueoftheMartyr"],
         "trait_items_to_accept": ["BastionEmblem", "BruiserEmblem"],
         "ornn_items_to_accept": [],
