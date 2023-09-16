@@ -75,7 +75,7 @@ def create_default_champion(champ_name: str, index: int, bench: bool, comp_to_pl
     if bench:
         coords = screen_coords.BENCH_LOC[index].get_coords()
     else:  # unit is on the board
-        coords = screen_coords.BOARD_LOC[index].get_coords(),
+        coords = screen_coords.BOARD_LOC[index].get_coords()
     items_to_build, build2, ornn_items, support_items, trait_items, zaun_items = [], [], [], [], [], []
     size = 1
     final_comp = False
