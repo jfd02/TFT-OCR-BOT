@@ -470,7 +470,7 @@ def identify_emblems_in_shop() -> list[str]:
     return emblem_shop
 
 
-def was_moving_unit_successful(self, destination: tuple) -> bool:
+def was_moving_unit_successful(destination: tuple) -> bool:
     print("  Checking if moving the unit was successful.")
     mk_functions.right_click(destination)
     unit_name = identify_one_space_on_the_board(destination)
