@@ -1336,11 +1336,22 @@ class Arena:
                     self.add_one_item_to_unit(unit, self.items.index(item))
                     unit.item_slots_filled += 1
 
+    def increase_level(self):
+        print(f"  Increasing the level of the tactician from {self.level} to {self.level+1}.")
+        self.level += 1
+
     def update_level(self) -> None:
-        self.level: int = arena_functions.get_level_via_https_request()
+        current_level = self.level
+        if arena_functions.get_level_via_https_request() > current_level:
+            self.increase_level()
+            self.increase_max_board_size()
 
     def buy_xp_round(self) -> None:
         """Buys XP if gold is equals or over 4"""
         if arena_functions.get_gold() >= 4:
             mk_functions.buy_xp()
             self.update_level()
+
+    def increase_max_board_size(self) -> None:
+        print(f"  Increasing the max board size from {self.max_board_size} to {self.max_board_size+1}.")
+        self.max_board_size += 1

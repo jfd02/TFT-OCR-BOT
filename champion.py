@@ -96,4 +96,6 @@ def create_default_champion(champ_name: str, index: int, bench: bool, comp_to_pl
                  item_slots_filled=units_current_item_count, build=items_to_build, build2=build2,
                  ornn_items=ornn_items, support_items=support_items, trait_items=trait_items, zaun_items=zaun_items,
                  slot=index, size=size, final_comp=final_comp)
+    # print("  Creating new Champion object:")
+    # print(f"      {champion_object.name}, {champion_object.coords}, {champion_object.item_slots_filled}, {champion_object.build}, {champion_object.slot}, {champion_object.size}, {champion_object.final_comp}")
     return champion_object

@@ -135,6 +135,7 @@ class Game:
     def second_round(self) -> None:
         """ """
         print(f"\n\n[Second Round] {self.round}")
+        self.arena.update_level()
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(0.5)  # 0.9 second is too long
@@ -146,6 +147,7 @@ class Game:
     def third_round(self) -> None:
         """ """
         print(f"\n\n[Third Round] {self.round}")
+        self.arena.update_level()
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(2)
