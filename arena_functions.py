@@ -325,11 +325,11 @@ def identify_unit_board_position(unit: Champion) -> int:
     return unit_board_position
 
 
-def identify_one_space_on_the_board(vec2_board_space: Vec2) -> str | None:
+def identify_one_space_on_the_board(tuple_board_space: tuple) -> str | None:
     """Tries to identify the name of the unit at the given vec2 coordinates, if a unit exists there."""
     # Right-click the board space to make the unit's info appear on the right side of the screen,
     # if a unit is located there.
-    mk_functions.right_click(vec2_board_space.get_coords())
+    mk_functions.right_click(tuple_board_space)
     # Press s to prevent the tactician from moving anywhere.
     mk_functions.press_s()
     sleep(0.1)
@@ -468,3 +468,13 @@ def identify_emblems_in_shop() -> list[str]:
     for thread in thread_list:
         thread.join()
     return emblem_shop
+
+
+def was_moving_unit_successful(self, destination: tuple) -> bool:
+    print("  Checking if moving the unit was successful.")
+    mk_functions.right_click(destination)
+    unit_name = identify_one_space_on_the_board(destination)
+    if unit_name is not None:
+        return True
+    else:
+        return False

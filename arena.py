@@ -122,18 +122,23 @@ class Arena:
             board_position = random.choice(self.board_slots_for_non_comp_units)
         destination: tuple = screen_coords.BOARD_LOC[board_position].get_coords()
         arena_functions.move_unit(champion.coords, destination)
-        champion.coords = destination
-        self.board.append(champion)
-        self.board_names.append(champion.name)
-        if champion.index >= len(self.bench):
-            print(AnsiColors.RED_REGULAR + f"      [!] The index {champion.index} of unit {champion.name} "
+        successful_move = arena_functions.was_moving_unit_successful(destination)
+        if successful_move:
+            champion.coords = destination
+            self.board.append(champion)
+            self.board_names.append(champion.name)
+            # TODO: I wrote this before I created champion.coords so this might be able to go away.
+            if champion.index >= len(self.bench):
+                print(AnsiColors.RED_REGULAR + f"      [!] The index {champion.index} of unit {champion.name} "
                                            f"is larger than the length of the bench." + AnsiColors.RESET)
+            else:
+                self.bench[champion.index] = None
+            champion.index = board_position
+            self.set_board_size(self.board_size + champion.size)
+            print(f"      Moved {champion.name} to {board_position}.")
+            print(f"        There are now {self.board_size} units on the board.")
         else:
-            self.bench[champion.index] = None
-        champion.index = board_position
-        self.set_board_size(self.board_size + champion.size)
-        print(f"      Moved {champion.name} to {board_position}.")
-        print(f"        There are now {self.board_size} units on the board.")
+            print(f"      Failed to move {champion.name} to {board_position}.")
 
     def move_unknown(self) -> None:
         """Moves unknown champion to the board"""
@@ -828,7 +833,7 @@ class Arena:
         print("    Identifying unknown units on the board.")
         valid_champs = []
         for index, vec2_board_space in enumerate(screen_coords.BOARD_LOC):
-            unit_name = arena_functions.identify_one_space_on_the_board(vec2_board_space)
+            unit_name = arena_functions.identify_one_space_on_the_board(vec2_board_space.get_coords())
             # If the unit doesn't exist, continue.
             # Or if the unit is a unit we know about,
             # just continue along so that we don't create duplicate units in self.board.
@@ -838,9 +843,9 @@ class Arena:
             for known_unit in self.board:
                 if known_unit.name is unit_name and known_unit.index == index:
                     continue
-            if arena_functions.is_valid_champ(unit_name):
-                print(f"        Found a valid {unit_name} unit from an unknown unit!")
-                valid_champs.append((unit_name, index))
+                elif arena_functions.is_valid_champ(unit_name):
+                    print(f"        Found a valid {unit_name} unit from an unknown unit!")
+                    valid_champs.append((unit_name, index))
         self.board_unknown_and_pos = valid_champs
         return valid_champs
 
