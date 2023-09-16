@@ -28,7 +28,7 @@ class Arena:
         self.board_size = 0
         self.bench: list[None] = [None, None, None, None, None, None, None, None, None]
         # All the spaces of the board. Can be an instance of a Champion or None.
-        self.board: list = []
+        self.board: list[Champion] = []
         # All the spaces on the board that have a unit, but we don't know what that unit is.
         self.board_unknown: list = []
         # All the non-Champion units and the board spaces they occupy. Should be a list of tuple(str, int).
@@ -828,16 +828,16 @@ class Arena:
         print("    Identifying unknown units on the board.")
         valid_champs = []
         for index, vec2_board_space in enumerate(screen_coords.BOARD_LOC):
-            # Solved the problem we entered this function for.
-            # if len(self.board_unknown) == 0:
-            #     print("      The self.board_unknown is at 0."
-            #     break
             unit_name = arena_functions.identify_one_space_on_the_board(vec2_board_space)
             # If the unit doesn't exist, continue.
             # Or if the unit is a unit we know about,
             # just continue along so that we don't create duplicate units in self.board.
-            if unit_name is None or unit_name in self.board_names:
+            if unit_name is None:
                 continue
+            # If the unknown unit we are looking at is a known unit on the board, also continue.
+            for known_unit in self.board:
+                if known_unit.name is unit_name and known_unit.index == index:
+                    continue
             if arena_functions.is_valid_champ(unit_name):
                 print(f"        Found a valid {unit_name} unit from an unknown unit!")
                 valid_champs.append((unit_name, index))
