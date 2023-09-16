@@ -138,7 +138,6 @@ class Game:
         self.arena.update_level()
         self.print_arena_values()
         self.message_queue.put("CLEAR")
-        sleep(0.5)  # 0.9 second is too long
         # use this instead of fix_bench so that we don't sell units the first round.
         self.arena.identify_champions_on_bench()
         self.arena.move_champions()
