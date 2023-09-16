@@ -558,7 +558,7 @@ class Arena:
                 if arena_functions.get_level_via_https_request() != 9 and arena_functions.get_gold() >= min_buy_xp_gold:
                     mk_functions.buy_xp()
                     print("  Purchasing XP")
-                    self.update_level_via_https_request()
+                    self.update_level_via_ocr()
                 if arena_functions.get_gold() >= min_buy_unit_gold:
                     mk_functions.reroll()
                     print("  Re-rolling shop")
@@ -609,14 +609,14 @@ class Arena:
         print(f"      {augments}")
         for augment in augments:
             if augment in self.comp_to_play.primary_augments:
-                print(f"  Choosing augment.")
+                print(f"  Choosing Primary augment:")
                 print(f"    Augment: {augment}")
                 mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                 self.augments.append(augment)
                 return True
             if augment in self.comp_to_play.secondary_augments:
                 if have_rerolled:
-                    print(f"  Choosing augment.")
+                    print(f"  Choosing Secondary Augment:")
                     print(f"    Augment: {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                     self.augments.append(augment)
@@ -1352,9 +1352,18 @@ class Arena:
         print(f"  Increasing the level of the tactician from {self.level} to {self.level+1}.")
         self.level += 1
 
+    # This is unreliable.
     def update_level_via_https_request(self) -> None:
         current_level = self.level
         if arena_functions.get_level_via_https_request() > current_level:
+            self.increase_level()
+            self.increase_max_board_size()
+
+    def update_level_via_ocr(self) -> None:
+        current_level = self.level
+        # Do a subtraction check instead of just checking if it's greater than,
+        # incase the OCR messes up, like reading a 2 as a 9.
+        if (arena_functions.get_level_via_ocr() - current_level) == 1:
             self.increase_level()
             self.increase_max_board_size()
 
@@ -1362,7 +1371,7 @@ class Arena:
         """Buys XP if gold is equals or over 4"""
         if arena_functions.get_gold() >= 4:
             mk_functions.buy_xp()
-            self.update_level_via_https_request()
+            self.update_level_via_ocr()
 
     def increase_max_board_size(self) -> None:
         print(f"  Increasing the max board size from {self.max_board_size} to {self.max_board_size+1}.")
