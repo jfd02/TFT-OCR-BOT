@@ -1209,7 +1209,7 @@ class Arena:
     def is_possible_to_combine_two_components_into_given_bis_item(self, unit: Champion, complete_item: str) -> bool:
         """Assumes that the complete item in the unit's build, exists as a CRAFTABLE item.
            Returns a boolean value that represent if BOTH component items for a complete item exist in self.items."""
-        return all([item in self.items for item in game_assets.CRAFTABLE_ITEMS_DICT[complete_item]] and complete_item in unit.build)
+        return all([item in self.items for item in game_assets.CRAFTABLE_ITEMS_DICT[complete_item]]) and complete_item in unit.build
 
     def get_bis_item_that_is_possible_to_combine_from_components(self, unit: Champion) -> str | None:
         """Searches through the unit's BIS items it wants to build and returns the complete BIS item
