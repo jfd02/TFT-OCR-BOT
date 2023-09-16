@@ -1004,11 +1004,13 @@ class Arena:
     def give_items_to_units(self):
         """Loops through the units first so that we can add multiple items to one unit first,
            before moving onto the next unit."""
+        print("  Giving items to units:")
         self.items = arena_functions.get_items()
         for unit in self.board:
             if isinstance(unit, Champion):
                 # try to give completed items first
                 # for loop like this because a unit can have 3 complete/non-component items
+                print(f"    Unit: {unit.name}, # of Items: {unit.item_slots_filled}, Items: {unit.items}")
                 for i in range(unit.item_slots_filled, 6):
                     # can't give completed items if there aren't two slots or more available
                     if unit.item_slots_filled < 5:
@@ -1223,6 +1225,7 @@ class Arena:
            Then adds both components to the unit to create a completed item."""
         complete_item = self.get_bis_item_that_is_possible_to_combine_from_components(unit)
         if complete_item is not None:
+            print(f"      Creating complete item: {complete_item} for {unit.name}.")
             component_one = game_assets.CRAFTABLE_ITEMS_DICT[complete_item][0]
             component_two = game_assets.CRAFTABLE_ITEMS_DICT[complete_item][1]
             self.add_one_item_to_unit(unit, self.items.index(component_one))
@@ -1233,6 +1236,8 @@ class Arena:
             if complete_item in unit.completed_items_will_accept:
                 unit.completed_items_will_accept.remove(complete_item)
             unit.item_slots_filled += 2
+        else:
+            print(f"      Unable to complete an item for {unit.name}.")
         return
 
     def get_list_of_units_on_board_in_order_of_amount_of_total_bis_items(self) -> list[Champion]:
@@ -1334,6 +1339,7 @@ class Arena:
             # Only put Zaun items on units with less than 3 of them, and their comp file already listed them as accepting zaun items.
             if unit in self.comp_to_play.comp and len(unit.held_zaun_items) < 3 \
                     and len(self.comp_to_play.comp[unit.name]["zaun_items_to_accept"]) > 0:
+                print("    END GAME: Looking to add Zaun Items.")
                 for item in game_assets.ZAUN_ITEMS:
                     if item in self.items:
                         self.add_one_item_to_unit(unit, self.items.index(item))
@@ -1341,9 +1347,11 @@ class Arena:
                         unit.zaun_items_will_accept.remove(item)
             # We don't need to add items to units with max items.
             if unit.item_slots_filled >= 6:
+                print(f"    Unit: {unit.name} has an item_slots_filled value of {unit.item_slots_filled}. Continuing...")
                 continue
             # Give non-component items first.
             if unit.item_slots_filled % 2 == 0:
+                print("    END GAME: Looking to add Ornn, Radiant, Completed, Emblem, Support, and Mogul Items.")
                 # try to place all the ornn items first...
                 for item in game_assets.ORNN_ITEMS:
                     if item in self.items and unit.item_slots_filled < 6:
@@ -1388,6 +1396,7 @@ class Arena:
                         unit.item_slots_filled += 2
             for item in game_assets.COMPONENT_ITEMS:
                 if item in self.items:
+                    print("    END GAME: Looking to add component items.")
                     if unit.item_slots_filled % 2 == 0:
                         unit.component_item = item
                     else:

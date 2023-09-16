@@ -91,6 +91,7 @@ def pick_up_items_holding_down_right_click() -> None:
 def do_we_have_too_many_items_popup() -> bool:
     print("  Double-checking that a pop-up saying we have too many items isn't appearing.")
     too_much_loot_popup = ocr.get_text(screenxy=screen_coords.TOO_MUCH_LOOT_POS.get_coords(), scale=3, psm=7)
+    print(f"    OCR found: {too_much_loot_popup}")
     text_to_match = "Loot contains more"
     if too_much_loot_popup == text_to_match or SequenceMatcher(a=text_to_match, b=too_much_loot_popup).ratio() >= 0.7:
         print("    We can't pick up anymore items.")
