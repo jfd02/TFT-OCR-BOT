@@ -6,32 +6,6 @@ import screen_coords
 from set_9_5 import game_assets
 
 
-def create_default_champion(champ_name: str, index: int, comp_to_play):
-    # Set default values if we don't want to use this champ in our comp.
-    items_to_build, build2, ornn_items, support_items, trait_items, zaun_items = [], [], [], [], [], []
-    size = 1
-    final_comp = False
-    units_current_item_count = arena_functions. \
-        count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BENCH_LOC[index].get_coords())
-    # If we actually plan on using this champ in our comp:
-    if champ_name in comp_to_play.comp:
-        items_to_build = comp_to_play.comp[champ_name]["items_to_build"].copy()
-        build2 = comp_to_play.comp[champ_name]["completed_items_to_accept"].copy(),
-        ornn_items = comp_to_play.comp[champ_name]["ornn_items_to_accept"].copy(),
-        support_items = comp_to_play.comp[champ_name]["support_items_to_accept"].copy(),
-        trait_items = comp_to_play.comp[champ_name]["trait_items_to_accept"].copy(),
-        zaun_items = comp_to_play.comp[champ_name]["zaun_items_to_accept"].copy(),
-        size = game_assets.CHAMPIONS[champ_name]["Board Size"]
-        final_comp = comp_to_play.comp[champ_name]["final_comp"]
-    # Create the Champion object.
-    champion_object = \
-        Champion(name=champ_name, coords=screen_coords.BENCH_LOC[index].get_coords(),
-                 item_slots_filled=units_current_item_count, build=items_to_build, build2=build2,
-                 ornn_items=ornn_items, support_items=support_items, trait_items=trait_items, zaun_items=zaun_items,
-                 slot=index, size=size, final_comp=final_comp)
-    return champion_object
-
-
 class Champion:
     """Champion class that contains information about a single unit on the board or bench"""
 
@@ -94,3 +68,32 @@ class Champion:
         print(f"\t\tCompleted Items: {self.non_component_items}")
         print(f"\t\tComponent Items: {self.current_building}")
         print(f"\t\tFinal Comp? {self.final_comp}")
+
+
+def create_default_champion(champ_name: str, index: int, bench: bool, comp_to_play) -> Champion:
+    # Set default values if we don't want to use this champ in our comp.
+    if bench:
+        coords = screen_coords.BENCH_LOC[index].get_coords()
+    else:  # unit is on the board
+        coords = screen_coords.BOARD_LOC[index].get_coords(),
+    items_to_build, build2, ornn_items, support_items, trait_items, zaun_items = [], [], [], [], [], []
+    size = 1
+    final_comp = False
+    units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(coords)
+    # If we actually plan on using this champ in our comp:
+    if champ_name in comp_to_play.comp:
+        items_to_build = comp_to_play.comp[champ_name]["items_to_build"].copy()
+        build2 = comp_to_play.comp[champ_name]["completed_items_to_accept"].copy(),
+        ornn_items = comp_to_play.comp[champ_name]["ornn_items_to_accept"].copy(),
+        support_items = comp_to_play.comp[champ_name]["support_items_to_accept"].copy(),
+        trait_items = comp_to_play.comp[champ_name]["trait_items_to_accept"].copy(),
+        zaun_items = comp_to_play.comp[champ_name]["zaun_items_to_accept"].copy(),
+        size = game_assets.CHAMPIONS[champ_name]["Board Size"]
+        final_comp = comp_to_play.comp[champ_name]["final_comp"]
+    # Create the Champion object.
+    champion_object = \
+        Champion(name=champ_name, coords=coords,
+                 item_slots_filled=units_current_item_count, build=items_to_build, build2=build2,
+                 ornn_items=ornn_items, support_items=support_items, trait_items=trait_items, zaun_items=zaun_items,
+                 slot=index, size=size, final_comp=final_comp)
+    return champion_object
