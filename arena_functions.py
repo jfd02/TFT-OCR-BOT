@@ -2,19 +2,19 @@
 Functions used by the Arena class to get game data
 """
 
-from difflib import SequenceMatcher
 import threading
+from difflib import SequenceMatcher
 from time import sleep
 
-from PIL import ImageGrab
 import numpy as np
 import requests
-import screen_coords
-import ocr
-from set_9_5 import game_assets
+from PIL import ImageGrab
+
 import mk_functions
-from ansi_colors import AnsiColors
+import ocr
+import screen_coords
 from champion import Champion
+from set_9_5 import game_assets
 from vec2 import Vec2
 from vec4 import Vec4
 
@@ -56,7 +56,7 @@ def get_valid_champ(champ_name: str) -> str:
         if SequenceMatcher(a=champion, b=champ_name).ratio() >= 0.7:
             return champion
     if champ_name is not None and len(champ_name) > 0:
-        #print(f"  [!] The champ_name {champ_name} did not match any unit in game_assets.CHAMPIONS!")
+        # print(f"  [!] The champ_name {champ_name} did not match any unit in game_assets.CHAMPIONS!")
         return ""
 
 
@@ -167,7 +167,7 @@ def tacticians_crown_check(self) -> None:
         if "TacticiansCrown" in item:
             print("  Tacticians Crown on bench, adding extra slot to board")
             # TODO: why is this written this way
-            # self.board_size -= 1
+            # self.max_size_of_units -= 1
         else:
             print(f"{item} is not TacticiansCrown")
     except TypeError:
@@ -255,12 +255,6 @@ def get_max_amount_of_units_on_board() -> int:
         return int(max_unit_amount)
     except ValueError:
         return -1
-
-
-def buy_xp_round() -> None:
-    """Buys XP if gold is equals or over 4"""
-    if get_gold() >= 4:
-        mk_functions.buy_xp()
 
 
 def print_item_placed_on_champ(item: str, champ: Champion):
@@ -412,11 +406,13 @@ def count_number_of_item_slots_filled_on_unit(unit: Champion):
     set_number_of_item_slot_filled_on_unit(unit, item_slots_filled)
 
 
+# TODO: likely the cause of what is the double clicking when checking unknown units
 def count_number_of_item_slots_filled_on_unit_at_coords(coordinates: tuple) -> int:
     """Assumes the unit actually exists. Opens the info panel on a unit and then hovers over
        the center of each item slot that displays in that screen. If the color of that slot is not close to black,
        then we assume the item slot is filled. As soon as the check fails, we find a color close to black,
        we can return how many items we've counted, because the item slots of a unit are filled up like a stack."""
+    print(f"    Counting how many items are on the unit at {tuple}.")
     item_slots_filled = 0
     mk_functions.right_click(coordinates)
     mk_functions.press_s()

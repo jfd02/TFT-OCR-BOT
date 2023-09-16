@@ -9,14 +9,13 @@ from time import sleep, perf_counter
 import win32gui
 
 import arena_functions
-import comps
-from set_9_5 import game_assets
 import game_functions
 import mk_functions
 import screen_coords
 import settings
 from arena import Arena
 from champion import Champion
+from set_9_5 import game_assets
 from vec2 import Vec2
 from vec4 import Vec4
 
@@ -39,7 +38,6 @@ class Game:
             print("  Did not find window, trying again...")
             win32gui.EnumWindows(self.callback, None)
             sleep(1)
-
 
         self.loading_screen()
 
@@ -151,7 +149,6 @@ class Game:
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(2)
-        self.arena.identify_champions_on_board()
         self.arena.fix_bench_state()
         self.arena.move_champions()
         self.end_round_tasks()
@@ -172,7 +169,7 @@ class Game:
             print("    Moving our view from the carousel to the game board.")
             sleep(0.4)  # add a small delay so that we aren't trying to click the button before it is active.
             # click the default location so that if a human clicked off-screen,
-            # clicking the carousel to board button will work instead of just re-focusing the screen
+            #   clicking the carousel to board button will work instead of just re-focusing the screen
             mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
             mk_functions.left_click(screen_coords.CAROUSEL_TO_BOARD_BUTTON_LOC.get_coords())
             valid_champs = self.arena.identify_unknown_champions_on_board()
@@ -232,7 +229,7 @@ class Game:
         self.arena.identify_champions_on_board()
 
         if self.round in ("2-1", "2-5"):
-            arena_functions.buy_xp_round()
+            self.arena.buy_xp_round()
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items:")
             # game_functions.move_to_items_orbs_on_board()
@@ -255,7 +252,7 @@ class Game:
         if self.round in game_assets.ITEM_PLACEMENT_ROUNDS \
                 or arena_functions.get_health() <= 15 or len(self.arena.items) >= 8:
             sleep(1)  # why do we sleep here?
-            #self.arena.place_items_by_looping_through_items_first()
+            # self.arena.place_items_by_looping_through_items_first()
             self.arena.give_items_to_units()
             self.arena.add_random_items_on_strongest_units_at_one_loss_left()
 
@@ -280,6 +277,7 @@ class Game:
         print(f"        Comp: {self.arena.comp_to_play.name}")
         print(f"        Board: {unit_names_on_entire_board}")
         print(f"        Board Size: {self.arena.board_size}")
+        print(f"        Max Board Size: {self.arena.max_board_size}")
         print(f"        Board Names: {self.arena.board_names}")
         print(f"        Board Unknown: {self.arena.board_unknown}")
         print(f"        Board Unknown And Pos: {self.arena.board_unknown_and_pos}")
