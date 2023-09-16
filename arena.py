@@ -1141,7 +1141,7 @@ class Arena:
         # If one of the trait in our comp's list of ACTIVE traits
         # exists as an Emblem in the shop, return the index of that Emblem
         trait_emblem_names_in_shop = arena_functions.identify_emblems_in_shop()
-        for trait in self.comp_to_play.final_comp_active_traits:
+        for trait in self.comp_to_play.active_final_comp_traits:
             trait_emblem = trait + " Emblem"
             if trait_emblem in trait_emblem_names_in_shop:
                 emblem_shop_index = trait_emblem_names_in_shop.index(trait_emblem)
