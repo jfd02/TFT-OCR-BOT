@@ -45,7 +45,9 @@ class Game:
 
     def callback(self, hwnd, extra) -> None:  # pylint: disable=unused-argument
         """Function used to find the game window and get its size"""
-        if "League of Legends (TM) Client" not in win32gui.GetWindowText(hwnd):
+        if "League of Legends (TM) Client" not in win32gui.GetWindowText(hwnd) \
+                or ".png" in win32gui.GetWindowText(hwnd) \
+                or ".jpg" in win32gui.GetWindowText(hwnd):
             return
 
         rect = win32gui.GetWindowRect(hwnd)
@@ -137,7 +139,7 @@ class Game:
         print(f"\n\n[Second Round] {self.round}")
         self.print_arena_values()
         self.message_queue.put("CLEAR")
-        sleep(0.8)  # 1 second is sometimes too long
+        sleep(0.9)  # 1 second is sometimes too long
         self.arena.identify_champions_on_board()
         self.arena.identify_champions_on_bench()
         self.arena.move_champions()
