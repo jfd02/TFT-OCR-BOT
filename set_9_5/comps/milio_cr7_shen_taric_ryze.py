@@ -166,6 +166,18 @@ COMP = {
         "level": 2,
         "max_amount_of_items": 3,
         "final_comp": False
+    },
+    "Orianna": {
+        "board_position": 1,
+        "items_to_build": [],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem", "TargonEmblem"],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
     }
 }
 
@@ -271,4 +283,3 @@ SECONDARY_AUGMENTS: list[str] = [
     "Wandering Trainer",
     "Wellness Trust"
 ]
-
