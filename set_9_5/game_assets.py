@@ -341,7 +341,7 @@ ALL_GOLD_AUGMENTS: set[str] = \
      "Juggernaut Crest", "Knowledge Download II", "Know Your Enemy", "Last Stand", "Library Card",
      "Long Distance Pals II", "Loving Invocation", "Magic Wand", "Mana Burn", "Martyr", "Medium Forge",
      "Metabolic Accelerator", "Money Money!", "Morning Light", "Not Today", "Noxus Crest", "Overcharged Manafont",
-     "Pandora's Items II", "Parting Gifts", "Patient Study"  "Perfected Repetition", "Petricite Shackles",
+     "Pandora's Items II", "Parting Gifts", "Patient Study",  "Perfected Repetition", "Petricite Shackles",
      "Piltover Heart", "Portable Forge", "Pumping Up II", "Return on Investment", "Ravenous Hunter",
      "Rich Get Richer", "Rich Get Richer+", "Riftwalk", "Rogue Crest", "Rolling for Days II", "Salvage Bin",
      "Salvage Bin+", "Scoped Weapons I", "Scrappy Inventions", "Sentinel's Spirit", "Shimmering Inventors",
