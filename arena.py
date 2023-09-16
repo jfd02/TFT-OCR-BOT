@@ -558,7 +558,7 @@ class Arena:
                 if arena_functions.get_level_via_https_request() != 9 and arena_functions.get_gold() >= min_buy_xp_gold:
                     mk_functions.buy_xp()
                     print("  Purchasing XP")
-                    self.update_level()
+                    self.update_level_via_https_request()
                 if arena_functions.get_gold() >= min_buy_unit_gold:
                     mk_functions.reroll()
                     print("  Re-rolling shop")
@@ -931,7 +931,7 @@ class Arena:
             if isinstance(unit, Champion):
                 # try to give completed items first
                 # for loop like this because a unit can have 3 complete/non-component items
-                print(f"    Unit: {unit.name}, # of Items: {unit.item_slots_filled}, Items: {unit.items}")
+                print(f"    Unit: {unit.name}, # of Items: {unit.item_slots_filled}, Items: {unit.items}", end="")
                 combined_two_items = False
                 for i in range(unit.item_slots_filled, 6):
                     # can't give completed items if there aren't two slots or more available
@@ -946,7 +946,7 @@ class Arena:
                     if unit.item_slots_filled % 2 == 0:
                         combined_two_items = self.add_any_bis_item_from_combining_two_component_items_on_unit(unit)
                 if not combined_two_items:
-                    print(f"      Unable to complete an item for {unit.name}.")
+                    print(f"            Unable to complete an item for {unit.name}.")
                 # Zaun units can hold 3 Zaun mods.
                 for j in range(len(unit.held_zaun_items), 3):
                     self.add_zaun_item_to_unit(unit)
@@ -1130,7 +1130,16 @@ class Arena:
     def is_possible_to_combine_two_components_into_given_bis_item(self, unit: Champion, complete_item: str) -> bool:
         """Assumes that the complete item in the unit's build, exists as a CRAFTABLE item.
            Returns a boolean value that represent if BOTH component items for a complete item exist in self.items."""
-        return all([item in self.items for item in game_assets.CRAFTABLE_ITEMS_DICT[complete_item]]) and complete_item in unit.build
+        if complete_item not in unit.build:
+            return False
+        copy_of_owned_items = self.items.copy()
+        for item in game_assets.CRAFTABLE_ITEMS_DICT[complete_item]:
+            if item not in copy_of_owned_items:
+                return False
+            else:  # make sure for items that need duplicate component items, this doesn't count one component twice
+                copy_of_owned_items.remove(item)
+        return True
+
 
     def get_bis_item_that_is_possible_to_combine_from_components(self, unit: Champion) -> str | None:
         """Searches through the unit's BIS items it wants to build and returns the complete BIS item
@@ -1203,7 +1212,10 @@ class Arena:
         print("    We have champion duplicators to use.")
         for unit in units_on_board_sorted_by_bis_items:
             if unit.name in game_assets.CHAMPIONS:
-                cost = game_assets.CHAMPIONS[unit.name]["Gold"]
+                unit_dict = game_assets.CHAMPIONS[unit.name]
+                print(f"      Unit Dict: {unit_dict}")
+                cost = unit_dict["Gold"]
+                print(f"        Cost: {cost}")
                 if cost <= 3 and lesser_duplicator_index is not None:
                     self.add_one_item_to_unit(unit, lesser_duplicator_index, True)
                 elif cost > 3 and normal_duplicator_index is not None:
@@ -1340,7 +1352,7 @@ class Arena:
         print(f"  Increasing the level of the tactician from {self.level} to {self.level+1}.")
         self.level += 1
 
-    def update_level(self) -> None:
+    def update_level_via_https_request(self) -> None:
         current_level = self.level
         if arena_functions.get_level_via_https_request() > current_level:
             self.increase_level()
@@ -1350,7 +1362,7 @@ class Arena:
         """Buys XP if gold is equals or over 4"""
         if arena_functions.get_gold() >= 4:
             mk_functions.buy_xp()
-            self.update_level()
+            self.update_level_via_https_request()
 
     def increase_max_board_size(self) -> None:
         print(f"  Increasing the max board size from {self.max_board_size} to {self.max_board_size+1}.")
