@@ -119,10 +119,46 @@ COMP = {
         "max_amount_of_items": 3,
         "final_comp": True
     },
+    "Taric": {
+        "board_position": 23,
+        "items_to_build": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
+        "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
+    },
+    "Qiyana": {
+        "board_position": 27,
+        "items_to_build": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
+        "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
+    },
+    "Renekton": {
+        "board_position": 25,
+        "items_to_build": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
+        "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
+    },
     "Graves": {
         "board_position": 7,
         "items_to_build": ["InfinityEdge", "LastWhisper"],
-        "completed_items_to_accept": [],
+        "completed_items_to_accept": ["GiantSlayer", "NashorsTooth", "RunaansHurricane"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
