@@ -3,17 +3,18 @@ Handles the board / bench state inside of the game and
 other variables used by the bot to make decisions
 """
 
-from time import sleep
 import random
+from time import sleep
 
-from set_9_5 import game_assets
+import arena_functions
+import game_functions
 import mk_functions
+import ocr
 import screen_coords
 from ansi_colors import AnsiColors
+import champion as champion_class
 from champion import Champion
-import ocr
-import game_functions
-import arena_functions
+from set_9_5 import game_assets
 
 
 class Arena:
@@ -24,10 +25,14 @@ class Arena:
         self.message_queue = message_queue
         # The comp the bot will play.
         self.comp_to_play = game_functions.pick_a_random_comp_to_play()
-        # How many units we are currently fielding.
+        # How many slots for units we can have on the board. (Set 6 Colossus units could take up to 2 slots)
         self.board_size = 0
-        self.bench: list[None] = [None, None, None, None, None, None, None, None, None]
+        # The max amount of slot for units that we can have. Can increase from augments or items.
+        self.max_board_size = 0
+        # A list representing each location on the bench.
+        self.bench: list[Champion | None] = [None, None, None, None, None, None, None, None, None]
         # All the spaces of the board. Can be an instance of a Champion or None.
+        # TODO: Create with a default size? Or use a dict?
         self.board: list[Champion] = []
         # All the spaces on the board that have a unit, but we don't know what that unit is.
         self.board_unknown: list = []
@@ -137,7 +142,7 @@ class Arena:
             champion.index = board_position
             self.set_board_size(self.board_size + champion.size)
             print(f"      Moved {champion.name} to {board_position}.")
-            print(f"        There are now {self.board_size} units on the board.")
+            print(f"        There are now {self.board_size} slots for units taken up on the board.")
         else:
             print(f"      Failed to move {champion.name} to {board_position}.")
 
@@ -145,14 +150,14 @@ class Arena:
         """Moves unknown champion to the board"""
         for index, champion in enumerate(self.bench):
             if isinstance(champion, str):
-                print(f"    Moving unknown unit {champion} from bench slot {index} "
+                print(f"    [!] Moving unknown unit {champion} from bench slot {index} "
                       f"to board space {self.board_slots_for_non_comp_units[len(self.board_unknown)]}.")
                 arena_functions.move_unit(screen_coords.BENCH_LOC[index].get_coords(), screen_coords.BOARD_LOC[
                     self.board_slots_for_non_comp_units[len(self.board_unknown)]].get_coords())
                 self.bench[index] = None
                 self.board_unknown.append(champion)
                 self.set_board_size(self.board_size + 1)
-                print(f"      There are now {self.board_size} units on the board.")
+                print(f"      There are now {self.board_size} slots for units taken up on the board.")
                 return
         return
 
@@ -171,11 +176,10 @@ class Arena:
     # TODO: This function is way too long and needs to be cleaned up.
     def move_champions(self) -> None:
         """Moves champions to the board"""
-        self.level: int = arena_functions.get_level_via_https_request()
-        if self.level > self.board_size:
-            print(f"  Our level {self.level} is greater than our board size {self.board_size}.")
+        if self.max_board_size > self.board_size:
+            print(f"  Our max board size {self.max_board_size} is greater than our board size {self.board_size}.")
         # can currently run into an infinite while loop on augment stages
-        while self.level > self.board_size:
+        while self.max_board_size > self.board_size:
             unit: Champion | None = self.get_next_champion_on_bench()
             if unit is not None:
                 self.move_known(unit)
@@ -185,7 +189,7 @@ class Arena:
                 print("  Instead of moving an unknown unit to the board, I'm going to identify what's on the bench.")
                 self.fix_bench_state()
             else:
-                print("    I think the point of this code is to always have a unit on the bench?")
+                print("    I think the point of this code is to always have the max units on the board?")
                 bought_unknown = False
                 shop: list = arena_functions.get_shop()
                 for purchaseable_unit in shop:
@@ -201,40 +205,10 @@ class Arena:
                     if valid_champ_not_in_champs_to_buy_or_board_unknown:
                         empty_bench_slot: int = arena_functions.empty_bench_slot()
                         mk_functions.left_click(screen_coords.BUY_LOC[purchaseable_unit[0]].get_coords())
-                        sleep(0.2)
-                        # Set default values if we don't want to use this champ in our comp.
-                        items_to_build = []
-                        build2 = []
-                        ornn_items = []
-                        support_items = []
-                        trait_items = []
-                        zaun_items = []
-                        final_comp = False
-                        units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BENCH_LOC[empty_bench_slot].get_coords())
-                        # If we actually plan on using this champ in our comp:
-                        if purchaseable_unit[1] in self.comp_to_play.comp:
-                            items_to_build = self.comp_to_play.comp[purchaseable_unit[1]]["items_to_build"].copy()
-                            build2 = self.comp_to_play.comp[purchaseable_unit[1]]["completed_items_to_accept"].copy(),
-                            ornn_items = self.comp_to_play.comp[purchaseable_unit[1]]["ornn_items_to_accept"].copy(),
-                            support_items = self.comp_to_play.comp[purchaseable_unit[1]]["support_items_to_accept"].copy(),
-                            trait_items = self.comp_to_play.comp[purchaseable_unit[1]]["trait_items_to_accept"].copy(),
-                            zaun_items = self.comp_to_play.comp[purchaseable_unit[1]]["zaun_items_to_accept"].copy(),
-                            final_comp = self.comp_to_play.comp[purchaseable_unit[1]]["final_comp"]
-                        # Create the Champion object.
-                        champion = Champion(name=purchaseable_unit[1],
-                                            coords=screen_coords.BENCH_LOC[empty_bench_slot].get_coords(),
-                                            item_slots_filled=units_current_item_count,
-                                            build=items_to_build,
-                                            build2=build2,
-                                            ornn_items=ornn_items,
-                                            support_items=support_items,
-                                            trait_items=trait_items,
-                                            zaun_items=zaun_items,
-                                            slot=empty_bench_slot,
-                                            size=game_assets.CHAMPIONS[purchaseable_unit[1]]["Board Size"],
-                                            final_comp=final_comp)
-                        self.bench[empty_bench_slot] = champion
-                        self.move_known(champion)
+                        new_champion = champion_class.create_default_champion(purchaseable_unit[1], empty_bench_slot, True, self.comp_to_play)
+                        sleep(0.1)  # why is this needed
+                        self.bench[empty_bench_slot] = new_champion
+                        self.move_known(new_champion)
                         bought_unknown = True
                         break
 
@@ -248,6 +222,7 @@ class Arena:
     def replace_unknown(self) -> None:
         """Removes an unknown champion on the board.
            Then places a known champion from the bench."""
+        print("  replace_unknown")
         champion: Champion | None = self.get_next_champion_on_bench()
         if len(self.board_unknown_and_pos) > 0 and champion is not None:
             print(f"    Replacing an unknown champion with {champion.name}.")
@@ -583,6 +558,7 @@ class Arena:
                 if arena_functions.get_level_via_https_request() != 9 and arena_functions.get_gold() >= min_buy_xp_gold:
                     mk_functions.buy_xp()
                     print("  Purchasing XP")
+                    self.update_level()
                 if arena_functions.get_gold() >= min_buy_unit_gold:
                     mk_functions.reroll()
                     print("  Re-rolling shop")
@@ -824,7 +800,7 @@ class Arena:
                 else:
                     print(f"    unit: {unit}")
         # If there are more units in our "board" than should exist.
-        if len(self.board) > self.level:
+        if len(self.board) > self.max_board_size:
             self.remove_random_duplicate_champions_from_board()
 
     def identify_unknown_champions_on_board(self) -> [(str, int)]:
@@ -893,49 +869,20 @@ class Arena:
                 # Confirm this is an actual unit that can be used
                 if arena_functions.is_valid_champ(champ_name):
                     print(f"        Found a valid {champ_name} unit on the bench!")
-                    # Set default values if we don't want to use this champ in our comp.
-                    items_to_build = []
-                    build2 = []
-                    ornn_items = []
-                    support_items = []
-                    trait_items = []
-                    zaun_items = []
-                    final_comp = False
-                    units_current_item_count = arena_functions.\
-                        count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BENCH_LOC[index].get_coords())
-                    # If we actually plan on using this champ in our comp:
-                    if champ_name in self.comp_to_play.comp:
-                        items_to_build = self.comp_to_play.comp[champ_name]["items_to_build"].copy()
-                        build2 = self.comp_to_play.comp[champ_name]["completed_items_to_accept"].copy(),
-                        ornn_items = self.comp_to_play.comp[champ_name]["ornn_items_to_accept"].copy(),
-                        support_items = self.comp_to_play.comp[champ_name]["support_items_to_accept"].copy(),
-                        trait_items = self.comp_to_play.comp[champ_name]["trait_items_to_accept"].copy(),
-                        zaun_items = self.comp_to_play.comp[champ_name]["zaun_items_to_accept"].copy(),
-                        final_comp = self.comp_to_play.comp[champ_name]["final_comp"]
-                    # Create the Champion object.
-                    self.bench[index] = Champion(name=champ_name,
-                                                 coords=screen_coords.BENCH_LOC[index].get_coords(),
-                                                 item_slots_filled=units_current_item_count,
-                                                 build=items_to_build,
-                                                 build2=build2,
-                                                 ornn_items=ornn_items,
-                                                 support_items=support_items,
-                                                 trait_items=trait_items,
-                                                 zaun_items=zaun_items,
-                                                 slot=index,
-                                                 size=game_assets.CHAMPIONS[champ_name]["Board Size"],
-                                                 final_comp=final_comp)
+                    champion_class.create_default_champion(champ_name, index, True, self.comp_to_play)
         mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
         sleep(0.5)
 
     def sell_non_comp_units_on_bench(self):
         """Sells any units on the bench that aren't in our comp,
            so long as the board is full and the unit that will be sold doesn't have a copy on the board."""
+        print("  Selling non-comp units that are on the bench.")
         for index, unit_on_bench in enumerate(self.bench):
             if isinstance(unit_on_bench, Champion):
                 if unit_on_bench.name not in self.comp_to_play.comp \
-                        and self.board_size >= self.level \
+                        and self.board_size == self.max_board_size \
                         and unit_on_bench.name not in self.board_names:
+                    print(f"    Sold non-comp unit: {unit_on_bench} at bench index: {index}.")
                     self.sell_unit(unit_on_bench, index)
         return
 
@@ -949,47 +896,15 @@ class Arena:
         """Given the unit's name and the location on the board it should be placed at.
            This function creates a Champion unit that has the designated items
            and final_comp value from the comps file and adds the unit to the board."""
-        # Set default values if we don't want to use this champ in our comp.
-        items_to_build = []
-        build2 = []
-        ornn_items = []
-        support_items = []
-        trait_items = []
-        zaun_items = []
-        final_comp = False
-        # If we actually plan on using this champ in our comp:
-        if unit_name in self.comp_to_play.comp:
-            items_to_build = self.comp_to_play.comp[unit_name]["items_to_build"].copy()
-            build2 = self.comp_to_play.comp[unit_name]["completed_items_to_accept"].copy(),
-            ornn_items = self.comp_to_play.comp[unit_name]["ornn_items_to_accept"].copy(),
-            support_items = self.comp_to_play.comp[unit_name]["support_items_to_accept"].copy(),
-            trait_items = self.comp_to_play.comp[unit_name]["trait_items_to_accept"].copy(),
-            zaun_items = self.comp_to_play.comp[unit_name]["zaun_items_to_accept"].copy(),
-            final_comp = self.comp_to_play.comp[unit_name]["final_comp"]
         # Create the Champion object.
+        new_champion = champion_class.create_default_champion(unit_name, False, self.comp_to_play)
         print(f"      Created the Champion object for the {unit_name}.")
         self.board_names.append(unit_name)
-        size = game_assets.CHAMPIONS[unit_name]["Board Size"]
-        units_current_item_count = arena_functions.\
-            count_number_of_item_slots_filled_on_unit_at_coords(screen_coords.BOARD_LOC[index].get_coords())
-        # Why do we do this?
-        self.set_board_size(self.board_size + size)
+        self.set_board_size(self.board_size + new_champion.size)
         # Remove the unit that was unknown, and is now no longer unknown, from the unknown list.
         if unit_name in self.board_unknown:
             print(f"      Removing the unknown unit {unit_name} from the list of unknown units.")
             self.board_unknown.remove(unit_name)
-        self.board.append(Champion(name=unit_name,
-                                   coords=screen_coords.BOARD_LOC[index].get_coords(),
-                                   item_slots_filled=units_current_item_count,
-                                   build=items_to_build,
-                                   build2=build2,
-                                   ornn_items=ornn_items,
-                                   support_items=support_items,
-                                   trait_items=trait_items,
-                                   zaun_items=zaun_items,
-                                   slot=index,
-                                   size=size,
-                                   final_comp=final_comp))
 
     def set_board_size(self, new_size: int) -> bool:
         """Sets how many units we have on the board.
@@ -1001,7 +916,8 @@ class Arena:
             return True
         else:
             print("      The board size cannot be less than 0!")
-            return False
+        if new_size > self.max_board_size:
+            print(f"      [!] Something has gone wrong. The current board size {self.board_size} is greater than the max board size {self.max_board_size}.")
         return False
 
     def give_items_to_units(self):
@@ -1412,8 +1328,17 @@ class Arena:
                         for current_building in unit.current_building:
                             print(f"    The unit {unit.name} was trying to build a {current_building}")
                             print(f"      But we gave them a {item} component item instead.")
-                        unit.current_building.remove()
+                            unit.current_building.remove(unit.current_building)
                         unit.component_item = ""
                         unit.items.pop()
                     self.add_one_item_to_unit(unit, self.items.index(item))
                     unit.item_slots_filled += 1
+
+    def update_level(self) -> None:
+        self.level: int = arena_functions.get_level_via_https_request()
+
+    def buy_xp_round(self) -> None:
+        """Buys XP if gold is equals or over 4"""
+        if arena_functions.get_gold() >= 4:
+            mk_functions.buy_xp()
+            self.update_level()
