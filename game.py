@@ -135,22 +135,22 @@ class Game:
     def second_round(self) -> None:
         """ """
         print(f"\n\n[Second Round] {self.round}")
-        self.arena.update_level()
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         # use this instead of fix_bench so that we don't sell units the first round.
         self.arena.identify_champions_on_bench()
+        self.arena.update_level_via_https_request()
         self.arena.move_champions()
         self.end_round_tasks()
 
     def third_round(self) -> None:
         """ """
         print(f"\n\n[Third Round] {self.round}")
-        self.arena.update_level()
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(2)
         self.arena.fix_bench_state()
+        self.arena.update_level_via_https_request()
         self.arena.move_champions()
         self.end_round_tasks()
 

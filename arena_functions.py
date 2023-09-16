@@ -176,12 +176,12 @@ def tacticians_crown_check(self) -> None:
 
 def get_level_via_ocr() -> int:
     """Returns the level of the tactician"""
-    level: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_LEVEL_POS.get_coords(), scale=3, psm=7,
+    level: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_LEVEL_POS.get_coords(), scale=3, psm=8,
                               whitelist="0123456789")
     try:
         return int(level)
     except ValueError:
-        return 0
+        return -1
 
 
 def get_cost_to_buy_xp() -> int:
@@ -216,7 +216,7 @@ def get_win_loss_streak() -> int:
 
 def get_cost_to_refresh_shop() -> int:
     """Returns how much gold it costs to refresh the shop."""
-    cost: str = ocr.get_text(screenxy=screen_coords.SHOP_REFRESH_COST_POS.get_coords(), scale=3, psm=7,
+    cost: str = ocr.get_text(screenxy=screen_coords.SHOP_REFRESH_COST_POS.get_coords(), scale=3, psm=8,
                              whitelist="0123456789")
     try:
         return int(cost)
@@ -303,7 +303,7 @@ def identify_one_champion_on_the_board(unit: Champion) -> bool:
     sleep(0.1)
     champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
                                    scale=3, psm=8, whitelist=ocr.ALPHABET_WHITELIST)
-    print(f"      OCR text: {champ_name}")
+    # print(f"      OCR text: {champ_name}")
     champ_name = get_valid_champ(champ_name)
     # Click at the default location so that the unit's info disappears.
     mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
@@ -329,10 +329,10 @@ def identify_one_space_on_the_board(tuple_board_space: tuple) -> str | None:
     mk_functions.right_click(tuple_board_space)
     # Press s to prevent the tactician from moving anywhere.
     mk_functions.press_s()
-    sleep(0.1)
+    # sleep(0.1)
     champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
                                    scale=3, psm=8, whitelist=ocr.ALPHABET_WHITELIST)
-    print(f"      OCR text: {champ_name}")
+    # print(f"      OCR text: {champ_name}")
     champ_name = get_valid_champ(champ_name)
     # Click at the default location so that the unit's info disappears.
     mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
@@ -417,10 +417,11 @@ def count_number_of_item_slots_filled_on_unit_at_coords(coordinates: tuple) -> i
     mk_functions.right_click(coordinates)
     mk_functions.press_s()
     # Search the unit's item slots from left to right.
+    THRESHOLD_VALUE = 8
     for positions in screen_coords.UNIT_INFO_MENU_ITEM_SLOTS_POS:
         screen_capture = ImageGrab.grab(bbox=positions.get_coords())
         screenshot_array = np.array(screen_capture)
-        if not (np.abs(screenshot_array - (0, 0, 0)) <= 2).all(axis=2).any():
+        if not (np.abs(screenshot_array - (0, 0, 0)) <= THRESHOLD_VALUE).all(axis=2).any():
             item_slots_filled += 1
         else:
             return item_slots_filled
