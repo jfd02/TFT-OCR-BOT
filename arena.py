@@ -1014,6 +1014,7 @@ class Arena:
                 # try to give completed items first
                 # for loop like this because a unit can have 3 complete/non-component items
                 print(f"    Unit: {unit.name}, # of Items: {unit.item_slots_filled}, Items: {unit.items}")
+                combined_two_items = False
                 for i in range(unit.item_slots_filled, 6):
                     # can't give completed items if there aren't two slots or more available
                     if unit.item_slots_filled < 5:
@@ -1025,7 +1026,9 @@ class Arena:
                         self.add_trait_item_to_unit(unit)
                     # Should this be placed before the above if block?
                     if unit.item_slots_filled % 2 == 0:
-                        self.add_any_bis_item_from_combining_two_component_items_on_unit(unit)
+                        combined_two_items = self.add_any_bis_item_from_combining_two_component_items_on_unit(unit)
+                if not combined_two_items:
+                    print(f"      Unable to complete an item for {unit.name}.")
                 # Zaun units can hold 3 Zaun mods.
                 for j in range(len(unit.held_zaun_items), 3):
                     self.add_zaun_item_to_unit(unit)
@@ -1221,7 +1224,7 @@ class Arena:
                 return None
         return
 
-    def add_any_bis_item_from_combining_two_component_items_on_unit(self, unit: Champion):
+    def add_any_bis_item_from_combining_two_component_items_on_unit(self, unit: Champion) -> bool:
         """Assumes that the unit has no component items on them.
            Gets any Best In Slot (BIS) craftable item from the unit
            that we have determined we have both components for.
@@ -1239,9 +1242,8 @@ class Arena:
             if complete_item in unit.completed_items_will_accept:
                 unit.completed_items_will_accept.remove(complete_item)
             unit.item_slots_filled += 2
-        else:
-            print(f"      Unable to complete an item for {unit.name}.")
-        return
+            return True
+        return False
 
     def get_list_of_units_on_board_in_order_of_amount_of_total_bis_items(self) -> list[Champion]:
         """Returns a list of Champion objects that are on the board,
@@ -1273,14 +1275,16 @@ class Arena:
            to the desire star level. Sorts that list of units, by the amount of items they need, in descending order
            so that we duplicate most important champions first.
            Will only use non-lesser champion duplicators on units that cost 4 or 5."""
+        print("    Looking for champion duplicators.")
         units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_total_bis_items()
         lesser_duplicator_index = self.get_index_of_one_lesser_champion_duplicators_on_bench()
         normal_duplicator_index = self.get_index_of_one_champion_duplicators_on_bench()
         # Exit the function sooner if we don't have any champion duplicators
         if lesser_duplicator_index is None and normal_duplicator_index is None:
             return
+        print("    We have champion duplicators to use.")
         for unit in units_on_board_sorted_by_bis_items:
-            if unit in game_assets.CHAMPIONS:
+            if unit.name in game_assets.CHAMPIONS:
                 cost = game_assets.CHAMPIONS[unit.name]["Gold"]
                 if cost <= 3 and lesser_duplicator_index is not None:
                     self.add_one_item_to_unit(unit, lesser_duplicator_index, True)
@@ -1294,6 +1298,7 @@ class Arena:
            as I'm guessing those units will have the most traits active
            and therefore make the most value out of getting an Emblem of one of their traits.
            This function doesn't select the Emblem from the Armory shop."""
+        print("    Try using Scroll of Knowledge.")
         if "ScrollofKnowledge" not in self.items:
             return
         units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_total_bis_items()
@@ -1307,6 +1312,7 @@ class Arena:
            Uses it on the first unit with the most BIS items, since the item upgrades craftable completed items
            to Radiant versions. This will fail if the unit isn't holding any completed items.
            This function doesn't select the item from the Armory shop."""
+        print("    Try using Masterwork Upgrade.")
         if "MasterworkUpgrade" not in self.items:
             return
         units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_total_bis_items()
