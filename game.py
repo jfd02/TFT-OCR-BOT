@@ -140,18 +140,17 @@ class Game:
         self.message_queue.put("CLEAR")
         # use this instead of fix_bench so that we don't sell units the first round.
         self.arena.identify_champions_on_bench()
-        self.arena.update_level_via_ocr()
         self.arena.move_champions()
         self.end_round_tasks()
 
     def third_round(self) -> None:
         """ """
         print(f"\n\n[Third Round] {self.round}")
+        self.arena.level = 2
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(2)
         self.arena.fix_bench_state()
-        self.arena.update_level_via_ocr()
         self.arena.move_champions()
         self.end_round_tasks()
 
@@ -193,14 +192,16 @@ class Game:
             # Can't purchase champions for a short period after choosing augment
             sleep(2.5)
 
-        # Have this happen after the augment selection.
-        self.arena.identify_champions_on_board()
-
         if self.round == "1-3":
             print("  Sleeping on round 1-3.")
             sleep(1.5)  # TODO: why do we need to sleep here
             # self.arena.fix_unknown()  # no more unknown units
             # self.arena.tacticians_crown_check() #not getting any item in set9 round 1-3, skipped
+        elif self.round in game_assets.FOURTH_ROUND:
+            self.arena.level = 3
+
+        # Have this happen after the augment selection.
+        self.arena.identify_champions_on_board()
 
         self.arena.fix_bench_state()
         self.arena.spend_gold()
