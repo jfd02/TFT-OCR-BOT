@@ -147,7 +147,7 @@ def get_items() -> list:
         # TODO: why is this using psm=13 ? wouldn't psm = 7 or 8 be better ?
         item: str = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=13,
                                  whitelist=ocr.ALPHABET_WHITELIST)
-        item_bench.append(valid_item_from_holdable_items(item))  # change to use holdable items since the AI is dumb
+        item_bench.append(valid_item_from_all_items(item))
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
     return item_bench
 

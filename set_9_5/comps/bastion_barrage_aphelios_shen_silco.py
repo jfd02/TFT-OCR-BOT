@@ -32,7 +32,6 @@ COMP = {
         "zaun_items_to_accept": [],
         "level": 3,
         "max_amount_of_items": 3,
-        "max_amount_of_items": 3,
         "final_comp": True
     },
     "Silco": {
@@ -59,13 +58,12 @@ COMP = {
         "zaun_items_to_accept": [],
         "level": 2,
         "max_amount_of_items": 3,
-        "max_amount_of_items": 3,
         "final_comp": True
     },
     "KSante": {
         "board_position": 24,
         "items_to_build": ["ProtectorsVow"],
-        "completed_items_to_accept": [],
+        "completed_items_to_accept": ["TitansResolve"],
         "support_items_to_accept": ["LocketoftheIronSolari", "VirtueoftheMartyr"],
         "trait_items_to_accept": ["GunnerEmblem", "IoniaEmblem", "InvokerEmblem", "IxtalEmblem", "TargonEmblem", "ZaunEmblem"],
         "ornn_items_to_accept": [],
@@ -126,19 +124,19 @@ COMP = {
     "Galio": {
         "board_position": 23,
         "items_to_build": [],
-        "completed_items_to_accept": ["LocketoftheIronSolari"],
-        "support_items_to_accept": [],
+        "completed_items_to_accept": ["TitansResolve"],
+        "support_items_to_accept": ["LocketoftheIronSolari"],
         "trait_items_to_accept": ["BastionEmblem", "IoniaEmblem", "IxtalEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "max_amount_of_items": 3,
-        "final_comp": True
+        "final_comp": False
     },
     "Illaoi": {
         "board_position": 21,
         "items_to_build": ["Evenshroud", "WarmogsArmor"],
-        "completed_items_to_accept": [],
+        "completed_items_to_accept": ["TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem"],
         "ornn_items_to_accept": [],

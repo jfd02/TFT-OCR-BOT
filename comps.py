@@ -12,9 +12,11 @@ import set_9_5.comps.roll_the_rogues_ekko_qiyana_katarina as roll_the_rogues
 import set_9_5.comps.walk_the_plank_nilah_miss_fortune_gangplank_nautilus as walk_the_plank
 import set_9_5.comps.super_nash_bros_kaisa_chogath_belveth as super_nash_bros
 import set_9_5.comps.milio_cr7_shen_taric_ryze as milio_cr7
+import set_9_5.comps.bastion_barrage_aphelios_shen_silco as bastion_barrage
 import random
 
-COMPS_TO_SELECT_RANDOMLY_FROM: list = [arcane_domain, super_nash_bros, milio_cr7]
+COMPS_TO_SELECT_RANDOMLY_FROM: list = [arcane_domain, bastion_barrage, heart_of_the_cards, milio_cr7,
+                                       roll_the_rogues, super_nash_bros, walk_the_plank]
 
 
 def return_random_comp():

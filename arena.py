@@ -1322,6 +1322,7 @@ class Arena:
         # TODO: maybe put this value into data files, so it's not hardcoded for every comp ?
         if self.check_health() > 16:
             return
+        print("  Randomly adding items to our carry units since we are about to lose.")
         units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_total_bis_items()
         for unit in units_on_board_sorted_by_bis_items:
             # Zaun items don't care about your other items
