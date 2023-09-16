@@ -140,7 +140,6 @@ class Game:
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(0.9)  # 1 second is sometimes too long
-        self.arena.identify_champions_on_board()
         self.arena.identify_champions_on_bench()
         self.arena.move_champions()
         self.end_round_tasks()
