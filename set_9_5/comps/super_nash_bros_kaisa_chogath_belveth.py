@@ -177,7 +177,7 @@ PRIMARY_AUGMENTS: list[str] = [
     "Branching Out",
     "Tiny Grab Bag"
 
-    "Ancient Archives",
+    "Ancient Archives I",
     "Void Heart",
     "Social Distancing II",
     "Stable Evolution",
