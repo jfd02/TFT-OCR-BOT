@@ -26,9 +26,9 @@ class Arena:
         # The comp the bot will play.
         self.comp_to_play = game_functions.pick_a_random_comp_to_play()
         # How many slots for units we can have on the board. (Set 6 Colossus units could take up to 2 slots)
-        self.board_size = 0
+        self.board_size = 1
         # The max amount of slot for units that we can have. Can increase from augments or items.
-        self.max_board_size = 0
+        self.max_board_size = 1
         # A list representing each location on the bench.
         self.bench: list[Champion | None] = [None, None, None, None, None, None, None, None, None]
         # All the spaces of the board. Can be an instance of a Champion or None.
@@ -48,7 +48,7 @@ class Arena:
         # All the augments that the player currently has.
         self.augments: list = []
         self.final_comp = False
-        self.level = 0
+        self.level = 1
         self.augment_roll = True
         self.spam_roll = False
         self.spam_roll_to_zero = False
@@ -1360,10 +1360,11 @@ class Arena:
             self.increase_max_board_size()
 
     def update_level_via_ocr(self) -> None:
-        current_level = self.level
+        """Uses the OCR function to get the level of the tactician and uses that info to update class variables."""
         # Do a subtraction check instead of just checking if it's greater than,
         # incase the OCR messes up, like reading a 2 as a 9.
-        if (arena_functions.get_level_via_ocr() - current_level) == 1:
+        difference = arena_functions.get_level_via_ocr() - self.level
+        if 1 <= difference <= 3:
             self.increase_level()
             self.increase_max_board_size()
 
