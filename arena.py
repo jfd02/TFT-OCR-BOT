@@ -869,7 +869,8 @@ class Arena:
                 # Confirm this is an actual unit that can be used
                 if arena_functions.is_valid_champ(champ_name):
                     print(f"        Found a valid {champ_name} unit on the bench!")
-                    champion_class.create_default_champion(champ_name, index, True, self.comp_to_play)
+                    new_champion = champion_class.create_default_champion(champ_name, index, True, self.comp_to_play)
+                    self.bench[index] = new_champion
         mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
         sleep(0.5)
 
@@ -905,6 +906,7 @@ class Arena:
         if unit_name in self.board_unknown:
             print(f"      Removing the unknown unit {unit_name} from the list of unknown units.")
             self.board_unknown.remove(unit_name)
+        self.board.append(new_champion)
 
     def set_board_size(self, new_size: int) -> bool:
         """Sets how many units we have on the board.

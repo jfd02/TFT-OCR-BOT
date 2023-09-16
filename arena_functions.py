@@ -167,7 +167,7 @@ def tacticians_crown_check(self) -> None:
         if "TacticiansCrown" in item:
             print("  Tacticians Crown on bench, adding extra slot to board")
             # TODO: why is this written this way
-            # self.max_size_of_units -= 1
+            # self.max_board_size -= 1
         else:
             print(f"{item} is not TacticiansCrown")
     except TypeError:
@@ -412,7 +412,7 @@ def count_number_of_item_slots_filled_on_unit_at_coords(coordinates: tuple) -> i
        the center of each item slot that displays in that screen. If the color of that slot is not close to black,
        then we assume the item slot is filled. As soon as the check fails, we find a color close to black,
        we can return how many items we've counted, because the item slots of a unit are filled up like a stack."""
-    print(f"    Counting how many items are on the unit at {tuple}.")
+    print(f"    Counting how many items are on the unit at {coordinates}.")
     item_slots_filled = 0
     mk_functions.right_click(coordinates)
     mk_functions.press_s()
