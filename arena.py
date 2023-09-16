@@ -842,12 +842,14 @@ class Arena:
             if unit_name is None:
                 continue
             # If the unknown unit we are looking at is a known unit on the board, also continue.
+            duplicate_unit = False
             for known_unit in self.board:
                 if known_unit.name is unit_name and known_unit.index == index:
-                    continue
-                elif arena_functions.is_valid_champ(unit_name):
-                    print(f"        Found a valid {unit_name} unit from an unknown unit!")
-                    valid_champs.append((unit_name, index))
+                    duplicate_unit = True
+                    break
+            if arena_functions.is_valid_champ(unit_name) and not duplicate_unit:
+                print(f"        Found a valid {unit_name} unit from an unknown unit!")
+                valid_champs.append((unit_name, index))
         self.board_unknown_and_pos = valid_champs
         return valid_champs
 
@@ -1022,7 +1024,7 @@ class Arena:
                         self.add_support_item_to_unit(unit)
                         self.add_trait_item_to_unit(unit)
                     # Should this be placed before the above if block?
-                    elif unit.item_slots_filled % 2 == 0:
+                    if unit.item_slots_filled % 2 == 0:
                         self.add_any_bis_item_from_combining_two_component_items_on_unit(unit)
                 # Zaun units can hold 3 Zaun mods.
                 for j in range(len(unit.held_zaun_items), 3):
