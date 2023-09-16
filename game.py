@@ -231,7 +231,7 @@ class Game:
         # Have this happen after the augment selection.
         self.arena.identify_champions_on_board()
 
-        if self.round in ("2-1", "2-5"):
+        if self.round in ("2-1", "2-5") and self.arena.comp_to_play.strategy != "Slow Roll":
             self.arena.buy_xp_round()
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items:")

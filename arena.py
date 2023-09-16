@@ -556,9 +556,16 @@ class Arena:
                 or arena_functions.get_gold() >= min_buy_unit_gold:
             if not first_run:
                 if arena_functions.get_level_via_https_request() != 9 and arena_functions.get_gold() >= min_buy_xp_gold:
-                    mk_functions.buy_xp()
-                    print("  Purchasing XP")
-                    self.update_level_via_ocr()
+                    if self.comp_to_play.strategy == "Slow Roll":
+                        for unit_to_buy in self.champs_to_buy:
+                            if self.champs_to_buy.count(unit_to_buy) <= 3:
+                                print("  Purchasing XP")
+                                mk_functions.buy_xp()
+                                self.update_level_via_ocr()
+                    else:
+                        print("  Purchasing XP")
+                        mk_functions.buy_xp()
+                        self.update_level_via_ocr()
                 if arena_functions.get_gold() >= min_buy_unit_gold:
                     mk_functions.reroll()
                     print("  Re-rolling shop")
