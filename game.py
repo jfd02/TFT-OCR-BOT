@@ -146,7 +146,8 @@ class Game:
     def third_round(self) -> None:
         """ """
         print(f"\n\n[Third Round] {self.round}")
-        self.arena.level = 2
+        self.arena.increase_level()
+        self.arena.increase_max_board_size()
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(2)
@@ -198,7 +199,8 @@ class Game:
             # self.arena.fix_unknown()  # no more unknown units
             # self.arena.tacticians_crown_check() #not getting any item in set9 round 1-3, skipped
         elif self.round in game_assets.FOURTH_ROUND:
-            self.arena.level = 3
+            self.arena.increase_level()
+            self.arena.increase_max_board_size()
 
         # Have this happen after the augment selection.
         self.arena.identify_champions_on_board()
