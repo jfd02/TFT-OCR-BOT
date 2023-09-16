@@ -139,8 +139,9 @@ class Game:
         print(f"\n\n[Second Round] {self.round}")
         self.print_arena_values()
         self.message_queue.put("CLEAR")
-        sleep(0.9)  # 1 second is sometimes too long
-        self.arena.fix_bench_state()
+        sleep(0.5)  # 0.9 second is too long
+        # use this instead of fix_bench so that we don't sell units the first round.
+        self.arena.identify_champions_on_bench()
         self.arena.move_champions()
         self.end_round_tasks()
 
