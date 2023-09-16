@@ -140,7 +140,7 @@ class Game:
         self.message_queue.put("CLEAR")
         # use this instead of fix_bench so that we don't sell units the first round.
         self.arena.identify_champions_on_bench()
-        self.arena.update_level_via_https_request()
+        self.arena.update_level_via_ocr()
         self.arena.move_champions()
         self.end_round_tasks()
 
@@ -151,7 +151,7 @@ class Game:
         self.message_queue.put("CLEAR")
         sleep(2)
         self.arena.fix_bench_state()
-        self.arena.update_level_via_https_request()
+        self.arena.update_level_via_ocr()
         self.arena.move_champions()
         self.end_round_tasks()
 
