@@ -898,7 +898,7 @@ class Arena:
            This function creates a Champion unit that has the designated items
            and final_comp value from the comps file and adds the unit to the board."""
         # Create the Champion object.
-        new_champion = champion_class.create_default_champion(unit_name, False, self.comp_to_play)
+        new_champion = champion_class.create_default_champion(unit_name, index, False, self.comp_to_play)
         print(f"      Created the Champion object for the {unit_name}.")
         self.board_names.append(unit_name)
         self.set_board_size(self.board_size + new_champion.size)
