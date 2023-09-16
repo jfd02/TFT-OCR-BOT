@@ -26,8 +26,8 @@ RECOMMENDED_LEGEND = "Twisted Fate"
 COMP = {
     "Qiyana": {
         "board_position": 26,
-        "items_to_build": [ "HandofJustice", "InfinityEdge", "SteraksGage"],
-        "completed_items_to_accept": ["HandofJustice", "InfinityEdge", "SteraksGage", "TitansResolve"],
+        "items_to_build": ["HandofJustice", "InfinityEdge", "SteraksGage"],
+        "completed_items_to_accept": ["Deathblade", "Bloodthirster", "HandofJustice", "InfinityEdge", "SteraksGage", "TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -120,12 +120,84 @@ COMP = {
         "max_amount_of_items": 3,
         "final_comp": True
     },
-    "Illaoi": {
-        "board_position": 21,
+    "RekSai": {
+        "board_position": 19,
+        "items_to_build": ["HandofJustice"],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": ["RogueEmblem"],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
+    },
+    "Warwick": {
+        "board_position": 15,
+        "items_to_build": [],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": ["RogueEmblem", "SlayerEmblem"],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": ["AdaptiveImplant", "HextechExoskeleton", "RoboticArm", "ShimmerInjector", "UnstableChemtech"],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
+    },
+    "Swain": {
+        "board_position": 27,
+        "items_to_build": ["Redemption"],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": ["RogueEmblem"],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
+    },
+    "Kassadin": {
+        "board_position": 16,
+        "items_to_build": ["HandofJustice", "HandofJustice", "JeweledGauntlet"],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
+    },
+    "Soraka": {
+        "board_position": 2,
         "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
+    },
+    "Illaoi": {
+        "board_position": 21,
+        "items_to_build": ["SteraksGage"],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": ["SlayerEmblem"],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
+    },
+    "Kayle": {
+        "board_position": 4,
+        "items_to_build": ["InfinityEdge"],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": ["SlayerEmblem"],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
@@ -159,6 +231,7 @@ SECONDARY_AUGMENTS: list[str] = [
 
     "Balanced Budget II",
     "Battle Ready II",
+    "Ixtal Heart",
     "Last Stand",
     "Money Money!",
     "Patient Study",
