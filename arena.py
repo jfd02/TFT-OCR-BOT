@@ -122,7 +122,7 @@ class Arena:
             board_position = random.choice(self.board_slots_for_non_comp_units)
         destination: tuple = screen_coords.BOARD_LOC[board_position].get_coords()
         arena_functions.move_unit(champion.coords, destination)
-        successful_move = arena_functions.was_moving_unit_successful(destination)
+        successful_move = True  # arena_functions.was_moving_unit_successful(destination)
         if successful_move:
             champion.coords = destination
             self.board.append(champion)
