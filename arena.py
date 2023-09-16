@@ -58,6 +58,7 @@ class Arena:
             if isinstance(slot, str) and not bench_occupied[index]:
                 print(f"    There is no unit at bench slot {index}. Setting that self.bench spot to None.")
                 self.bench[index] = None
+            # TODO: this is likely redundant with the stuff in self.identify_champions_on_bench()
             if isinstance(slot, Champion) and not bench_occupied[index]:
                 print(f"    Identified a {slot.name} at bench spot {index}. Setting it's spot in self.bench.")
                 self.bench[index] = None
@@ -181,7 +182,8 @@ class Arena:
             elif self.unknown_in_bench():
                 # No more moving unknown units to the board.
                 # self.move_unknown()
-                self.identify_champions_on_bench()
+                print("  Instead of moving an unknown unit to the board, I'm going to identify what's on the bench.")
+                self.fix_bench_state()
             else:
                 print("    I think the point of this code is to always have a unit on the bench?")
                 bought_unknown = False
@@ -875,8 +877,7 @@ class Arena:
         for index, bench_space in enumerate(self.bench):
             # check is this bench space is labeled "?"
             if bench_space is None and bench_occupied[index]:
-                print(AnsiColors.YELLOW_REGULAR + f"  [!]Bench space {index} is occupied by a unit, "
-                                                  f"but we don't know which unit!" + AnsiColors.RESET)
+                print(f"  [!]Bench space {index} is occupied by a unit, but we don't know which unit!")
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
                 mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
                 mk_functions.press_s()
@@ -923,7 +924,7 @@ class Arena:
                                                  size=game_assets.CHAMPIONS[champ_name]["Board Size"],
                                                  final_comp=final_comp)
         mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
-        sleep(1.0)
+        sleep(0.5)
 
     def sell_non_comp_units_on_bench(self):
         """Sells any units on the bench that aren't in our comp,

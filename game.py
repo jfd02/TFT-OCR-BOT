@@ -140,7 +140,7 @@ class Game:
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(0.9)  # 1 second is sometimes too long
-        self.arena.identify_champions_on_bench()
+        self.arena.fix_bench_state()
         self.arena.move_champions()
         self.end_round_tasks()
 
@@ -151,7 +151,7 @@ class Game:
         self.message_queue.put("CLEAR")
         sleep(2)
         self.arena.identify_champions_on_board()
-        self.arena.identify_champions_on_bench()
+        self.arena.fix_bench_state()
         self.arena.move_champions()
         self.end_round_tasks()
 
@@ -195,11 +195,11 @@ class Game:
 
         # Have this happen after the augment selection.
         self.arena.identify_champions_on_board()
-        self.arena.identify_champions_on_bench()
 
         if self.round == "1-3":
-            sleep(1.5)
-            self.arena.fix_unknown()
+            print("  Sleeping on round 1-3.")
+            sleep(1.5)  # TODO: why do we need to sleep here
+            # self.arena.fix_unknown()  # no more unknown units
             # self.arena.tacticians_crown_check() #not getting any item in set9 round 1-3, skipped
 
         self.arena.fix_bench_state()
@@ -229,7 +229,6 @@ class Game:
 
         # Have this happen after the augment selection.
         self.arena.identify_champions_on_board()
-        self.arena.identify_champions_on_bench()
 
         if self.round in ("2-1", "2-5"):
             arena_functions.buy_xp_round()
