@@ -13,6 +13,7 @@ import game_functions
 import mk_functions
 import screen_coords
 import settings
+import collections
 from arena import Arena
 from champion import Champion
 from set_9_5 import game_assets
@@ -278,7 +279,9 @@ class Game:
         print(f"        Comp: {self.arena.comp_to_play.name}")
         print(f"        Board: {unit_names_on_entire_board}")
         print(f"        Board Size: {self.arena.board_size}        Max Board Size: {self.arena.max_board_size}")
-        print(f"        Board Names: {self.arena.board_names}")
+        # Only print out the board names list if it doesn't match the names of all the units on the board.
+        if collections.Counter(unit_names_on_entire_board) != collections.Counter(self.arena.board_names):
+            print(f"        Board Names: {self.arena.board_names}")
         print(f"        Board Unknown: {self.arena.board_unknown}        Board Unknown And Pos: {self.arena.board_unknown_and_pos}")
         print(f"        Board Slot For Non Comp Units: {self.arena.board_slots_for_non_comp_units}")
         unit_names_on_bench = []
@@ -287,7 +290,9 @@ class Game:
                 unit_names_on_bench.append(unit.name)
             elif unit is not None:
                 unit_names_on_bench.append(unit)
-        print(f"        Champs to Buy: {self.arena.champs_to_buy}")
+        # Turn the champs to buy list into a dict because it has so many duplicate values.
+        champs_to_buy_dict = {key: self.arena.champs_to_buy.count(key) for key in set(self.arena.champs_to_buy)}
+        print(f"        Champs to Buy: {champs_to_buy_dict}")
         print(f"        Bench: {unit_names_on_bench}")
         print(f"        Items: {[item for item in self.arena.items if item is not None]}")
         print(f"        Augments: {self.arena.augments}")
