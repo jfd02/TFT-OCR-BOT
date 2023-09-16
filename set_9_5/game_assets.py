@@ -70,21 +70,6 @@ HOLDABLE_ITEMS: set[str] = COMPONENT_AND_CRAFTABLE_ITEMS.union(ELUSIVE_ITEMS)\
 
 ALL_ITEMS: set[str] = HOLDABLE_ITEMS.union(MISC_ITEMS)
 
-# All the augments in the game that won't require the bot to react to
-# (i.e. don't give a unit or item, affect level, cost to buy xp, etc.).
-FULLY_PASSIVE_SILVER_AUGMENTS: set[str] = \
-    {"All Natural I", "Balanced Budget I", "Battle Ready I", "Blood Money", "Bronze Ticket", "Consistency",
-     "Cybernetic Bulk I", "Cybernetic Leech I", "Gotta Go Fast!!! I", "Harmacist I", "Healing Orbs I", "Inconsistency",
-     "Indomitable Will", "It Pays To Learn I", "Jeweled Lotus I", "Knowledge Download", "Lategame Specialist", "Money!",
-     "Partial Ascension", "Pumping Up I", "Red Buff", "Rolling for Day I", "Silver Spoon", "Social Distancing I",
-     "Tiny Titans", "Tiny Power I", "Transfusion I", "Unburdened I", "Unified Resistance I", "Well-Earned Comforts I"}
-
-FULLY_PASSIVE_GOLD_AUGMENTS: set[str] = []
-
-FULLY_PASSIVE_PLATINUM_AUGMENTS: set[str] = []
-
-FULLY_PASSIVE_AUGMENTS: set[str] = FULLY_PASSIVE_SILVER_AUGMENTS.union(FULLY_PASSIVE_GOLD_AUGMENTS) \
-    .union(FULLY_PASSIVE_PLATINUM_AUGMENTS)
 
 CHAMPIONS: dict[str, dict[str, int]] = {
     "Aatrox": {"Gold": 5, "Board Size": 1},
@@ -313,6 +298,82 @@ RADIANT_ITEMS_DICT = {"Absolution": "Redemption",
                       "ZenithEdge": "InfinityEdge",
                       "ZzRotsInvitation": "ZzRotPortal"}
 
+# All the augments in the game that won't require the bot to react to
+# (i.e. don't give a unit or item, affect level, cost to buy xp, etc.).
+FULLY_PASSIVE_SILVER_AUGMENTS: set[str] = \
+    {"All Natural I", "Balanced Budget I", "Battle Ready I", "Blood Money", "Bronze Ticket", "Consistency",
+     "Cybernetic Bulk I", "Cybernetic Leech I", "Gotta Go Fast!!! I", "Harmacist I", "Healing Orbs I", "Inconsistency",
+     "Indomitable Will", "It Pays To Learn I", "Jeweled Lotus I", "Knowledge Download", "Lategame Specialist", "Money!",
+     "Partial Ascension", "Pumping Up I", "Red Buff", "Rolling for Day I", "Silver Spoon", "Social Distancing I",
+     "Tiny Titans", "Tiny Power I", "Transfusion I", "Unburdened I", "Unified Resistance I", "Well-Earned Comforts I"}
+
+FULLY_PASSIVE_GOLD_AUGMENTS: set[str] = []
+
+FULLY_PASSIVE_PLATINUM_AUGMENTS: set[str] = []
+
+FULLY_PASSIVE_AUGMENTS: set[str] = FULLY_PASSIVE_SILVER_AUGMENTS.union(FULLY_PASSIVE_GOLD_AUGMENTS) \
+    .union(FULLY_PASSIVE_PLATINUM_AUGMENTS)
+
+ALL_SILVER_AUGMENTS: set[str] = \
+    {"AFK", "All Natural I", "Army Building", "Balanced Budget I", "Bastion Heart", "Battle Ready I", "Blood Money",
+     "Branching Out", "Bronze Ticket", "Bruiser Heart", "Buried Treasures I", "Caretaker's Ally", "Challenger Heart",
+     "Component Buffet", "Consistency", "Cutting Corners", "Cybernetic Bulk I", "Cybernetic Leech I", "Demacia Heart",
+     "Final Grab Bag", "Gotta Go Fast!!! I", "Gunner Heart", "Harmacist I", "Healing Orbs I", "Inconsistency",
+     "Indomitable Will", "Invoker Heart", "Iron Assets", "Item Grab Bag I", "It Pays to Learn I", "Jeweled Lotus I",
+     "Job's Done", "Juggernaut Heart", "Knowledge Download I", "Lategame Specialist", "Latent Forge",
+     "Missed Connections", "Money!", "On a Roll", "One Twos Three", "One, Two, Five!", "Pandora's Bench",
+     "Pandora's Items", "Partial Ascension", "Pumping Up I", "Recombobulator", "Red Buff", "Risky Moves",
+     "Rogue Heart", "Rolling for Days I", "Silver Spoon", "Slayer Heart", "Small Forge", "Social Distancing I",
+     "Sorcerer Heart", "Spoils of War I", "Tiny Grab Bag", "Tiny Titans", "Tiny Power I", "Transfusion I",
+     "Training Reward I", "Transfusion I", "Unburdened I", "Unified Resistance I", "Well-Earned Comforts I",
+     "Young and Wild and Free", "Zaun Heart"}
+
+ALL_GOLD_AUGMENTS: set[str] = \
+    {"A Cut Above", "Adrenaline Rush", "All Natural II", "All That Shimmers", "Ancient Archives I", "Ascension",
+     "Balanced Budget II", "Bastion Crest", "Battle Ready II", "Big Grab Bag", "Bruiser Crest", "Built Different II",
+     "Buried Treasures II", "Capricious Forge", "Caretaker's Favor", "Challenger Crest", "Chemtech Enhancements",
+     "Combat Caster", "Contagion", "Cybernetic Bulk II", "Cybernetic Leech II", "Dedication", "Defensive Dash",
+     "Demacia Crest", "Demonflare", "Double Trouble II", "Dueling Gunners", "Early Education", "Endurance Training",
+     "Escort Quest", "Final Grab Bag II", "Freljord Heart", "Frequent Flier", "Gargantuan Resolve",
+     "Gifts from the Fallen", "Glacial Breeze", "Gotta Go Fast!!! II", "Gunner Crest", "Harmacist II",
+     "Haunted Shell", "Healing Orbs II", "Hustler", "Idealism", "Indomitable Will", "Infusion", "Invoker Crest",
+     "Ionia Crest", "Item Grab Bag II", "It Pays to Learn II", "Jeweled Lotus II"  "Job Well Done",
+     "Juggernaut Crest", "Knowledge Download II", "Know Your Enemy", "Last Stand", "Library Card",
+     "Long Distance Pals II", "Loving Invocation", "Magic Wand", "Mana Burn", "Martyr", "Medium Forge",
+     "Metabolic Accelerator", "Money Money!", "Morning Light", "Not Today", "Noxus Crest", "Overcharged Manafont",
+     "Pandora's Items II", "Parting Gifts", "Patient Study"  "Perfected Repetition", "Petricite Shackles",
+     "Piltover Heart", "Portable Forge", "Pumping Up II", "Return on Investment", "Ravenous Hunter",
+     "Rich Get Richer", "Rich Get Richer+", "Riftwalk", "Rogue Crest", "Rolling for Days II", "Salvage Bin",
+     "Salvage Bin+", "Scoped Weapons I", "Scrappy Inventions", "Sentinel's Spirit", "Shimmering Inventors",
+     "Shoplifting", "Shurima Crest", "Shurima's Legacy", "Silver Ticket", "Slayer Crest", "Slayer's Resolve",
+     "Sleight of Hand", "Social Distancing II", "Sorcerer Crest", "Spoils of War II", "Stable Evolution",
+     "Stars are Born", "Stellacorn's Blessing", "Strategist Heart", "Suppressing Fire", "Tactical Superiority",
+     "Targon Heart", "The Boss", "Three's a Crowd", "Three's Company", "Tiny Power II", "Titanic Strength",
+     "Tons of Stats!", "Total Domination", "Trade Sector", "Training Reward II", "Transfusion II", "Two Healthy",
+     "Unburdened II", "Unified Resistance II", "Unstable Yordle Delivery", "Vampiric Blades", "Void Heart",
+     "Well-Earned Comforts II", "What Doesn't Kill You", "Winds of War", "You Have My Bow", "You Have My Sword",
+     "Zaun Crest"}
+
+ALL_PRISMATIC_AUGMENTS: set[str] = \
+    {"Ancient Archives II", "Balanced Budget III", "Bastion Crown", "Battle Ready III", "Binary Airdrop",
+     "Birthday Present", "Blinding Speed", "Bruiser Crown", "Built Different III", "Buried Treasures III",
+     "Caretaker's Chosen", "Challenger Crown", "Cruel Pact", "Cursed Crown", "Cybernetic Bulk III",
+     "Cybernetic Leech III", "Demacia Crown", "Double Trouble III", "Endless Horde", "Endless Horde+",
+     "Final Ascension", "Final Reserves", "Freljord Soul", "Giant Grab Bag", "Gifts From Above", "Golden Ticket",
+     "Gotta Go Fast!!! III", "Gunner Crown", "Harmacist III", "Hedge Fund", "Hedge Fund+", "Hedge Fund++",
+     "High End Sector", "Impenetrable Bulwark", "Infernal Contract", "Invoker Crown", "Ionia Crown",
+     "Item Grab Bag III", "It Pays to Learn III", "Jeweled Lotus III", "Juggernaut Crown", "Knowledge Download III",
+     "Large Forge", "Level Up!", "Living Forge", "Lucky Gloves", "March of Progress", "Masterful Job",
+     "Money Money Money!", "Multicaster Soul", "Noxus Crown", "Overwhelming Force", "Pandora's Box",
+     "Parting Gifts", "Phreaky Friday", "Phreaky Friday+", "Piltover Soul", "Pumping Up III", "Radiant Relics",
+     "Rogue Crown", "Rolling for Days III", "Roll The Dice", "Seeing Double III", "Shopping Spree",
+     "Shurima Crown", "Slayer Crown", "Social Distancing III", "Sorcerer Crown", "Spoils of War III",
+     "Starter Kit", "Strategist Soul", "Tactician's Tools", "Targon Soul", "The Golden Egg", "Think Fast",
+     "Tiniest Titan", "Tiny Power III", "Training Reward III", "Transfusion III", "Unleashed Arcana",
+     "Urf's Grab Bag", "Void Soul", "Wandering Trainer", "Well-Earned Comforts III", "Wellness Trust",
+     "What The Forge", "Zaun Crown"}
+
+ALL_AUGMENTS = ALL_SILVER_AUGMENTS.union(ALL_GOLD_AUGMENTS).union(ALL_PRISMATIC_AUGMENTS)
 
 def champion_board_size(champion: str) -> int:
     """Takes a string (champion name) and returns board size of champion"""
