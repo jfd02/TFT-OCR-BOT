@@ -119,9 +119,45 @@ COMP = {
         "max_amount_of_items": 3,
         "final_comp": True
     },
+    "Swain": {
+        "board_position": 21,
+        "items_to_build": ["Redemption", "DragonsClaw", "BrambleVest", "IonicSpark"],
+        "completed_items_to_accept": ["GargoyleStoneplate", "IonicSpark", "SunfireCape"],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
+    },
     "Kassadin": {
         "board_position": 21,
         "items_to_build": ["Bloodthirster", "TitansResolve"],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
+    },
+    "Warwick": {
+        "board_position": 26,
+        "items_to_build": ["Bloodthirster", "TitansResolve"],
+        "completed_items_to_accept": [],
+        "support_items_to_accept": [],
+        "trait_items_to_accept": [],
+        "ornn_items_to_accept": [],
+        "zaun_items_to_accept": [],
+        "level": 2,
+        "max_amount_of_items": 3,
+        "final_comp": False
+    },
+    "Sett": {
+        "board_position": 19,
+        "items_to_build": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -155,6 +191,7 @@ SECONDARY_AUGMENTS: list[str] = [
     "Pandora's Items I",
     "Tiny Power I",
 
+    "Ancient Archives I",
     "Ascension",
     "Balanced Budget II",
     "Battle Ready II",
@@ -166,6 +203,7 @@ SECONDARY_AUGMENTS: list[str] = [
     "Pumping Up II",
     "Tiny Power II",
     "Unified Resistance II",
+    "What Doesn't Kill You",
     "You Have My Bow",
 
     "Battle Ready III",
