@@ -604,7 +604,7 @@ class Arena:
         augments: list = []
         for coords in screen_coords.AUGMENT_POS:
             augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
-            augments.append(augment)
+            augments.append(arena_functions.get_valid_augment(augment))
         print("  Augments to Choose From:")
         print(f"      {augments}")
         for augment in augments:

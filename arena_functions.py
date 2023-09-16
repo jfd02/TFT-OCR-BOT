@@ -478,3 +478,15 @@ def was_moving_unit_successful(destination: tuple) -> bool:
         return True
     else:
         return False
+
+
+def get_valid_augment(augment_name: str) -> str:
+    """Matches champion string to a valid champion name string and returns it"""
+    if augment_name in game_assets.ALL_AUGMENTS:
+        return augment_name
+    for augment in game_assets.ALL_AUGMENTS:
+        if SequenceMatcher(a=augment, b=augment_name).ratio() >= 0.7:
+            return augment
+    if augment_name is not None and len(augment_name) > 0:
+        print(f"  [!] The augment_name {augment_name} did not match any unit in game_assets.ALL_AUGMENTS!")
+    return ""
