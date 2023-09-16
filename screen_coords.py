@@ -316,3 +316,6 @@ CHOOSE_FROM_TOME_OF_TRAITS_SHOP_LOC: list[Vec2] = [
     Vec2(994, 974),
     Vec2(1234, 974)
 ]
+
+# When an Armory opens up, the text "Choose One" is displayed with a timer.
+CHOOSE_ONE_TEXT_POS: Vec4 = Vec4(GameWindow(812, 836, 938, 856))
