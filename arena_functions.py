@@ -56,10 +56,13 @@ def get_valid_champ(champ_name: str) -> str:
         if SequenceMatcher(a=champion, b=champ_name).ratio() >= 0.7:
             return champion
     if champ_name is not None and len(champ_name) > 0:
-        print(f"  [!] The champ_name {champ_name} did not match any unit in game_assets.CHAMPIONS!")
+        #print(f"  [!] The champ_name {champ_name} did not match any unit in game_assets.CHAMPIONS!")
+        return ""
 
 
 def is_valid_champ(champ_name: str) -> bool:
+    if champ_name == "":
+        return False
     if champ_name in game_assets.CHAMPIONS:
         print(f"       Confirmed that {champ_name} is a valid champ.")
         return True
