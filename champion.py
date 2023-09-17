@@ -14,7 +14,7 @@ class Champion:
     # TODO: make some of these have default parameters
     def __init__(self, name: str, coords: tuple, item_slots_filled: int, build: list[str], build2: list[str],
                  ornn_items: list[str], support_items: list[str], trait_items: list[str], zaun_items: list[str],
-                 slot: int, size: int, final_comp: bool) -> None:
+                 slot: int | None, size: int, final_comp: bool) -> None:
         # The units name.
         self.name: str = name
         # Where the unit is located on the bench or board in Vec2 coordinates.
@@ -35,7 +35,7 @@ class Champion:
         # The Trait items this unit would like.
         self.zaun_items_will_accept: list[str] = zaun_items
         # The position on the board where the unit is designated in comps.py to be placed.
-        self.index: int = slot
+        self.index: int | None = slot
         # The 'amount of units' this unit counts as, because sometimes a unit counts as 2 of your total possible units.
         self.size: int = size
         # The list of every item the unit has.

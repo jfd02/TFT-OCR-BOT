@@ -147,7 +147,12 @@ class Arena:
         # Might accidentally replace an unwanted unit with this one.
         else:
             print("      Selecting a random board space because the unit isn't in our comp.")
-            board_position = random.choice(self.board_slots_for_non_comp_units)
+            while True:
+                board_position = random.choice(self.board_slots_for_non_comp_units)
+                if self.board[board_position] is None:
+                    break
+                else:
+                    print("    Almost moved a unit to a random board space with another unit on it.")
         destination: tuple = screen_coords.BOARD_LOC[board_position].get_coords()
         arena_functions.move_unit(champion.coords, destination)
         successful_move = True  # arena_functions.was_moving_unit_successful(destination)
