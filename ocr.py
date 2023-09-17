@@ -9,7 +9,7 @@ from PIL import ImageGrab
 from tesserocr import PyTessBaseAPI
 import settings
 
-tessdata_path = settings.TESSERACT_TESSDATA_PATH
+TESSDATA_PATH = settings.TESSERACT_TESSDATA_PATH
 
 ALPHABET_WHITELIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 ROUND_WHITELIST = "0123456789-"
@@ -45,7 +45,7 @@ def get_text(screenxy: tuple, scale: int, psm: int, whitelist: str = "") -> str:
     array = image_array(resize)
     grayscale = image_grayscale(array)
     thresholding = image_thresholding(grayscale)
-    with PyTessBaseAPI(path=tessdata_path) as api:
+    with PyTessBaseAPI(path=TESSDATA_PATH) as api:
         api.SetVariable("tessedit_char_whitelist", whitelist)
         api.SetPageSegMode(psm)
         api.SetImageBytes(thresholding.tobytes(),thresholding.shape[1], thresholding.shape[0],1,thresholding.shape[1])
@@ -59,7 +59,7 @@ def get_text_from_image(image: ImageGrab.Image, whitelist: str = "") -> str:
     array = image_array(resize)
     grayscale = image_grayscale(array)
     thresholding = image_thresholding(grayscale)
-    with PyTessBaseAPI(path=tessdata_path) as api:
+    with PyTessBaseAPI(path=TESSDATA_PATH) as api:
         api.SetVariable("tessedit_char_whitelist", whitelist)
         api.SetPageSegMode(7)
         api.SetImageBytes(thresholding.tobytes(),thresholding.shape[1], thresholding.shape[0],1,thresholding.shape[1])
