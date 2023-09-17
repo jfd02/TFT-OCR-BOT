@@ -4,8 +4,8 @@ Screen coords for 1920x1080 screens
 (x, y, x+w, y+h) for Vec4 locations, (x, y) for Vec2 locations
 """
 
-from vec4 import Vec4, GameWindow
 from vec2 import Vec2
+from vec4 import GameWindow, Vec4
 
 BENCH_HEALTH_POS: list[Vec4] = [
     Vec4(GameWindow(369, 622, 472, 757)),
@@ -47,8 +47,6 @@ CHAMP_NAME_POS: list[Vec4] = [
     Vec4(GameWindow(608, 5, 712, 24), use_screen_offset=False),
     Vec4(GameWindow(808, 5, 912, 24), use_screen_offset=False),
 ]
-
-
 
 
 GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))

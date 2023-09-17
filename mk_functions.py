@@ -3,6 +3,7 @@ Handles sending input to the game, coords contain a cartesian ordered pair (x, y
 """
 
 import random
+
 import pydirectinput
 
 
@@ -48,13 +49,16 @@ def press_esc() -> None:
     """Presses escape key"""
     pydirectinput.press("esc")
 
+
 def press_enter() -> None:
     """Presses enter key"""
     pydirectinput.press("enter")
 
+
 def press_slash() -> None:
     """Presses slash key"""
     pydirectinput.press("/")
+
 
 def press_f() -> None:
     """Presses f key"""

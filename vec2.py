@@ -23,8 +23,10 @@ class Vec2:
         y_pos = self.y_pos * Vec2.screen_y_scale
 
         if self.use_screen_offset:
-            return (round(x_pos + Vec2.screen_x_offset),
-                    round(y_pos + Vec2.screen_y_offset))
+            return (
+                round(x_pos + Vec2.screen_x_offset),
+                round(y_pos + Vec2.screen_y_offset),
+            )
 
         return (round(x_pos), round(y_pos))
 

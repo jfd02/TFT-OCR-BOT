@@ -8,7 +8,9 @@ class Champion:
 
     # pylint: disable=too-many-instance-attributes,too-few-public-methods,too-many-arguments
 
-    def __init__(self, name: str, coords: tuple, build, slot: int, size: int, final_comp: bool) -> None:
+    def __init__(
+        self, name: str, coords: tuple, build, slot: int, size: int, final_comp: bool
+    ) -> None:
         self.name: str = name
         self.coords: tuple = coords
         self.build = build
@@ -20,4 +22,7 @@ class Champion:
 
     def does_need_items(self) -> bool:
         """Returns if the champion instance needs items"""
-        return len(self.completed_items) != 3 or len(self.build) + len(self.current_building) == 0
+        return (
+            len(self.completed_items) != 3
+            or len(self.build) + len(self.current_building) == 0
+        )

@@ -16,7 +16,6 @@ from bs4 import BeautifulSoup
 
 from comps import CompsManager
 
-
 LOLCHESS_CHAMPIONS_URL = "https://lolchess.gg/champions/"
 LOLCHESS_META_COMPS_URL = "https://lolchess.gg/meta"
 DRAGON_URL = "https://raw.communitydragon.org/latest/cdragon/tft/en_us.json"
@@ -157,16 +156,27 @@ def __LoadLolChessComps(
         for each_slot in deck_slots.get("teamBuilder", {}).get("slots", []):
             if each_slot is not None:
                 try:
-                    champion_name = list(
-                        filter(
-                            lambda e: e["key"] == each_slot.get("champion"),
-                            query_data.get("champions"),
-                        ),
-                    )[0]["name"].replace("BelVeth", "Bel'Veth").replace("Ryze: BandleCity", "Ryze").replace(
-                        "Ryze: Demacia", "Ryze").replace("Ryze: Freljord", "Ryze").replace(
-                        "Ryze: Ionia", "Ryze").replace("Ryze: Noxus", "Ryze").replace(
-                        "Ryze: Piltover", "Ryze").replace("Ryze: ShadowIsles", "Ryze").replace(
-                        "Ryze: Shurima", "Ryze").replace("Ryze: Targon", "Ryze").replace("Ryze: Zaun", "Ryze")
+                    champion_name = (
+                        list(
+                            filter(
+                                lambda e: e["key"] == each_slot.get("champion"),
+                                query_data.get("champions"),
+                            ),
+                        )[0]["name"]
+                        .replace("BelVeth", "Bel'Veth")
+                        .replace("Ryze: Bilgewater", "Ryze")
+                        .replace("Ryze: Ixtal", "Ryze")
+                        .replace("Ryze: BandleCity", "Ryze")
+                        .replace("Ryze: Demacia", "Ryze")
+                        .replace("Ryze: Freljord", "Ryze")
+                        .replace("Ryze: Ionia", "Ryze")
+                        .replace("Ryze: Noxus", "Ryze")
+                        .replace("Ryze: Piltover", "Ryze")
+                        .replace("Ryze: ShadowIsles", "Ryze")
+                        .replace("Ryze: Shurima", "Ryze")
+                        .replace("Ryze: Targon", "Ryze")
+                        .replace("Ryze: Zaun", "Ryze")
+                    )
                     star = each_slot.get("star", [])
                 except Exception:
                     continue
@@ -188,7 +198,9 @@ def __LoadLolChessComps(
 
 def render_item(ob: list, ids: list) -> list:
     items = list(filter(lambda e: e["key"] in ids, ob))
-    return [i["name"].replace(" ", "").replace("'", "").replace("\u2019", "") for i in items]
+    return [
+        i["name"].replace(" ", "").replace("'", "").replace("\u2019", "") for i in items
+    ]
 
 
 def __LoadCommunityDragon() -> dict:

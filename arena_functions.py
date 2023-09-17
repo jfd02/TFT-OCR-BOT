@@ -2,25 +2,31 @@
 Functions used by the Arena class to get game data
 """
 
-from time import sleep
-from difflib import SequenceMatcher
 import threading
-from PIL import ImageGrab
+from difflib import SequenceMatcher
+from time import sleep
+
 import numpy as np
 import requests
-import screen_coords
-import ocr
+from PIL import ImageGrab
+
 import game_assets
 import mk_functions
-from vec4 import Vec4
+import ocr
+import screen_coords
 from comps import CompsManager
+from vec4 import Vec4
+
 
 def get_level() -> int:
     """Returns the level for the tactician"""
     try:
         response = requests.get(
-            'https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
-        return int(response.json()['activePlayer']['level'])
+            "https://127.0.0.1:2999/liveclientdata/allgamedata",
+            timeout=10,
+            verify=False,
+        )
+        return int(response.json()["activePlayer"]["level"])
     except (requests.exceptions.ConnectionError, KeyError):
         return 1
 
@@ -29,22 +35,30 @@ def get_health() -> int:
     """Returns the health for the tactician"""
     try:
         response = requests.get(
-            'https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
-        return int(response.json()['activePlayer']['championStats']["currentHealth"])
+            "https://127.0.0.1:2999/liveclientdata/allgamedata",
+            timeout=10,
+            verify=False,
+        )
+        return int(response.json()["activePlayer"]["championStats"]["currentHealth"])
     except (requests.exceptions.ConnectionError, KeyError):
         return 100
 
 
 def get_gold() -> int:
     """Returns the gold for the tactician"""
-    gold: str = ocr.get_text(screenxy=screen_coords.GOLD_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    gold: str = ocr.get_text(
+        screenxy=screen_coords.GOLD_POS.get_coords(),
+        scale=3,
+        psm=7,
+        whitelist="0123456789",
+    )
     try:
         return int(gold)
     except ValueError:
         return 0
 
 
-def valid_champ(champ: str, comps : CompsManager) -> str:
+def valid_champ(champ: str, comps: CompsManager) -> str:
     """Matches champion string to a valid champion name string and returns it"""
     if champ in comps.champions:
         return champ
@@ -58,19 +72,29 @@ def valid_champ(champ: str, comps : CompsManager) -> str:
         "",
     )
 
-def get_champ(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, shop_array: list, comps : CompsManager) -> str:
+
+def get_champ(
+    screen_capture: ImageGrab.Image,
+    name_pos: Vec4,
+    shop_pos: int,
+    shop_array: list,
+    comps: CompsManager,
+) -> str:
     """Returns a tuple containing the shop position and champion name"""
     champ: str = screen_capture.crop(name_pos.get_coords())
     champ: str = ocr.get_text_from_image(image=champ, whitelist="")
     shop_array.append((shop_pos, valid_champ(champ, comps)))
 
-def get_shop(comps : CompsManager) -> list:
+
+def get_shop(comps: CompsManager) -> list:
     """Returns the list of champions in the shop"""
     screen_capture = ImageGrab.grab(bbox=screen_coords.SHOP_POS.get_coords())
     shop: list = []
     thread_list: list = []
     for shop_index, name_pos in enumerate(screen_coords.CHAMP_NAME_POS):
-        thread = threading.Thread(target=get_champ, args=(screen_capture, name_pos, shop_index, shop, comps))
+        thread = threading.Thread(
+            target=get_champ, args=(screen_capture, name_pos, shop_index, shop, comps)
+        )
         thread_list.append(thread)
     for thread in thread_list:
         thread.start()
@@ -121,8 +145,12 @@ def get_items() -> list:
     for positions in screen_coords.ITEM_POS:
         mk_functions.move_mouse(positions[0].get_coords())
         sleep(0.1)
-        item: str = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=13,
-                            whitelist=ocr.ALPHABET_WHITELIST)
+        item: str = ocr.get_text(
+            screenxy=positions[1].get_coords(),
+            scale=3,
+            psm=13,
+            whitelist=ocr.ALPHABET_WHITELIST,
+        )
         item_bench.append(valid_item(item))
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
     return item_bench

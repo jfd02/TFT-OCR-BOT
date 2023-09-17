@@ -2,11 +2,13 @@
 Handles getting into a game
 """
 
-from time import sleep
 import json
-from requests.auth import HTTPBasicAuth
+from time import sleep
+
 import requests
 import urllib3
+from requests.auth import HTTPBasicAuth
+
 import settings
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -20,7 +22,7 @@ def create_lobby(client_info: tuple) -> bool:
         status = requests.post(
             f"{client_info[1]}/lol-lobby/v2/lobby/",
             payload,
-            auth=HTTPBasicAuth('riot', client_info[0]),
+            auth=HTTPBasicAuth("riot", client_info[0]),
             timeout=10,
             verify=False,
         )
@@ -37,7 +39,7 @@ def start_queue(client_info: tuple) -> bool:
     try:
         status = requests.post(
             f"{client_info[1]}/lol-lobby/v2/lobby/matchmaking/search",
-            auth=HTTPBasicAuth('riot', client_info[0]),
+            auth=HTTPBasicAuth("riot", client_info[0]),
             timeout=10,
             verify=False,
         )
@@ -54,11 +56,11 @@ def check_queue(client_info: tuple) -> bool:
     try:
         status = requests.get(
             f"{client_info[1]}/lol-lobby/v2/lobby/matchmaking/search-state",
-            auth=HTTPBasicAuth('riot', client_info[0]),
+            auth=HTTPBasicAuth("riot", client_info[0]),
             timeout=10,
             verify=False,
         )
-        return status.json()['searchState'] == 'Searching'
+        return status.json()["searchState"] == "Searching"
     except ConnectionError:
         return False
 
@@ -68,7 +70,7 @@ def check_game_status(client_info: tuple) -> bool:
     try:
         status = requests.get(
             f"{client_info[1]}/lol-gameflow/v1/session",
-            auth=HTTPBasicAuth('riot', client_info[0]),
+            auth=HTTPBasicAuth("riot", client_info[0]),
             timeout=10,
             verify=False,
         )
@@ -81,7 +83,7 @@ def accept_queue(client_info: tuple) -> bool:
     """Accepts the queue"""
     requests.post(
         f"{client_info[1]}/lol-matchmaking/v1/ready-check/accept",
-        auth=HTTPBasicAuth('riot', client_info[0]),
+        auth=HTTPBasicAuth("riot", client_info[0]),
         timeout=10,
         verify=False,
     )
@@ -92,7 +94,7 @@ def change_arena_skin(client_info: tuple) -> bool:
     try:
         status = requests.delete(
             f"{client_info[1]}/lol-cosmetics/v1/selection/tft-map-skin",
-            auth=HTTPBasicAuth('riot', client_info[0]),
+            auth=HTTPBasicAuth("riot", client_info[0]),
             timeout=10,
             verify=False,
         )

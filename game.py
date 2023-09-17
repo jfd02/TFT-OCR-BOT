@@ -2,24 +2,29 @@
 Handles tasks that happen each game round
 """
 
-from datetime import datetime
-from time import sleep, perf_counter
-import random
 import multiprocessing
+import random
+from datetime import datetime
+from time import perf_counter, sleep
+
 import win32gui
-import settings
+
+import arena_functions
 import game_assets
 import game_functions
-import arena_functions
+import settings
 from arena import Arena
-from vec4 import Vec4
-from vec2 import Vec2
 from comps import CompsManager
+from vec2 import Vec2
+from vec4 import Vec4
+
 
 class Game:
     """Game class that handles game logic such as round tasks"""
 
-    def __init__(self, message_queue: multiprocessing.Queue, comps : CompsManager) -> None:
+    def __init__(
+        self, message_queue: multiprocessing.Queue, comps: CompsManager
+    ) -> None:
         self.message_queue = message_queue
         self.comps_manager = comps
         self.arena = Arena(self.message_queue, comps)
@@ -81,7 +86,9 @@ class Game:
                 return
 
             if self.round != ran_round:
-                print(f"\n[Comps] Stick to [{','.join(self.comps_manager.CURRENT_COMP()[1])}] ")
+                print(
+                    f"\n[Comps] Stick to [{','.join(self.comps_manager.CURRENT_COMP()[1])}] "
+                )
                 if self.round in game_assets.PORTAL_ROUND:
                     self.portal_round()
                     game_functions.default_pos()
@@ -150,11 +157,11 @@ class Game:
                 # Can't purchase champions for a short period after choosing augment
             sleep(2)
             self.arena.augment_roll = True
-        
+
         if self.round == "1-3":
             sleep(1.5)
             self.arena.fix_unknown()
-            #self.arena.tacticians_crown_check()
+            # self.arena.tacticians_crown_check()
 
         self.arena.fix_bench_state()
         self.arena.spend_gold()
@@ -188,29 +195,37 @@ class Game:
             """Level to 5 at 2-5"""
             while arena_functions.get_level() < 5:
                 self.arena.buy_xp_round()
-                if (datetime.now() - start_time).total_seconds() > 2: # check seconds passed
-                    break # break out of loop if stuck
+                if (
+                    datetime.now() - start_time
+                ).total_seconds() > 2:  # check seconds passed
+                    break  # break out of loop if stuck
             print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in ("3-2"):
             """Level to 6 at 3-2"""
             while arena_functions.get_level() < 6:
                 self.arena.buy_xp_round()
-                if (datetime.now() - start_time).total_seconds() > 2: # check seconds passed
-                    break # break out of loop if stuck
+                if (
+                    datetime.now() - start_time
+                ).total_seconds() > 2:  # check seconds passed
+                    break  # break out of loop if stuck
             print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in ("4-1"):
             """Level to 7 at 4-1"""
             while arena_functions.get_level() < 7:
                 self.arena.buy_xp_round()
-                if (datetime.now() - start_time).total_seconds() > 2: # check seconds passed
-                    break # break out of loop if stuck
+                if (
+                    datetime.now() - start_time
+                ).total_seconds() > 2:  # check seconds passed
+                    break  # break out of loop if stuck
             print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in ("5-1"):
             """Level to 8 at 5-1"""
             while arena_functions.get_level() < 8:
                 self.arena.buy_xp_round()
-                if (datetime.now() - start_time).total_seconds() > 2: # check seconds passed
-                    break # break out of loop if stuck
+                if (
+                    datetime.now() - start_time
+                ).total_seconds() > 2:  # check seconds passed
+                    break  # break out of loop if stuck
             print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items")
@@ -222,7 +237,6 @@ class Game:
                 self.arena.region_augment_pickup()
                 sleep(2)
                 self.arena.board_size -= 1
-
 
         self.arena.fix_bench_state()
         self.arena.bench_cleanup()

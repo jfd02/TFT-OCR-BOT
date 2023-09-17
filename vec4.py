@@ -43,10 +43,12 @@ class Vec4:
         height: int = self.height * Vec4.screen_y_scale
 
         if self.use_screen_offset:
-            return (round(x_pos + Vec4.screen_x_offset),
-                    round(y_pos + Vec4.screen_y_offset),
-                    round(width + Vec4.screen_x_offset),
-                    round(height + Vec4.screen_y_offset))
+            return (
+                round(x_pos + Vec4.screen_x_offset),
+                round(y_pos + Vec4.screen_y_offset),
+                round(width + Vec4.screen_x_offset),
+                round(height + Vec4.screen_y_offset),
+            )
 
         return (round(x_pos), round(y_pos), round(width), round(height))
 
