@@ -103,7 +103,7 @@ def get_champ_carousel(tft_round: str) -> None:
     """Gets a champion from the carousel"""
     while tft_round == get_round():
         mk_functions.right_click(screen_coords.CAROUSEL_LOC.get_coords())
-        sleep(0.7)
+        sleep(1.0)
 
 
 def check_alive() -> bool:  # Refactor this function to use API

@@ -28,7 +28,7 @@ class Arena:
         # The comp the bot will play.
         self.comp_to_play = game_functions.pick_a_random_comp_to_play()
         # How many slots for units we can have on the board. (Set 6 Colossus units could take up to 2 slots)
-        self.board_size = 1
+        self.board_size = 0
         # The max amount of slot for units that we can have. Can increase from augments or items.
         self.max_board_size = 1
         # A list representing each location on the bench.
@@ -86,6 +86,8 @@ class Arena:
         for index, boolean in enumerate(units_on_board_found_from_health):
             if boolean and arena_functions.empty_bench_slot() != -1:
                 mk_functions.press_w(screen_coords.BOARD_LOC[index].get_coords())
+                # Will turn into a bug if we ever have units that take up 2 board spaces again.
+                self.set_board_size(self.board_size - 1)
             if boolean and arena_functions.empty_bench_slot() == -1:
                 print("    Oh no! We have an unknown unit that we can't move to the board.")
 
@@ -632,7 +634,7 @@ class Arena:
         print(f"      {augments}")
         for augment in augments:
             if augment in self.comp_to_play.primary_augments:
-                print(f"  Choosing Primary augment:")
+                print(f"  Choosing Primary Augment:")
                 print(f"    Augment: {augment}")
                 mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                 self.augments.append(augment)
@@ -1162,7 +1164,6 @@ class Arena:
             else:  # make sure for items that need duplicate component items, this doesn't count one component twice
                 copy_of_owned_items.remove(item)
         return True
-
 
     def get_bis_item_that_is_possible_to_combine_from_components(self, unit: Champion) -> str | None:
         """Searches through the unit's BIS items it wants to build and returns the complete BIS item
