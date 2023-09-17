@@ -138,9 +138,7 @@ class Game:
         print(f"\n\n[Second Round] {self.round}")
         self.print_arena_values()
         self.message_queue.put("CLEAR")
-        # use this instead of fix_bench so that we don't sell units the first round.
-        self.arena.identify_champions_on_bench()
-        self.arena.move_champions()
+        self.arena.set_board_size(self.arena.board_size + 1)
         self.end_round_tasks()
 
     def third_round(self) -> None:
@@ -152,6 +150,7 @@ class Game:
         self.message_queue.put("CLEAR")
         sleep(2)
         self.arena.move_unknown_units_to_bench()
+        # Picking up item orbs takes too long for this round.
         self.arena.fix_bench_state()
         self.arena.move_champions()
         self.end_round_tasks()
@@ -202,6 +201,7 @@ class Game:
         elif self.round in game_assets.FOURTH_ROUND:
             self.arena.increase_level()
             self.arena.increase_max_board_size()
+            game_functions.pick_up_items_holding_down_right_click()
 
         # Have this happen after the augment selection.
         self.arena.identify_champions_on_board()
