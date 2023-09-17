@@ -34,8 +34,7 @@ class Arena:
         # A list representing each location on the bench.
         self.bench: list[Champion | None] = [None, None, None, None, None, None, None, None, None]
         # All the spaces of the board. Can be an instance of a Champion or None.
-        # TODO: Create with a default size? Or use a dict?
-        self.board: list[Champion] = []
+        self.board: list[Champion | None] = [None] * 28
         # All the spaces on the board that have a unit, but we don't know what that unit is.
         self.board_unknown: list = []
         # All the non-Champion units and the board spaces they occupy. Should be a list of tuple(str, int).
@@ -77,12 +76,13 @@ class Arena:
         if len(units_on_board_found_from_health) == 0:
             print("    No unknown units were found.")
         for unit in self.board:
-            print(f"    Unit: {unit} and Unit.Index: {unit.index}")
-            if units_on_board_found_from_health[unit.index] == False:
-                print(f"    We failed to find a unit at index: {unit.index}!")
-            else:
-                print(f"    We know there is a unit at index: {unit.index}. Changing the units_on_board_found to False for that index.")
-                units_on_board_found_from_health[unit.index] = False
+            if isinstance(unit, Champion):
+                print(f"    Unit: {unit} and Unit.Index: {unit.index}")
+                if units_on_board_found_from_health[unit.index] == False:
+                    print(f"    We failed to find a unit at index: {unit.index}!")
+                else:
+                    print(f"    We know there is a unit at index: {unit.index}. Changing the units_on_board_found to False for that index.")
+                    units_on_board_found_from_health[unit.index] = False
         for index, boolean in enumerate(units_on_board_found_from_health):
             if boolean and arena_functions.empty_bench_slot() != -1:
                 mk_functions.press_w(screen_coords.BOARD_LOC[index].get_coords())
@@ -153,7 +153,7 @@ class Arena:
         successful_move = True  # arena_functions.was_moving_unit_successful(destination)
         if successful_move:
             champion.coords = destination
-            self.board.append(champion)
+            self.board[champion.index] = champion
             self.board_names.append(champion.name)
             # TODO: I wrote this before I created champion.coords so this might be able to go away.
             if champion.index >= len(self.bench):
@@ -265,7 +265,7 @@ class Arena:
                 if unit.name not in self.comp_to_play.comp and champion.name in self.comp_to_play.comp:
                     print(f"    Replacing {unit.name} with {champion.name} because {unit.name} is not in our comp.")
                     mk_functions.press_e(unit.coords)
-                    self.board.remove(unit)
+                    self.board[unit.index] = None
                     self.board_names.remove(unit.name)
                     self.set_board_size(self.board_size - unit.size)
                     self.move_known(champion)
@@ -368,9 +368,10 @@ class Arena:
     def add_item_to_champs(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
         for champ in self.board:
-            if champ.does_need_items() and self.items[item_index] is not None:
-                # print(f"      {champ.name} needs items.", end=" ")
-                self.add_item_to_champ(item_index, champ)
+            if isinstance(champ, Champion):
+                if champ.does_need_items() and self.items[item_index] is not None:
+                    # print(f"      {champ.name} needs items.", end=" ")
+                    self.add_item_to_champ(item_index, champ)
         # print("")
 
     # Pretty much deprecated. Use Arena.give_items_to_units() instead
@@ -469,8 +470,9 @@ class Arena:
     def add_item_to_champs_before_dying(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
         for champ in self.board:
-            if champ.does_need_items() and self.items[item_index] is not None:
-                self.add_item_before_dying(item_index, champ)
+            if isinstance(champ, Champion):
+                if champ.does_need_items() and self.items[item_index] is not None:
+                    self.add_item_before_dying(item_index, champ)
         return
 
     # Pretty much deprecated. Use arena.add_random_items_on_strongest_units_at_one_loss_left() instead.
@@ -534,9 +536,10 @@ class Arena:
         if champion.name in self.board_names:
             self.board_names.remove(champion.name)
         if champion in self.board:
-            self.set_board_size(self.board_size - champion.size)
-            self.board.remove(champion)
-        if champion in self.board and champion.name not in self.board_names:
+            if isinstance(champion, Champion):
+                self.set_board_size(self.board_size - champion.size)
+                self.board[champion.index] = None
+        if champion in self.board and isinstance(champion, Champion) and champion.name not in self.board_names:
             print(AnsiColors.RED_REGULAR + f"      [!] Unit {champion} is registered as in self.board, "
                                            f"but its name is not registered as in self.board_names." + AnsiColors.RESET)
         return
@@ -550,12 +553,13 @@ class Arena:
                     and slot.name not in self.board_names
             ):
                 for champion in self.board:
-                    if not champion.final_comp and champion.size == slot.size:
-                        print(f"  Replacing non-final-comp {champion.name} with {slot.name}")
-                        self.remove_champion(champion)
-                        champion.print_all_class_variables()
-                        self.move_known(slot)
-                        break
+                    if isinstance(champion, Champion):
+                        if not champion.final_comp and champion.size == slot.size:
+                            print(f"  Replacing non-final-comp {champion.name} with {slot.name}")
+                            self.remove_champion(champion)
+                            champion.print_all_class_variables()
+                            self.move_known(slot)
+                            break
         return
 
     def spend_gold(self) -> None:
@@ -772,9 +776,10 @@ class Arena:
         health: int = arena_functions.get_health()
         if health <= 30:
             for champ in self.board:
-                if len(champ.build) == 0:
-                    if self.add_thiefs_gloves_to_champ(champ):
-                        return True
+                if isinstance(champ, Champion):
+                    if len(champ.build) == 0:
+                        if self.add_thiefs_gloves_to_champ(champ):
+                            return True
         return False
 
     def check_if_we_should_spam_items_before_dying(self, index: int) -> bool:
@@ -798,9 +803,10 @@ class Arena:
     def get_random_final_comp_champ_on_board_with_no_build(self) -> Champion | None:
         print("    Looking for a random champ that we don't want to build items.")
         for champ in self.board:
-            if len(champ.build) == 0:
-                print(f"      {champ.name} is a unit that we haven't specified items for.")
-                return champ
+            if isinstance(champ, Champion):
+                if len(champ.build) == 0:
+                    print(f"      {champ.name} is a unit that we haven't specified items for.")
+                    return champ
         return None
 
     def identify_champions_on_board(self):
@@ -815,7 +821,7 @@ class Arena:
                 if isinstance(unit, Champion):
                     if not arena_functions.identify_one_champion_on_the_board(unit):
                         print(f"         Was not able to confirm that {unit.name} is still on the board.")
-                        self.board.remove(unit)
+                        self.board[unit.index] = unit
                         self.board_names.remove(unit.name)
                         # don't think we need to reduce the board_size (amount of units we have on the board)
                         # here because this happens this function checks stuff after combat, so we should have the
@@ -825,7 +831,7 @@ class Arena:
                 else:
                     print(f"    unit: {unit}")
         # If there are more units in our "board" than should exist.
-        if len(self.board) > self.max_board_size:
+        if len([unit for unit in self.board if unit is not None]) > self.max_board_size:
             self.remove_random_duplicate_champions_from_board()
 
     def identify_unknown_champions_on_board(self) -> [(str, int)]:
@@ -845,9 +851,10 @@ class Arena:
             # If the unknown unit we are looking at is a known unit on the board, also continue.
             duplicate_unit = False
             for known_unit in self.board:
-                if known_unit.name is unit_name and known_unit.index == index:
-                    duplicate_unit = True
-                    break
+                if isinstance(known_unit, Champion):
+                    if known_unit.name is unit_name and known_unit.index == index:
+                        duplicate_unit = True
+                        break
             if arena_functions.is_valid_champ(unit_name) and not duplicate_unit:
                 print(f"        Found a valid {unit_name} unit from an unknown unit!")
                 valid_champs.append((unit_name, index))
@@ -865,7 +872,7 @@ class Arena:
                 # Just remove the first duplicate Champion unit from the self.board.
                 if unit.index in positions_of_all_unit:
                     print(f"    Removing a duplicate {unit.name} from self.board.")
-                    self.board.remove(unit)
+                    self.board[unit.index] = None
                     self.board_names.remove(unit.name)
                     # don't think we need to reduce the board_size (amount of units we have on the board)
                     # here because this happens this function checks stuff after combat, so we should have the
@@ -931,7 +938,7 @@ class Arena:
         if unit_name in self.board_unknown:
             print(f"      Removing the unknown unit {unit_name} from the list of unknown units.")
             self.board_unknown.remove(unit_name)
-        self.board.append(new_champion)
+        self.board[new_champion.index] = new_champion
 
     def set_board_size(self, new_size: int) -> bool:
         """Sets how many units we have on the board.
@@ -1202,9 +1209,10 @@ class Arena:
            Extremely unlikely, but the list might return as empty."""
         units_on_board_dict = {}
         for unit in self.board:
-            if unit in self.comp_to_play.comp:
-                unit_in_comp = self.comp_to_play.comp[unit.name]
-                units_on_board_dict[unit] = len(unit_in_comp["items_to_build"])
+            if isinstance(unit, Champion):
+                if unit.name in self.comp_to_play.comp:
+                    unit_in_comp = self.comp_to_play.comp[unit.name]
+                    units_on_board_dict[unit] = len(unit_in_comp["items_to_build"])
         # using just Champion.build would mean that when a unit builds an item, they receive less priority
         return sorted(units_on_board_dict, key=units_on_board_dict.get, reverse=True)
 

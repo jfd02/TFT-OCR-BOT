@@ -167,7 +167,7 @@ class Game:
         # what units are on our board that we don't know about.
         # It's ok if our tactician gets a random item&champ chosen for it anyways,
         # because it picks a random one on its own.
-        if self.arena.board_size > len(self.arena.board):
+        if self.arena.board_size > len([unit for unit in self.arena.board if unit is not None]):
             print("    Moving our view from the carousel to the game board.")
             sleep(0.4)  # add a small delay so that we aren't trying to click the button before it is active.
             # click the default location so that if a human clicked off-screen,
