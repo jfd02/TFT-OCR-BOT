@@ -119,22 +119,6 @@ def bench_occupied_check() -> list:
     return bench_occupied
 
 
-def board_occupied_check() -> list:
-    """Returns a list of booleans that map to each board slot indicating if it's occupied by a unit.
-        Does this by looping through the screen coordinates defined as where health bars would appear,
-        and checking if that position matches the specific color of health bars.
-    """
-    board_occupied: list = []
-    for positions in screen_coords.BOARD_HEALTH_POS:
-        screen_capture = ImageGrab.grab(bbox=positions.get_coords())
-        screenshot_array = np.array(screen_capture)
-        if not (np.abs(screenshot_array - (0, 255, 18)) <= 2).all(axis=2).any():
-            board_occupied.append(False)
-        else:
-            board_occupied.append(True)
-    return board_occupied
-
-
 def valid_item_from_all_items(item: str) -> str | None:
     """Checks if the item passed in arg one is valid"""
     return next(

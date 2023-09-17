@@ -151,6 +151,7 @@ class Game:
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(2)
+        self.arena.move_unknown_units_to_bench()
         self.arena.fix_bench_state()
         self.arena.move_champions()
         self.end_round_tasks()

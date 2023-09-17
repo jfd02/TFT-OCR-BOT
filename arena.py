@@ -5,6 +5,8 @@ other variables used by the bot to make decisions
 
 import random
 from time import sleep
+import numpy as np
+from PIL import ImageGrab
 
 import arena_functions
 import game_functions
@@ -68,6 +70,24 @@ class Arena:
                 print(f"    Identified a {slot.name} at bench spot {index}. Setting it's spot in self.bench.")
                 self.bench[index] = None
         self.sell_non_comp_units_on_bench()
+
+    def move_unknown_units_to_bench(self):
+        units_on_board_found_from_health = self.board_occupied_check()
+        print("  Moving unknown units to the bench.")
+        if len(units_on_board_found_from_health) == 0:
+            print("    No unknown units were found.")
+        for unit in self.board:
+            print(f"    Unit: {unit} and Unit.Index: {unit.index}")
+            if units_on_board_found_from_health[unit.index] == False:
+                print(f"    We failed to find a unit at index: {unit.index}!")
+            else:
+                print(f"    We know there is a unit at index: {unit.index}. Changing the units_on_board_found to False for that index.")
+                units_on_board_found_from_health[unit.index] = False
+        for index, boolean in enumerate(units_on_board_found_from_health):
+            if boolean and arena_functions.empty_bench_slot() != -1:
+                mk_functions.press_w(screen_coords.BOARD_LOC[index].get_coords())
+            if boolean and arena_functions.empty_bench_slot() == -1:
+                print("    Oh no! We have an unknown unit that we can't move to the board.")
 
     def bought_champion(self, name: str, slot: int) -> None:
         """Purchase champion and creates champion instance"""
@@ -556,13 +576,9 @@ class Arena:
                 or arena_functions.get_gold() >= min_buy_unit_gold:
             if not first_run:
                 if arena_functions.get_level_via_https_request() != 9 and arena_functions.get_gold() >= min_buy_xp_gold:
-                    if self.comp_to_play.strategy == "Slow Roll":
-                        for unit_to_buy in self.champs_to_buy:
-                            if self.champs_to_buy.count(unit_to_buy) <= 3:
-                                print("  Purchasing XP")
-                                mk_functions.buy_xp()
-                                self.update_level_via_ocr()
-                    else:
+                    # If the comp we are playing is not Slow Roll we can buy xp, otherwise
+                    # don't level up until we have bought at least 2 2-stars of the 3-star units we need.
+                    if self.comp_to_play.strategy != "Slow Roll" or len([x for x in self.champs_to_buy if self.champs_to_buy.count(x) > 3]) == 0:
                         print("  Purchasing XP")
                         mk_functions.buy_xp()
                         self.update_level_via_ocr()
@@ -1384,3 +1400,22 @@ class Arena:
     def increase_max_board_size(self) -> None:
         print(f"  Increasing the max board size from {self.max_board_size} to {self.max_board_size+1}.")
         self.max_board_size += 1
+
+    def board_occupied_check(self) -> list:
+        """Returns a list of booleans that map to each board slot indicating if it's occupied by a unit.
+            Does this by looping through the screen coordinates defined as where health bars would appear,
+            and checking if that position matches the specific color of health bars.
+        """
+        board_occupied: list = []
+        labels = []
+        for index, positions in enumerate(screen_coords.BOARD_HEALTH_POS):
+            screen_capture = ImageGrab.grab(bbox=positions.get_coords())
+            screenshot_array = np.array(screen_capture)
+            if not (np.abs(screenshot_array - (0, 255, 18)) <= 2).all(axis=2).any():
+                board_occupied.append(False)
+                labels.append(("False", screen_coords.BOARD_LOC[index].get_coords(), 0, 0))
+            else:
+                board_occupied.append(True)
+                labels.append(("True", screen_coords.BOARD_LOC[index].get_coords(), 0, 0))
+        self.message_queue.put(("LABEL", labels))
+        return board_occupied
