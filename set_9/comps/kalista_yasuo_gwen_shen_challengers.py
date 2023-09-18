@@ -8,7 +8,7 @@ Difficulty: Easy
 COMP = {
     "Kalista": {
         "board_position": 6,
-        "items_to_build": ["JeweledGauntlet", "GuinsoosRageblade", "HandofJustice"],
+        "best_in_slot": ["JeweledGauntlet", "GuinsoosRageblade", "HandofJustice"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -20,7 +20,7 @@ COMP = {
     },
     "Yasuo": {
         "board_position": 23,
-        "items_to_build": ["TitansResolve", "Bloodthirster"],
+        "best_in_slot": ["TitansResolve", "Bloodthirster"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -32,7 +32,7 @@ COMP = {
     },
     "Shen": {
         "board_position": 24,
-        "items_to_build": ["Redemption", "BrambleVest"],
+        "best_in_slot": ["Redemption", "BrambleVest"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -44,7 +44,7 @@ COMP = {
     },
     "Gwen": {
         "board_position": 25,
-        "items_to_build": ["WarmogsArmor", "BlueBuff", "ChallengerEmblem"],
+        "best_in_slot": ["WarmogsArmor", "BlueBuff", "ChallengerEmblem"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -56,7 +56,7 @@ COMP = {
     },
     "Warwick": {
         "board_position": 22,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -68,7 +68,7 @@ COMP = {
     },
     "Irelia": {
         "board_position": 26,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -80,7 +80,7 @@ COMP = {
     },
     "KaiSa": {
         "board_position": 0,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -92,7 +92,7 @@ COMP = {
     },
     "Samira": {
         "board_position": 3,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -104,7 +104,7 @@ COMP = {
     },
     "Kassadin": {
         "board_position": 23,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -116,7 +116,7 @@ COMP = {
     },
     "Maokai": {
         "board_position": 24,
-        "items_to_build": ["WarmogsArmor"],
+        "best_in_slot": ["WarmogsArmor"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],

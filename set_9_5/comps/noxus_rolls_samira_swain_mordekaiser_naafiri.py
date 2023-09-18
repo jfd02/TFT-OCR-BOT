@@ -25,7 +25,7 @@ RECOMMENDED_LEGEND = "Lee Sin"
 COMP = {
     "Samira": {
         "board_position": 0,
-        "items_to_build": ["BlueBuff", "Bloodthirster", "EdgeofNight"],
+        "best_in_slot": ["BlueBuff", "Bloodthirster", "EdgeofNight"],
         "completed_items_to_accept": ["BlueBuff", "Bloodthirster", "EdgeofNight", "GiantSlayer", "HandofJustice", "InfinityEdge"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["SlayerEmblem"],
@@ -37,7 +37,7 @@ COMP = {
     },
     "Swain": {
         "board_position": 25,
-        "items_to_build": ["Crownguard", "ProtectorsVow", "GargoyleStoneplate"],
+        "best_in_slot": ["Crownguard", "ProtectorsVow", "GargoyleStoneplate"],
         "completed_items_to_accept": ["Crownguard", "Evenshroud", "GargoyleStoneplate",
                                       "ProtectorsVow", "Redemption", "SunfireCape", "WarmogsArmor"],
         "support_items_to_accept": [],
@@ -50,7 +50,7 @@ COMP = {
     },
     "Cassiopeia": {
         "board_position": 6,
-        "items_to_build": ["HextechGunblade", "NashorsTooth"],
+        "best_in_slot": ["HextechGunblade", "NashorsTooth"],
         "completed_items_to_accept": ["Guardbreaker", "HextechGunblade", "NashorsTooth"],
         "support_items_to_accept": ["Zephyr"],
         "trait_items_to_accept": ["VanquisherEmblem"],
@@ -62,7 +62,7 @@ COMP = {
     },
     "Mordekaiser": {
         "board_position": 13,
-        "items_to_build": ["JeweledGauntlet", "RapidFirecannon"],
+        "best_in_slot": ["JeweledGauntlet", "RapidFirecannon"],
         "completed_items_to_accept": ["JeweledGauntlet", "Quicksilver", "RapidFirecannon"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["DarkinEmblem", "JuggernautEmblem", "SorcererEmblem"],
@@ -74,7 +74,7 @@ COMP = {
     },
     "Sion": {
         "board_position": 27,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -86,7 +86,7 @@ COMP = {
     },
     "Naafiri": {
         "board_position": 21,
-        "items_to_build": ["ThiefsGloves"],
+        "best_in_slot": ["ThiefsGloves"],
         "completed_items_to_accept": ["Quicksilver", "SpearofShojin", "ThiefsGloves", "TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["NoxusEmblem", "SlayerEmblem"],
@@ -98,7 +98,7 @@ COMP = {
     },
     "Darius": {
         "board_position": 4,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": ["SteraksGage"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["ChallengerEmblem", "DarkinEmblem", "ShurimaEmblem",
@@ -111,7 +111,7 @@ COMP = {
     },
     "Warwick": {
         "board_position": 5,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["DarkinEmblem", "NoxusEmblem", "ShurimaEmblem"],
@@ -123,7 +123,7 @@ COMP = {
     },
     "Irelia": {
         "board_position": 12,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["DarkinEmblem", "NoxusEmblem"],

@@ -24,7 +24,7 @@ RECOMMENDED_LEGEND = "Lee Sin"
 COMP = {
     "Twisted Fate": {
         "board_position": 1,
-        "items_to_build": ["BlueBuff", "HextechGunblade", "JeweledGauntlet"],
+        "best_in_slot": ["BlueBuff", "HextechGunblade", "JeweledGauntlet"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -36,7 +36,7 @@ COMP = {
     },
     "Illaoi": {
         "board_position": 23,
-        "items_to_build": ["DragonsClaw", "Redemption", "WarmogsArmor"],
+        "best_in_slot": ["DragonsClaw", "Redemption", "WarmogsArmor"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -48,7 +48,7 @@ COMP = {
     },
     "Nilah": {
         "board_position": 16,
-        "items_to_build": ["TitansResolve", "Bloodthirster"],
+        "best_in_slot": ["TitansResolve", "Bloodthirster"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -60,7 +60,7 @@ COMP = {
     },
     "Miss Fortune": {
         "board_position": 3,
-        "items_to_build": ["Guardbreaker", "SpearofShojin"],
+        "best_in_slot": ["Guardbreaker", "SpearofShojin"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -72,7 +72,7 @@ COMP = {
     },
     "Nautilus": {
         "board_position": 24,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -84,7 +84,7 @@ COMP = {
     },
     "Poppy": {
         "board_position": 25,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -96,7 +96,7 @@ COMP = {
     },
     "Sona": {
         "board_position": 0,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -108,7 +108,7 @@ COMP = {
     },
     "Taliyah": {
         "board_position": 2,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -120,7 +120,7 @@ COMP = {
     },
     "Swain": {
         "board_position": 22,
-        "items_to_build": ["Redemption", "WarmogsArmor"],
+        "best_in_slot": ["Redemption", "WarmogsArmor"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],

@@ -24,7 +24,7 @@ RECOMMENDED_LEGEND = "Poro"
 COMP = {
     "Nilah": {
         "board_position": 15,
-        "items_to_build": ["Bloodthirster", "RapidFirecannon", "TitansResolve"],
+        "best_in_slot": ["Bloodthirster", "RapidFirecannon", "TitansResolve"],
         "completed_items_to_accept": ["Bloodthirster", "Deathblade", "GiantSlayer", "RapidFirecannon",
                                       "SteraksGage", "TitansResolve"],
         "support_items_to_accept": [],
@@ -37,7 +37,7 @@ COMP = {
     },
     "Miss Fortune": {
         "board_position": 3,
-        "items_to_build": ["JeweledGauntlet", "BlueBuff", "HextechGunblade"],
+        "best_in_slot": ["JeweledGauntlet", "BlueBuff", "HextechGunblade"],
         "completed_items_to_accept": ["HextechGunblade"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -49,7 +49,7 @@ COMP = {
     },
     "Gangplank": {
         "board_position": 6,
-        "items_to_build": ["SpearofShojin"],
+        "best_in_slot": ["SpearofShojin"],
         "completed_items_to_accept": ["Guardbreaker", "SpearofShojin"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -61,7 +61,7 @@ COMP = {
     },
     "Nautilus": {
         "board_position": 24,
-        "items_to_build": ["Redemption", "DragonsClaw", "BrambleVest"],
+        "best_in_slot": ["Redemption", "DragonsClaw", "BrambleVest"],
         "completed_items_to_accept": ["GargoyleStoneplate", "IonicSpark", "SunfireCape"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -73,7 +73,7 @@ COMP = {
     },
     "Darius": {
         "board_position": 23,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": ["IonicSpark"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["BastionEmblem", "BilgewaterEmblem", "RogueEmblem", "VanquisherEmblem"],
@@ -85,7 +85,7 @@ COMP = {
     },
     "Twisted Fate": {
         "board_position": 0,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["VanquisherEmblem"],
@@ -97,7 +97,7 @@ COMP = {
     },
     "Graves": {
         "board_position": 25,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["JuggernautEmblem", "VanquisherEmblem"],
@@ -109,7 +109,7 @@ COMP = {
     },
     "Illaoi": {
         "board_position": 22,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["JuggernautEmblem"],
@@ -121,7 +121,7 @@ COMP = {
     },
     "Swain": {
         "board_position": 21,
-        "items_to_build": ["Redemption", "DragonsClaw", "BrambleVest", "IonicSpark"],
+        "best_in_slot": ["Redemption", "DragonsClaw", "BrambleVest", "IonicSpark"],
         "completed_items_to_accept": ["GargoyleStoneplate", "IonicSpark", "SunfireCape"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -133,7 +133,7 @@ COMP = {
     },
     "Kassadin": {
         "board_position": 21,
-        "items_to_build": ["Bloodthirster", "TitansResolve"],
+        "best_in_slot": ["Bloodthirster", "TitansResolve"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -145,7 +145,7 @@ COMP = {
     },
     "Warwick": {
         "board_position": 26,
-        "items_to_build": ["Bloodthirster", "TitansResolve"],
+        "best_in_slot": ["Bloodthirster", "TitansResolve"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -157,7 +157,7 @@ COMP = {
     },
     "Sett": {
         "board_position": 19,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],

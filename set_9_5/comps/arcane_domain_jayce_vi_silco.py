@@ -24,7 +24,7 @@ RECOMMENDED_LEGEND = "Urf"
 COMP = {
     "Jayce": {
         "board_position": 1,
-        "items_to_build": ["LastWhisper", "InfinityEdge", "GuinsoosRageblade"],
+        "best_in_slot": ["LastWhisper", "InfinityEdge", "GuinsoosRageblade"],
         "completed_items_to_accept": ["GiantSlayer", "NashorsTooth", "RunaansHurricane"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -36,7 +36,7 @@ COMP = {
     },
     "Vi": {
         "board_position": 24,
-        "items_to_build": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
+        "best_in_slot": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
         "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["JuggernautEmblem", "ZaunEmblem"],
@@ -48,7 +48,7 @@ COMP = {
     },
     "Silco": {
         "board_position": 4,
-        "items_to_build": ["BlueBuff", "JeweledGauntlet"],
+        "best_in_slot": ["BlueBuff", "JeweledGauntlet"],
         "completed_items_to_accept": ["SpearofShojin", "GiantSlayer", "Morellonomicon"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -60,7 +60,7 @@ COMP = {
     },
     "Gangplank": {
         "board_position": 0,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["ZaunEmblem"],
@@ -72,7 +72,7 @@ COMP = {
     },
     "Aphelios": {
         "board_position": 2,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["BilgewaterEmblem", "PiltoverEmblem", "ZaunEmblem"],
@@ -84,7 +84,7 @@ COMP = {
     },
     "Ekko": {
         "board_position": 26,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["BilgewaterEmblem", "BruiserEmblem", "JuggernautEmblem", "NoxusEmblem",
@@ -97,7 +97,7 @@ COMP = {
     },
     "Jinx": {
         "board_position": 6,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["PiltoverEmblem"],
@@ -109,7 +109,7 @@ COMP = {
     },
     "Warwick": {
         "board_position": 22,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["GunnerEmblem", "RogueEmblem", "BilgewaterEmblem", "PiltoverEmblem", "BruiserEmblem"],
@@ -121,7 +121,7 @@ COMP = {
     },
     "Taric": {
         "board_position": 23,
-        "items_to_build": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
+        "best_in_slot": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
         "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -133,7 +133,7 @@ COMP = {
     },
     "Qiyana": {
         "board_position": 27,
-        "items_to_build": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
+        "best_in_slot": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
         "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -145,7 +145,7 @@ COMP = {
     },
     "Renekton": {
         "board_position": 25,
-        "items_to_build": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
+        "best_in_slot": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
         "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -157,7 +157,7 @@ COMP = {
     },
     "Graves": {
         "board_position": 7,
-        "items_to_build": ["InfinityEdge", "LastWhisper"],
+        "best_in_slot": ["InfinityEdge", "LastWhisper"],
         "completed_items_to_accept": ["GiantSlayer", "NashorsTooth", "RunaansHurricane"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -169,7 +169,7 @@ COMP = {
     },
     "Orianna": {
         "board_position": 3,
-        "items_to_build": ["BlueBuff"],
+        "best_in_slot": ["BlueBuff"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],

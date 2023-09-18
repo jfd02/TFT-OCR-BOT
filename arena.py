@@ -86,7 +86,7 @@ class Arena:
             Champion(name=name,
                      coords=screen_coords.BENCH_LOC[bench_position].get_coords(),
                      item_slots_filled=0,
-                     build=self.comp_to_play.comp[name]["items_to_build"].copy(),
+                     build=self.comp_to_play.comp[name]["best_in_slot"].copy(),
                      build2=self.comp_to_play.comp[name]["completed_items_to_accept"].copy(),
                      ornn_items=self.comp_to_play.comp[name]["ornn_items_to_accept"].copy(),
                      support_items=self.comp_to_play.comp[name]["support_items_to_accept"].copy(),
@@ -994,7 +994,7 @@ class Arena:
 
     def add_completed_item_to_unit(self, unit: Champion) -> None:
         """If we have completed items waiting on the bench,
-        that are the unit's 'items_to_build' (BIS items) give them to the unit."""
+        that are the unit's 'best_in_slot' (BIS items) give them to the unit."""
         for item_index, completed_item in enumerate(unit.build):
             if completed_item in self.items:
                 self.add_one_item_to_unit(unit, self.items.index(completed_item))
@@ -1006,7 +1006,7 @@ class Arena:
     def add_radiant_version_of_bis_items_to_unit(self, unit: Champion) -> None:
         """If we have radiant items waiting on the bench,
            that are a better version of the unit's completed items it WANTS to build
-           (i.e. the 'items_to_build' (BIS items), not just the completed items it will accept)
+           (i.e. the 'best_in_slot' (BIS items), not just the completed items it will accept)
            give them to the unit."""
         for radiant_item, completed_item in game_assets.RADIANT_ITEMS_DICT.items():
             if completed_item in unit.build and radiant_item in self.items:
@@ -1199,7 +1199,7 @@ class Arena:
             if isinstance(unit, Champion):
                 if unit.name in self.comp_to_play.comp:
                     unit_in_comp = self.comp_to_play.comp[unit.name]
-                    units_on_board_dict[unit] = len(unit_in_comp["items_to_build"])
+                    units_on_board_dict[unit] = len(unit_in_comp["best_in_slot"])
         # using just Champion.build would mean that when a unit builds an item, they receive less priority
         return sorted(units_on_board_dict, key=units_on_board_dict.get, reverse=True)
 

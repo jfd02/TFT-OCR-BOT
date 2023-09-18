@@ -8,7 +8,7 @@ Difficulty: Easy
 COMP = {
     "Ekko": {
         "board_position": 22,
-        "items_to_build": ["JeweledGauntlet", "HandofJustice", "HandofJustice"],
+        "best_in_slot": ["JeweledGauntlet", "HandofJustice", "HandofJustice"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -20,7 +20,7 @@ COMP = {
     },
     "Katarina": {
         "board_position": 24,
-        "items_to_build": ["ArchangelsStaff", "JeweledGauntlet", "HandofJustice"],
+        "best_in_slot": ["ArchangelsStaff", "JeweledGauntlet", "HandofJustice"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -32,7 +32,7 @@ COMP = {
     },
     "Lissandra": {
         "board_position": 23,
-        "items_to_build": ["ChaliceofPower"],
+        "best_in_slot": ["ChaliceofPower"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -44,7 +44,7 @@ COMP = {
     },
     "Sejuani": {
         "board_position": 21,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -56,7 +56,7 @@ COMP = {
     },
     "Urgot": {
         "board_position": 25,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -68,7 +68,7 @@ COMP = {
     },
     "Sion": {
         "board_position": 26,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -80,7 +80,7 @@ COMP = {
     },
     "Heimerdinger": {
         "board_position": 0,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -92,7 +92,7 @@ COMP = {
     },
     "Ashe": {
         "board_position": 6,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -104,7 +104,7 @@ COMP = {
     },
     "Viego": {
         "board_position": 14,
-        "items_to_build": ["JeweledGauntlet", "HandofJustice", "HandofJustice"],
+        "best_in_slot": ["JeweledGauntlet", "HandofJustice", "HandofJustice"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -116,7 +116,7 @@ COMP = {
     },
     "Maokai": {
         "board_position": 15,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -128,7 +128,7 @@ COMP = {
     },
     "Zed": {
         "board_position": 16,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -140,7 +140,7 @@ COMP = {
     },
     "Poppy": {
         "board_position": 17,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -152,7 +152,7 @@ COMP = {
     },
     "Vi": {
         "board_position": 18,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -164,7 +164,7 @@ COMP = {
     },
     "Orianna": {
         "board_position": 2,
-        "items_to_build": ["JeweledGauntlet"],
+        "best_in_slot": ["JeweledGauntlet"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -176,7 +176,7 @@ COMP = {
     },
     "Cassiopeia": {
         "board_position": 3,
-        "items_to_build": ["JeweledGauntlet"],
+        "best_in_slot": ["JeweledGauntlet"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -188,7 +188,7 @@ COMP = {
     },
     "Galio": {
         "board_position": 20,
-        "items_to_build": ["JeweledGauntlet"],
+        "best_in_slot": ["JeweledGauntlet"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -200,7 +200,7 @@ COMP = {
     },
     "Soraka": {
         "board_position": 5,
-        "items_to_build": ["JeweledGauntlet"],
+        "best_in_slot": ["JeweledGauntlet"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],

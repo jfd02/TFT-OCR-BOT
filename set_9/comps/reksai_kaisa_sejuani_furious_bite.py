@@ -8,7 +8,7 @@ Difficulty: Easy
 COMP = {
     "Reksai": {
         "board_position": 21,
-        "items_to_build": ["Bloodthirster", "TitansResolve", "TitansResolve"],
+        "best_in_slot": ["Bloodthirster", "TitansResolve", "TitansResolve"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -20,7 +20,7 @@ COMP = {
     },
     "Kaisa": {
         "board_position": 3,
-        "items_to_build": ["ArchangelsStaff", "GuinsoosRageblade"],
+        "best_in_slot": ["ArchangelsStaff", "GuinsoosRageblade"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -32,7 +32,7 @@ COMP = {
     },
     "Sejuani": {
         "board_position": 26,
-        "items_to_build": ["GargoyleStoneplate", "WarmogsArmor"],
+        "best_in_slot": ["GargoyleStoneplate", "WarmogsArmor"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -44,7 +44,7 @@ COMP = {
     },
     "Lissandra": {
         "board_position": 14,
-        "items_to_build": ["SpearofShojin"],  # BruiserEmblem
+        "best_in_slot": ["SpearofShojin"],  # BruiserEmblem
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -56,7 +56,7 @@ COMP = {
     },
     "Sion": {
         "board_position": 22,
-        "items_to_build": ["ZekesHerald"],
+        "best_in_slot": ["ZekesHerald"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -68,7 +68,7 @@ COMP = {
     },
     "ChoGath": {
         "board_position": 23,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -80,7 +80,7 @@ COMP = {
     },
     "Vi": {
         "board_position": 24,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -92,7 +92,7 @@ COMP = {
     },
     "Ashe": {
         "board_position": 0,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -104,7 +104,7 @@ COMP = {
     },
     "Renekton": {
         "board_position": 27,
-        "items_to_build": ["WarmogsArmor", "GargoyleStoneplate"],
+        "best_in_slot": ["WarmogsArmor", "GargoyleStoneplate"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -116,7 +116,7 @@ COMP = {
     },
     "Malzahar": {
         "board_position": 1,
-        "items_to_build": ["ArchangelsStaff"],
+        "best_in_slot": ["ArchangelsStaff"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -128,7 +128,7 @@ COMP = {
     },
     "Velkoz": {
         "board_position": 6,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -140,7 +140,7 @@ COMP = {
     },
     "Kalista": {
         "board_position": 4,
-        "items_to_build": ["GuinsoosRageblade"],
+        "best_in_slot": ["GuinsoosRageblade"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -152,7 +152,7 @@ COMP = {
     },
     "Yasuo": {
         "board_position": 18,
-        "items_to_build": ["Bloodthirster", "TitansResolve"],
+        "best_in_slot": ["Bloodthirster", "TitansResolve"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],

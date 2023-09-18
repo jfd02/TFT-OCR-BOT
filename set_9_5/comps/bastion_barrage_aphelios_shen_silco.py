@@ -24,7 +24,7 @@ RECOMMENDED_LEGEND = "Ezreal"
 COMP = {
     "Aphelios": {
         "board_position": 6,
-        "items_to_build": ["Deathblade", "GuinsoosRageblade", "GuinsoosRageblade"],
+        "best_in_slot": ["Deathblade", "GuinsoosRageblade", "GuinsoosRageblade"],
         "completed_items_to_accept": ["Deathblade", "GuinsoosRageblade", "InfinityEdge"],
         "support_items_to_accept": ["VirtueoftheMartyr", "ZzRotPortal"],
         "trait_items_to_accept": ["ZaunEmblem"],
@@ -36,7 +36,7 @@ COMP = {
     },
     "Silco": {
         "board_position": 4,
-        "items_to_build": ["ArchangelsStaff", "BlueBuff", "Morellonomicon"],
+        "best_in_slot": ["ArchangelsStaff", "BlueBuff", "Morellonomicon"],
         "completed_items_to_accept": ["ArchangelsStaff", "BlueBuff", "JeweledGauntlet",
                                       "HextechGunblade", "Morellonomicon"],
         "support_items_to_accept": ["ObsidianCleaver", "ZekesHerald"],
@@ -49,7 +49,7 @@ COMP = {
     },
     "Shen": {
         "board_position": 26,
-        "items_to_build": ["Evenshroud", "Redemption", "WarmogsArmor",],
+        "best_in_slot": ["Evenshroud", "Redemption", "WarmogsArmor",],
         "completed_items_to_accept": ["BrambleVest", "Crownguard", "Evenshroud", "GargoyleStoneplate",
                                       "IonicSpark", "Redemption", "SunfireCape", "WarmogsArmor"],
         "support_items_to_accept": ["ZzRotPortal"],
@@ -62,7 +62,7 @@ COMP = {
     },
     "KSante": {
         "board_position": 24,
-        "items_to_build": ["ProtectorsVow"],
+        "best_in_slot": ["ProtectorsVow"],
         "completed_items_to_accept": ["TitansResolve"],
         "support_items_to_accept": ["LocketoftheIronSolari", "VirtueoftheMartyr"],
         "trait_items_to_accept": ["GunnerEmblem", "IoniaEmblem", "InvokerEmblem", "IxtalEmblem", "TargonEmblem", "ZaunEmblem"],
@@ -74,7 +74,7 @@ COMP = {
     },
     "Taric": {
         "board_position": 25,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["AegisoftheLegion", "BansheesVeil", "Crest of Cinders", "LocketoftheIronSolari",
                                     "ShroudofStillness", "VirtueoftheMartyr", "ZzRotPortal"],
@@ -87,7 +87,7 @@ COMP = {
     },
     "Neeko": {
         "board_position": 22,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["ObsidianCleaver", "ShroudofStillness", "Zephyr"],
         "trait_items_to_accept": ["GunnerEmblem", "InvokerEmblem", "IoniaEmblem", "SorcererEmblem", "TargonEmblem", "ZaunEmblem"],
@@ -99,7 +99,7 @@ COMP = {
     },
     "Jinx": {
         "board_position": 2,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": ["Morellonomicon"],
         "support_items_to_accept": ["VirtueoftheMartyr"],
         "trait_items_to_accept": ["IoniaEmblem", "IxtalEmblem", "SorcererEmblem", "TargonEmblem"],
@@ -111,7 +111,7 @@ COMP = {
     },
     "Soraka": {
         "board_position": 0,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["NeedlesslyBigGem", "Zephyr"],
         "trait_items_to_accept": ["BastionEmblem", "IoniaEmblem", "IxtalEmblem"],
@@ -123,7 +123,7 @@ COMP = {
     },
     "Galio": {
         "board_position": 23,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": ["TitansResolve"],
         "support_items_to_accept": ["LocketoftheIronSolari"],
         "trait_items_to_accept": ["BastionEmblem", "IoniaEmblem", "IxtalEmblem"],
@@ -135,7 +135,7 @@ COMP = {
     },
     "Illaoi": {
         "board_position": 21,
-        "items_to_build": ["Evenshroud", "WarmogsArmor"],
+        "best_in_slot": ["Evenshroud", "WarmogsArmor"],
         "completed_items_to_accept": ["TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem"],
@@ -147,7 +147,7 @@ COMP = {
     },
     "Kayle": {
         "board_position": 1,
-        "items_to_build": ["GuinsoosRageblade", "GuinsoosRageblade"],
+        "best_in_slot": ["GuinsoosRageblade", "GuinsoosRageblade"],
         "completed_items_to_accept": ["Bloodthirster", "HandofJustice", "TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["IoniaEmblem", "IxtalEmblem"],
@@ -159,7 +159,7 @@ COMP = {
     },
     "Poppy": {
         "board_position": 16,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem"],
@@ -171,7 +171,7 @@ COMP = {
     },
     "Kassadin": {
         "board_position": 27,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem"],

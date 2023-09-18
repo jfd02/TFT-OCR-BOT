@@ -25,7 +25,7 @@ RECOMMENDED_LEGEND = "Urf"
 COMP = {
     "Milio": {
         "board_position": 0,
-        "items_to_build": ["ArchangelsStaff", "BlueBuff", "JeweledGauntlet"],
+        "best_in_slot": ["ArchangelsStaff", "BlueBuff", "JeweledGauntlet"],
         "completed_items_to_accept": ["ArchangelsStaff", "BlueBuff", "JeweledGauntlet", "GiantSlayer"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -37,7 +37,7 @@ COMP = {
     },
     "Shen": {
         "board_position": 23,
-        "items_to_build": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
+        "best_in_slot": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
         "completed_items_to_accept": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
         "support_items_to_accept": ["VirtueoftheMartyr", "ZzRotPortal"],
         "trait_items_to_accept": [],
@@ -49,7 +49,7 @@ COMP = {
     },
     "Taric": {
         "board_position": 24,
-        "items_to_build": ["IonicSpark", "Redemption", "SunfireCape"],
+        "best_in_slot": ["IonicSpark", "Redemption", "SunfireCape"],
         "completed_items_to_accept": ["IonicSpark", "Redemption", "SunfireCape"],
         "support_items_to_accept": ["Crest of Cinders", "LocketoftheIronSolari", "RanduinsOmen", "VirtueoftheMartyr"],
         "trait_items_to_accept": [],
@@ -61,7 +61,7 @@ COMP = {
     },
     "Ryze": {
         "board_position": 2,
-        "items_to_build": ["BlueBuff", "JeweledGauntlet"],
+        "best_in_slot": ["BlueBuff", "JeweledGauntlet"],
         "completed_items_to_accept": ["BlueBuff", "JeweledGauntlet", "RabadonsDeathcap"],
         "support_items_to_accept": ["NeedlesslyBigGem", "Zephyr"],
         "trait_items_to_accept": ["IxtalEmblem"],
@@ -73,7 +73,7 @@ COMP = {
     },
     "Neeko": {
         "board_position": 21,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["VirtueoftheMartyr"],
         "trait_items_to_accept": ["InvokerEmblem", "TargonEmblem"],
@@ -85,7 +85,7 @@ COMP = {
     },
     "Soraka": {
         "board_position": 4,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["IxtalEmblem"],
@@ -97,7 +97,7 @@ COMP = {
     },
     "Kassadin": {
         "board_position": 25,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["VirtueoftheMartyr"],
         "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem", "SlayerEmblem", "TargonEmblem"],
@@ -109,7 +109,7 @@ COMP = {
     },
     "Qiyana": {
         "board_position": 20,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["Obsidian Cleaver"],
         "trait_items_to_accept": ["BastionEmblem", "InvokerEmblem", "TargonEmblem"],
@@ -121,7 +121,7 @@ COMP = {
     },
     "Ahri": {
         "board_position": 6,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["Zephyr"],
         "trait_items_to_accept": ["IxtalEmblem", "TargonEmblem"],
@@ -133,7 +133,7 @@ COMP = {
     },
     "Poppy": {
         "board_position": 17,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem", "TargonEmblem"],
@@ -145,7 +145,7 @@ COMP = {
     },
     "Galio": {
         "board_position": 16,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["BastionEmblem", "IxtalEmblem", "TargonEmblem"],
@@ -157,7 +157,7 @@ COMP = {
     },
     "Kayle": {
         "board_position": 3,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem", "TargonEmblem"],
@@ -169,7 +169,7 @@ COMP = {
     },
     "Orianna": {
         "board_position": 1,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["InvokerEmblem", "IxtalEmblem", "TargonEmblem"],

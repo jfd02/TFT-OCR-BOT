@@ -76,14 +76,14 @@ def create_default_champion(champ_name: str, index: int | None, bench: bool, com
         coords = screen_coords.BENCH_LOC[index].get_coords()
     else:  # unit is on the board
         coords = screen_coords.BOARD_LOC[index].get_coords()
-    items_to_build, build2, ornn_items, support_items, trait_items, zaun_items = [], [], [], [], [], []
+    best_in_slot, build2, ornn_items, support_items, trait_items, zaun_items = [], [], [], [], [], []
     board_position = None
     size = 1
     final_comp = False
     units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(coords)
     # If we actually plan on using this champ in our comp:
     if champ_name in comp_to_play.comp:
-        items_to_build = comp_to_play.comp[champ_name]["items_to_build"].copy()
+        best_in_slot = comp_to_play.comp[champ_name]["best_in_slot"].copy()
         build2 = comp_to_play.comp[champ_name]["completed_items_to_accept"].copy()
         ornn_items = comp_to_play.comp[champ_name]["ornn_items_to_accept"].copy()
         support_items = comp_to_play.comp[champ_name]["support_items_to_accept"].copy()
@@ -95,7 +95,7 @@ def create_default_champion(champ_name: str, index: int | None, bench: bool, com
     # Create the Champion object.
     champion_object = \
         Champion(name=champ_name, coords=coords,
-                 item_slots_filled=units_current_item_count, build=items_to_build, build2=build2,
+                 item_slots_filled=units_current_item_count, build=best_in_slot, build2=build2,
                  ornn_items=ornn_items, support_items=support_items, trait_items=trait_items, zaun_items=zaun_items,
                  board_position=board_position, size=size, final_comp=final_comp)
     # print("  Creating new Champion object:")

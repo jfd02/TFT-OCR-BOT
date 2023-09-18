@@ -24,7 +24,7 @@ RECOMMENDED_LEGEND = "Urf"
 COMP = {
     "KaiSa": {
         "board_position": 4,
-        "items_to_build": ["Guardbreaker", "JeweledGauntlet", "SpearofShojin"],
+        "best_in_slot": ["Guardbreaker", "JeweledGauntlet", "SpearofShojin"],
         "completed_items_to_accept": ["Guardbreaker", "GuinsoosRageblade", "JeweledGauntlet",
                                       "GiantSlayer", "SpearofShojin", "StatikkShiv"],
         "support_items_to_accept": [],
@@ -37,7 +37,7 @@ COMP = {
     },
     "BelVeth": {
         "board_position": 18,
-        "items_to_build": ["Bloodthirster", "TitansResolve"],
+        "best_in_slot": ["Bloodthirster", "TitansResolve"],
         "completed_items_to_accept": ["Bloodthirster", "HandofJustice", "LastWhisper", "Quicksilver",
                                       "SteraksGage", "TitansResolve"],
         "support_items_to_accept": ["VirtueoftheMartyr", "ZzRotPortal"],
@@ -50,7 +50,7 @@ COMP = {
     },
     "ChoGath": {
         "board_position": 25,
-        "items_to_build": ["IonicSpark", "Redemption", "SunfireCape"],
+        "best_in_slot": ["IonicSpark", "Redemption", "SunfireCape"],
         "completed_items_to_accept": ["Evenshroud", "GargoyleStoneplate", "IonicSpark", "Redemption", "SunfireCape"],
         "support_items_to_accept": ["AegisoftheLegion", "LocketoftheIronSolari"],
         "trait_items_to_accept": [],
@@ -62,7 +62,7 @@ COMP = {
     },
     "Fiora": {
         "board_position": 27,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["ObsidianCleaver", "VirtueoftheMartyr"],
         "trait_items_to_accept": ["VoidEmblem"],
@@ -74,7 +74,7 @@ COMP = {
     },
     "RekSai": {
         "board_position": 20,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["ObsidianCleaver", "VirtueoftheMartyr"],
         "trait_items_to_accept": ["ChallengerEmblem", "FreljordEmblem"],
@@ -86,7 +86,7 @@ COMP = {
     },
     "VelKoz": {
         "board_position": 6,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["Zephyr"],
         "trait_items_to_accept": [],
@@ -98,7 +98,7 @@ COMP = {
     },
     "Kassadin": {
         "board_position": 23,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": ["Morellonomicon"],
         "support_items_to_accept": ["VirtueoftheMartyr"],
         "trait_items_to_accept": ["BastionEmblem", "BruiserEmblem", "FreljordEmblem"],
@@ -110,7 +110,7 @@ COMP = {
     },
     "Malzahar": {
         "board_position": 0,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["RabadonsDeathcap", "Zephyr"],
         "trait_items_to_accept": [],
@@ -122,7 +122,7 @@ COMP = {
     },
     "Ahri": {
         "board_position": 6,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": ["Zephyr"],
         "trait_items_to_accept": [],
@@ -134,7 +134,7 @@ COMP = {
     },
     "Orianna": {
         "board_position": 1,
-        "items_to_build": ["SpearofShojin"],
+        "best_in_slot": ["SpearofShojin"],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["VoidEmblem"],
@@ -146,7 +146,7 @@ COMP = {
     },
     "Renekton": {
         "board_position": 24,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": ["Bloodthirster", "HandofJustice", "HextechGunblade", "TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -158,7 +158,7 @@ COMP = {
     },
     "Vi": {
         "board_position": 21,
-        "items_to_build": [],
+        "best_in_slot": [],
         "completed_items_to_accept": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
