@@ -837,7 +837,7 @@ class Arena:
                 continue
             # If the unknown unit we are looking at is a known unit on the board, also continue.
             duplicate_unit = False
-            if unit_name is not None and unit_name is self.board[index].name:
+            if self.board[index] is not None and unit_name is self.board[index].name:
                 duplicate_unit = True
                 break
             if unit_name is not None and arena_functions.is_valid_champ(unit_name) and not duplicate_unit:
@@ -890,7 +890,8 @@ class Arena:
                     new_champion = champion_class.create_default_champion(champ_name, index, True, self.comp_to_play)
                     self.bench[index] = new_champion
         mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
-        sleep(0.5)
+        # called to make sure the tactician moves to their spot
+        sleep(0.1)  # either need to remove or move out of function since this function is called in too many places
 
     def sell_non_comp_units_on_bench(self):
         """Sells any units on the bench that aren't in our comp,
