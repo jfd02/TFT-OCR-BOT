@@ -201,9 +201,10 @@ class Game:
         elif self.round in game_assets.FOURTH_ROUND:
             self.arena.increase_level()
             self.arena.increase_max_board_size()
-            game_functions.pick_up_items_holding_down_right_click()
+            # game_functions.pick_up_items_holding_down_right_click()
 
         # Have this happen after the augment selection.
+        self.arena.update_level_via_ocr()
         self.arena.identify_champions_on_board()
 
         self.arena.fix_bench_state()
@@ -232,10 +233,18 @@ class Game:
             sleep(2.5)
 
         # Have this happen after the augment selection.
+        self.arena.update_level_via_ocr()
         self.arena.identify_champions_on_board()
 
         if self.round in ("2-1", "2-5") and self.arena.comp_to_play.strategy != "Slow Roll":
             self.arena.buy_xp_round()
+
+        # Safeguards against the level not updating
+        if self.round == "2-3" and self.arena.level < 4:
+            self.arena.level = 4
+        if self.round == "3-2" and self.arena.level < 5:
+            self.arena.level = 5
+
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items:")
             # game_functions.move_to_items_orbs_on_board()
