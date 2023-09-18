@@ -14,7 +14,7 @@ class Champion:
     # TODO: make some of these have default parameters
     def __init__(self, name: str, coords: tuple, item_slots_filled: int, build: list[str], build2: list[str],
                  ornn_items: list[str], support_items: list[str], trait_items: list[str], zaun_items: list[str],
-                 slot: int | None, size: int, final_comp: bool) -> None:
+                 board_position: int | None, size: int, final_comp: bool) -> None:
         # The units name.
         self.name: str = name
         # Where the unit is located on the bench or board in Vec2 coordinates.
@@ -35,7 +35,7 @@ class Champion:
         # The Trait items this unit would like.
         self.zaun_items_will_accept: list[str] = zaun_items
         # The position on the board where the unit is designated in comps.py to be placed.
-        self.index: int | None = slot
+        self.board_position: int | None = board_position
         # The 'amount of units' this unit counts as, because sometimes a unit counts as 2 of your total possible units.
         self.size: int = size
         # The list of every item the unit has.
@@ -63,31 +63,33 @@ class Champion:
         print(f"\t\tChampion Name: {self.name}")
         print(f"\t\tLocation in Coordinates: {self.coords}")
         print(f"\t\tItems The Unit is Designated to Build: {self.build}")
-        print(f"\t\tLocation on the Board: {self.index}")
+        print(f"\t\tLocation Designated in the Comp: {self.board_position}")
         print(f"\t\tAmount of Spaces This Unit Takes Up on the Board: {self.size}")
         print(f"\t\tCompleted Items: {self.non_component_items}")
         print(f"\t\tComponent Items: {self.current_building}")
         print(f"\t\tFinal Comp? {self.final_comp}")
 
 
-def create_default_champion(champ_name: str, index: int, bench: bool, comp_to_play) -> Champion:
+def create_default_champion(champ_name: str, index: int | None, bench: bool, comp_to_play) -> Champion:
     # Set default values if we don't want to use this champ in our comp.
     if bench:
         coords = screen_coords.BENCH_LOC[index].get_coords()
     else:  # unit is on the board
         coords = screen_coords.BOARD_LOC[index].get_coords()
     items_to_build, build2, ornn_items, support_items, trait_items, zaun_items = [], [], [], [], [], []
+    board_position = None
     size = 1
     final_comp = False
     units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(coords)
     # If we actually plan on using this champ in our comp:
     if champ_name in comp_to_play.comp:
         items_to_build = comp_to_play.comp[champ_name]["items_to_build"].copy()
-        build2 = comp_to_play.comp[champ_name]["completed_items_to_accept"].copy(),
-        ornn_items = comp_to_play.comp[champ_name]["ornn_items_to_accept"].copy(),
-        support_items = comp_to_play.comp[champ_name]["support_items_to_accept"].copy(),
-        trait_items = comp_to_play.comp[champ_name]["trait_items_to_accept"].copy(),
-        zaun_items = comp_to_play.comp[champ_name]["zaun_items_to_accept"].copy(),
+        build2 = comp_to_play.comp[champ_name]["completed_items_to_accept"].copy()
+        ornn_items = comp_to_play.comp[champ_name]["ornn_items_to_accept"].copy()
+        support_items = comp_to_play.comp[champ_name]["support_items_to_accept"].copy()
+        trait_items = comp_to_play.comp[champ_name]["trait_items_to_accept"].copy()
+        zaun_items = comp_to_play.comp[champ_name]["zaun_items_to_accept"].copy()
+        board_position = comp_to_play.comp[champ_name]["board_position"]
         size = game_assets.CHAMPIONS[champ_name]["Board Size"]
         final_comp = comp_to_play.comp[champ_name]["final_comp"]
     # Create the Champion object.
@@ -95,7 +97,7 @@ def create_default_champion(champ_name: str, index: int, bench: bool, comp_to_pl
         Champion(name=champ_name, coords=coords,
                  item_slots_filled=units_current_item_count, build=items_to_build, build2=build2,
                  ornn_items=ornn_items, support_items=support_items, trait_items=trait_items, zaun_items=zaun_items,
-                 slot=index, size=size, final_comp=final_comp)
+                 board_position=board_position, size=size, final_comp=final_comp)
     # print("  Creating new Champion object:")
-    # print(f"      {champion_object.name}, {champion_object.coords}, {champion_object.item_slots_filled}, {champion_object.build}, {champion_object.slot}, {champion_object.size}, {champion_object.final_comp}")
+    # print(f"      {champion_object.name}, {champion_object.coords}, {champion_object.item_slots_filled}, {champion_object.build}, {champion_object.board_position}, {champion_object.size}, {champion_object.final_comp}")
     return champion_object

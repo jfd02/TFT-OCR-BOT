@@ -75,14 +75,14 @@ class Arena:
         print("  Moving unknown units to the bench.")
         if len(units_on_board_found_from_health) == 0:
             print("    No unknown units were found.")
-        for unit in self.board:
+        for index, unit in enumerate(self.board):
             if isinstance(unit, Champion):
-                print(f"    Unit: {unit} and Unit.Index: {unit.index}")
-                if units_on_board_found_from_health[unit.index] == False:
-                    print(f"    We failed to find a unit at index: {unit.index}!")
+                print(f"    Unit: {unit} and Index: {index}")
+                if not units_on_board_found_from_health[index]:
+                    print(f"    We failed to find a unit at index: {index}!")
                 else:
-                    print(f"    We know there is a unit at index: {unit.index}. Changing the units_on_board_found to False for that index.")
-                    units_on_board_found_from_health[unit.index] = False
+                    print(f"    We know there is a unit at index: {index}. Changing the units_on_board_found to False for that index.")
+                    units_on_board_found_from_health[index] = False
         for index, boolean in enumerate(units_on_board_found_from_health):
             if boolean and arena_functions.empty_bench_slot() != -1:
                 mk_functions.press_w(screen_coords.BOARD_LOC[index].get_coords())
@@ -142,7 +142,7 @@ class Arena:
         # If the unit is in our comp. Put it in its designated spot on the board.
         if champion.name in self.comp_to_play.comp:
             print("      Selecting the designated board space because the unit is in our comp.")
-            board_position = self.comp_to_play.comp[champion.name]["board_position"]
+            board_position = champion.board_position
         # Otherwise, put it in a random spot on the board that our wanted units won't use.
         # Might accidentally replace an unwanted unit with this one.
         else:
@@ -158,15 +158,9 @@ class Arena:
         successful_move = True  # arena_functions.was_moving_unit_successful(destination)
         if successful_move:
             champion.coords = destination
-            self.board[champion.index] = champion
+            self.board[board_position] = champion
             self.board_names.append(champion.name)
-            # TODO: I wrote this before I created champion.coords so this might be able to go away.
-            if champion.index >= len(self.bench):
-                print(AnsiColors.RED_REGULAR + f"      [!] The index {champion.index} of unit {champion.name} "
-                                           f"is larger than the length of the bench." + AnsiColors.RESET)
-            else:
-                self.bench[champion.index] = None
-            champion.index = board_position
+            self.bench[self.bench.index(champion)] = None
             self.set_board_size(self.board_size + champion.size)
             print(f"      Moved {champion.name} to {board_position}.")
             print(f"        There are now {self.board_size} slots for units taken up on the board.")
@@ -270,7 +264,7 @@ class Arena:
                 if unit.name not in self.comp_to_play.comp and champion.name in self.comp_to_play.comp:
                     print(f"    Replacing {unit.name} with {champion.name} because {unit.name} is not in our comp.")
                     mk_functions.press_e(unit.coords)
-                    self.board[unit.index] = None
+                    self.board[self.board.index(unit)] = None
                     self.board_names.remove(unit.name)
                     self.set_board_size(self.board_size - unit.size)
                     self.move_known(champion)
@@ -543,7 +537,7 @@ class Arena:
         if champion in self.board:
             if isinstance(champion, Champion):
                 self.set_board_size(self.board_size - champion.size)
-                self.board[champion.index] = None
+                self.board[self.board.index(champion)] = None
         if champion in self.board and isinstance(champion, Champion) and champion.name not in self.board_names:
             print(AnsiColors.RED_REGULAR + f"      [!] Unit {champion} is registered as in self.board, "
                                            f"but its name is not registered as in self.board_names." + AnsiColors.RESET)
@@ -826,7 +820,7 @@ class Arena:
                 if isinstance(unit, Champion):
                     if not arena_functions.identify_one_champion_on_the_board(unit):
                         print(f"         Was not able to confirm that {unit.name} is still on the board.")
-                        self.board[unit.index] = unit
+                        self.board[self.board.index(unit)] = None
                         self.board_names.remove(unit.name)
                         # don't think we need to reduce the board_size (amount of units we have on the board)
                         # here because this happens this function checks stuff after combat, so we should have the
@@ -857,7 +851,7 @@ class Arena:
             duplicate_unit = False
             for known_unit in self.board:
                 if isinstance(known_unit, Champion):
-                    if known_unit.name is unit_name and known_unit.index == index:
+                    if known_unit.name is unit_name and known_unit.board_position == index:
                         duplicate_unit = True
                         break
             if arena_functions.is_valid_champ(unit_name) and not duplicate_unit:
@@ -866,6 +860,7 @@ class Arena:
         self.board_unknown_and_pos = valid_champs
         return valid_champs
 
+    # TODO: Is this still neccessary with the change to making self.board represent every space on the board.
     def remove_random_duplicate_champions_from_board(self):
         """Loops through the entire self.board list,
            and if a unit is a Champion object, but is sharing the same space as another Champion unit,
@@ -875,15 +870,15 @@ class Arena:
             positions_of_all_unit = []
             if isinstance(unit, Champion):
                 # Just remove the first duplicate Champion unit from the self.board.
-                if unit.index in positions_of_all_unit:
+                if unit.board_position in positions_of_all_unit:
                     print(f"    Removing a duplicate {unit.name} from self.board.")
-                    self.board[unit.index] = None
+                    self.board[board_index] = None
                     self.board_names.remove(unit.name)
                     # don't think we need to reduce the board_size (amount of units we have on the board)
                     # here because this happens this function checks stuff after combat, so we should have the
                     # max amount of units/board_size on the board already.
                 else:
-                    positions_of_all_unit.append(unit.index)
+                    positions_of_all_unit.append(unit.board_position)
         return
 
     def identify_champions_on_bench(self):
@@ -943,7 +938,7 @@ class Arena:
         if unit_name in self.board_unknown:
             print(f"      Removing the unknown unit {unit_name} from the list of unknown units.")
             self.board_unknown.remove(unit_name)
-        self.board[new_champion.index] = new_champion
+        self.board[index] = new_champion
 
     def set_board_size(self, new_size: int) -> bool:
         """Sets how many units we have on the board.
