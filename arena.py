@@ -900,7 +900,7 @@ class Arena:
         for index, unit_on_bench in enumerate(self.bench):
             if isinstance(unit_on_bench, Champion):
                 if unit_on_bench.name not in self.comp_to_play.comp \
-                        and self.board_size == self.max_board_size \
+                        and self.board_size >= self.max_board_size \
                         and unit_on_bench.name not in self.board_names:
                     print(f"    Sold non-comp unit: {unit_on_bench} at bench index: {index}.")
                     self.sell_unit(unit_on_bench, index)
