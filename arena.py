@@ -57,17 +57,6 @@ class Arena:
     def fix_bench_state(self) -> None:
         """Iterates through bench and fixes invalid slots"""
         self.identify_champions_on_bench()
-        bench_occupied: list = arena_functions.bench_occupied_check()
-        for index, slot in enumerate(self.bench):
-            if slot is None and bench_occupied[index]:
-                self.bench[index] = "?"
-            if isinstance(slot, str) and not bench_occupied[index]:
-                print(f"    There is no unit at bench slot {index}. Setting that self.bench spot to None.")
-                self.bench[index] = None
-            # TODO: this is likely redundant with the stuff in self.identify_champions_on_bench()
-            if isinstance(slot, Champion) and not bench_occupied[index]:
-                print(f"    Identified a {slot.name} at bench spot {index}. Setting it's spot in self.bench.")
-                self.bench[index] = None
         self.sell_non_comp_units_on_bench()
 
     def move_unknown_units_to_bench(self):
@@ -888,7 +877,7 @@ class Arena:
         for index, bench_space in enumerate(self.bench):
             # check is this bench space is labeled "?"
             if bench_space is None and bench_occupied[index]:
-                print(f"  [!]Bench space {index} is occupied by a unit, but we don't know which unit!")
+                print(f"  Bench space {index} is occupied by a unit, but we don't know which unit!")
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
                 mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
                 mk_functions.press_s()
