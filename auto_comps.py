@@ -127,7 +127,7 @@ def __LoadLolChessComps(
     for nms, afs in deck_list:
         deck_keys = parse.parse_qs(parse.urlparse(afs).query)["deck"][0]
         deck_response = requests.get(
-            f"https://lolchess.gg/builder/set9?hl=en&deck={deck_keys}",
+            f"https://lolchess.gg/builder/set{set_str}?hl=en&deck={deck_keys}",
         )
         json_in_text = re.search(pattern, deck_response.text)[1]
         query_data = (
