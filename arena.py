@@ -867,12 +867,13 @@ class Arena:
                     positions_of_all_unit.append(unit.board_position)
         return
 
-    def identify_champions_on_bench(self):
+    # TODO: reduce code reuse
+    def identify_champions_on_bench(self, mistaken_identity: bool = False):
         print("  Identifying units on the bench:")
         bench_occupied: list = arena_functions.bench_occupied_check()
         for index, bench_space in enumerate(self.bench):
-            # check is this bench space is labeled "?"
-            if bench_space is None and bench_occupied[index]:
+            # TODO: is check bench_space is None and bench_occupied[index] redundant?
+            if bench_space is None and bench_occupied[index] and not mistaken_identity:
                 print(f"  Bench space {index} is occupied by a unit, but we don't know which unit!")
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
                 mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
@@ -887,6 +888,23 @@ class Arena:
                 # Confirm this is an actual unit that can be used
                 if arena_functions.is_valid_champ(champ_name):
                     print(f"        Found a valid {champ_name} unit on the bench!")
+                    new_champion = champion_class.create_default_champion(champ_name, index, True, self.comp_to_play)
+                    self.bench[index] = new_champion
+            elif isinstance(bench_space, Champion) and mistaken_identity:
+                print(f"  Bench space {index} is occupied by a unit, but it is possibly labeled the wrong unit.")
+                # Right-click the unit to make the unit's info appear on the right side of the screen.
+                mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
+                mk_functions.press_s()
+                sleep(0.05)  # a delay to make sure the info popup has enough time to animate before ocr kicks in.
+                champ_name: str = ocr.get_text(screenxy=screen_coords.SELECTED_UNIT_NAME_POS.get_coords(),
+                                               scale=3, psm=8, whitelist=ocr.ALPHABET_WHITELIST)
+                print(f"       Champ: {champ_name}")
+                champ_name = arena_functions.get_valid_champ(champ_name)
+                # Click at the default location so that the unit's info disappears.
+                mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
+                # Confirm this is an actual unit that can be used
+                if arena_functions.is_valid_champ(champ_name) and bench_space.name != champ_name:
+                    print(f"        A {champ_name} was labeled as a {bench_space.name}.")
                     new_champion = champion_class.create_default_champion(champ_name, index, True, self.comp_to_play)
                     self.bench[index] = new_champion
         mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
@@ -964,9 +982,10 @@ class Arena:
                     # Should this be placed before the above if block?
                     if unit.item_slots_filled % 2 == 0:
                         combined_two_items = self.add_any_bis_item_from_combining_two_component_items_on_unit(unit)
-                    # Start giving units their 'good but not BIS' items if our health gets too low or we have too many items
-                    if not combined_two_items and (arena_functions.get_health() <= 25 or len([item for item in self.items if item is not None]) == 10):
-                        combined_two_items = self.add_any_secondary_item_from_combining_two_component_items_on_unit(unit)
+                        # TODO: Cleanup
+                        # Start giving units their 'good but not BIS' items if our health gets too low or we have too many items
+                        if unit.item_slots_filled < 5 and (arena_functions.get_health() <= 30 or len([item for item in self.items if item is not None]) == 10):
+                            combined_two_items = self.add_any_secondary_item_from_combining_two_component_items_on_unit(unit)
                 if not combined_two_items:
                     print(f"            Unable to complete an item for {unit.name}.")
                 # Zaun units can hold 3 Zaun mods.
