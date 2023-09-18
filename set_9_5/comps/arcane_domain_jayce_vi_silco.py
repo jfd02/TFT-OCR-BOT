@@ -25,7 +25,7 @@ COMP = {
     "Jayce": {
         "board_position": 1,
         "best_in_slot": ["LastWhisper", "InfinityEdge", "GuinsoosRageblade"],
-        "completed_items_to_accept": ["GiantSlayer", "NashorsTooth", "RunaansHurricane"],
+        "secondary_items": ["GiantSlayer", "NashorsTooth", "RunaansHurricane"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -37,7 +37,7 @@ COMP = {
     "Vi": {
         "board_position": 24,
         "best_in_slot": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
-        "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
+        "secondary_items": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["JuggernautEmblem", "ZaunEmblem"],
         "ornn_items_to_accept": [],
@@ -49,7 +49,7 @@ COMP = {
     "Silco": {
         "board_position": 4,
         "best_in_slot": ["BlueBuff", "JeweledGauntlet"],
-        "completed_items_to_accept": ["SpearofShojin", "GiantSlayer", "Morellonomicon"],
+        "secondary_items": ["SpearofShojin", "GiantSlayer", "Morellonomicon"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -61,7 +61,7 @@ COMP = {
     "Gangplank": {
         "board_position": 0,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["ZaunEmblem"],
         "ornn_items_to_accept": [],
@@ -73,7 +73,7 @@ COMP = {
     "Aphelios": {
         "board_position": 2,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["BilgewaterEmblem", "PiltoverEmblem", "ZaunEmblem"],
         "ornn_items_to_accept": [],
@@ -85,7 +85,7 @@ COMP = {
     "Ekko": {
         "board_position": 26,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["BilgewaterEmblem", "BruiserEmblem", "JuggernautEmblem", "NoxusEmblem",
                                   "ShurimaEmblem"],
@@ -98,7 +98,7 @@ COMP = {
     "Jinx": {
         "board_position": 6,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["PiltoverEmblem"],
         "ornn_items_to_accept": [],
@@ -110,7 +110,7 @@ COMP = {
     "Warwick": {
         "board_position": 22,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["GunnerEmblem", "RogueEmblem", "BilgewaterEmblem", "PiltoverEmblem", "BruiserEmblem"],
         "ornn_items_to_accept": [],
@@ -122,7 +122,7 @@ COMP = {
     "Taric": {
         "board_position": 23,
         "best_in_slot": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
-        "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
+        "secondary_items": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -134,7 +134,7 @@ COMP = {
     "Qiyana": {
         "board_position": 27,
         "best_in_slot": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
-        "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
+        "secondary_items": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -146,7 +146,7 @@ COMP = {
     "Renekton": {
         "board_position": 25,
         "best_in_slot": ["DragonsClaw", "BrambleVest", "WarmogsArmor"],
-        "completed_items_to_accept": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
+        "secondary_items": ["GargoyleStoneplate", "SunfireCape", "Evenshroud"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -158,7 +158,7 @@ COMP = {
     "Graves": {
         "board_position": 7,
         "best_in_slot": ["InfinityEdge", "LastWhisper"],
-        "completed_items_to_accept": ["GiantSlayer", "NashorsTooth", "RunaansHurricane"],
+        "secondary_items": ["GiantSlayer", "NashorsTooth", "RunaansHurricane"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -170,7 +170,7 @@ COMP = {
     "Orianna": {
         "board_position": 3,
         "best_in_slot": ["BlueBuff"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],

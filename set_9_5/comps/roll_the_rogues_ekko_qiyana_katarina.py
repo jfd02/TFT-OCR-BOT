@@ -27,7 +27,7 @@ COMP = {
     "Qiyana": {
         "board_position": 26,
         "best_in_slot": ["HandofJustice", "InfinityEdge", "SteraksGage"],
-        "completed_items_to_accept": ["Deathblade", "Bloodthirster", "HandofJustice", "InfinityEdge", "SteraksGage", "TitansResolve"],
+        "secondary_items": ["Deathblade", "Bloodthirster", "HandofJustice", "InfinityEdge", "SteraksGage", "TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -39,7 +39,7 @@ COMP = {
     "Ekko": {
         "board_position": 22,
         "best_in_slot": ["HandofJustice", "JeweledGauntlet", "HandofJustice"],
-        "completed_items_to_accept": ["Crownguard", "HandofJustice", "RabadonsDeathcap"],
+        "secondary_items": ["Crownguard", "HandofJustice", "RabadonsDeathcap"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["SlayerEmblem"],
         "ornn_items_to_accept": [],
@@ -51,7 +51,7 @@ COMP = {
     "Katarina": {
         "board_position": 24,
         "best_in_slot": ["IonicSpark", "NightHarvester"],
-        "completed_items_to_accept": ["Crownguard", "IonicSpark", "NightHarvester", "RabadonsDeathcap"],
+        "secondary_items": ["Crownguard", "IonicSpark", "NightHarvester", "RabadonsDeathcap"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["SlayerEmblem"],
         "ornn_items_to_accept": [],
@@ -63,7 +63,7 @@ COMP = {
     "Silco": {
         "board_position": 0,
         "best_in_slot": [],
-        "completed_items_to_accept": ["BlueBuff", "Morellonomicon", "RabadonsDeathcap"],
+        "secondary_items": ["BlueBuff", "Morellonomicon", "RabadonsDeathcap"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["RogueEmblem"],
         "ornn_items_to_accept": [],
@@ -75,7 +75,7 @@ COMP = {
     "Taric": {
         "board_position": 23,
         "best_in_slot": [],
-        "completed_items_to_accept": ["BrambleVest", "DragonsClaw", "IonicSpark", "Redemption", "SunfireCape"],
+        "secondary_items": ["BrambleVest", "DragonsClaw", "IonicSpark", "Redemption", "SunfireCape"],
         "support_items_to_accept": ["ChaliceofPower", "LocketoftheIronSolari", "VirtueoftheMartyr", "ZzRotPortal"],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -87,7 +87,7 @@ COMP = {
     "Neeko": {
         "board_position": 25,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -99,7 +99,7 @@ COMP = {
     "Graves": {
         "board_position": 14,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -111,7 +111,7 @@ COMP = {
     "Milio": {
         "board_position": 6,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": ["NeedlesslyBigGem"],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -123,7 +123,7 @@ COMP = {
     "RekSai": {
         "board_position": 19,
         "best_in_slot": ["HandofJustice"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["RogueEmblem"],
         "ornn_items_to_accept": [],
@@ -135,7 +135,7 @@ COMP = {
     "Warwick": {
         "board_position": 15,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["RogueEmblem", "SlayerEmblem"],
         "ornn_items_to_accept": [],
@@ -147,7 +147,7 @@ COMP = {
     "Swain": {
         "board_position": 27,
         "best_in_slot": ["Redemption"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["RogueEmblem"],
         "ornn_items_to_accept": [],
@@ -159,7 +159,7 @@ COMP = {
     "Kassadin": {
         "board_position": 16,
         "best_in_slot": ["HandofJustice", "HandofJustice", "JeweledGauntlet"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -171,7 +171,7 @@ COMP = {
     "Soraka": {
         "board_position": 2,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -183,7 +183,7 @@ COMP = {
     "Illaoi": {
         "board_position": 21,
         "best_in_slot": ["SteraksGage"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["SlayerEmblem"],
         "ornn_items_to_accept": [],
@@ -195,7 +195,7 @@ COMP = {
     "Kayle": {
         "board_position": 4,
         "best_in_slot": ["InfinityEdge"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["SlayerEmblem"],
         "ornn_items_to_accept": [],

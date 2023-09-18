@@ -25,7 +25,7 @@ class Champion:
         # A list of the items that are likely the unit's best items it can be given, a.k.a. their "Best In Slot" (BIS)
         self.build: list[str] = build
         # A list of completed items that aren't BIS, but would also work on this unit.
-        self.completed_items_will_accept: list[str] = build2
+        self.secondary_items: list[str] = build2
         # The Ornn items this unit would like.
         self.ornn_items_will_accept: list[str] = ornn_items
         # The Support items this unit would like.
@@ -84,7 +84,7 @@ def create_default_champion(champ_name: str, index: int | None, bench: bool, com
     # If we actually plan on using this champ in our comp:
     if champ_name in comp_to_play.comp:
         best_in_slot = comp_to_play.comp[champ_name]["best_in_slot"].copy()
-        build2 = comp_to_play.comp[champ_name]["completed_items_to_accept"].copy()
+        build2 = comp_to_play.comp[champ_name]["secondary_items"].copy()
         ornn_items = comp_to_play.comp[champ_name]["ornn_items_to_accept"].copy()
         support_items = comp_to_play.comp[champ_name]["support_items_to_accept"].copy()
         trait_items = comp_to_play.comp[champ_name]["trait_items_to_accept"].copy()

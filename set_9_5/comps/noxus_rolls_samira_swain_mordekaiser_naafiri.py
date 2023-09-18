@@ -26,7 +26,7 @@ COMP = {
     "Samira": {
         "board_position": 0,
         "best_in_slot": ["BlueBuff", "Bloodthirster", "EdgeofNight"],
-        "completed_items_to_accept": ["BlueBuff", "Bloodthirster", "EdgeofNight", "GiantSlayer", "HandofJustice", "InfinityEdge"],
+        "secondary_items": ["BlueBuff", "Bloodthirster", "EdgeofNight", "GiantSlayer", "HandofJustice", "InfinityEdge"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["SlayerEmblem"],
         "ornn_items_to_accept": ["GoldCollector", "InfinityForce", "ObsidianCleaver", "SnipersFocus"],
@@ -38,7 +38,7 @@ COMP = {
     "Swain": {
         "board_position": 25,
         "best_in_slot": ["Crownguard", "ProtectorsVow", "GargoyleStoneplate"],
-        "completed_items_to_accept": ["Crownguard", "Evenshroud", "GargoyleStoneplate",
+        "secondary_items": ["Crownguard", "Evenshroud", "GargoyleStoneplate",
                                       "ProtectorsVow", "Redemption", "SunfireCape", "WarmogsArmor"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["ChallengerEmblem", "InvokerEmblem", "JuggernautEmblem", "ShurimaEmblem", "SorcererEmblem"],
@@ -51,7 +51,7 @@ COMP = {
     "Cassiopeia": {
         "board_position": 6,
         "best_in_slot": ["HextechGunblade", "NashorsTooth"],
-        "completed_items_to_accept": ["Guardbreaker", "HextechGunblade", "NashorsTooth"],
+        "secondary_items": ["Guardbreaker", "HextechGunblade", "NashorsTooth"],
         "support_items_to_accept": ["Zephyr"],
         "trait_items_to_accept": ["VanquisherEmblem"],
         "ornn_items_to_accept": ["DeathfireGrasp", "GoldmancersStaff", "ZhonyasParadox"],
@@ -63,7 +63,7 @@ COMP = {
     "Mordekaiser": {
         "board_position": 13,
         "best_in_slot": ["JeweledGauntlet", "RapidFirecannon"],
-        "completed_items_to_accept": ["JeweledGauntlet", "Quicksilver", "RapidFirecannon"],
+        "secondary_items": ["JeweledGauntlet", "Quicksilver", "RapidFirecannon"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["DarkinEmblem", "JuggernautEmblem", "SorcererEmblem"],
         "ornn_items_to_accept": ["EternalWinter", "GoldmancersStaff", "TrickstersGlass", "ZhonyasParadox"],
@@ -75,7 +75,7 @@ COMP = {
     "Sion": {
         "board_position": 27,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -87,7 +87,7 @@ COMP = {
     "Naafiri": {
         "board_position": 21,
         "best_in_slot": ["ThiefsGloves"],
-        "completed_items_to_accept": ["Quicksilver", "SpearofShojin", "ThiefsGloves", "TitansResolve"],
+        "secondary_items": ["Quicksilver", "SpearofShojin", "ThiefsGloves", "TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["NoxusEmblem", "SlayerEmblem"],
         "ornn_items_to_accept": ["BlacksmithsGloves"],
@@ -99,7 +99,7 @@ COMP = {
     "Darius": {
         "board_position": 4,
         "best_in_slot": [],
-        "completed_items_to_accept": ["SteraksGage"],
+        "secondary_items": ["SteraksGage"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["ChallengerEmblem", "DarkinEmblem", "ShurimaEmblem",
                                   "SlayerEmblem", "SorcererEmblem", "StrategistEmblem"],
@@ -112,7 +112,7 @@ COMP = {
     "Warwick": {
         "board_position": 5,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["DarkinEmblem", "NoxusEmblem", "ShurimaEmblem"],
         "ornn_items_to_accept": ["DeathsDefiance", "InfinityForce"],
@@ -124,7 +124,7 @@ COMP = {
     "Irelia": {
         "board_position": 12,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["DarkinEmblem", "NoxusEmblem"],
         "ornn_items_to_accept": [],
@@ -146,6 +146,7 @@ PRIMARY_AUGMENTS: list[str] = [
     "Challenger Crest",
     "Cybernetic Leech II",
     "Money Money!",
+    "Total Domination",
     "Training Reward II",
 
     "Challenger Crown",

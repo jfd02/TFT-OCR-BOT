@@ -10,7 +10,7 @@ COMP = {
         "board_position": 6,
         "best_in_slot": ["GuinsoosRageblade", "HextechGunblade", "StatikkShiv", "RapidFirecannon", "Guardbreaker",
                            "GiantSlayer"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -22,7 +22,7 @@ COMP = {
     "Nasus": {
         "board_position": 24,
         "best_in_slot": ["Redemption", "DragonsClaw", "BrambleVest", "GargoyleStoneplate", "WarmogsArmor"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -34,7 +34,7 @@ COMP = {
     "Jarvan IV": {
         "board_position": 26,
         "best_in_slot": ["ProtectorsVow"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -46,7 +46,7 @@ COMP = {
     "KSante": {
         "board_position": 9,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -58,7 +58,7 @@ COMP = {
     "Taliyah": {
         "board_position": 9,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -70,7 +70,7 @@ COMP = {
     "Teemo": {
         "board_position": 3,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -82,7 +82,7 @@ COMP = {
     "Swain": {
         "board_position": 22,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -94,7 +94,7 @@ COMP = {
     "Garen": {
         "board_position": 23,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -106,7 +106,7 @@ COMP = {
     "Lux": {
         "board_position": 0,
         "best_in_slot": ["BlueBuff", "JeweledGauntlet"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -118,7 +118,7 @@ COMP = {
     "Renekton": {
         "board_position": 16,
         "best_in_slot": ["BrambleVest", "DragonsClaw"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -130,7 +130,7 @@ COMP = {
     "Vi": {
         "board_position": 14,
         "best_in_slot": ["BrambleVest", "DragonsClaw"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -142,7 +142,7 @@ COMP = {
     "Cassiopeia": {
         "board_position": 7,
         "best_in_slot": ["GuinsoosRageblade", "HextechGunblade", "JeweledGauntlet"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -154,7 +154,7 @@ COMP = {
     "Sona": {
         "board_position": 8,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -166,7 +166,7 @@ COMP = {
     "Orianna": {
         "board_position": 2,
         "best_in_slot": ["StatikkShiv", "BlueBuff"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],

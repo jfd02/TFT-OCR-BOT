@@ -349,10 +349,10 @@ ALL_GOLD_AUGMENTS: set[str] = \
      "Salvage Bin+", "Scoped Weapons I", "Scrappy Inventions", "Sentinel's Spirit", "Shimmering Inventors",
      "Shoplifting", "Shurima Crest", "Shurima's Legacy", "Silver Ticket", "Slayer Crest", "Slayer's Resolve",
      "Sleight of Hand", "Social Distancing II", "Sorcerer Crest", "Spoils of War II", "Stable Evolution",
-     "Stars are Born", "Stellacorn's Blessing", "Strategist Heart", "Suppressing Fire", "Tactical Superiority",
-     "Targon Heart", "The Boss", "Three's a Crowd", "Three's Company", "Tiny Power II", "Titanic Strength",
+     "Stars are Born", "Stationary Support II", "Stellacorn's Blessing", "Strategist Heart", "Suppressing Fire", "Tactical Superiority",
+     "Targon Heart", "Teaming Up II", "The Boss", "Three's a Crowd", "Three's Company", "Tiny Power II", "Titanic Strength",
      "Tons of Stats!", "Total Domination", "Trade Sector", "Training Reward II", "Transfusion II", "Two Healthy",
-     "Unburdened II", "Unified Resistance II", "Unstable Yordle Delivery", "Vampiric Blades", "Void Heart",
+     "Unburdened II", "Unified Resistance II", "Vampiric Blades", "Vanquisher Crest", "Void Heart",
      "Well-Earned Comforts II", "What Doesn't Kill You", "Winds of War", "You Have My Bow", "You Have My Sword",
      "Zaun Crest"}
 

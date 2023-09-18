@@ -87,7 +87,7 @@ class Arena:
                      coords=screen_coords.BENCH_LOC[bench_position].get_coords(),
                      item_slots_filled=0,
                      build=self.comp_to_play.comp[name]["best_in_slot"].copy(),
-                     build2=self.comp_to_play.comp[name]["completed_items_to_accept"].copy(),
+                     build2=self.comp_to_play.comp[name]["secondary_items"].copy(),
                      ornn_items=self.comp_to_play.comp[name]["ornn_items_to_accept"].copy(),
                      support_items=self.comp_to_play.comp[name]["support_items_to_accept"].copy(),
                      trait_items=self.comp_to_play.comp[name]["trait_items_to_accept"].copy(),
@@ -950,7 +950,7 @@ class Arena:
             if isinstance(unit, Champion):
                 # try to give completed items first
                 # for loop like this because a unit can have 3 complete/non-component items
-                print(f"    Unit: {unit.name}, # of Items: {unit.item_slots_filled}, Items: {unit.items}", end="")
+                print(f"    Unit: {unit.name}, # of Item Slots Filled: {unit.item_slots_filled}, Items: {unit.items}", end="")
                 combined_two_items = False
                 for i in range(unit.item_slots_filled, 6):
                     # can't give completed items if there aren't two slots or more available
@@ -1020,10 +1020,10 @@ class Arena:
         """If we have radiant items waiting on the bench,
            that are a better version of the unit's items IT IS OK WITH, give them to the unit"""
         for radiant_item, completed_item in game_assets.RADIANT_ITEMS_DICT.items():
-            if completed_item in unit.completed_items_will_accept and radiant_item in self.items:
+            if completed_item in unit.secondary_items and radiant_item in self.items:
                 self.add_one_item_to_unit(unit, self.items.index(radiant_item))
                 unit.item_slots_filled += 1
-                unit.completed_items_will_accept.remove(completed_item)
+                unit.secondary_items.remove(completed_item)
                 unit.non_component_items.append(radiant_item)
         return
 
@@ -1184,8 +1184,8 @@ class Arena:
             unit.non_component_items.append(complete_item)
             unit.build.remove(complete_item)
             # Just make sure we don't give them the same item twice.
-            if complete_item in unit.completed_items_will_accept:
-                unit.completed_items_will_accept.remove(complete_item)
+            if complete_item in unit.secondary_items:
+                unit.secondary_items.remove(complete_item)
             unit.item_slots_filled += 2
             return True
         return False
@@ -1325,8 +1325,8 @@ class Arena:
                         unit.non_component_items.append(item)
                         if item in unit.build:
                             unit.build.remove(item)
-                        if item in unit.completed_items_will_accept:
-                            unit.completed_items_will_accept.remove(item)
+                        if item in unit.secondary_items:
+                            unit.secondary_items.remove(item)
                         unit.item_slots_filled += 2
                 # and so on...
                 for item in game_assets.CRAFTABLE_NON_EMBLEM_ITEMS:
@@ -1335,8 +1335,8 @@ class Arena:
                         unit.non_component_items.append(item)
                         if item in unit.build:
                             unit.build.remove(item)
-                        if item in unit.completed_items_will_accept:
-                            unit.completed_items_will_accept.remove(item)
+                        if item in unit.secondary_items:
+                            unit.secondary_items.remove(item)
                         unit.item_slots_filled += 2
                 # put emblem items after crafted completed items, because we are looking at our carries first
                 for item in game_assets.CRAFTABLE_EMBLEM_ITEMS:

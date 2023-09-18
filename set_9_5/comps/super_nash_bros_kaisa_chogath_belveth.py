@@ -25,7 +25,7 @@ COMP = {
     "KaiSa": {
         "board_position": 4,
         "best_in_slot": ["Guardbreaker", "JeweledGauntlet", "SpearofShojin"],
-        "completed_items_to_accept": ["Guardbreaker", "GuinsoosRageblade", "JeweledGauntlet",
+        "secondary_items": ["Guardbreaker", "GuinsoosRageblade", "JeweledGauntlet",
                                       "GiantSlayer", "SpearofShojin", "StatikkShiv"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -38,7 +38,7 @@ COMP = {
     "BelVeth": {
         "board_position": 18,
         "best_in_slot": ["Bloodthirster", "TitansResolve"],
-        "completed_items_to_accept": ["Bloodthirster", "HandofJustice", "LastWhisper", "Quicksilver",
+        "secondary_items": ["Bloodthirster", "HandofJustice", "LastWhisper", "Quicksilver",
                                       "SteraksGage", "TitansResolve"],
         "support_items_to_accept": ["VirtueoftheMartyr", "ZzRotPortal"],
         "trait_items_to_accept": ["ChallengerEmblem"],
@@ -51,7 +51,7 @@ COMP = {
     "ChoGath": {
         "board_position": 25,
         "best_in_slot": ["IonicSpark", "Redemption", "SunfireCape"],
-        "completed_items_to_accept": ["Evenshroud", "GargoyleStoneplate", "IonicSpark", "Redemption", "SunfireCape"],
+        "secondary_items": ["Evenshroud", "GargoyleStoneplate", "IonicSpark", "Redemption", "SunfireCape"],
         "support_items_to_accept": ["AegisoftheLegion", "LocketoftheIronSolari"],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -63,7 +63,7 @@ COMP = {
     "Fiora": {
         "board_position": 27,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": ["ObsidianCleaver", "VirtueoftheMartyr"],
         "trait_items_to_accept": ["VoidEmblem"],
         "ornn_items_to_accept": [],
@@ -75,7 +75,7 @@ COMP = {
     "RekSai": {
         "board_position": 20,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": ["ObsidianCleaver", "VirtueoftheMartyr"],
         "trait_items_to_accept": ["ChallengerEmblem", "FreljordEmblem"],
         "ornn_items_to_accept": [],
@@ -87,7 +87,7 @@ COMP = {
     "VelKoz": {
         "board_position": 6,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": ["Zephyr"],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -99,7 +99,7 @@ COMP = {
     "Kassadin": {
         "board_position": 23,
         "best_in_slot": [],
-        "completed_items_to_accept": ["Morellonomicon"],
+        "secondary_items": ["Morellonomicon"],
         "support_items_to_accept": ["VirtueoftheMartyr"],
         "trait_items_to_accept": ["BastionEmblem", "BruiserEmblem", "FreljordEmblem"],
         "ornn_items_to_accept": [],
@@ -111,7 +111,7 @@ COMP = {
     "Malzahar": {
         "board_position": 0,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": ["RabadonsDeathcap", "Zephyr"],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -123,7 +123,7 @@ COMP = {
     "Ahri": {
         "board_position": 6,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": ["Zephyr"],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -135,7 +135,7 @@ COMP = {
     "Orianna": {
         "board_position": 1,
         "best_in_slot": ["SpearofShojin"],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["VoidEmblem"],
         "ornn_items_to_accept": [],
@@ -147,7 +147,7 @@ COMP = {
     "Renekton": {
         "board_position": 24,
         "best_in_slot": [],
-        "completed_items_to_accept": ["Bloodthirster", "HandofJustice", "HextechGunblade", "TitansResolve"],
+        "secondary_items": ["Bloodthirster", "HandofJustice", "HextechGunblade", "TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -159,7 +159,7 @@ COMP = {
     "Vi": {
         "board_position": 21,
         "best_in_slot": [],
-        "completed_items_to_accept": [],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
