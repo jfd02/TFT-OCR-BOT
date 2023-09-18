@@ -2,7 +2,7 @@
 Handles the board / bench state inside of the game and
 other variables used by the bot to make decisions
 """
-
+import collections
 import random
 from time import sleep
 import numpy as np
@@ -54,9 +54,9 @@ class Arena:
         self.spam_roll = False
         self.spam_roll_to_zero = False
 
-    def fix_bench_state(self) -> None:
+    def fix_bench_state(self, mistaken_identiy: bool = False) -> None:
         """Iterates through bench and fixes invalid slots"""
-        self.identify_champions_on_bench()
+        self.identify_champions_on_bench(mistaken_identiy)
         self.sell_non_comp_units_on_bench()
 
     def move_unknown_units_to_bench(self):
@@ -201,33 +201,25 @@ class Arena:
                 self.fix_bench_state()
             else:
                 print("    I think the point of this code is to always have the max units on the board?")
-                bought_unknown = False
                 shop: list = arena_functions.get_shop()
-                for purchaseable_unit in shop:
+                for index, purchaseable_unit in enumerate(shop):
                     gold: int = arena_functions.get_gold()
                     valid_champ_not_in_champs_to_buy_or_board_unknown: bool = (
-                            purchaseable_unit[1] in game_assets.CHAMPIONS and
-                            game_assets.champion_gold_cost(purchaseable_unit[1]) <= gold and
-                            game_assets.champion_board_size(purchaseable_unit[1]) == 1 and
-                            purchaseable_unit[1] not in self.champs_to_buy and
-                            purchaseable_unit[1] not in self.board_unknown
+                            purchaseable_unit in game_assets.CHAMPIONS and
+                            game_assets.champion_gold_cost(purchaseable_unit) <= gold and
+                            game_assets.champion_board_size(purchaseable_unit) == 1 and
+                            purchaseable_unit not in self.champs_to_buy and
+                            purchaseable_unit not in self.board_unknown
                     )
 
                     if valid_champ_not_in_champs_to_buy_or_board_unknown:
                         empty_bench_slot: int = arena_functions.empty_bench_slot()
-                        mk_functions.left_click(screen_coords.BUY_LOC[purchaseable_unit[0]].get_coords())
-                        new_champion = champion_class.create_default_champion(purchaseable_unit[1], empty_bench_slot, True, self.comp_to_play)
+                        mk_functions.left_click(screen_coords.BUY_LOC[index].get_coords())
+                        new_champion = champion_class.create_default_champion(purchaseable_unit, empty_bench_slot, True, self.comp_to_play)
                         sleep(0.1)  # why is this needed
                         self.bench[empty_bench_slot] = new_champion
                         self.move_known(new_champion)
-                        bought_unknown = True
                         break
-
-                # why
-                # if not bought_unknown:
-                #    print("  Need to sell entire bench to keep track of board")
-                #    self.sell_bench()
-                #    return
         return
 
     def replace_unknown(self) -> None:
@@ -567,6 +559,8 @@ class Arena:
         if self.spam_roll_to_zero:
             min_buy_xp_gold = 5
             min_buy_unit_gold = 7
+        previous_shop: list = []
+        infinite_loop_count = 0
         while first_run or (arena_functions.has_enough_gold_to_purchase_xp(min_buy_xp_gold) and self.is_allowed_to_purchase_xp()) \
                 or arena_functions.has_enough_gold_to_reroll_shop(min_buy_unit_gold):
             if not first_run:
@@ -580,29 +574,36 @@ class Arena:
                 if arena_functions.has_enough_gold_to_reroll_shop(min_buy_unit_gold):
                     mk_functions.reroll()
                     print("  Re-rolling shop")
-            shop: list = arena_functions.get_shop()
+            shop = arena_functions.get_shop()
+
+            if collections.Counter(previous_shop) == collections.Counter(shop):
+                infinite_loop_count += 1
+            if infinite_loop_count >= 6:
+                break
+            previous_shop = shop
+
             print(f"    Shop: {shop}")
-            for champion in shop:
-                if (champion[1] in self.champs_to_buy and
-                        arena_functions.get_gold() - game_assets.CHAMPIONS[champion[1]]["Gold"] >= 0):
+            for index, champion in enumerate(shop):
+                if (champion in self.champs_to_buy and
+                        arena_functions.get_gold() - game_assets.CHAMPIONS[champion]["Gold"] >= 0):
                     none_slot: int = arena_functions.empty_bench_slot()
                     if none_slot != -1:
-                        mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
-                        print(f"    Purchased {champion[1]}")
-                        self.bought_champion(champion[1], none_slot)
-                        self.champs_to_buy.remove(champion[1])
+                        mk_functions.left_click(screen_coords.BUY_LOC[index].get_coords())
+                        print(f"    Purchased {champion}")
+                        self.bought_champion(champion, none_slot)
+                        self.champs_to_buy.remove(champion)
                     else:
                         # Try to buy champ 3 when bench is full
-                        print(f"  Bench is full but want {champion[1]}")
-                        mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
+                        print(f"  Bench is full but want {champion}")
+                        mk_functions.left_click(screen_coords.BUY_LOC[index].get_coords())
                         game_functions.default_pos()
                         sleep(0.5)
-                        self.fix_bench_state()
+                        self.fix_bench_state(True)
                         none_slot = arena_functions.empty_bench_slot()
                         sleep(0.5)
                         if none_slot != -1:
-                            print(f"    Bench no longer full. Purchased {champion[1]}")
-                            self.champs_to_buy.remove(champion[1])
+                            print(f"    Bench no longer full. Purchased {champion}")
+                            self.champs_to_buy.remove(champion)
             first_run = False
         return
 
