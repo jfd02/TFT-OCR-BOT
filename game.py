@@ -149,6 +149,8 @@ class Game:
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         sleep(2)
+        # Click at the default location so ensure the game is the focused window.
+        mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
         self.arena.move_unknown_units_to_bench()
         # Picking up item orbs takes too long for this round.
         self.arena.fix_bench_state()
