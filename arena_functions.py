@@ -490,3 +490,17 @@ def get_valid_augment(augment_name: str) -> str:
     if augment_name is not None and len(augment_name) > 0:
         print(f"  [!] The augment_name {augment_name} did not match any unit in game_assets.ALL_AUGMENTS!")
     return ""
+
+
+def has_enough_gold_to_purchase_xp(minimum_amount_of_gold_to_buy_xp: int):
+    if get_gold() >= minimum_amount_of_gold_to_buy_xp:
+        return True
+    else:
+        return False
+
+
+def has_enough_gold_to_reroll_shop(minimum_amount_of_gold_to_reroll_shop: int):
+    if get_gold() >= minimum_amount_of_gold_to_reroll_shop:
+        return True
+    else:
+        return False

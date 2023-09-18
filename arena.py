@@ -567,17 +567,17 @@ class Arena:
         if self.spam_roll_to_zero:
             min_buy_xp_gold = 5
             min_buy_unit_gold = 7
-        while first_run or arena_functions.get_gold() >= min_buy_xp_gold \
-                or arena_functions.get_gold() >= min_buy_unit_gold:
+        while first_run or (arena_functions.has_enough_gold_to_purchase_xp(min_buy_xp_gold) and self.is_allowed_to_purchase_xp()) \
+                or arena_functions.has_enough_gold_to_reroll_shop(min_buy_unit_gold):
             if not first_run:
-                if arena_functions.get_level_via_https_request() != 9 and arena_functions.get_gold() >= min_buy_xp_gold:
+                if arena_functions.get_level_via_https_request() != 9 and arena_functions.has_enough_gold_to_purchase_xp(min_buy_xp_gold):
                     # If the comp we are playing is not Slow Roll we can buy xp, otherwise
                     # don't level up until we have bought at least 2 2-stars of the 3-star units we need.
                     if self.comp_to_play.strategy != "Slow Roll" or len([x for x in self.champs_to_buy if self.champs_to_buy.count(x) > 3]) == 0:
                         print("  Purchasing XP")
                         mk_functions.buy_xp()
                         self.update_level_via_ocr()
-                if arena_functions.get_gold() >= min_buy_unit_gold:
+                if arena_functions.has_enough_gold_to_reroll_shop(min_buy_unit_gold):
                     mk_functions.reroll()
                     print("  Re-rolling shop")
             shop: list = arena_functions.get_shop()
@@ -837,10 +837,10 @@ class Arena:
                 continue
             # If the unknown unit we are looking at is a known unit on the board, also continue.
             duplicate_unit = False
-            if unit_name is self.board[index].name:
+            if unit_name is not None and unit_name is self.board[index].name:
                 duplicate_unit = True
                 break
-            if arena_functions.is_valid_champ(unit_name) and not duplicate_unit:
+            if unit_name is not None and arena_functions.is_valid_champ(unit_name) and not duplicate_unit:
                 print(f"        Found a valid {unit_name} unit from an unknown unit!")
                 valid_champs.append((unit_name, index))
         # self.board_unknown_and_pos = valid_champs  # TODO: do i really need board_unknown_and_pos
@@ -1421,3 +1421,9 @@ class Arena:
                 labels.append(("True", screen_coords.BOARD_LOC[index].get_coords(), 0, 0))
         self.message_queue.put(("LABEL", labels))
         return board_occupied
+
+    def is_allowed_to_purchase_xp(self):
+        """Don't buy xp on Slow Roll comps unless we have bought
+           at least 6 of the 9 unites needed for a 3-star carry have been purchased."""
+        return self.comp_to_play.strategy != "Slow Roll" \
+               or len([x for x in self.champs_to_buy if self.champs_to_buy.count(x) > 3]) == 0
