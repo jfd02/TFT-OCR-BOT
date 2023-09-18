@@ -969,7 +969,7 @@ class Arena:
             if isinstance(unit, Champion):
                 # try to give completed items first
                 # for loop like this because a unit can have 3 complete/non-component items
-                print(f"    Unit: {unit.name}, # of Item Slots Filled: {unit.item_slots_filled}, Items: {unit.items}", end="")
+                print(f"    Unit: {unit.name}, # of Item Slots Filled: {unit.item_slots_filled}, Items: {unit.items}")
                 combined_two_items = False
                 for i in range(unit.item_slots_filled, 6):
                     # can't give completed items if there aren't two slots or more available
@@ -980,13 +980,13 @@ class Arena:
                         self.add_radiant_version_of_accepted_completed_items_to_unit(unit)
                         self.add_support_item_to_unit(unit)
                         self.add_trait_item_to_unit(unit)
-                    # Should this be placed before the above if block?
-                    if unit.item_slots_filled % 2 == 0:
-                        combined_two_items = self.add_any_bis_item_from_combining_two_component_items_on_unit(unit)
-                        # TODO: Cleanup
-                        # Start giving units their 'good but not BIS' items if our health gets too low or we have too many items
-                        if unit.item_slots_filled < 5 and (arena_functions.get_health() <= 30 or len([item for item in self.items if item is not None]) == 10):
-                            combined_two_items = self.add_any_secondary_item_from_combining_two_component_items_on_unit(unit)
+                # These will try to add all the BIS items the unit has, so no need to loop through them for each possible item slot.
+                if unit.item_slots_filled % 2 == 0:
+                    combined_two_items = self.add_any_bis_item_from_combining_two_component_items_on_unit(unit)
+                    # TODO: Cleanup
+                    # Start giving units their 'good but not BIS' items if our health gets too low or we have too many items
+                    if unit.item_slots_filled < 5 and (arena_functions.get_health() <= 30 or len([item for item in self.items if item is not None]) == 10):
+                        combined_two_items = combined_two_items or self.add_any_secondary_item_from_combining_two_component_items_on_unit(unit)
                 if not combined_two_items:
                     print(f"            Unable to complete an item for {unit.name}.")
                 # Zaun units can hold 3 Zaun mods.
@@ -1173,12 +1173,15 @@ class Arena:
         """Assumes that the complete item in the unit's build, exists as a CRAFTABLE item.
            Returns a boolean value that represent if BOTH component items for a complete item exist in self.items."""
         if complete_item not in unit.build:
+            print(f"        {complete_item} is not in  {unit.name}'s build.")
             return False
         copy_of_owned_items = self.items.copy()
         for item in game_assets.CRAFTABLE_ITEMS_DICT[complete_item]:
             if item not in copy_of_owned_items:
+                print(f"        We are missing a {item} to build the {complete_item}.")
                 return False
             else:  # make sure for items that need duplicate component items, this doesn't count one component twice
+                print(f"        Removing the {item} from the copy of owned items, because we don't want to count items twice.")
                 copy_of_owned_items.remove(item)
         return True
 
@@ -1186,11 +1189,13 @@ class Arena:
         """Searches through the unit's BIS items it wants to build and returns the complete BIS item
            if it can be crafted from component items currently on the bench."""
         for complete_item in unit.build:
+            print(f"      For {complete_item} in {unit.name}'s build.")
             if self.is_possible_to_combine_two_components_into_given_bis_item(unit, complete_item):
+                print(f"        It is possible to create the {complete_item} for {unit}.")
                 return complete_item
             else:
-                return None
-        return
+                print(f"        It is not possible to craft the {complete_item} for {unit}.")
+        return None
 
     def add_any_bis_item_from_combining_two_component_items_on_unit(self, unit: Champion) -> bool:
         """Assumes that the unit has no component items on them.
