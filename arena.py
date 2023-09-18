@@ -236,7 +236,7 @@ class Arena:
         print("  replace_unknown")
         champion: Champion | None = self.get_next_champion_on_bench()
         if len(self.board_unknown_and_pos) > 0 and champion is not None:
-            print(f"    Replacing an unknown champion with {champion.name}.")
+            print(f"    [?]Replacing an unknown champion with {champion.name}.")
             unknown_unit_and_pos = self.board_unknown_and_pos.pop()
             value = screen_coords.BOARD_LOC[unknown_unit_and_pos[1]].get_coords()
             mk_functions.press_e(value)
@@ -817,8 +817,6 @@ class Arena:
                         # max amount of units/board_size on the board already.
                     else:
                         print(f"         Confirmed that {unit.name} is still on the board.")
-                else:
-                    print(f"    unit: {unit}")
         # If there are more units in our "board" than should exist.
         if len([unit for unit in self.board if unit is not None]) > self.max_board_size:
             self.remove_random_duplicate_champions_from_board()
@@ -839,15 +837,13 @@ class Arena:
                 continue
             # If the unknown unit we are looking at is a known unit on the board, also continue.
             duplicate_unit = False
-            for known_unit in self.board:
-                if isinstance(known_unit, Champion):
-                    if known_unit.name is unit_name and known_unit.board_position == index:
-                        duplicate_unit = True
-                        break
+            if unit_name is self.board[index].name:
+                duplicate_unit = True
+                break
             if arena_functions.is_valid_champ(unit_name) and not duplicate_unit:
                 print(f"        Found a valid {unit_name} unit from an unknown unit!")
                 valid_champs.append((unit_name, index))
-        self.board_unknown_and_pos = valid_champs
+        # self.board_unknown_and_pos = valid_champs  # TODO: do i really need board_unknown_and_pos
         return valid_champs
 
     # TODO: Is this still neccessary with the change to making self.board represent every space on the board.
@@ -1318,37 +1314,44 @@ class Arena:
                     if item in self.items and unit.item_slots_filled < 6:
                         self.add_one_item_to_unit(unit, self.items.index(item))
                         unit.non_component_items.append(item)
-                        unit.ornn_items_will_accept.remove(item)
+                        if item in unit.ornn_items_will_accept:
+                            unit.ornn_items_will_accept.remove(item)
                         unit.item_slots_filled += 2
                 # then try to place all the radiant items next...
                 for item in game_assets.RADIANT_ITEMS:
                     if item in self.items and unit.item_slots_filled < 6:
                         self.add_one_item_to_unit(unit, self.items.index(item))
                         unit.non_component_items.append(item)
-                        unit.build.remove(item)
-                        unit.completed_items_will_accept.remove(item)
+                        if item in unit.build:
+                            unit.build.remove(item)
+                        if item in unit.completed_items_will_accept:
+                            unit.completed_items_will_accept.remove(item)
                         unit.item_slots_filled += 2
                 # and so on...
                 for item in game_assets.CRAFTABLE_NON_EMBLEM_ITEMS:
                     if item in self.items and unit.item_slots_filled < 6:
                         self.add_one_item_to_unit(unit, self.items.index(item))
                         unit.non_component_items.append(item)
-                        unit.build.remove(item)
-                        unit.completed_items_will_accept.remove(item)
+                        if item in unit.build:
+                            unit.build.remove(item)
+                        if item in unit.completed_items_will_accept:
+                            unit.completed_items_will_accept.remove(item)
                         unit.item_slots_filled += 2
                 # put emblem items after crafted completed items, because we are looking at our carries first
                 for item in game_assets.CRAFTABLE_EMBLEM_ITEMS:
                     if item in self.items and unit.item_slots_filled < 6:
                         self.add_one_item_to_unit(unit, self.items.index(item))
                         unit.non_component_items.append(item)
-                        unit.trait_items_will_accept.remove(item)
+                        if item in unit.trait_items_will_accept:
+                            unit.trait_items_will_accept.remove(item)
                         unit.item_slots_filled += 2
                 # this is here for same reasoning as CRAFTABLE_EMBLEM_ITEMS
                 for item in game_assets.SUPPORT_ITEMS:
                     if item in self.items and unit.item_slots_filled < 6:
                         self.add_one_item_to_unit(unit, self.items.index(item))
                         unit.non_component_items.append(item)
-                        unit.support_items_will_accept.remove(item)
+                        if item in unit.support_items_will_accept:
+                            unit.support_items_will_accept.remove(item)
                         unit.item_slots_filled += 2
                 for item in game_assets.MOGUL_ITEMS:
                     if item in self.items:
