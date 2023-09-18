@@ -9,8 +9,8 @@ Fork of https://github.com/jfd02/TFT-OCR-BOT
 - If the program crashes, create an issue with the error.
 
 ## INSTALLATION:
-1. Install Python 3.10.4 from https://www.python.org/downloads/windows/
-   - Note that Python 3.10.4 cannot be used on Windows 7 or earlier.
+1. Install Python 3.11.4 from https://www.python.org/downloads/windows/
+   - Note that Python 3.11.4 cannot be used on Windows 7 or earlier.
 2. Clone the repository or download it from here https://github.com/Sizzzles/TFT-OCR-BOT/archive/refs/heads/main.zip
 3. Open Command Prompt and change the current directory to the folder where main.py is located 
 4. Run 'pip install -r requirements.txt' in Command Prompt
