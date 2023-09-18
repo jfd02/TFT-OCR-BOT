@@ -1237,7 +1237,7 @@ class Arena:
                 print(f"        Cost: {cost}")
                 if cost <= 3 and lesser_duplicator_index is not None:
                     self.add_one_item_to_unit(unit, lesser_duplicator_index, True)
-                elif cost > 3 and normal_duplicator_index is not None:
+                elif (cost > 3 or self.comp_to_play.strategy == "Slow Roll") and normal_duplicator_index is not None:
                     self.add_one_item_to_unit(unit, normal_duplicator_index, True)
         return
 
