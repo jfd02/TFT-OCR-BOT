@@ -243,5 +243,6 @@ SECONDARY_AUGMENTS: list[str] = [
     "Lucky Gloves",
     "Money Money Money!",
     "Tiny Power III",
+    "Training Reward III",
     "Unified Resistance III",
 ]
