@@ -27,7 +27,7 @@ COMP = {
     "Qiyana": {
         "board_position": 26,
         "best_in_slot": ["HandofJustice", "InfinityEdge", "SteraksGage"],
-        "secondary_items": ["Deathblade", "Bloodthirster", "HandofJustice", "InfinityEdge", "SteraksGage", "TitansResolve"],
+        "secondary_items": ["Deathblade", "Bloodthirster", "TitansResolve"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -39,7 +39,7 @@ COMP = {
     "Ekko": {
         "board_position": 22,
         "best_in_slot": ["HandofJustice", "JeweledGauntlet", "HandofJustice"],
-        "secondary_items": ["Crownguard", "HandofJustice", "RabadonsDeathcap"],
+        "secondary_items": ["Crownguard", "RabadonsDeathcap"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["SlayerEmblem"],
         "ornn_items_to_accept": [],
@@ -51,7 +51,7 @@ COMP = {
     "Katarina": {
         "board_position": 24,
         "best_in_slot": ["IonicSpark", "NightHarvester"],
-        "secondary_items": ["Crownguard", "IonicSpark", "NightHarvester", "RabadonsDeathcap"],
+        "secondary_items": ["Crownguard", "RabadonsDeathcap"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["SlayerEmblem"],
         "ornn_items_to_accept": [],

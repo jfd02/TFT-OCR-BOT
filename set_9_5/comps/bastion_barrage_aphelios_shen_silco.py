@@ -25,7 +25,7 @@ COMP = {
     "Aphelios": {
         "board_position": 6,
         "best_in_slot": ["Deathblade", "GuinsoosRageblade", "GuinsoosRageblade"],
-        "secondary_items": ["Deathblade", "GuinsoosRageblade", "InfinityEdge"],
+        "secondary_items": ["InfinityEdge"],
         "support_items_to_accept": ["VirtueoftheMartyr", "ZzRotPortal"],
         "trait_items_to_accept": ["ZaunEmblem"],
         "ornn_items_to_accept": [],
@@ -37,8 +37,7 @@ COMP = {
     "Silco": {
         "board_position": 4,
         "best_in_slot": ["ArchangelsStaff", "BlueBuff", "Morellonomicon"],
-        "secondary_items": ["ArchangelsStaff", "BlueBuff", "JeweledGauntlet",
-                                      "HextechGunblade", "Morellonomicon"],
+        "secondary_items": ["JeweledGauntlet", "HextechGunblade"],
         "support_items_to_accept": ["ObsidianCleaver", "ZekesHerald"],
         "trait_items_to_accept": ["InvokerEmblem"],
         "ornn_items_to_accept": [],
@@ -50,8 +49,7 @@ COMP = {
     "Shen": {
         "board_position": 26,
         "best_in_slot": ["Evenshroud", "Redemption", "WarmogsArmor",],
-        "secondary_items": ["BrambleVest", "Crownguard", "Evenshroud", "GargoyleStoneplate",
-                                      "IonicSpark", "Redemption", "SunfireCape", "WarmogsArmor"],
+        "secondary_items": ["BrambleVest", "Crownguard", "GargoyleStoneplate", "IonicSpark", "SunfireCape"],
         "support_items_to_accept": ["ZzRotPortal"],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],

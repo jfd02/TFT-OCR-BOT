@@ -26,7 +26,7 @@ COMP = {
     "Milio": {
         "board_position": 0,
         "best_in_slot": ["ArchangelsStaff", "BlueBuff", "JeweledGauntlet"],
-        "secondary_items": ["ArchangelsStaff", "BlueBuff", "JeweledGauntlet", "GiantSlayer"],
+        "secondary_items": ["GiantSlayer"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -38,7 +38,7 @@ COMP = {
     "Shen": {
         "board_position": 23,
         "best_in_slot": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
-        "secondary_items": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
+        "secondary_items": [],
         "support_items_to_accept": ["VirtueoftheMartyr", "ZzRotPortal"],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -50,7 +50,7 @@ COMP = {
     "Taric": {
         "board_position": 24,
         "best_in_slot": ["IonicSpark", "Redemption", "SunfireCape"],
-        "secondary_items": ["IonicSpark", "Redemption", "SunfireCape"],
+        "secondary_items": [],
         "support_items_to_accept": ["Crest of Cinders", "LocketoftheIronSolari", "RanduinsOmen", "VirtueoftheMartyr"],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -62,7 +62,7 @@ COMP = {
     "Ryze": {
         "board_position": 2,
         "best_in_slot": ["BlueBuff", "JeweledGauntlet"],
-        "secondary_items": ["BlueBuff", "JeweledGauntlet", "RabadonsDeathcap"],
+        "secondary_items": ["RabadonsDeathcap"],
         "support_items_to_accept": ["NeedlesslyBigGem", "Zephyr"],
         "trait_items_to_accept": ["IxtalEmblem"],
         "ornn_items_to_accept": [],

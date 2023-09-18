@@ -26,7 +26,7 @@ COMP = {
     "Samira": {
         "board_position": 0,
         "best_in_slot": ["BlueBuff", "Bloodthirster", "EdgeofNight"],
-        "secondary_items": ["BlueBuff", "Bloodthirster", "EdgeofNight", "GiantSlayer", "HandofJustice", "InfinityEdge"],
+        "secondary_items": ["GiantSlayer", "HandofJustice", "InfinityEdge"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["SlayerEmblem"],
         "ornn_items_to_accept": ["GoldCollector", "InfinityForce", "ObsidianCleaver", "SnipersFocus"],
@@ -38,8 +38,7 @@ COMP = {
     "Swain": {
         "board_position": 25,
         "best_in_slot": ["Crownguard", "ProtectorsVow", "GargoyleStoneplate"],
-        "secondary_items": ["Crownguard", "Evenshroud", "GargoyleStoneplate",
-                                      "ProtectorsVow", "Redemption", "SunfireCape", "WarmogsArmor"],
+        "secondary_items": ["Evenshroud", "Redemption", "SunfireCape", "WarmogsArmor"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["ChallengerEmblem", "InvokerEmblem", "JuggernautEmblem", "ShurimaEmblem", "SorcererEmblem"],
         "ornn_items_to_accept": ["AnimaVisage", "EternalWinter", "Hullcrusher", "MogulsMail", "ObsidianCleaver"],
@@ -51,7 +50,7 @@ COMP = {
     "Cassiopeia": {
         "board_position": 6,
         "best_in_slot": ["HextechGunblade", "NashorsTooth"],
-        "secondary_items": ["Guardbreaker", "HextechGunblade", "NashorsTooth"],
+        "secondary_items": ["Guardbreaker"],
         "support_items_to_accept": ["Zephyr"],
         "trait_items_to_accept": ["VanquisherEmblem"],
         "ornn_items_to_accept": ["DeathfireGrasp", "GoldmancersStaff", "ZhonyasParadox"],
@@ -63,7 +62,7 @@ COMP = {
     "Mordekaiser": {
         "board_position": 13,
         "best_in_slot": ["JeweledGauntlet", "RapidFirecannon"],
-        "secondary_items": ["JeweledGauntlet", "Quicksilver", "RapidFirecannon"],
+        "secondary_items": ["Quicksilver"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["DarkinEmblem", "JuggernautEmblem", "SorcererEmblem"],
         "ornn_items_to_accept": ["EternalWinter", "GoldmancersStaff", "TrickstersGlass", "ZhonyasParadox"],

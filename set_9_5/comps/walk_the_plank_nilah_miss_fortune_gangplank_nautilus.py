@@ -25,8 +25,7 @@ COMP = {
     "Nilah": {
         "board_position": 15,
         "best_in_slot": ["Bloodthirster", "RapidFirecannon", "TitansResolve"],
-        "secondary_items": ["Bloodthirster", "Deathblade", "GiantSlayer", "RapidFirecannon",
-                                      "SteraksGage", "TitansResolve"],
+        "secondary_items": ["Deathblade", "GiantSlayer", "SteraksGage"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -38,7 +37,7 @@ COMP = {
     "Miss Fortune": {
         "board_position": 3,
         "best_in_slot": ["JeweledGauntlet", "BlueBuff", "HextechGunblade"],
-        "secondary_items": ["HextechGunblade"],
+        "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -122,7 +121,7 @@ COMP = {
     "Swain": {
         "board_position": 21,
         "best_in_slot": ["Redemption", "DragonsClaw", "BrambleVest", "IonicSpark"],
-        "secondary_items": ["GargoyleStoneplate", "IonicSpark", "SunfireCape"],
+        "secondary_items": ["GargoyleStoneplate", "SunfireCape"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],

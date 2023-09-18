@@ -25,8 +25,7 @@ COMP = {
     "KaiSa": {
         "board_position": 4,
         "best_in_slot": ["Guardbreaker", "JeweledGauntlet", "SpearofShojin"],
-        "secondary_items": ["Guardbreaker", "GuinsoosRageblade", "JeweledGauntlet",
-                                      "GiantSlayer", "SpearofShojin", "StatikkShiv"],
+        "secondary_items": ["GuinsoosRageblade", "GiantSlayer", "StatikkShiv"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
@@ -38,8 +37,7 @@ COMP = {
     "BelVeth": {
         "board_position": 18,
         "best_in_slot": ["Bloodthirster", "TitansResolve"],
-        "secondary_items": ["Bloodthirster", "HandofJustice", "LastWhisper", "Quicksilver",
-                                      "SteraksGage", "TitansResolve"],
+        "secondary_items": ["HandofJustice", "LastWhisper", "Quicksilver", "SteraksGage"],
         "support_items_to_accept": ["VirtueoftheMartyr", "ZzRotPortal"],
         "trait_items_to_accept": ["ChallengerEmblem"],
         "ornn_items_to_accept": [],
@@ -51,7 +49,7 @@ COMP = {
     "ChoGath": {
         "board_position": 25,
         "best_in_slot": ["IonicSpark", "Redemption", "SunfireCape"],
-        "secondary_items": ["Evenshroud", "GargoyleStoneplate", "IonicSpark", "Redemption", "SunfireCape"],
+        "secondary_items": ["Evenshroud", "GargoyleStoneplate"],
         "support_items_to_accept": ["AegisoftheLegion", "LocketoftheIronSolari"],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
