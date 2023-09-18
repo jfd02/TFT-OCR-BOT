@@ -43,7 +43,7 @@ COMP = {
         "trait_items_to_accept": ["ChallengerEmblem", "InvokerEmblem", "JuggernautEmblem", "ShurimaEmblem", "SorcererEmblem"],
         "ornn_items_to_accept": ["AnimaVisage", "EternalWinter", "Hullcrusher", "MogulsMail", "ObsidianCleaver"],
         "zaun_items_to_accept": [],
-        "level": 3,
+        "level": 2,
         "max_amount_of_items": 3,
         "final_comp": True
     },
@@ -55,7 +55,7 @@ COMP = {
         "trait_items_to_accept": ["VanquisherEmblem"],
         "ornn_items_to_accept": ["DeathfireGrasp", "GoldmancersStaff", "ZhonyasParadox"],
         "zaun_items_to_accept": [],
-        "level": 2,
+        "level": 3,
         "max_amount_of_items": 3,
         "final_comp": True
     },
@@ -188,6 +188,7 @@ SECONDARY_AUGMENTS: list[str] = [
     "Pandora's Items II",
     "Rolling for Days II",
     "Shoplifting",
+    "Support Cache"
     "Tiny Power II",
     "Tons of Stats!",
     "Unified Resistance II",
