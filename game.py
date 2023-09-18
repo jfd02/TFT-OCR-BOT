@@ -281,7 +281,10 @@ class Game:
                 unit_names_on_entire_board.append(unit)
         print(f"-------------------------------------------")
         print(f"        Comp: {self.arena.comp_to_play.name}")
-        print(f"        Board: {unit_names_on_entire_board}")
+        print(f"        Board: {[unit for index, unit in enumerate(unit_names_on_entire_board) if 21 <= index]}")
+        print(f"               {[unit for index, unit in enumerate(unit_names_on_entire_board) if 14 <= index < 21]}")
+        print(f"               {[unit for index, unit in enumerate(unit_names_on_entire_board) if 7 <= index < 14]}")
+        print(f"               {[unit for index, unit in enumerate(unit_names_on_entire_board) if index < 7]}")
         print(f"        Board Size: {self.arena.board_size}        Max Board Size: {self.arena.max_board_size}")
         # Only print out the board names list if it doesn't match the names of all the units on the board.
         if collections.Counter(unit_names_on_entire_board) != collections.Counter(self.arena.board_names):
