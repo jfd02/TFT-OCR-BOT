@@ -91,20 +91,21 @@ class Arena:
             if boolean and arena_functions.empty_bench_slot() == -1:
                 print("    Oh no! We have an unknown unit that we can't move to the board.")
 
-    def bought_champion(self, name: str, slot: int) -> None:
+    def bought_champion(self, name: str, bench_position: int) -> None:
         """Purchase champion and creates champion instance"""
-        self.bench[slot] = Champion(name=name,
-                                    coords=screen_coords.BENCH_LOC[slot].get_coords(),
-                                    item_slots_filled=0,
-                                    build=self.comp_to_play.comp[name]["items_to_build"].copy(),
-                                    build2=self.comp_to_play.comp[name]["completed_items_to_accept"].copy(),
-                                    ornn_items=self.comp_to_play.comp[name]["ornn_items_to_accept"].copy(),
-                                    support_items=self.comp_to_play.comp[name]["support_items_to_accept"].copy(),
-                                    trait_items=self.comp_to_play.comp[name]["trait_items_to_accept"].copy(),
-                                    zaun_items=self.comp_to_play.comp[name]["zaun_items_to_accept"].copy(),
-                                    slot=slot,
-                                    size=game_assets.CHAMPIONS[name]["Board Size"],
-                                    final_comp=self.comp_to_play.comp[name]["final_comp"])
+        self.bench[bench_position] = \
+            Champion(name=name,
+                     coords=screen_coords.BENCH_LOC[bench_position].get_coords(),
+                     item_slots_filled=0,
+                     build=self.comp_to_play.comp[name]["items_to_build"].copy(),
+                     build2=self.comp_to_play.comp[name]["completed_items_to_accept"].copy(),
+                     ornn_items=self.comp_to_play.comp[name]["ornn_items_to_accept"].copy(),
+                     support_items=self.comp_to_play.comp[name]["support_items_to_accept"].copy(),
+                     trait_items=self.comp_to_play.comp[name]["trait_items_to_accept"].copy(),
+                     zaun_items=self.comp_to_play.comp[name]["zaun_items_to_accept"].copy(),
+                     board_position=self.comp_to_play.comp[name]["board_position"],
+                     size=game_assets.CHAMPIONS[name]["Board Size"],
+                     final_comp=self.comp_to_play.comp[name]["final_comp"])
         mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
         # Why was this set to sleep for 0.5 seconds?
         # sleep(0.3)
