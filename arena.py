@@ -964,6 +964,9 @@ class Arena:
                     # Should this be placed before the above if block?
                     if unit.item_slots_filled % 2 == 0:
                         combined_two_items = self.add_any_bis_item_from_combining_two_component_items_on_unit(unit)
+                    # Start giving units their 'good but not BIS' items if our health gets too low or we have too many items
+                    if not combined_two_items and (arena_functions.get_health() <= 25 or len([item for item in self.items if item is not None]) == 10):
+                        combined_two_items = self.add_any_secondary_item_from_combining_two_component_items_on_unit(unit)
                 if not combined_two_items:
                     print(f"            Unable to complete an item for {unit.name}.")
                 # Zaun units can hold 3 Zaun mods.
@@ -1186,6 +1189,53 @@ class Arena:
             # Just make sure we don't give them the same item twice.
             if complete_item in unit.secondary_items:
                 unit.secondary_items.remove(complete_item)
+            unit.item_slots_filled += 2
+            return True
+        return False
+
+    # TODO: combine this with the bis functions into one function that takes in the list of items to check
+    def is_possible_to_combine_two_components_into_given_secondary_item(self, unit: Champion, complete_item: str) -> bool:
+        """Assumes that the complete item in the unit's build, exists as a CRAFTABLE item.
+           Returns a boolean value that represent if BOTH component items for a complete item exist in self.items."""
+        if complete_item not in unit.secondary_items:
+            return False
+        copy_of_owned_items = self.items.copy()
+        for item in game_assets.CRAFTABLE_ITEMS_DICT[complete_item]:
+            if item not in copy_of_owned_items:
+                return False
+            else:  # makes sure for items that need duplicate component items, this doesn't count one component twice
+                copy_of_owned_items.remove(item)
+        return True
+
+    # TODO: combine this with the bis functions into one function that takes in the list of items to check
+    def get_secondary_item_that_is_possible_to_combine_from_components(self, unit: Champion) -> str | None:
+        """Searches through the unit's BIS items it wants to build and returns the complete BIS item
+           if it can be crafted from component items currently on the bench."""
+        for complete_item in unit.secondary_items:
+            if self.is_possible_to_combine_two_components_into_given_bis_item(unit, complete_item):
+                return complete_item
+            else:
+                return None
+        return
+
+    # TODO: combine this with the bis functions into one function that takes in the list of items to check
+    def add_any_secondary_item_from_combining_two_component_items_on_unit(self, unit: Champion) -> bool:
+        """Assumes that the unit has no component items on them.
+           Gets any Best In Slot (BIS) craftable item from the unit
+           that we have determined we have both components for.
+           Then adds both components to the unit to create a completed item."""
+        complete_item = self.get_secondary_item_that_is_possible_to_combine_from_components(unit)
+        if complete_item is not None:
+            print(f"      Creating complete secondary item: {complete_item} for {unit.name}.")
+            component_one = game_assets.CRAFTABLE_ITEMS_DICT[complete_item][0]
+            component_two = game_assets.CRAFTABLE_ITEMS_DICT[complete_item][1]
+            self.add_one_item_to_unit(unit, self.items.index(component_one))
+            self.add_one_item_to_unit(unit, self.items.index(component_two))
+            unit.non_component_items.append(complete_item)
+            unit.build.remove(complete_item)
+            # Just make sure we don't give them the same item twice.
+            if complete_item in unit.build:
+                unit.build.remove(complete_item)
             unit.item_slots_filled += 2
             return True
         return False
