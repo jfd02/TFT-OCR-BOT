@@ -980,13 +980,12 @@ class Arena:
                         self.add_radiant_version_of_accepted_completed_items_to_unit(unit)
                         self.add_support_item_to_unit(unit)
                         self.add_trait_item_to_unit(unit)
-                # These will try to add all the BIS items the unit has, so no need to loop through them for each possible item slot.
-                if unit.item_slots_filled % 2 == 0:
-                    combined_two_items = self.add_any_bis_item_from_combining_two_component_items_on_unit(unit)
-                    # TODO: Cleanup
-                    # Start giving units their 'good but not BIS' items if our health gets too low or we have too many items
-                    if unit.item_slots_filled < 5 and (arena_functions.get_health() <= 30 or len([item for item in self.items if item is not None]) == 10):
-                        combined_two_items = combined_two_items or self.add_any_secondary_item_from_combining_two_component_items_on_unit(unit)
+                    if unit.item_slots_filled % 2 == 0:
+                        combined_two_items = self.add_any_bis_item_from_combining_two_component_items_on_unit(unit)
+                        # TODO: Cleanup
+                        # Start giving units their 'good but not BIS' items if our health gets too low or we have too many items
+                        if unit.item_slots_filled < 5 and (arena_functions.get_health() <= 30 or len([item for item in self.items if item is not None]) == 10):
+                            combined_two_items = combined_two_items or self.add_any_secondary_item_from_combining_two_component_items_on_unit(unit)
                 if not combined_two_items:
                     print(f"            Unable to complete an item for {unit.name}.")
                 # Zaun units can hold 3 Zaun mods.
@@ -1445,7 +1444,8 @@ class Arena:
                             print(f"      But we gave them a {item} component item instead.")
                             unit.current_building.remove(unit.current_building)
                         unit.component_item = ""
-                        unit.items.pop()
+                        if len(unit.items) != 0:
+                            unit.items.pop()
                     self.add_one_item_to_unit(unit, self.items.index(item))
                     unit.item_slots_filled += 1
 
