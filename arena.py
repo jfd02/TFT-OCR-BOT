@@ -281,7 +281,8 @@ class Arena:
                 if returned_number == 3:
                     print("    Selecting emblem from the Tome of Traits shop.")
                     emblem_shop_index = self.pick_one_of_four_emblems_from_shop()
-                    screen_coords_vec2_tuple = screen_coords.CHOOSE_FROM_TOME_OF_TRAITS_SHOP_LOC[emblem_shop_index].get_coords()
+                    if emblem_shop_index is not None:
+                        screen_coords_vec2_tuple = screen_coords.CHOOSE_FROM_TOME_OF_TRAITS_SHOP_LOC[emblem_shop_index].get_coords()
                 else:
                     print("    Selecting middle item from Anvil/Ornn Item Anvil.")
                 mk_functions.left_click(screen_coords_vec2_tuple)
@@ -823,27 +824,29 @@ class Arena:
             self.remove_random_duplicate_champions_from_board()
 
     def identify_unknown_champions_on_board(self) -> [(str, int)]:
-        """Loops through every space on the board,
+        """Gets where units are located on the board from the board_occupied_check,
            right-clicks that space to open up a potential info window.
            Looks for a unit name in that info window and if it is a valid unit, adds the units name to a list.
            Returns a list of names of any valid units on the board."""
         print("    Identifying unknown units on the board.")
         valid_champs = []
-        for index, vec2_board_space in enumerate(screen_coords.BOARD_LOC):
-            unit_name = arena_functions.identify_one_space_on_the_board(vec2_board_space.get_coords())
-            # If the unit doesn't exist, continue.
-            # Or if the unit is a unit we know about,
-            # just continue along so that we don't create duplicate units in self.board.
-            if unit_name is None:
-                continue
-            # If the unknown unit we are looking at is a known unit on the board, also continue.
-            duplicate_unit = False
-            if self.board[index] is not None and unit_name is self.board[index].name:
-                duplicate_unit = True
-                break
-            if unit_name is not None and arena_functions.is_valid_champ(unit_name) and not duplicate_unit:
-                print(f"        Found a valid {unit_name} unit from an unknown unit!")
-                valid_champs.append((unit_name, index))
+        units_on_board = self.board_occupied_check()
+        for index, value in enumerate(units_on_board):
+            if value:
+                unit_name = arena_functions.identify_one_space_on_the_board(screen_coords.BOARD_LOC[index].get_coords())
+                # If the unit doesn't exist, continue.
+                # Or if the unit is a unit we know about,
+                # just continue along so that we don't create duplicate units in self.board.
+                if unit_name is None:
+                    continue
+                # If the unknown unit we are looking at is a known unit on the board, also continue.
+                duplicate_unit = False
+                if self.board[index] is not None and unit_name is self.board[index].name:
+                    duplicate_unit = True
+                    break  # TODO: wait why did i make this break
+                if unit_name is not None and arena_functions.is_valid_champ(unit_name) and not duplicate_unit:
+                    print(f"        Found a valid {unit_name} unit from an unknown unit!")
+                    valid_champs.append((unit_name, index))
         # self.board_unknown_and_pos = valid_champs  # TODO: do i really need board_unknown_and_pos
         return valid_champs
 
@@ -965,7 +968,8 @@ class Arena:
            before moving onto the next unit."""
         print("  Giving items to units:")
         self.items = arena_functions.get_items()
-        for unit in self.board:
+        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_total_bis_items()
+        for unit in units_on_board_sorted_by_bis_items:
             if isinstance(unit, Champion):
                 # try to give completed items first
                 # for loop like this because a unit can have 3 complete/non-component items
@@ -994,13 +998,13 @@ class Arena:
                 # Items removers can be used any number of times on one unit.
                 self.throwaway_reforger_item(unit)
                 self.throwaway_magnetic_remover_item(unit)
+                self.use_champion_duplicators(unit)
+                self.use_scroll_of_knowledge()
+                self.use_masterwork_upgrade()
         # TODO: These could probably be broken down so that they use a
         #  different give_items function to all use the same list of units with most BIS items.
         # Strong items that we shouldn't use on just the first unit we see on our board.
         # They loop through a list of units that are prioritized by their Best In Slot items.
-        self.use_champion_duplicators()
-        self.use_scroll_of_knowledge()
-        self.use_masterwork_upgrade()
 
     def add_one_item_to_unit(self, unit: Champion, the_items_bench_index: int, consumable: bool = False):
         """Move the item from its location on the board to the unit.
@@ -1112,7 +1116,7 @@ class Arena:
         # If one of the trait in our comp's list of INACTIVE traits
         # exists as an Emblem in the shop, return the index of that Emblem
         for trait in self.comp_to_play.inactive_final_comp_traits:
-            trait_emblem = trait + " Emblem"
+            trait_emblem = trait + "Emblem"
             if trait_emblem in trait_emblem_names_in_shop:
                 emblem_shop_index = trait_emblem_names_in_shop.index(trait_emblem)
                 print(f"    Grabbing an emblem for a INACTIVE trait in our final comp.")
@@ -1172,15 +1176,15 @@ class Arena:
         """Assumes that the complete item in the unit's build, exists as a CRAFTABLE item.
            Returns a boolean value that represent if BOTH component items for a complete item exist in self.items."""
         if complete_item not in unit.build:
-            print(f"        {complete_item} is not in  {unit.name}'s build.")
+            # print(f"        {complete_item} is not in  {unit.name}'s build.")
             return False
         copy_of_owned_items = self.items.copy()
         for item in game_assets.CRAFTABLE_ITEMS_DICT[complete_item]:
             if item not in copy_of_owned_items:
-                print(f"        We are missing a {item} to build the {complete_item}.")
+                # print(f"        We are missing a {item} to build the {complete_item}.")
                 return False
             else:  # make sure for items that need duplicate component items, this doesn't count one component twice
-                print(f"        Removing the {item} from the copy of owned items, because we don't want to count items twice.")
+                # print(f"        Removing the {item} from the copy of owned items, because we don't want to count items twice.")
                 copy_of_owned_items.remove(item)
         return True
 
@@ -1188,12 +1192,13 @@ class Arena:
         """Searches through the unit's BIS items it wants to build and returns the complete BIS item
            if it can be crafted from component items currently on the bench."""
         for complete_item in unit.build:
-            print(f"      For {complete_item} in {unit.name}'s build.")
+            # print(f"      For {complete_item} in {unit.name}'s build.")
             if self.is_possible_to_combine_two_components_into_given_bis_item(unit, complete_item):
-                print(f"        It is possible to create the {complete_item} for {unit}.")
+                # print(f"        It is possible to create the {complete_item} for {unit}.")
                 return complete_item
             else:
-                print(f"        It is not possible to craft the {complete_item} for {unit}.")
+                # print(f"        It is not possible to craft the {complete_item} for {unit}.")
+                continue
         return None
 
     def add_any_bis_item_from_combining_two_component_items_on_unit(self, unit: Champion) -> bool:
@@ -1203,7 +1208,7 @@ class Arena:
            Then adds both components to the unit to create a completed item."""
         complete_item = self.get_bis_item_that_is_possible_to_combine_from_components(unit)
         if complete_item is not None:
-            print(f"      Creating complete item: {complete_item} for {unit.name}.")
+            # print(f"      Creating complete item: {complete_item} for {unit.name}.")
             component_one = game_assets.CRAFTABLE_ITEMS_DICT[complete_item][0]
             component_two = game_assets.CRAFTABLE_ITEMS_DICT[complete_item][1]
             self.add_one_item_to_unit(unit, self.items.index(component_one))
@@ -1289,33 +1294,34 @@ class Arena:
         else:
             return None
 
-    def use_champion_duplicators(self) -> None:
+    def use_champion_duplicators(self, unit: Champion) -> None:
         """Uses Champion Duplicators on units.
            Makes a list of all units that are on the board and that still need to be bought to be raised
            to the desire star level. Sorts that list of units, by the amount of items they need, in descending order
            so that we duplicate most important champions first.
            Will only use non-lesser champion duplicators on units that cost 4 or 5."""
         print("    Looking for champion duplicators.")
-        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_total_bis_items()
         lesser_duplicator_index = self.get_index_of_one_lesser_champion_duplicators_on_bench()
         normal_duplicator_index = self.get_index_of_one_champion_duplicators_on_bench()
         # Exit the function sooner if we don't have any champion duplicators
         if lesser_duplicator_index is None and normal_duplicator_index is None:
             return
         print("    We have champion duplicators to use.")
-        for unit in units_on_board_sorted_by_bis_items:
-            if unit.name in game_assets.CHAMPIONS:
-                unit_dict = game_assets.CHAMPIONS[unit.name]
-                print(f"      Unit Dict: {unit_dict}")
-                cost = unit_dict["Gold"]
-                print(f"        Cost: {cost}")
-                if cost <= 3 and lesser_duplicator_index is not None:
-                    self.add_one_item_to_unit(unit, lesser_duplicator_index, True)
-                elif (cost > 3 or self.comp_to_play.strategy == "Slow Roll") and normal_duplicator_index is not None:
-                    self.add_one_item_to_unit(unit, normal_duplicator_index, True)
+        if unit.name in self.champs_to_buy and unit.name in game_assets.CHAMPIONS:
+            unit_dict = game_assets.CHAMPIONS[unit.name]
+            # print(f"      Unit Dict: {unit_dict}")
+            cost = unit_dict["Gold"]
+            # print(f"        Cost: {cost}")
+            if cost <= 3 and lesser_duplicator_index is not None \
+                    or (cost > 3 or self.comp_to_play.strategy == "Slow Roll") and normal_duplicator_index is not None:
+                self.add_one_item_to_unit(unit, lesser_duplicator_index, True)
+                empty_bench_slot: int = arena_functions.empty_bench_slot()
+                new_champion = champion_class.create_default_champion(unit.name, empty_bench_slot, True, self.comp_to_play)
+                self.bench[empty_bench_slot] = new_champion
+                self.champs_to_buy.remove(unit.name)
         return
 
-    def use_scroll_of_knowledge(self) -> None:
+    def use_scroll_of_knowledge(self, unit: Champion) -> None:
         """Uses a Scroll of Knowledge on a unit.
            Uses it on the first unit with the most BIS items,
            as I'm guessing those units will have the most traits active
@@ -1324,13 +1330,9 @@ class Arena:
         print("    Try using Scroll of Knowledge.")
         if "ScrollofKnowledge" not in self.items:
             return
-        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_total_bis_items()
-        if len(units_on_board_sorted_by_bis_items) > 0:
-            self.add_one_item_to_unit(units_on_board_sorted_by_bis_items.pop(), self.items.index("ScrollofKnowledge"))
-        else:
-            print("    We have a Scroll of Knowledge to use, but no champion to use it on. This shouldn't happen...")
+        self.add_one_item_to_unit(unit, self.items.index("ScrollofKnowledge"))
 
-    def use_masterwork_upgrade(self) -> None:
+    def use_masterwork_upgrade(self, unit: Champion) -> None:
         """Uses a Masterwork Upgrade on a unit.
            Uses it on the first unit with the most BIS items, since the item upgrades craftable completed items
            to Radiant versions. This will fail if the unit isn't holding any completed items.
@@ -1338,17 +1340,8 @@ class Arena:
         print("    Try using Masterwork Upgrade.")
         if "MasterworkUpgrade" not in self.items:
             return
-        units_on_board_sorted_by_bis_items: list[Champion] = self.get_list_of_units_on_board_in_order_of_amount_of_total_bis_items()
-        if len(units_on_board_sorted_by_bis_items) > 0:
-            # Try to add the Masterwork Upgrade to our most important units: the ones that build the most items.
-            for unit in units_on_board_sorted_by_bis_items:
-                if len(unit.non_component_items) > 0:
-                    self.add_one_item_to_unit(units_on_board_sorted_by_bis_items.pop(), self.items.index("MasterworkUpgrade"))
-                # If the unit doesn't have any craftable-completed items, we need to look for another unit.
-                else:
-                    continue
-        else:
-            print("    We have a Masterwork Upgrade to use, but no champion to use it on. This shouldn't happen...")
+        if len(unit.non_component_items) > 0:
+            self.add_one_item_to_unit(unit, self.items.index("MasterworkUpgrade"))
 
     # TODO: Clean this up and break down into smaller functions.
     # TODO: Possibly should change it to give the rest of the component items before giving emblem and support items.
