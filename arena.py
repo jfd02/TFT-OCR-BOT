@@ -272,9 +272,12 @@ class Arena:
            selects a good Emblem if a Tome of Traits was sold,
            otherwise select the middle item."""
         print("  Looking for anvils to sell.")
-        for index, unit in enumerate(self.bench):
+        bench_units = arena_functions.bench_occupied_check()
+        for index, unit in enumerate(bench_units):
+            if unit:
+                continue
             returned_number = arena_functions.identify_component_anvil(index)
-            if unit is None and returned_number != 0:
+            if returned_number != 0:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                 sleep(0.2)
                 screen_coords_vec2_tuple = screen_coords.BUY_LOC[2].get_coords()
@@ -1174,6 +1177,9 @@ class Arena:
         if complete_item not in unit.build:
             # print(f"        {complete_item} is not in  {unit.name}'s build.")
             return False
+        if complete_item not in game_assets.CRAFTABLE_ITEMS_DICT:
+            print(f"    You have misspelled {complete_item}.")
+            return False
         copy_of_owned_items = self.items.copy()
         for item in game_assets.CRAFTABLE_ITEMS_DICT[complete_item]:
             if item not in copy_of_owned_items:
@@ -1477,7 +1483,7 @@ class Arena:
             screenshot_array = np.array(screen_capture)
             if not (np.abs(screenshot_array - (0, 255, 18)) <= 2).all(axis=2).any():
                 board_occupied.append(False)
-                labels.append(("False", screen_coords.BOARD_LOC[index].get_coords(), 0, 0))
+                # labels.append(("False", screen_coords.BOARD_LOC[index].get_coords(), 0, 0))  # it just clutters the screen
             else:
                 board_occupied.append(True)
                 labels.append(("True", screen_coords.BOARD_LOC[index].get_coords(), 0, 0))
