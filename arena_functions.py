@@ -434,11 +434,8 @@ def set_number_of_item_slot_filled_on_unit(unit: Champion, item_slots_filled: in
 
 
 def is_valid_trait_item(trait_item: str) -> str | None:
-    if trait_item in game_assets.TRAIT_ITEMS:
-        print(f"    Found a valid trait item: {trait_item}")
-        return trait_item
     for valid_trait_item in game_assets.TRAIT_ITEMS:
-        if SequenceMatcher(a=valid_trait_item, b=trait_item).ratio() >= 0.7:
+        if trait_item in game_assets.TRAIT_ITEMS or SequenceMatcher(a=valid_trait_item, b=trait_item).ratio() >= 0.7:
             print(f"    Trait Item {trait_item} -- matched with -- Valid Trait Item: {valid_trait_item}")
             return valid_trait_item
     if len(trait_item) > 3:
