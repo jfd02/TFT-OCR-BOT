@@ -1308,13 +1308,10 @@ class Arena:
             # print(f"      Unit Dict: {unit_dict}")
             cost = unit_dict["Gold"]
             # print(f"        Cost: {cost}")
-            if cost <= 3 and lesser_duplicator_index is not None \
-                    or (cost > 3 or self.comp_to_play.strategy == "Slow Roll") and normal_duplicator_index is not None:
+            if cost <= 3 and lesser_duplicator_index is not None:
                 self.add_one_item_to_unit(unit, lesser_duplicator_index, True)
-                empty_bench_slot: int = arena_functions.empty_bench_slot()
-                new_champion = champion_class.create_default_champion(unit.name, empty_bench_slot, True, self.comp_to_play)
-                self.bench[empty_bench_slot] = new_champion
-                self.champs_to_buy.remove(unit.name)
+            elif (cost > 3 or self.comp_to_play.strategy == "Slow Roll") and normal_duplicator_index is not None:
+                self.add_one_item_to_unit(unit, normal_duplicator_index, True)
         return
 
     def use_scroll_of_knowledge(self, unit: Champion) -> None:
