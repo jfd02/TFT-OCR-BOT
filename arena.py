@@ -1491,7 +1491,22 @@ class Arena:
         return board_occupied
 
     def is_allowed_to_purchase_xp(self):
-        """Don't buy xp on Slow Roll comps unless we have bought
-           at least 6 of the 9 unites needed for a 3-star carry have been purchased."""
-        return self.comp_to_play.strategy != "Slow Roll" \
-               or len([x for x in self.champs_to_buy if self.champs_to_buy.count(x) > 3]) == 0
+        """Don't buy xp on Slow Roll comps if our level is
+           above the optimum level for buying the cost of the units we need to 3-star,
+           and we still need to buy those units"""
+        if self.comp_to_play.strategy == "Slow Roll":
+            three_star_unit_costs = self.get_the_costs_of_unit_we_want_to_three_star()
+            for unit, cost in three_star_unit_costs.items():
+                if self.level > game_assets.LEVELS_WITH_BEST_ODDS_PER_UNIT_COST_DICT[cost] and unit in self.champs_to_buy:
+                    return False
+                else:
+                    return True
+        return True
+
+    def get_the_costs_of_unit_we_want_to_three_star(self):
+        """Returns a dict of the units we want to three star as keys and their costs as values."""
+        costs_of_units_to_three_star = {}
+        for unit, unit_data in self.comp_to_play.comp.items():
+            if unit_data["level"] == 3:
+                costs_of_units_to_three_star[unit] = game_assets.champion_gold_cost(unit)
+        return costs_of_units_to_three_star
