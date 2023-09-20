@@ -302,15 +302,15 @@ class Game:
             print(f"        Board Names: {self.arena.board_names}")
         print(f"        Board Unknown: {self.arena.board_unknown}        Board Unknown And Pos: {self.arena.board_unknown_and_pos}")
         print(f"        Board Slot For Non Comp Units: {self.arena.board_slots_for_non_comp_units}")
+        # Turn the champs to buy list into a dict because it has so many duplicate values.
+        champs_to_buy_dict = {key: self.arena.champs_to_buy.count(key) for key in set(self.arena.champs_to_buy)}
+        print(f"        Champs to Buy: {champs_to_buy_dict}")
         unit_names_on_bench = []
         for unit in self.arena.bench:
             if unit is not None and isinstance(unit, Champion):
                 unit_names_on_bench.append(unit.name)
             elif unit is not None:
                 unit_names_on_bench.append(unit)
-        # Turn the champs to buy list into a dict because it has so many duplicate values.
-        champs_to_buy_dict = {key: self.arena.champs_to_buy.count(key) for key in set(self.arena.champs_to_buy)}
-        print(f"        Champs to Buy: {champs_to_buy_dict}")
         print(f"        Bench: {unit_names_on_bench}")
         print(f"        Items: {[item for item in self.arena.items if item is not None]}")
         print(f"        Augments: {self.arena.augments}")
