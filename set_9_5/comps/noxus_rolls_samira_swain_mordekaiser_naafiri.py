@@ -26,7 +26,7 @@ COMP = {
     "Samira": {
         "board_position": 0,
         "best_in_slot": ["BlueBuff", "Bloodthirster", "EdgeofNight"],
-        "secondary_items": ["GiantSlayer", "HandofJustice", "InfinityEdge"],
+        "secondary_items": ["GiantSlayer", "HandofJustice", "InfinityEdge", "GuinsoosRageblade"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["SlayerEmblem"],
         "ornn_items_to_accept": ["GoldCollector", "InfinityForce", "ObsidianCleaver", "SnipersFocus"],
@@ -38,7 +38,7 @@ COMP = {
     "Swain": {
         "board_position": 25,
         "best_in_slot": ["Crownguard", "ProtectorsVow", "GargoyleStoneplate"],
-        "secondary_items": ["Evenshroud", "Redemption", "SunfireCape", "WarmogsArmor"],
+        "secondary_items": ["Evenshroud", "IonicSpark", "Redemption", "SunfireCape", "WarmogsArmor"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["ChallengerEmblem", "InvokerEmblem", "JuggernautEmblem", "ShurimaEmblem", "SorcererEmblem"],
         "ornn_items_to_accept": ["AnimaVisage", "EternalWinter", "Hullcrusher", "MogulsMail", "ObsidianCleaver"],
@@ -50,7 +50,7 @@ COMP = {
     "Cassiopeia": {
         "board_position": 6,
         "best_in_slot": ["HextechGunblade", "NashorsTooth"],
-        "secondary_items": ["Guardbreaker"],
+        "secondary_items": ["ArchangelsStaff", "Guardbreaker", "RabadonsDeathcap"],
         "support_items_to_accept": ["Zephyr"],
         "trait_items_to_accept": ["VanquisherEmblem"],
         "ornn_items_to_accept": ["DeathfireGrasp", "GoldmancersStaff", "ZhonyasParadox"],
@@ -62,7 +62,7 @@ COMP = {
     "Mordekaiser": {
         "board_position": 13,
         "best_in_slot": ["JeweledGauntlet", "RapidFirecannon"],
-        "secondary_items": ["Quicksilver"],
+        "secondary_items": ["Quicksilver", "RabadonsDeathcap"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["DarkinEmblem", "JuggernautEmblem", "SorcererEmblem"],
         "ornn_items_to_accept": ["EternalWinter", "GoldmancersStaff", "TrickstersGlass", "ZhonyasParadox"],
@@ -73,7 +73,7 @@ COMP = {
     },
     "Sion": {
         "board_position": 27,
-        "best_in_slot": [],
+        "best_in_slot": ["DragonsClaw", "SunfireCape", "WarmogsWarmor"],
         "secondary_items": [],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
@@ -98,7 +98,7 @@ COMP = {
     "Darius": {
         "board_position": 4,
         "best_in_slot": [],
-        "secondary_items": ["SteraksGage"],
+        "secondary_items": ["TitansResolve", "SteraksGage"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["ChallengerEmblem", "DarkinEmblem", "ShurimaEmblem",
                                   "SlayerEmblem", "SorcererEmblem", "StrategistEmblem"],
@@ -111,7 +111,7 @@ COMP = {
     "Warwick": {
         "board_position": 5,
         "best_in_slot": [],
-        "secondary_items": [],
+        "secondary_items": ["GuinsoosRageblade", "Quicksilver"],
         "support_items_to_accept": [],
         "trait_items_to_accept": ["DarkinEmblem", "NoxusEmblem", "ShurimaEmblem"],
         "ornn_items_to_accept": ["DeathsDefiance", "InfinityForce"],
@@ -120,18 +120,18 @@ COMP = {
         "max_amount_of_items": 3,
         "final_comp": True
     },
-    "Irelia": {
-        "board_position": 12,
-        "best_in_slot": [],
+    "Aatrox": {
+        "board_position": 23,
+        "best_in_slot": ["Bloodthirster", "Quicksilver", "TitansResolve"],
         "secondary_items": [],
         "support_items_to_accept": [],
-        "trait_items_to_accept": ["DarkinEmblem", "NoxusEmblem"],
+        "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
         "level": 2,
         "max_amount_of_items": 3,
-        "final_comp": False
-    },
+        "final_comp": True
+    }
 }
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
