@@ -897,6 +897,10 @@ class Arena:
                     print(f"        Found a valid {champ_name} unit on the bench!")
                     new_champion = champion_class.create_default_champion(champ_name, index, True, self.comp_to_play)
                     self.bench[index] = new_champion
+                    # If we get units from item orbs or the carousel, we need to make sure they are accounted for too.
+                    # They won't get accounted for if they are immediately merged into an upgrade unit though.
+                    if new_champion.name in self.champs_to_buy:
+                        self.champs_to_buy.remove(new_champion.name)
             elif isinstance(bench_space, Champion) and mistaken_identity:
                 print(f"  Bench space {index} is occupied by a unit, but it is possibly labeled the wrong unit.")
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
