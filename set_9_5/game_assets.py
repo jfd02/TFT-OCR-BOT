@@ -20,7 +20,8 @@ CRAFTABLE_EMBLEM_ITEMS: set[str] = {"ChallengerEmblem", "Crownguard", "DemaciaEm
                                     "IoniaEmblem", "JuggernautEmblem", "NoxusEmblem", "ShurimaEmblem", "SlayerEmblem",
                                     "SorcererEmblem"}
 
-COMPONENT_AND_CRAFTABLE_ITEMS: set[str] = COMPONENT_ITEMS.union(CRAFTABLE_NON_EMBLEM_ITEMS).union(CRAFTABLE_EMBLEM_ITEMS)
+COMPONENT_AND_CRAFTABLE_ITEMS: set[str] = COMPONENT_ITEMS.union(CRAFTABLE_NON_EMBLEM_ITEMS).union(
+    CRAFTABLE_EMBLEM_ITEMS)
 
 SUPPORT_ITEMS: set[str] = {"AegisoftheLegion", "BansheesVeil", "ChaliceofPower", "CrestOfCinders",
                            "LocketoftheIronSolari", "NeedlesslyBigGem", "ObsidianCleaver", "RanduinsOmen",
@@ -61,15 +62,14 @@ MISC_ITEMS: set[str] = {"ChampionDuplicator", "CrownofDemacia", "ImperfectSoulCr
                         "LoadedDice", "MagneticRemover", "MasterworkUpgrade",
                         "Reforger", "ScrollofKnowledge", "TheDarkinBlade"}
 
-HOLDABLE_ITEMS: set[str] = COMPONENT_AND_CRAFTABLE_ITEMS.union(ELUSIVE_ITEMS)\
-                                                        .union(SUPPORT_ITEMS)\
-                                                        .union(TRAIT_ITEMS)\
-                                                        .union(ORNN_ITEMS)\
-                                                        .union(RADIANT_ITEMS)\
-                                                        .union(ZAUN_ITEMS)
+HOLDABLE_ITEMS: set[str] = COMPONENT_AND_CRAFTABLE_ITEMS.union(ELUSIVE_ITEMS) \
+    .union(SUPPORT_ITEMS) \
+    .union(TRAIT_ITEMS) \
+    .union(ORNN_ITEMS) \
+    .union(RADIANT_ITEMS) \
+    .union(ZAUN_ITEMS)
 
 ALL_ITEMS: set[str] = HOLDABLE_ITEMS.union(MISC_ITEMS)
-
 
 CHAMPIONS: dict[str, dict[str, int]] = {
     "Aatrox": {"Gold": 5, "Board Size": 1},
@@ -321,7 +321,8 @@ ALL_SILVER_AUGMENTS: set[str] = \
      "Branching Out", "Bronze Ticket", "Bruiser Heart", "Buried Treasures I", "Caretaker's Ally", "Challenger Heart",
      "Component Buffet", "Consistency", "Cutting Corners", "Cybernetic Bulk I", "Cybernetic Leech I", "Demacia Heart",
      "Final Grab Bag", "Gotta Go Fast!!! I", "Gunner Heart", "Harmacist I", "Healing Orbs I", "Inconsistency",
-     "Indomitable Will", "Invoker Heart", "Iron Assets", "Item Grab Bag I", "It Pays to Learn I", "JACKPOT!", "Jeweled Lotus I",
+     "Indomitable Will", "Invoker Heart", "Iron Assets", "Item Grab Bag I", "It Pays to Learn I", "JACKPOT!",
+     "Jeweled Lotus I",
      "Job's Done", "Juggernaut Heart", "Knowledge Download I", "Lategame Specialist", "Latent Forge",
      "Missed Connections", "Money!", "On a Roll", "One Twos Three", "One, Two, Five!", "Pandora's Bench",
      "Pandora's Items", "Partial Ascension", "Pumping Up I", "Recombobulator", "Red Buff", "Risky Moves",
@@ -343,14 +344,16 @@ ALL_GOLD_AUGMENTS: set[str] = \
      "Juggernaut Crest", "Knowledge Download II", "Know Your Enemy", "Last Stand", "Library Card",
      "Long Distance Pals II", "Loving Invocation", "Magic Wand", "Mana Burn", "Martyr", "Medium Forge",
      "Metabolic Accelerator", "Money Money!", "Morning Light", "Not Today", "Noxus Crest", "Overcharged Manafont",
-     "Pandora's Items II", "Parting Gifts", "Patient Study",  "Perfected Repetition", "Petricite Shackles",
+     "Pandora's Items II", "Parting Gifts", "Patient Study", "Perfected Repetition", "Petricite Shackles",
      "Piltover Heart", "Portable Forge", "Pumping Up II", "Return on Investment", "Ravenous Hunter",
      "Rich Get Richer", "Rich Get Richer+", "Riftwalk", "Rogue Crest", "Rolling for Days II", "Salvage Bin",
      "Salvage Bin+", "Scoped Weapons I", "Scrappy Inventions", "Sentinel's Spirit", "Shimmering Inventors",
      "Shoplifting", "Shurima Crest", "Shurima's Legacy", "Silver Ticket", "Slayer Crest", "Slayer's Resolve",
      "Sleight of Hand", "Social Distancing II", "Sorcerer Crest", "Spoils of War II", "Stable Evolution",
-     "Stars are Born", "Stationary Support II", "Stellacorn's Blessing", "Stolen Vitality", "Strategist Heart", "Support Cache", "Suppressing Fire", "Tactical Superiority",
-     "Targon Heart", "Teaming Up II", "The Boss", "Three's a Crowd", "Three's Company", "Tiny Power II", "Titanic Strength",
+     "Stars are Born", "Stationary Support II", "Stellacorn's Blessing", "Stolen Vitality", "Strategist Heart",
+     "Support Cache", "Suppressing Fire", "Tactical Superiority",
+     "Targon Heart", "Teaming Up II", "The Boss", "Three's a Crowd", "Three's Company", "Tiny Power II",
+     "Titanic Strength",
      "Tons of Stats!", "Total Domination", "Trade Sector", "Training Reward II", "Transfusion II", "Two Healthy",
      "Unburdened II", "Unified Resistance II", "Vampiric Blades", "Vanquisher Crest", "Void Heart",
      "Well-Earned Comforts II", "What Doesn't Kill You", "Winds of War", "You Have My Bow", "You Have My Sword",
@@ -376,6 +379,12 @@ ALL_PRISMATIC_AUGMENTS: set[str] = \
      "What The Forge", "Zaun Crown"}
 
 ALL_AUGMENTS = ALL_SILVER_AUGMENTS.union(ALL_GOLD_AUGMENTS).union(ALL_PRISMATIC_AUGMENTS)
+
+# What level is the best level to purchase a unit at x cost?
+# 1 cost units appear at 100% on level 1. 2 cost units appear at 40% at level 6.
+# 3 cost units have a 35% chance at both level 7 and 8.
+LEVELS_WITH_BEST_ODDS_PER_UNIT_COST_DICT = {1: 1, 2: 6, 3: 7, 4: 11, 5: 11}
+
 
 def champion_board_size(champion: str) -> int:
     """Takes a string (champion name) and returns board size of champion"""
