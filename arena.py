@@ -999,12 +999,8 @@ class Arena:
                 self.throwaway_reforger_item(unit)
                 self.throwaway_magnetic_remover_item(unit)
                 self.use_champion_duplicators(unit)
-                self.use_scroll_of_knowledge()
-                self.use_masterwork_upgrade()
-        # TODO: These could probably be broken down so that they use a
-        #  different give_items function to all use the same list of units with most BIS items.
-        # Strong items that we shouldn't use on just the first unit we see on our board.
-        # They loop through a list of units that are prioritized by their Best In Slot items.
+                self.use_scroll_of_knowledge(unit)
+                self.use_masterwork_upgrade(unit)
 
     def add_one_item_to_unit(self, unit: Champion, the_items_bench_index: int, consumable: bool = False):
         """Move the item from its location on the board to the unit.
@@ -1105,7 +1101,7 @@ class Arena:
         # exists as an Emblem in the shop, return the index of that Emblem
         trait_emblem_names_in_shop = arena_functions.identify_emblems_in_shop()
         for trait in self.comp_to_play.active_final_comp_traits:
-            trait_emblem = trait + " Emblem"
+            trait_emblem = trait + "Emblem"
             if trait_emblem in trait_emblem_names_in_shop:
                 emblem_shop_index = trait_emblem_names_in_shop.index(trait_emblem)
                 print(f"    Prioritizing emblems that are for the most used ACTIVE traits in our final comp.")
