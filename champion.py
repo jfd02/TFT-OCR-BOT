@@ -70,7 +70,7 @@ class Champion:
         print(f"\t\tFinal Comp? {self.final_comp}")
 
 
-def create_default_champion(champ_name: str, index: int | None, bench: bool, comp_to_play) -> Champion:
+def create_default_champion(champ_name: str, index: int | None, bench: bool, comp_to_play, item_count: int = 0) -> Champion:
     # Set default values if we don't want to use this champ in our comp.
     if bench:
         coords = screen_coords.BENCH_LOC[index].get_coords()
@@ -80,7 +80,10 @@ def create_default_champion(champ_name: str, index: int | None, bench: bool, com
     board_position = None
     size = 1
     final_comp = False
-    units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(coords)
+    if champ_name in comp_to_play.comp:
+        units_current_item_count = arena_functions.count_number_of_item_slots_filled_on_unit_at_coords(coords)
+    else:
+        units_current_item_count = item_count
     # If we actually plan on using this champ in our comp:
     if champ_name in comp_to_play.comp:
         best_in_slot = comp_to_play.comp[champ_name]["best_in_slot"].copy()
