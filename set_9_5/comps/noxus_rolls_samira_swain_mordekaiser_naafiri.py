@@ -73,13 +73,13 @@ COMP = {
     },
     "Sion": {
         "board_position": 27,
-        "best_in_slot": ["DragonsClaw", "SunfireCape", "WarmogsWarmor"],
-        "secondary_items": [],
+        "best_in_slot": ["DragonsClaw", "SunfireCape", "WarmogsArmor"],
+        "secondary_items": ["AdaptiveHelm"],
         "support_items_to_accept": [],
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
-        "level": 2,
+        "level": 3,
         "max_amount_of_items": 3,
         "final_comp": True
     },
@@ -128,7 +128,7 @@ COMP = {
         "trait_items_to_accept": [],
         "ornn_items_to_accept": [],
         "zaun_items_to_accept": [],
-        "level": 2,
+        "level": 3,
         "max_amount_of_items": 3,
         "final_comp": True
     }
@@ -207,6 +207,7 @@ SECONDARY_AUGMENTS: list[str] = [
     "Gotta Go Fast!!! III",
     "Impenetrable Bulwark",
     "Jeweled Lotus III",
+    "Living Forge",
     "Lucky Gloves",
     "Money Money Money!",
     "Pandora's Box",
@@ -219,4 +220,3 @@ SECONDARY_AUGMENTS: list[str] = [
     "Wandering Trainer",
     "Wellness Trust"
 ]
-
