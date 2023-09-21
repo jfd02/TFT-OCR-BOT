@@ -175,8 +175,8 @@ class Arena:
         anvil_msg: str = ocr.get_text(screenxy=screen_coords.ANVIL_MSG_POS.get_coords(), scale=3, psm=13,
                             whitelist=ocr.ALPHABET_WHITELIST)
         if anvil_msg == 'ChooseOne':
-        	print('clear anvil')
-        	mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
+            print('clear anvil')
+            mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
 
     def place_items(self) -> None:
         """Iterates through items and tries to add them to champion"""
