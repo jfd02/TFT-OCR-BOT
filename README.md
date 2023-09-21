@@ -4,7 +4,7 @@
 - Make sure you don't have any overlays on (Blitz, Mobalytics, etc.).
 - League & client must be in English.
 - 16:9 resolution borderless windowed is required in League, the game must also be on the main monitor (Use 1920x1080 for best results).
-- If the program crashes, create an issue with the error.
+- If the program crashes or not working, please read the FAQ first. If the issue still cannot be resolved, then create an issue with the error.
 
 ## INSTALLATION:
 1. Install Python 3.11.4 from https://www.python.org/downloads/windows/
@@ -39,3 +39,15 @@
 - Grab the best compositions from TFT website
 - Intelligent carousel item selection
 - Change item pickup to be based on the coordinates of orbs
+
+## FAQ:
+> ModuleNotFoundError: No module named 'win32gui'
+- Open the command prompt (cmd) and run 'pip install pywin32'.
+> I double clicked main.py, a window popped up and closed instantly.
+- Open the command prompt (cmd), drag and drop main.py into it, and then press Enter to run it.
+> The bot said it is moving, buying, and selling champions, but nothing is happening.
+- Open the command prompt (cmd) with admin privileges.
+> Client not open! Trying again in 10 seconds.
+- Check if your game path is correct and open League of Legends by yourself.
+> RuntimeError: Failed to init API, possibly an invalid tessdata path.
+- You don't need to change the TESSDATA_PATH in settings.py if you didn't modify the destination folder while installing Tesseract.
