@@ -571,7 +571,7 @@ class Arena:
                 if arena_functions.get_level_via_https_request() != 9 and arena_functions.has_enough_gold_to_purchase_xp(min_buy_xp_gold):
                     # If the comp we are playing is not Slow Roll we can buy xp, otherwise
                     # don't level up until we have bought at least 2 2-stars of the 3-star units we need.
-                    if self.comp_to_play.strategy != "Slow Roll" or len([x for x in self.champs_to_buy if self.champs_to_buy.count(x) > 3]) == 0:
+                    if self.is_allowed_to_purchase_xp():
                         print("  Purchasing XP")
                         mk_functions.buy_xp()
                         self.update_level_via_ocr()
@@ -1502,6 +1502,7 @@ class Arena:
             three_star_unit_costs = self.get_the_costs_of_unit_we_want_to_three_star()
             for unit, cost in three_star_unit_costs.items():
                 if self.level > game_assets.LEVELS_WITH_BEST_ODDS_PER_UNIT_COST_DICT[cost] and unit in self.champs_to_buy:
+                    print(f"       Level: {self.level}")
                     return False
                 else:
                     return True
