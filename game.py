@@ -97,36 +97,60 @@ class Game:
 
             if self.round != ran_round:
                 if self.round in game_assets.SECOND_ROUND:
-                    second_round_process = multiprocessing.Process(target=self.second_round(), name="Second Round", args=(30,))
+                    second_round_process = multiprocessing.Process(target=self.second_round())
                     second_round_process.start()
+                    second_round_process.join(8)
+                    if second_round_process.is_alive():
+                        second_round_process.terminate()
+                        print("Timeout of the Second Round occurred. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                     mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.THIRD_ROUND:
-                    third_round_process = multiprocessing.Process(target=self.third_round(), name="Third Round", args=(30,))
+                    third_round_process = multiprocessing.Process(target=self.third_round())
                     third_round_process.start()
+                    third_round_process.join(15)
+                    if third_round_process.is_alive():
+                        third_round_process.terminate()
+                        print("Timeout of the Third Round occurred. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                     mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.CAROUSEL_ROUND:
-                    carousel_round_process = multiprocessing.Process(target=self.carousel_round(), name="Carousel Round", args=(25,))
+                    carousel_round_process = multiprocessing.Process(target=self.carousel_round())
                     carousel_round_process.start()
+                    carousel_round_process.join(45)
+                    if carousel_round_process.is_alive():
+                        carousel_round_process.terminate()
+                        print("Timeout of Carousel Round occurred. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                     mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.AUGMENT_ROUNDS:
                     game_functions.default_pos()
-                    pve_round_process = multiprocessing.Process(target=self.pvp_round(), name="PvP Round", args=(50,))
-                    pve_round_process.start()
+                    augment_round_process = multiprocessing.Process(target=self.pvp_round())
+                    augment_round_process.start()
+                    augment_round_process.join(35)
+                    if augment_round_process.is_alive():
+                        augment_round_process.terminate()
+                        print("Timeout of Augment PvP Round occurred. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                     mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.PVE_ROUND:
                     game_functions.default_pos()
-                    pve_round_process = multiprocessing.Process(target=self.pve_round(), name="PvE Round", args=(15,))
+                    pve_round_process = multiprocessing.Process(target=self.pve_round())
                     pve_round_process.start()
+                    pve_round_process.join(25)
+                    if pve_round_process.is_alive():
+                        pve_round_process.terminate()
+                        print("Timeout of PvE Round occurred. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                     mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
                     ran_round: str = self.round
                 elif self.round in game_assets.PVP_ROUND:
                     game_functions.default_pos()
-                    pve_round_process = multiprocessing.Process(target=self.pvp_round(), name="PvP Round", args=(30,))
-                    pve_round_process.start()
+                    pvp_round_process = multiprocessing.Process(target=self.pvp_round())
+                    pvp_round_process.start()
+                    pvp_round_process.join(25)
+                    if pvp_round_process.is_alive():
+                        pvp_round_process.terminate()
+                        print("Timeout of PvP Round occurred. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                     mk_functions.right_click(screen_coords.TACTICIAN_RESTING_SPOT_LOC.get_coords())
                     ran_round: str = self.round
             sleep(0.5)
@@ -139,6 +163,7 @@ class Game:
         self.print_arena_values()
         self.message_queue.put("CLEAR")
         self.arena.set_board_size(self.arena.board_size + 1)
+        self.arena.spend_gold()
         self.end_round_tasks()
 
     def third_round(self) -> None:
@@ -154,6 +179,7 @@ class Game:
         self.arena.move_unknown_units_to_bench()
         # Picking up item orbs takes too long for this round.
         self.arena.fix_bench_state()
+        self.arena.spend_gold()
         self.arena.move_champions()
         self.end_round_tasks()
 
@@ -287,15 +313,15 @@ class Game:
         unit_names_on_entire_board = []
         for unit in self.arena.board:
             if unit is not None and isinstance(unit, Champion):
-                unit_names_on_entire_board.append(unit.name)
+                unit_names_on_entire_board.append(unit.name.rjust(12, " "))
             else:
-                unit_names_on_entire_board.append(unit)
+                unit_names_on_entire_board.append("".rjust(12, " "))
         print(f"-------------------------------------------")
         print(f"        Comp: {self.arena.comp_to_play.name}")
         print(f"        Board: {[unit for index, unit in enumerate(unit_names_on_entire_board) if 21 <= index]}")
-        print(f"               {[unit for index, unit in enumerate(unit_names_on_entire_board) if 14 <= index < 21]}")
+        print(f"                     {[unit for index, unit in enumerate(unit_names_on_entire_board) if 14 <= index < 21]}")
         print(f"               {[unit for index, unit in enumerate(unit_names_on_entire_board) if 7 <= index < 14]}")
-        print(f"               {[unit for index, unit in enumerate(unit_names_on_entire_board) if index < 7]}")
+        print(f"                     {[unit for index, unit in enumerate(unit_names_on_entire_board) if index < 7]}")
         print(f"        Board Size: {self.arena.board_size}        Max Board Size: {self.arena.max_board_size}")
         # Only print out the board names list if it doesn't match the names of all the units on the board.
         if collections.Counter(unit_names_on_entire_board) != collections.Counter(self.arena.board_names):
