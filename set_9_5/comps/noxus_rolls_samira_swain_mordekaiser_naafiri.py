@@ -145,6 +145,7 @@ PRIMARY_AUGMENTS: list[str] = [
 
     "Challenger Crest",
     "Cybernetic Leech II",
+    "Frequent Flier",
     "Money Money!",
     "Total Domination",
     "Training Reward II",
@@ -178,6 +179,7 @@ SECONDARY_AUGMENTS: list[str] = [
     "Buried Treasures II",
     "Capricious Forge",
     "Dedication",
+    "Demon Flare",
     "Early Education",
     "Escort Quest",
     "Gotta Go Fast!!! II",
@@ -189,6 +191,7 @@ SECONDARY_AUGMENTS: list[str] = [
     "Pandora's Items II",
     "Rolling for Days II",
     "Shoplifting",
+    "Stars Are Born",
     "Support Cache"
     "Tiny Power II",
     "Tons of Stats!",
