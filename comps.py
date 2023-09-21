@@ -13,11 +13,11 @@ import set_9_5.comps.walk_the_plank_nilah_miss_fortune_gangplank_nautilus as wal
 import set_9_5.comps.super_nash_bros_kaisa_chogath_belveth as super_nash_bros
 import set_9_5.comps.milio_cr7_shen_taric_ryze as milio_cr7
 import set_9_5.comps.bastion_barrage_aphelios_shen_silco as bastion_barrage
+import set_9_5.comps.bruiser_bites_malzahar_chogath_reksai as bruiser_bites
 import set_9_5.comps.noxus_rolls_samira_swain_mordekaiser_naafiri as noxus_rolls
 import random
 
-COMPS_TO_SELECT_RANDOMLY_FROM: list = [arcane_domain, bastion_barrage, heart_of_the_cards, milio_cr7,
-                                       roll_the_rogues, super_nash_bros, walk_the_plank]
+COMPS_TO_SELECT_RANDOMLY_FROM: list = [bruiser_bites, noxus_rolls]
 
 
 def return_random_comp():
