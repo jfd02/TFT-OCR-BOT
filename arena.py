@@ -1029,7 +1029,7 @@ class Arena:
         for item_index, completed_item in enumerate(unit.build):
             if completed_item in self.items:
                 self.add_one_item_to_unit(unit, self.items.index(completed_item))
-                unit.item_slots_filled += 1
+                unit.item_slots_filled += 2
                 unit.build.remove(completed_item)
                 unit.non_component_items.append(completed_item)
         return
@@ -1042,7 +1042,7 @@ class Arena:
         for radiant_item, completed_item in game_assets.RADIANT_ITEMS_DICT.items():
             if completed_item in unit.build and radiant_item in self.items:
                 self.add_one_item_to_unit(unit, self.items.index(radiant_item))
-                unit.item_slots_filled += 1
+                unit.item_slots_filled += 2
                 unit.build.remove(completed_item)
                 unit.non_component_items.append(radiant_item)
         return
@@ -1053,7 +1053,7 @@ class Arena:
         for radiant_item, completed_item in game_assets.RADIANT_ITEMS_DICT.items():
             if completed_item in unit.secondary_items and radiant_item in self.items:
                 self.add_one_item_to_unit(unit, self.items.index(radiant_item))
-                unit.item_slots_filled += 1
+                unit.item_slots_filled += 2
                 unit.secondary_items.remove(completed_item)
                 unit.non_component_items.append(radiant_item)
         return
@@ -1063,7 +1063,7 @@ class Arena:
         for ornn_item in unit.ornn_items_will_accept:
             if ornn_item in self.items:
                 self.add_one_item_to_unit(unit, self.items.index(ornn_item))
-                unit.item_slots_filled += 1
+                unit.item_slots_filled += 2
                 unit.ornn_items_will_accept.remove(ornn_item)
                 unit.non_component_items.append(ornn_item)
         return
@@ -1073,7 +1073,7 @@ class Arena:
         for support_item in unit.support_items_will_accept:
             if support_item in self.items:
                 self.add_one_item_to_unit(unit, self.items.index(support_item))
-                unit.item_slots_filled += 1
+                unit.item_slots_filled += 2
                 unit.support_items_will_accept.remove(support_item)
                 unit.non_component_items.append(support_item)
         return
@@ -1083,7 +1083,7 @@ class Arena:
         for trait_item in unit.trait_items_will_accept:
             if trait_item in self.items:
                 self.add_one_item_to_unit(unit, self.items.index(trait_item))
-                unit.item_slots_filled += 1
+                unit.item_slots_filled += 2
                 unit.trait_items_will_accept.remove(trait_item)
                 unit.non_component_items.append(trait_item)
         return
@@ -1093,7 +1093,6 @@ class Arena:
         for zaun_item in unit.zaun_items_will_accept:
             if zaun_item in self.items:
                 self.add_one_item_to_unit(unit, self.items.index(zaun_item))
-                unit.item_slots_filled += 1
                 unit.zaun_items_will_accept.remove(zaun_item)
                 unit.held_zaun_items.append(zaun_item)
         return
