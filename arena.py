@@ -595,7 +595,8 @@ class Arena:
                         mk_functions.left_click(screen_coords.BUY_LOC[index].get_coords())
                         print(f"    Purchased {champion}")
                         self.bought_champion(champion, none_slot)
-                        self.champs_to_buy.remove(champion)
+                        if champion in self.champs_to_buy:
+                            self.champs_to_buy.remove(champion)
                     else:
                         # Try to buy champ 3 when bench is full
                         print(f"  Bench is full but want {champion}")
@@ -607,7 +608,8 @@ class Arena:
                         sleep(0.5)
                         if none_slot != -1:
                             print(f"    Bench no longer full. Purchased {champion}")
-                            self.champs_to_buy.remove(champion)
+                            if champion in self.champs_to_buy:
+                                self.champs_to_buy.remove(champion)
             first_run = False
         return
 
