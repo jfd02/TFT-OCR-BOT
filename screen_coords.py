@@ -48,6 +48,8 @@ CHAMP_NAME_POS: list[Vec4] = [
     Vec4(GameWindow(808, 5, 912, 24), use_screen_offset=False),
 ]
 
+PANEL_NAME_LOC: Vec4 = Vec4(GameWindow(1707, 320, 1830, 340))
+
 GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 
 ANVIL_MSG_POS: Vec4 = Vec4(GameWindow(818, 838, 932, 859))
