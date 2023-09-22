@@ -223,7 +223,7 @@ class Game:
 
         if self.round == "1-3":
             print("  Sleeping on round 1-3.")
-            sleep(1.5)  # TODO: why do we need to sleep here
+            sleep(1.5)
             # self.arena.fix_unknown()  # no more unknown units
             # self.arena.tacticians_crown_check() #not getting any item in set9 round 1-3, skipped
         elif self.round in game_assets.FOURTH_ROUND:
@@ -294,8 +294,7 @@ class Game:
 
         if self.round in game_assets.ITEM_PLACEMENT_ROUNDS \
                 or arena_functions.get_health() <= 15 or len(self.arena.items) >= 8:
-            sleep(1)  # why do we sleep here?
-            # self.arena.place_items_by_looping_through_items_first()
+            sleep(1)
             self.arena.give_items_to_units()
             self.arena.add_random_items_on_strongest_units_at_one_loss_left()
 

@@ -147,7 +147,6 @@ def get_items() -> list:
     item_bench: list = []
     for positions in screen_coords.ITEM_POS:
         mk_functions.move_mouse(positions[0].get_coords())
-        # TODO: why is this using psm=13 ? wouldn't psm = 7 or 8 be better ?
         item: str = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=13,
                                  whitelist=ocr.ALPHABET_WHITELIST)
         item_bench.append(valid_item_from_all_items(item))
@@ -166,7 +165,6 @@ def tacticians_crown_check(self) -> None:
     try:
         if "TacticiansCrown" in item:
             print("  Tacticians Crown on bench, adding extra slot to board")
-            # TODO: why is this written this way
             # self.max_board_size -= 1
         else:
             print(f"{item} is not TacticiansCrown")
@@ -406,7 +404,6 @@ def count_number_of_item_slots_filled_on_unit(unit: Champion):
     set_number_of_item_slot_filled_on_unit(unit, item_slots_filled)
 
 
-# TODO: likely the cause of what is the double clicking when checking unknown units
 def count_number_of_item_slots_filled_on_unit_at_coords(coordinates: tuple) -> int:
     """Assumes the unit actually exists. Opens the info panel on a unit and then hovers over
        the center of each item slot that displays in that screen. If the color of that slot is not close to black,

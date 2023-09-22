@@ -96,7 +96,6 @@ class Arena:
                      size=game_assets.CHAMPIONS[name]["Board Size"],
                      final_comp=self.comp_to_play.comp[name]["final_comp"])
         mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
-        # Why was this set to sleep for 0.5 seconds?
         # sleep(0.3)
         self.fix_bench_state()
 
@@ -184,7 +183,6 @@ class Arena:
         """Returns True if there is a spot on the bench taken up and that spot is not recognized as a champion/unit."""
         return any(isinstance(slot, str) for slot in self.bench)
 
-    # TODO: This function is way too long and needs to be cleaned up.
     def move_champions(self) -> None:
         """Moves champions to the board"""
         if self.max_board_size > self.board_size:
@@ -216,7 +214,7 @@ class Arena:
                         empty_bench_slot: int = arena_functions.empty_bench_slot()
                         mk_functions.left_click(screen_coords.BUY_LOC[index].get_coords())
                         new_champion = champion_class.create_default_champion(purchaseable_unit, empty_bench_slot, True, self.comp_to_play)
-                        sleep(0.1)  # why is this needed
+                        sleep(0.1)
                         self.bench[empty_bench_slot] = new_champion
                         self.move_known(new_champion)
                         break
@@ -309,7 +307,6 @@ class Arena:
             item_count += 1
             # print(f"  Looking for item #{item_count} to place:")
             # print("    Item Loop 1")
-            # TODO: should loop through units first before looping through items
             # so that we can place multiple items on a unit at once
             for index, _ in enumerate(self.items):
                 if self.items[index] is not None:
@@ -848,14 +845,13 @@ class Arena:
                 duplicate_unit = False
                 if self.board[index] is not None and unit_name is self.board[index].name:
                     duplicate_unit = True
-                    break  # TODO: wait why did i make this break
+                    break
                 if unit_name is not None and arena_functions.is_valid_champ(unit_name) and not duplicate_unit:
                     print(f"        Found a valid {unit_name} unit from an unknown unit!")
                     valid_champs.append((unit_name, index))
-        # self.board_unknown_and_pos = valid_champs  # TODO: do i really need board_unknown_and_pos
+        # self.board_unknown_and_pos = valid_champs
         return valid_champs
 
-    # TODO: Is this still neccessary with the change to making self.board represent every space on the board.
     def remove_random_duplicate_champions_from_board(self):
         """Loops through the entire self.board list,
            and if a unit is a Champion object, but is sharing the same space as another Champion unit,
@@ -876,12 +872,10 @@ class Arena:
                     positions_of_all_unit.append(unit.board_position)
         return
 
-    # TODO: reduce code reuse
     def identify_champions_on_bench(self, mistaken_identity: bool = False):
         print("  Identifying units on the bench:")
         bench_occupied: list = arena_functions.bench_occupied_check()
         for index, bench_space in enumerate(self.bench):
-            # TODO: is check bench_space is None and bench_occupied[index] redundant?
             if bench_space is None and bench_occupied[index] and not mistaken_identity:
                 print(f"  Bench space {index} is occupied by a unit, but we don't know which unit!")
                 # Right-click the unit to make the unit's info appear on the right side of the screen.
@@ -995,7 +989,6 @@ class Arena:
                         self.add_trait_item_to_unit(unit)
                     if unit.item_slots_filled % 2 == 0:
                         combined_two_items = self.add_any_bis_item_from_combining_two_component_items_on_unit(unit)
-                        # TODO: Cleanup
                         # Start giving units their 'good but not BIS' items if our health gets too low or we have too many items
                         if unit.item_slots_filled < 5 and (arena_functions.get_health() <= 30 or len([item for item in self.items if item is not None]) == 10):
                             combined_two_items = combined_two_items or self.add_any_secondary_item_from_combining_two_component_items_on_unit(unit)
@@ -1229,7 +1222,6 @@ class Arena:
             return True
         return False
 
-    # TODO: combine this with the bis functions into one function that takes in the list of items to check
     def is_possible_to_combine_two_components_into_given_secondary_item(self, unit: Champion, complete_item: str) -> bool:
         """Assumes that the complete item in the unit's build, exists as a CRAFTABLE item.
            Returns a boolean value that represent if BOTH component items for a complete item exist in self.items."""
@@ -1243,7 +1235,6 @@ class Arena:
                 copy_of_owned_items.remove(item)
         return True
 
-    # TODO: combine this with the bis functions into one function that takes in the list of items to check
     def get_secondary_item_that_is_possible_to_combine_from_components(self, unit: Champion) -> str | None:
         """Searches through the unit's BIS items it wants to build and returns the complete BIS item
            if it can be crafted from component items currently on the bench."""
@@ -1254,7 +1245,6 @@ class Arena:
                 return None
         return
 
-    # TODO: combine this with the bis functions into one function that takes in the list of items to check
     def add_any_secondary_item_from_combining_two_component_items_on_unit(self, unit: Champion) -> bool:
         """Assumes that the unit has no component items on them.
            Gets any Best In Slot (BIS) craftable item from the unit
@@ -1347,8 +1337,6 @@ class Arena:
         if len(unit.non_component_items) > 0:
             self.add_one_item_to_unit(unit, self.items.index("MasterworkUpgrade"))
 
-    # TODO: Clean this up and break down into smaller functions.
-    # TODO: Possibly should change it to give the rest of the component items before giving emblem and support items.
     def add_random_items_on_strongest_units_at_one_loss_left(self):
         """This function tries to add all the leftover items on the board before the bot loses the game.
            It focuses on placing items onto the most important units, as defined by how many BIS items they have in their comp file.
@@ -1358,7 +1346,6 @@ class Arena:
              we are giving them to non-carries that will buff the carries.
            Then we take the remaining Mogul items and component items and try to give them too.
         """
-        # TODO: maybe put this value into data files, so it's not hardcoded for every comp ?
         if self.check_health() > 16:
             return
         print("  Randomly adding items to our carry units since we are about to lose.")

@@ -11,7 +11,6 @@ class Champion:
 
     # pylint: disable=too-many-instance-attributes,too-few-public-methods,too-many-arguments
 
-    # TODO: make some of these have default parameters
     def __init__(self, name: str, coords: tuple, item_slots_filled: int, build: list[str], build2: list[str],
                  ornn_items: list[str], support_items: list[str], trait_items: list[str], zaun_items: list[str],
                  board_position: int | None, size: int, final_comp: bool) -> None:
@@ -46,7 +45,6 @@ class Champion:
         self.component_item: str = ""
         # A list that should only be a tuple of (completed_item, component_item), where the component item in the tuple
         # combines with another component item the unit is currently holding to create the completed item.
-        # TODO: this shouldn't be a list. might not even be needed
         self.current_building: list = []
         # The list of Zaun items the unit has. Max of 3 items.
         self.held_zaun_items: list = []
