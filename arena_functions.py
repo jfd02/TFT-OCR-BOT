@@ -446,7 +446,6 @@ def identify_emblem_name(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_p
     shop_array.append((shop_pos, is_valid_trait_item(trait_item)))
 
 
-# TODO: Possibly rework this and the get_shop function into one functino that has arguments passed in.
 def identify_emblems_in_shop() -> list[str]:
     """Make a list of the Emblems that appear in the Tome of Traits shop and return it."""
     screen_capture = ImageGrab.grab(bbox=screen_coords.TOME_OF_TRAITS_SHOP_POS.get_coords())
