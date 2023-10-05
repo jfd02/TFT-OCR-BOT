@@ -4,5 +4,5 @@ Pillow==10.0.1
 PyDirectInput==1.0.4
 requests==2.31.0
 screeninfo==0.8.1
-urllib3==2.0.4
+urllib3==2.0.6
 pypiwin32==223
