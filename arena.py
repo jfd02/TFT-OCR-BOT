@@ -44,7 +44,13 @@ class Arena:
                             whitelist=ocr.ALPHABET_WHITELIST)
                 if champ_name in self.champs_to_buy:
                     print("  The unknown champ from carousel exists in comps, keeping it.")
-                    self.bought_champion(champ_name, index)
+                    self.bench[index] = Champion(name=champ_name,
+                                    coords=screen_coords.BENCH_LOC[index].get_coords(
+                                    ),
+                                    build=comps.COMP[champ_name]["items"].copy(),
+                                    slot=index,
+                                    size=game_assets.CHAMPIONS[champ_name]["Board Size"],
+                                    final_comp=comps.COMP[champ_name]["final_comp"])
                     self.champs_to_buy.remove(champ_name)
                 else:
                     self.bench[index] = "?"
@@ -52,7 +58,6 @@ class Arena:
                 self.bench[index] = None
             if isinstance(slot, Champion) and not bench_occupied[index]:
                 self.bench[index] = None
-            game_functions.default_pos()
 
     def bought_champion(self, name: str, slot: int) -> None:
         """Purchase champion and creates champion instance"""
@@ -198,9 +203,12 @@ class Arena:
 
     def add_item_to_champs(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
-        for champ in self.board:
-            if champ.does_need_items() and self.items[item_index] is not None:
-                self.add_item_to_champ(item_index, champ)
+        for champ_name in comps.COMP:
+            for champ in self.board:
+                if champ_name == champ.name:
+                    if champ.does_need_items() and self.items[item_index] is not None:
+                        self.add_item_to_champ(item_index, champ)
+                    break
 
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
@@ -301,7 +309,7 @@ class Arena:
     def spend_gold(self) -> None:
         """Spends gold every round"""
         first_run = True
-        min_gold = 24 if self.spam_roll else 50
+        min_gold = 24 if self.spam_roll else 56
         while first_run or arena_functions.get_gold() >= min_gold:
             if not first_run:
                 if arena_functions.get_level() != 9:
@@ -342,13 +350,20 @@ class Arena:
 
     def pick_augment(self) -> None:
         """Picks an augment from user defined augment priority list or defaults to first augment"""
-        augments: list = []
-        for coords in screen_coords.AUGMENT_POS:
-            augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
-            augments.append(augment)
+        while True:
+            sleep(1)
+            augments: list = []
+            for coords in screen_coords.AUGMENT_POS:
+                augment: str = ocr.get_text(
+                    screenxy=coords.get_coords(), scale=3, psm=7)
+                augments.append(augment)
+            print(augments)
+            if len(augments) == 3 and '' not in augments:
+                print("accept & break")
+                break
 
-        for augment in augments:
-            for potential in comps.AUGMENTS:
+        for potential in comps.AUGMENTS:
+            for augment in augments:
                 if potential in augment:
                     print(f"  Choosing augment {augment}")
                     mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
