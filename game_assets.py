@@ -52,7 +52,7 @@ CHAMPIONS: dict[str, dict[str, int]] = {
     "Heimerdinger": {"Gold": 5, "Board Size": 1},
     "Illaoi": {"Gold": 1, "Board Size": 1},
     "Irelia": {"Gold": 1, "Board Size": 1},
-    "Jarvan IV": {"Gold": 4, "Board Size": 1},
+    "JarvanIV": {"Gold": 4, "Board Size": 1},
     "Jayce": {"Gold": 3, "Board Size": 1},
     "Jhin": {"Gold": 1, "Board Size": 1},
     "Jinx": {"Gold": 2, "Board Size": 1},

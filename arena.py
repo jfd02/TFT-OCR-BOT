@@ -38,7 +38,22 @@ class Arena:
         bench_occupied: list = arena_functions.bench_occupied_check()
         for index, slot in enumerate(self.bench):
             if slot is None and bench_occupied[index]:
-                self.bench[index] = "?"
+                # ocr + right click
+                mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
+                champ_name: str = ocr.get_text(screenxy=screen_coords.PANEL_NAME_LOC.get_coords(), scale=3, psm=13,
+                            whitelist=ocr.ALPHABET_WHITELIST)
+                if champ_name in self.champs_to_buy:
+                    print("  The unknown champ from carousel exists in comps, keeping it.")
+                    self.bench[index] = Champion(name=champ_name,
+                                    coords=screen_coords.BENCH_LOC[index].get_coords(
+                                    ),
+                                    build=comps.COMP[champ_name]["items"].copy(),
+                                    slot=index,
+                                    size=game_assets.CHAMPIONS[champ_name]["Board Size"],
+                                    final_comp=comps.COMP[champ_name]["final_comp"])
+                    self.champs_to_buy.remove(champ_name)
+                else:
+                    self.bench[index] = "?"
             if isinstance(slot, str) and not bench_occupied[index]:
                 self.bench[index] = None
             if isinstance(slot, Champion) and not bench_occupied[index]:
@@ -346,7 +361,8 @@ class Arena:
 
         if self.augment_roll:
             print("  Rolling for augment")
-            mk_functions.left_click(screen_coords.AUGMENT_ROLL.get_coords())
+            for i in range(0,3):
+                mk_functions.left_click(screen_coords.AUGMENT_ROLL[i].get_coords())
             self.augment_roll = False
             self.pick_augment()
 

@@ -48,6 +48,8 @@ CHAMP_NAME_POS: list[Vec4] = [
     Vec4(GameWindow(808, 5, 912, 24), use_screen_offset=False),
 ]
 
+PANEL_NAME_LOC: Vec4 = Vec4(GameWindow(1707, 320, 1830, 340))
+
 GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 
 ANVIL_MSG_POS: Vec4 = Vec4(GameWindow(818, 838, 932, 859))
@@ -55,16 +57,16 @@ ANVIL_MSG_POS: Vec4 = Vec4(GameWindow(818, 838, 932, 859))
 EXIT_NOW_POS: Vec4 = Vec4(GameWindow(910, 560, 1029, 583))
 
 AUGMENT_POS: list[Vec4] = [
-    Vec4(GameWindow(423, 535, 675, 582)),
-    Vec4(GameWindow(835, 525, 1086, 582)),
-    Vec4(GameWindow(1231, 527, 1506, 583)),
+    Vec4(GameWindow(423, 525, 675, 560)),
+    Vec4(GameWindow(830, 525, 1086, 560)),
+    Vec4(GameWindow(1231, 525, 1495, 560)),
 ]
 
 AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
 
-AUGMENT_ROLL: Vec2 = Vec2(960, 875)
+AUGMENT_ROLL: list[Vec2] = [Vec2(549, 875), Vec2(960, 875), Vec2(1363, 875)]
 
-VICTORY_POS: Vec4 = Vec4(GameWindow(916, 630, 1008, 652))
+VICTORY_POS: Vec4 = Vec4(GameWindow(906, 560, 1030, 587))
 
 BUY_LOC: list[Vec2] = [
     Vec2(575, 992),

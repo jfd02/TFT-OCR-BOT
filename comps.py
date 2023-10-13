@@ -5,77 +5,53 @@ Items are in camel case and a-Z
 """
 
 COMP = {
-    "Xayah": {
+    "Kayle": {
         "board_position": 6,
-        "items": ["GuinsoosRageblade","Guardbreaker","LastWhisper"],
+        "items": ["GuinsoosRageblade","GuinsoosRageblade"],
         "level": 3,
         "final_comp": True
     },
-    "Nilah": {
-        "board_position": 18,
-        "items": ["Bloodthirster","RapidFirecannon","Deathblade"],
+    "Fiora": {
+        "board_position": 25,
+        "items": ["Bloodthirster","TitansResolve"],
         "level": 3,
+        "final_comp": True
+    },
+    "JarvanIV": {
+        "board_position": 26,
+        "items": ["ProtectorsVow","SunfireCape"],
+        "level": 2,
         "final_comp": True
     },
     "Shen": {
-        "board_position": 26,
-        "items": ["SunfireCape","WarmogsArmor","GargoyleStoneplate"],
-        "level": 2,
-        "final_comp": True
-    },
-    "Sejuani": {
         "board_position": 27,
-        "items": [],
+        "items": ["Redemption"],
         "level": 2,
         "final_comp": True
     },
-    "Neeko": {
+    "Poppy": {
         "board_position": 24,
         "items": [],
         "level": 2,
         "final_comp": True
     },
-    "Ashe": {
-        "board_position": 4,
+    "Galio": {
+        "board_position": 23,
         "items": [],
         "level": 2,
         "final_comp": True
     },
-    "Jhin": {
-        "board_position": 5,
-        "items": [],
-        "level": 2,
-        "final_comp": True
-    },
-    "Milio": {
+    "Quinn": {
         "board_position": 0,
         "items": [],
         "level": 2,
         "final_comp": True
     },
-    "Irelia": {
-        "board_position": 25,
-        "items": ["SunfireCape","WarmogsArmor","GargoyleStoneplate"],
+    "Sona": {
+        "board_position": 5,
+        "items": ["SpearofShojin"],
         "level": 2,
-        "final_comp": False
-    },
-    "Jinx":{
-        "board_position": 1,
-        "items": ["GuinsoosRageblade","Guardbreaker","LastWhisper"],
-        "level": 2,
-        "final_comp": False
-    },
-    "Sett":{
-        "board_position": 23,
-        "items": ["GargoyleStoneplate","WarmogsArmor","SunfireCape"],
-        "level": 2,
-        "final_comp": False
-    },
-    "Warwick":{
-        "board_position": 17,
-        "items": [],
-        "level": 2,
-        "final_comp": False
+        "final_comp": True
     }
 }
 

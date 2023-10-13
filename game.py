@@ -120,6 +120,7 @@ class Game:
         sleep(0.5)
         if self.round in game_assets.AUGMENT_ROUNDS:
             sleep(1)
+            self.arena.augment_roll = True
             self.arena.pick_augment()
             # Can't purchase champions for a short period after choosing augment
             sleep(2.5)
@@ -144,6 +145,7 @@ class Game:
         sleep(0.5)
         if self.round in game_assets.AUGMENT_ROUNDS:
             sleep(1)
+            self.arena.augment_roll = True
             self.arena.pick_augment()
             sleep(2.5)
         if self.round in ("2-1", "2-5"):
