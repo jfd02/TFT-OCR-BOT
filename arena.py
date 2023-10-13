@@ -361,7 +361,8 @@ class Arena:
 
         if self.augment_roll:
             print("  Rolling for augment")
-            mk_functions.left_click(screen_coords.AUGMENT_ROLL.get_coords())
+            for i in range(0,3):
+                mk_functions.left_click(screen_coords.AUGMENT_ROLL[i].get_coords())
             self.augment_roll = False
             self.pick_augment()
 
