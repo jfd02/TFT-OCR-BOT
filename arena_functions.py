@@ -31,7 +31,7 @@ def get_health() -> int:
             'https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
         return int(response.json()['activePlayer']['championStats']["currentHealth"])
     except (requests.exceptions.ConnectionError, KeyError):
-        return 100
+        return -1
 
 
 def get_gold() -> int:

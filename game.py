@@ -7,6 +7,7 @@ import random
 import multiprocessing
 import win32gui
 import settings
+import arena_functions
 import game_assets
 import game_functions
 from arena import Arena
@@ -66,7 +67,24 @@ class Game:
     def game_loop(self) -> None:
         """Loop that runs while the game is active, handles calling the correct tasks for round and exiting game"""
         ran_round: str = None
-        while game_functions.check_alive():
+        last_game_health: int = 100
+
+        while True:
+            game_health: int = arena_functions.get_health()
+            if game_health == 0 and last_game_health > 0:
+                # defeated by other player
+                while True:
+                    if game_functions.check_alive():
+                        self.message_queue.put("CLEAR")
+                        game_functions.exit_game()
+                        break
+            elif game_health == -1 and last_game_health > 0:
+                # won the game and exit game automatically
+                self.message_queue.put("CLEAR")
+                break
+            else:
+                last_game_health = game_health
+
             self.round: str = game_functions.get_round()
 
             if (
@@ -92,8 +110,6 @@ class Game:
                     self.pvp_round()
                     ran_round: str = self.round
             sleep(0.5)
-        self.message_queue.put("CLEAR")
-        game_functions.exit_game()
 
     def second_round(self) -> None:
         """Move unknown champion to board after first carousel"""
