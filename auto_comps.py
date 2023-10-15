@@ -176,8 +176,9 @@ def __LoadLolChessComps(
                         .replace("Ryze: Shurima", "Ryze")
                         .replace("Ryze: Targon", "Ryze")
                         .replace("Ryze: Zaun", "Ryze")
+                        .replace("TwistedFate", "Twisted Fate")
                     )
-                    star = each_slot.get("star", [])
+                    star = each_slot.get("star", 1) #gets level otherwise forces level 1
                 except Exception:
                     continue
                 slot_items = render_item(
