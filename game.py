@@ -74,7 +74,7 @@ class Game:
             if game_health == 0 and last_game_health > 0:
                 # defeated by other player
                 while True:
-                    if game_functions.check_alive():
+                    if not game_functions.check_alive():
                         self.message_queue.put("CLEAR")
                         game_functions.exit_game()
                         break
