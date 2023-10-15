@@ -78,12 +78,12 @@ class Game:
                         self.message_queue.put("CLEAR")
                         game_functions.exit_game()
                         break
-            elif game_health == -1 and last_game_health > 0:
+                break
+            if game_health == -1 and last_game_health > 0:
                 # won the game and exit game automatically
                 self.message_queue.put("CLEAR")
                 break
-            else:
-                last_game_health = game_health
+            last_game_health = game_health
 
             self.round: str = game_functions.get_round()
 
