@@ -42,7 +42,7 @@ class Arena:
                 mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
                 champ_name: str = ocr.get_text(screenxy=screen_coords.PANEL_NAME_LOC.get_coords(), scale=3, psm=7,
                             whitelist=ocr.ALPHABET_WHITELIST)
-                if self.champs_to_buy.get(champ_name,0):
+                if self.champs_to_buy.get(champ_name,0) > 0:
                     print(f"  The unknown champion {champ_name} exists in comps, keeping it.")
                     self.bench[index] = Champion(name=champ_name,
                                     coords=screen_coords.BENCH_LOC[index].get_coords(
@@ -140,7 +140,7 @@ class Arena:
                         champion[1] in game_assets.CHAMPIONS and
                         game_assets.champion_gold_cost(champion[1]) <= gold and
                         game_assets.champion_board_size(champion[1]) == 1 and
-                        not self.champs_to_buy.get(champion[1],0) and
+                        self.champs_to_buy.get(champion[1],0) <= 0 and
                         champion[1] not in self.board_unknown
                     )
 
@@ -176,7 +176,7 @@ class Arena:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                 self.bench[index] = None
             elif isinstance(champion, Champion):
-                if not self.champs_to_buy.get(champion.name,0) and champion.name in self.board_names:
+                if self.champs_to_buy.get(champion.name,0) <= 0 and champion.name in self.board_names:
                     print("  Selling unknown champion")
                     mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                     self.bench[index] = None
@@ -316,7 +316,7 @@ class Arena:
             shop: list = arena_functions.get_shop()
             print(f"  Shop: {shop}")
             for champion in shop:
-                if (self.champs_to_buy.get(champion[1],0) and
+                if (self.champs_to_buy.get(champion[1],0) > 0 and
                     arena_functions.get_gold() - game_assets.CHAMPIONS[champion[1]]["Gold"] >= 0
                  ):
                     none_slot: int = arena_functions.empty_slot()
