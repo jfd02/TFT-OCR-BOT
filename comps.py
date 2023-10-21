@@ -101,16 +101,16 @@ AUGMENTS: list[str] = [
 ]
 
 
-def champions_to_buy() -> list:
+def champions_to_buy() -> dict:
     """Creates a list of champions to buy during the game"""
-    champs_to_buy: list = []
+    champs_to_buy: dict = {}
     for champion, champion_data in COMP.items():
         if champion_data["level"] == 1:
-            champs_to_buy.append(champion)
+            champs_to_buy[champion] = 1
         elif champion_data["level"] == 2:
-            champs_to_buy.extend([champion] * 3)
+            champs_to_buy[champion] = 3
         elif champion_data["level"] == 3:
-            champs_to_buy.extend([champion] * 9)
+            champs_to_buy[champion] = 9
         else:
             raise ValueError("Comps.py | Champion level must be a valid level (1-3)")
     return champs_to_buy
