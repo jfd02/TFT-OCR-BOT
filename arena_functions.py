@@ -120,7 +120,7 @@ def get_items() -> list:
     item_bench: list = []
     for positions in screen_coords.ITEM_POS:
         mk_functions.move_mouse(positions[0].get_coords())
-        item: str = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=13,
+        item: str = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=7,
                             whitelist=ocr.ALPHABET_WHITELIST)
         item_bench.append(valid_item(item))
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
