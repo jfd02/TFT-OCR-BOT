@@ -25,7 +25,7 @@ class Arena:
         self.board: list = []
         self.board_unknown: list = []
         self.unknown_slots: list = comps.get_unknown_slots()
-        self.champs_to_buy: list = comps.champions_to_buy()
+        self.champs_to_buy: dict = comps.champions_to_buy()
         self.board_names: list = []
         self.items: list = []
         self.final_comp = False
@@ -42,8 +42,8 @@ class Arena:
                 mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
                 champ_name: str = ocr.get_text(screenxy=screen_coords.PANEL_NAME_LOC.get_coords(), scale=3, psm=13,
                             whitelist=ocr.ALPHABET_WHITELIST)
-                if champ_name in self.champs_to_buy:
-                    print("  The unknown champ from carousel exists in comps, keeping it.")
+                if self.champs_to_buy.get(champ_name,0):
+                    print(f"  The unknown champion {champ_name} exists in comps, keeping it.")
                     self.bench[index] = Champion(name=champ_name,
                                     coords=screen_coords.BENCH_LOC[index].get_coords(
                                     ),
@@ -51,7 +51,7 @@ class Arena:
                                     slot=index,
                                     size=game_assets.CHAMPIONS[champ_name]["Board Size"],
                                     final_comp=comps.COMP[champ_name]["final_comp"])
-                    self.champs_to_buy.remove(champ_name)
+                    self.champs_to_buy[champ_name]-=1
                 else:
                     self.bench[index] = "?"
             if isinstance(slot, str) and not bench_occupied[index]:
@@ -140,7 +140,7 @@ class Arena:
                         champion[1] in game_assets.CHAMPIONS and
                         game_assets.champion_gold_cost(champion[1]) <= gold and
                         game_assets.champion_board_size(champion[1]) == 1 and
-                        champion[1] not in self.champs_to_buy and
+                        not self.champs_to_buy.get(champion[1],0) and
                         champion[1] not in self.board_unknown
                     )
 
@@ -176,7 +176,7 @@ class Arena:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                 self.bench[index] = None
             elif isinstance(champion, Champion):
-                if champion.name not in self.champs_to_buy and champion.name in self.board_names:
+                if not self.champs_to_buy.get(champion.name,0) and champion.name in self.board_names:
                     print("  Selling unknown champion")
                     mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                     self.bench[index] = None
@@ -264,8 +264,7 @@ class Arena:
                 mk_functions.press_e(slot.coords)
                 self.bench[index] = None
 
-        self.champs_to_buy = list(filter(f"{champion.name}".__ne__,
-                                         self.champs_to_buy))  # Remove all instances of champion in champs_to_buy
+        self.champs_to_buy.pop(champion.name)  # Remove all instances of champion in champs_to_buy
 
         mk_functions.press_e(champion.coords)
         self.board_names.remove(champion.name)
@@ -317,7 +316,7 @@ class Arena:
             shop: list = arena_functions.get_shop()
             print(f"  Shop: {shop}")
             for champion in shop:
-                if (champion[1] in self.champs_to_buy and
+                if (self.champs_to_buy.get(champion[1],0) and
                     arena_functions.get_gold() - game_assets.CHAMPIONS[champion[1]]["Gold"] >= 0
                  ):
                     none_slot: int = arena_functions.empty_slot()
@@ -325,7 +324,7 @@ class Arena:
                         mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
                         print(f"    Purchased {champion[1]}")
                         self.bought_champion(champion[1], none_slot)
-                        self.champs_to_buy.remove(champion[1])
+                        self.champs_to_buy[champion[1]]-=1
                     else:
                         # Try to buy champ 3 when bench is full
                         print(f"  Board is full but want {champion[1]}")
@@ -337,7 +336,7 @@ class Arena:
                         sleep(0.5)
                         if none_slot != -1:
                             print(f"    Purchased {champion[1]}")
-                            self.champs_to_buy.remove(champion[1])
+                            self.champs_to_buy[champion[1]]-=1
             first_run = False
 
     def buy_xp_round(self) -> None:
