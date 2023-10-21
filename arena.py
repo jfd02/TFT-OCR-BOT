@@ -40,7 +40,7 @@ class Arena:
             if slot is None and bench_occupied[index]:
                 # ocr + right click
                 mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
-                champ_name: str = ocr.get_text(screenxy=screen_coords.PANEL_NAME_LOC.get_coords(), scale=3, psm=13,
+                champ_name: str = ocr.get_text(screenxy=screen_coords.PANEL_NAME_LOC.get_coords(), scale=3, psm=7,
                             whitelist=ocr.ALPHABET_WHITELIST)
                 if self.champs_to_buy.get(champ_name,0):
                     print(f"  The unknown champion {champ_name} exists in comps, keeping it.")
@@ -187,7 +187,7 @@ class Arena:
             if champion is None:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
         sleep(0.7)
-        anvil_msg: str = ocr.get_text(screenxy=screen_coords.ANVIL_MSG_POS.get_coords(), scale=3, psm=13,
+        anvil_msg: str = ocr.get_text(screenxy=screen_coords.ANVIL_MSG_POS.get_coords(), scale=3, psm=7,
                             whitelist=ocr.ALPHABET_WHITELIST)
         if anvil_msg == 'ChooseOne':
             print('clear anvil')
@@ -290,7 +290,7 @@ class Arena:
         """Checks if the item from carousel is tacticians crown"""
         mk_functions.move_mouse(screen_coords.ITEM_POS[0][0].get_coords())
         sleep(0.5)
-        item: str = ocr.get_text(screenxy=screen_coords.ITEM_POS[0][1].get_coords(), scale=3, psm=13,
+        item: str = ocr.get_text(screenxy=screen_coords.ITEM_POS[0][1].get_coords(), scale=3, psm=7,
                             whitelist=ocr.ALPHABET_WHITELIST)
         item: str = arena_functions.valid_item(item)
         try:
