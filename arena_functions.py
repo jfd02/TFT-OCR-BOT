@@ -109,7 +109,7 @@ def empty_slot() -> int:
     for slot, positions in enumerate(screen_coords.BENCH_HEALTH_POS):
         screen_capture = ImageGrab.grab(bbox=positions.get_coords())
         screenshot_array = np.array(screen_capture)
-        if not (np.abs(screenshot_array - (0, 255, 18)) <= 3).all(axis=2).any():
+        if not (np.abs(screenshot_array - (0, 255, 18, 255)) <= 3).all(axis=2).any():
             return slot  # Slot 0-8
     return -1  # No empty slot
 
@@ -120,7 +120,7 @@ def bench_occupied_check() -> list:
     for positions in screen_coords.BENCH_HEALTH_POS:
         screen_capture = ImageGrab.grab(bbox=positions.get_coords())
         screenshot_array = np.array(screen_capture)
-        if not (np.abs(screenshot_array - (0, 255, 18)) <= 2).all(axis=2).any():
+        if not (np.abs(screenshot_array - (0, 255, 18, 255)) <= 2).all(axis=2).any():
             bench_occupied.append(False)
         else:
             bench_occupied.append(True)
@@ -128,7 +128,7 @@ def bench_occupied_check() -> list:
 
 
 def valid_item(item: str) -> str | None:
-    """Checks if the item passed in arg one is valid"""
+    """Checks if the item passed in arg one are valid"""
     return next(
         (
             valid_item_name
