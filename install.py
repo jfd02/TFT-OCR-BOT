@@ -13,8 +13,8 @@ import os
 
 current_directory = os.getcwd()
 REQUIREMENTS = 'requirements.txt'
-TESSEROCR311 = 'tesserocr-2.6.0-cp311-cp311-win_amd64.whl'
-TESSEROCR310 = 'tesserocr-2.6.0-cp310-cp310-win_amd64.whl'
+TESSEROCR311 = 'tesserocr-2.6.1-cp311-cp311-macosx_10_9_x86_64.whl'  # Change to the downloaded version (macOS or Windows)
+TESSEROCR310 = 'tesserocr-2.6.1-cp310-cp310-macosx_10_9_x86_64.whl'  # Change to the downloaded version (macOS or Windows)
 
 if os.path.exists(os.path.join(current_directory, REQUIREMENTS)):
     print("\033[92mFound requirements.txt file. Installing dependencies...\033[0m")
