@@ -13,7 +13,7 @@ Transformations related to the game position & game size happen here
 
 
 class Vec2:
-    "Vector 2 class that has methods to scale screen coordinates"
+    """Vector 2 class that has methods to scale screen coordinates"""
 
     screen_x_offset: int = 0
     screen_y_offset: int = 0
@@ -34,7 +34,7 @@ class Vec2:
             return (round(x_pos + Vec2.screen_x_offset),
                     round(y_pos + Vec2.screen_y_offset))
 
-        return (round(x_pos), round(y_pos))
+        return round(x_pos), round(y_pos)
 
     @classmethod
     def setup_screen(cls, x_pos: int, y_pos: int, width: int, height: int) -> None:

@@ -32,7 +32,7 @@ def get_round() -> str:
     return game_round
 
 
-def pickup_items() -> None:  # Refacor this function to make it more clear whats happening
+def pickup_items() -> None:  # Refactor this function to make it more clear what's happening
     """Picks up items from the board after PVP round"""
     for index, coords in enumerate(screen_coords.ITEM_PICKUP_LOC):
         mk_functions.right_click(coords.get_coords())

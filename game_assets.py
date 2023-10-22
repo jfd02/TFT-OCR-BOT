@@ -15,9 +15,9 @@
 Contains static item & champion data
 """
 
-BASIC_ITEM: set[str] = {"BFSword","ChainVest","GiantsBelt","NeedlesslyLargeRod",
-                            "NegatronCloak","RecurveBow","SparringGloves","Spatula",
-                            "TearoftheGoddess"}
+BASIC_ITEM: set[str] = {"BFSword", "ChainVest", "GiantsBelt", "NeedlesslyLargeRod",
+                        "NegatronCloak", "RecurveBow", "SparringGloves", "Spatula",
+                        "TearoftheGoddess"}
 
 COMBINED_ITEMS: set[str] = {"8bitEmblem","EmoEmblem","HEARTSTEELEmblem","JazzEmblem",
                             "KDAEmblem","PentakillEmblem","PunkEmblem","TrueDamageEmblem",
@@ -32,9 +32,9 @@ COMBINED_ITEMS: set[str] = {"8bitEmblem","EmoEmblem","HEARTSTEELEmblem","JazzEmb
                             "SunfireCape","TacticiansCrown","ThiefsGloves","TitansResolve",
                             "WarmogsArmor"}
 
-SUPPORT_ITEM: set[str] = {"AegisoftheLegion","BansheesVeil","ChaliceofPower","CrestofCinders",
-                            "LocketoftheIronSolari","NeedlesslyBigGem","ObsidianCleaver","RanduinsOmen",
-                            "ShroudofStillness","VirtueoftheMartyr","ZekesHerald","Zephyr","ZzRotPortal"}
+SUPPORT_ITEM: set[str] = {"AegisoftheLegion", "BansheesVeil", "ChaliceofPower", "CrestofCinders",
+                          "LocketoftheIronSolari", "NeedlesslyBigGem", "ObsidianCleaver", "RanduinsOmen",
+                          "ShroudofStillness", "VirtueoftheMartyr", "ZekesHerald", "Zephyr", "ZzRotPortal"}
 
 NON_CRAFTABLE_ITEMS: set[str] = {"BigShotEmblem","BruiserEmblem","CountryEmblem","CrowdDiverEmblem",
                                     "DazzlerEmblem","DiscoEmblem","EdgelordEmblem","ExecutionerEmblem",

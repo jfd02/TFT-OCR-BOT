@@ -12,7 +12,7 @@
 #
 
 """
-Handles the board / bench state inside of the game and
+Handles the board / bench state inside the game and
 other variables used by the bot to make decisions
 """
 
@@ -102,8 +102,7 @@ class Arena:
             (
                 champion
                 for champion in self.bench
-                if isinstance(champion, Champion)
-                and champion.name not in self.board_names
+                if isinstance(champion, Champion) and champion.name not in self.board_names
             ),
             None,
         )
@@ -241,7 +240,7 @@ class Arena:
     def place_items(self) -> None:
         """Iterates through items and tries to add them to champion"""
         self.items = arena_functions.get_items()
-        print(f"  Items: {list(filter((None).__ne__, self.items))}")
+        print(f"  Items: {list(filter(None.__ne__, self.items))}")
         for index, _ in enumerate(self.items):
             if self.items[index] is not None:
                 self.add_item_to_champs(index)
@@ -325,9 +324,9 @@ class Arena:
         """Checks the board and replaces champions not in final comp"""
         for slot in self.bench:
             if (
-                isinstance(slot, Champion)
-                and slot.final_comp
-                and slot.name not in self.board_names
+                    isinstance(slot, Champion)
+                    and slot.final_comp
+                    and slot.name not in self.board_names
             ):
                 for champion in self.board:
                     if not champion.final_comp and champion.size == slot.size:

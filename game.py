@@ -102,8 +102,8 @@ class Game:
             self.round: str = game_functions.get_round()
 
             if (
-                settings.FORFEIT
-                and perf_counter() - self.start_time > self.forfeit_time
+                    settings.FORFEIT
+                    and perf_counter() - self.start_time > self.forfeit_time
             ):
                 game_functions.forfeit()
                 return

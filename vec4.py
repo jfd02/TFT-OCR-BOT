@@ -30,7 +30,7 @@ class GameWindow:
 
 
 class Vec4:
-    "Vector 4 class that has methods to scale screen coordinates"
+    """Vector 4 class that has methods to scale screen coordinates"""
     screen_x_offset: int = 0
     screen_y_offset: int = 0
     screen_x_scale: int = 1
@@ -56,7 +56,7 @@ class Vec4:
                     round(width + Vec4.screen_x_offset),
                     round(height + Vec4.screen_y_offset))
 
-        return (round(x_pos), round(y_pos), round(width), round(height))
+        return round(x_pos), round(y_pos), round(width), round(height)
 
     @classmethod
     def setup_screen(cls, x_pos: int, y_pos: int, width: int, height: int) -> None:

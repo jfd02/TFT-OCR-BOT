@@ -14,6 +14,7 @@ from win32gui import SetWindowLong, GetWindowLong, SetLayeredWindowAttributes
 from win32con import WS_EX_LAYERED, WS_EX_TRANSPARENT, GWL_EXSTYLE
 import screeninfo
 
+
 class UI:
     """User interface class that handles drawing labels on the screen during gameplay"""
 
@@ -35,7 +36,7 @@ class UI:
     @classmethod
     def rgb_convert(cls, rgb: tuple) -> str:
         """Turns tuple rgb value into string for use by the UI"""
-        return "#%02x%02x%02x" % rgb # pylint: disable=consider-using-f-string
+        return "#%02x%02x%02x" % rgb  # pylint: disable=consider-using-f-string
 
     def setup_window_size(self) -> None:
         """Setups window size"""
