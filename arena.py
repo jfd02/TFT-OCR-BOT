@@ -1,3 +1,16 @@
+# Original code from the TFT_OCR_BOT repository on GitHub:
+# Repository URL: https://github.com/jfd02/TFT-OCR-BOT
+# Original authors:
+# - @jfd02
+# - @danparizher
+# - @Cr4zZyBipBiip
+# - @Rexblane
+# - @stardust136
+# - @anthony5301
+# - @PawelklosPL
+# Modified by the-user-created on 21/10/2023
+#
+
 """
 Handles the board / bench state inside of the game and
 other variables used by the bot to make decisions

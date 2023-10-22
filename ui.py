@@ -1,3 +1,11 @@
+# Original code from the TFT_OCR_BOT repository on GitHub:
+# Repository URL: https://github.com/jfd02/TFT-OCR-BOT
+# Original authors:
+# - @jfd02
+# - @danparizher
+# Modified by the-user-created on 21/10/2023
+#
+
 """User interface module that contains user interface class"""
 
 import tkinter as tk

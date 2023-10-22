@@ -1,3 +1,15 @@
+# Original code from the TFT_OCR_BOT repository on GitHub:
+# Repository URL: https://github.com/jfd02/TFT-OCR-BOT
+# Original authors:
+# - @jfd02
+# - @jddanna
+# - @danparizher
+# - @Rexblane
+# - @Gandlfer
+# - @anthony5301
+# Modified by the-user-created on 21/10/2023
+#
+
 """
 Team composition used by the bot
 Comps come from https://tftactics.gg/tierlist/team-comps
