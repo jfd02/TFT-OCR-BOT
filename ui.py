@@ -10,28 +10,34 @@
 
 import tkinter as tk
 import multiprocessing
-from win32gui import SetWindowLong, GetWindowLong, SetLayeredWindowAttributes
-from win32con import WS_EX_LAYERED, WS_EX_TRANSPARENT, GWL_EXSTYLE
 import screeninfo
+
+try:
+    from win32gui import SetWindowLong, GetWindowLong, SetLayeredWindowAttributes
+    from win32con import WS_EX_LAYERED, WS_EX_TRANSPARENT, GWL_EXSTYLE
+except ModuleNotFoundError:
+    print("Windows only module not found, ignoring...")
+    # TODO: import UI modules for macOS
+    pass
 
 
 class UI:
     """User interface class that handles drawing labels on the screen during gameplay"""
 
     def __init__(self, message_queue: multiprocessing.Queue) -> None:
-        self.champ_text: str = UI.rgb_convert((255, 255, 255))
-        self.transparent: str = UI.rgb_convert((0, 0, 0))
-        self.label_container: list = []
+        # self.champ_text: str = UI.rgb_convert((255, 255, 255))
+        # self.transparent: str = UI.rgb_convert((0, 0, 0))
+        # self.label_container: list = []
         self.message_queue = message_queue
-        self.root = tk.Tk()
-        self.setup_window_size()
-        self.root.overrideredirect(True)
-        self.root.config(bg='#000000')
-        self.root.attributes("-alpha", 1)
-        self.root.wm_attributes("-topmost", 1)
-        self.root.attributes('-transparentcolor', '#000000', '-topmost', 1)
-        self.root.resizable(False, False)
-        self.set_clickthrough(self.root.winfo_id())
+        # self.root = tk.Tk()
+        # self.setup_window_size()
+        # self.root.overrideredirect(True)
+        # self.root.config(bg='#000000')
+        # self.root.attributes("-alpha", 1)
+        # self.root.wm_attributes("-topmost", 1)
+        # self.root.attributes('-transparentcolor', '#000000', '-topmost', 1)
+        # self.root.resizable(False, False)
+        # self.set_clickthrough(self.root.winfo_id())
 
     @classmethod
     def rgb_convert(cls, rgb: tuple) -> str:
@@ -79,6 +85,8 @@ class UI:
         self.root.after(ms=1, func=self.consume_text)
 
     def ui_loop(self) -> None:
-        """Loop that runs indefinetly to process UI changes"""
-        self.consume_text()
-        self.root.mainloop()
+        """Loop that runs indefinitely to process UI changes"""
+        while True:
+            pass
+        # self.consume_text()
+        # self.root.mainloop()
