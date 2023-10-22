@@ -16,5 +16,5 @@ LEAGUE_CLIENT_PATH = r'C:\\Riot Games\\League of Legends'  # Replace with your g
 TESSERACT_TESSDATA_PATH = r'C:\\Program Files\\Tesseract-OCR\\tessdata'
 
 # The following settings are for macOS users only
-LEAGUE_CLIENT_PATH_OSX = r'/Applications/League of Legends.app/Contents/LoL'
-TESSERACT_TESSDATA_PATH_OSX = r'/usr/local/Cellar/tesseract/5.3.2_1/share/tessdata'
+LEAGUE_CLIENT_PATH_OSX = r'/Applications/League of Legends.app/Contents/LoL'  # Path to the game in macOS
+TESSERACT_TESSDATA_PATH_OSX = r'/usr/local/Cellar/tesseract/5.3.2_1/share/tessdata'  # Location of tesseract data files

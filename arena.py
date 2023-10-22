@@ -141,13 +141,13 @@ class Arena:
                 return
 
     def sell_bench(self) -> None:
-        """Sells all of the champions on the bench"""
+        """Sells all the champions on the bench"""
         for index, _ in enumerate(self.bench):
             mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
             self.bench[index] = None
 
     def unknown_in_bench(self) -> bool:
-        """Sells all of the champions on the bench"""
+        """Sells all the champions on the bench"""
         return any(isinstance(slot, str) for slot in self.bench)
 
     def move_champions(self) -> None:

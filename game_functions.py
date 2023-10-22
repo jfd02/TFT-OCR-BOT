@@ -21,7 +21,9 @@ import mk_functions
 
 def get_round() -> str:
     """Gets the current game round"""
+    # TODO: add clarification on round_two and round_one
     screen_capture = ImageGrab.grab(bbox=screen_coords.ROUND_POS.get_coords())
+    # Round 2+ has a different position on screen than round 1-x, so we check round two first
     round_two = screen_capture.crop(screen_coords.ROUND_POS_TWO.get_coords())
     game_round: str = ocr.get_text_from_image(image=round_two, whitelist=ocr.ROUND_WHITELIST)
     if game_round in game_assets.ROUNDS:
@@ -32,7 +34,7 @@ def get_round() -> str:
     return game_round
 
 
-def pickup_items() -> None:  # Refactor this function to make it more clear what's happening
+def pickup_items() -> None:  # Refactor this function to make it clearer what's happening
     """Picks up items from the board after PVP round"""
     for index, coords in enumerate(screen_coords.ITEM_PICKUP_LOC):
         mk_functions.right_click(coords.get_coords())
@@ -54,7 +56,7 @@ def get_champ_carousel(tft_round: str) -> None:
 
 
 def check_alive() -> bool:    # Refactor this function to use API
-    """Checks the screen to see if player is still alive"""
+    """Checks the screen to see if the player is still alive"""
     if ocr.get_text(screenxy=screen_coords.EXIT_NOW_POS.get_coords(), scale=3, psm=7) == 'EXIT NOW':
         return False
     return (
