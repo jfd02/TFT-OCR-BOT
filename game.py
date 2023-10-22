@@ -18,7 +18,6 @@ Handles tasks that happen each game round
 from time import sleep, perf_counter
 import random
 import multiprocessing
-import win32gui
 import settings
 import arena_functions
 import game_assets
@@ -26,6 +25,13 @@ import game_functions
 from arena import Arena
 from vec4 import Vec4
 from vec2 import Vec2
+
+try:
+    import win32gui
+    platform = "Windows"
+except ModuleNotFoundError:
+    from Quartz import CGWindowListCopyWindowInfo, kCGWindowListOptionOnScreenOnly, kCGNullWindowID
+    platform = "macOS"
 
 
 class Game:
@@ -42,7 +48,10 @@ class Game:
         print("\n[!] Searching for game window")
         while not self.found_window:
             print("  Did not find window, trying again...")
-            win32gui.EnumWindows(self.callback, None)
+            if platform == "Windows":
+                win32gui.EnumWindows(self.callback, None)
+            else:
+                self.callback_macos()
             sleep(1)
 
         self.loading_screen()
@@ -69,6 +78,28 @@ class Game:
         Vec2.setup_screen(x_pos, y_pos, width, height)
         self.found_window = True
 
+    def callback_macos(self) -> None:  # pylint: disable=unused-argument
+        """Function used to find the game window and get its size"""
+        desired_window_title = "League Of Legends"
+
+        for window in CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID):
+            if window.get("kCGWindowOwnerName") == desired_window_title:
+                print(f"Found desired window: {desired_window_title}")
+                x_pos = window["kCGWindowBounds"]["X"]
+                y_pos = window["kCGWindowBounds"]["Y"]
+                width = window["kCGWindowBounds"]["Width"]
+                height = window["kCGWindowBounds"]["Height"]
+                # TODO: Add borderless and windowed mode support to all ocr functions
+                #  - currently only works in borderless
+
+                print(f"Location:   ({x_pos}, {y_pos})")
+                print(f"Size:       ({width}, {height})")
+
+                Vec4.setup_screen(x_pos, y_pos, width, height)
+                Vec2.setup_screen(x_pos, y_pos, width, height)
+                self.found_window = True
+                break
+
     def loading_screen(self) -> None:
         """Loop that runs while the game is in the loading screen"""
         game_functions.default_pos()
@@ -78,7 +109,7 @@ class Game:
         self.game_loop()
 
     def game_loop(self) -> None:
-        """Loop that runs while the game is active, handles calling the correct tasks for round and exiting game"""
+        """Loop that runs while the game is active; handles calling the correct tasks for round and exiting game"""
         ran_round: str = None
         last_game_health: int = 100
 
@@ -126,7 +157,7 @@ class Game:
             sleep(0.5)
 
     def second_round(self) -> None:
-        """Move unknown champion to board after first carousel"""
+        """Move unknown champion to board after the first carousel"""
         print(f"\n[Second Round] {self.round}")
         self.message_queue.put("CLEAR")
         while True:
