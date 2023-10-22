@@ -16,8 +16,12 @@ import numpy as np
 from PIL import ImageGrab
 from tesserocr import PyTessBaseAPI
 import settings
+import platform
 
-TESSDATA_PATH = settings.TESSERACT_TESSDATA_PATH
+if platform.system() == 'Darwin':
+    TESSDATA_PATH = settings.TESSERACT_TESSDATA_PATH_OSX
+else:
+    TESSDATA_PATH = settings.TESSERACT_TESSDATA_PATH
 
 ALPHABET_WHITELIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 ROUND_WHITELIST = "0123456789-"

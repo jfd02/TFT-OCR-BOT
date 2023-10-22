@@ -17,6 +17,7 @@ from requests.auth import HTTPBasicAuth
 import requests
 import urllib3
 import settings
+import platform
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -116,7 +117,11 @@ def change_arena_skin(client_info: tuple) -> bool:
 def get_client() -> tuple:
     """Gets data about the client such as port and auth token"""
     print("\n\n[Auto Queue]")
-    file_path = settings.LEAGUE_CLIENT_PATH + "\\lockfile"
+    if platform.system() == "Darwin":
+        filepath = settings.LEAGUE_CLIENT_PATH_OSX + "/lockfile"
+    else:
+        file_path = settings.LEAGUE_CLIENT_PATH + "\\lockfile"
+
     got_lock_file = False
     while not got_lock_file:
         try:

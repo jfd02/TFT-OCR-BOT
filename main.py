@@ -15,6 +15,7 @@ from ui import UI
 import auto_queue
 from game import Game
 import settings
+import platform
 
 
 def game_loop(ui_queue: multiprocessing.Queue) -> None:
@@ -25,10 +26,13 @@ def game_loop(ui_queue: multiprocessing.Queue) -> None:
 
 
 if __name__ == "__main__":
-    if settings.LEAGUE_CLIENT_PATH is None:
+    if platform.system() == 'Darwin' and settings.LEAGUE_CLIENT_PATH_OSX is None:
         raise ValueError("No league client path specified. Please set the path in settings.py")
+    elif platform.system() != 'Darwin' and settings.LEAGUE_CLIENT_PATH is None:
+        raise ValueError("No league client path specified. Please set the path in settings.py")
+
     message_queue = multiprocessing.Queue()
-    overlay: UI = UI(message_queue)
+    overlay: UI = UI(message_queue)  # TODO: Implement overlay on macOS
     game_thread = multiprocessing.Process(target=game_loop, args=(message_queue,))
 
     print("TFT OCR | https://github.com/the-user-created/TFT-OCR-BOT")
