@@ -117,8 +117,9 @@ def change_arena_skin(client_info: tuple) -> bool:
 def get_client() -> tuple:
     """Gets data about the client such as port and auth token"""
     print("\n\n[Auto Queue]")
+
     if platform.system() == "Darwin":
-        filepath = settings.LEAGUE_CLIENT_PATH_OSX + "/lockfile"
+        file_path = settings.LEAGUE_CLIENT_PATH_OSX + "/lockfile"
     else:
         file_path = settings.LEAGUE_CLIENT_PATH + "\\lockfile"
 
