@@ -31,7 +31,7 @@ def get_health() -> int:
             'https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
         return int(response.json()['activePlayer']['championStats']["currentHealth"])
     except (requests.exceptions.ConnectionError, KeyError):
-        return 100
+        return -1
 
 
 def get_gold() -> int:
@@ -120,7 +120,7 @@ def get_items() -> list:
     item_bench: list = []
     for positions in screen_coords.ITEM_POS:
         mk_functions.move_mouse(positions[0].get_coords())
-        item: str = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=13,
+        item: str = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=7,
                             whitelist=ocr.ALPHABET_WHITELIST)
         item_bench.append(valid_item(item))
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
