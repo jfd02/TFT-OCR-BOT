@@ -310,10 +310,10 @@ class Arena:
         except TypeError:
             print("  Item could not be read for Tacticians Check")
 
-    def spend_gold(self) -> None:
+    def spend_gold(self, speedy = False) -> None:
         """Spends gold every round"""
         first_run = True
-        min_gold = 24 if self.spam_roll else 50
+        min_gold = 100 if speedy else (24 if self.spam_roll else 56)
         while first_run or arena_functions.get_gold() >= min_gold:
             if not first_run:
                 if arena_functions.get_level() != 9:
