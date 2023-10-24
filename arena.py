@@ -173,6 +173,7 @@ class Arena:
 
     def bench_cleanup(self) -> None:
         """Sells unknown champions"""
+        self.anvil_free: list[bool] = [False] * 9
         for index, champion in enumerate(self.bench):
             if champion == "?" or isinstance(champion, str):
                 print("  Selling unknown champion")
