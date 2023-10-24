@@ -54,8 +54,10 @@ class Arena:
                     self.champs_to_buy[champ_name]-=1
                 else:
                     self.bench[index] = "?"
+                continue
             if isinstance(slot, str) and not bench_occupied[index]:
                 self.bench[index] = None
+                continue
             if isinstance(slot, Champion) and not bench_occupied[index]:
                 self.bench[index] = None
 
