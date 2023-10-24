@@ -174,7 +174,10 @@ class Game:
         self.arena.bench_cleanup()
         if self.round in game_assets.ANVIL_ROUNDS:
             self.arena.clear_anvil()
-        self.arena.spend_gold()
+        if self.round in game_assets.PICKUP_ROUNDS:
+            self.arena.spend_gold(speedy=True)
+        else:
+            self.arena.spend_gold()
         self.arena.move_champions()
         self.arena.replace_unknown()
         if self.arena.final_comp:
