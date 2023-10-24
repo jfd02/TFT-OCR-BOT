@@ -95,20 +95,17 @@ class Game:
                 return
 
             if self.round != ran_round:
-                if self.round in game_assets.SECOND_ROUND:
-                    self.second_round()
-                    ran_round: str = self.round
-                elif self.round in game_assets.CAROUSEL_ROUND:
-                    self.carousel_round()
-                    ran_round: str = self.round
+                if self.round in game_assets.PVP_ROUND:
+                    game_functions.default_pos()
+                    self.pvp_round()
                 elif self.round in game_assets.PVE_ROUND:
                     game_functions.default_pos()
                     self.pve_round()
-                    ran_round: str = self.round
-                elif self.round in game_assets.PVP_ROUND:
-                    game_functions.default_pos()
-                    self.pvp_round()
-                    ran_round: str = self.round
+                elif self.round in game_assets.CAROUSEL_ROUND:
+                    self.carousel_round()
+                elif self.round in game_assets.SECOND_ROUND:
+                    self.second_round()
+                ran_round: str = self.round
             sleep(0.5)
 
     def second_round(self) -> None:
