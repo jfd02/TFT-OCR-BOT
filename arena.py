@@ -22,6 +22,7 @@ class Arena:
         self.message_queue = message_queue
         self.board_size = 0
         self.bench: list[None] = [None, None, None, None, None, None, None, None, None]
+        self.anvil_free: list[bool] = [False, False, False, False, False, False, False, False, False]
         self.board: list = []
         self.board_unknown: list = []
         self.unknown_slots: list = comps.get_unknown_slots()
@@ -177,16 +178,20 @@ class Arena:
                 print("  Selling unknown champion")
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                 self.bench[index] = None
+                self.anvil_free[index] = True
             elif isinstance(champion, Champion):
                 if self.champs_to_buy.get(champion.name,0) <= 0 and champion.name in self.board_names:
                     print("  Selling unknown champion")
                     mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                     self.bench[index] = None
+                    self.anvil_free[index] = True
+                else:
+                    self.anvil_free[index] = False
 
     def clear_anvil(self) -> None:
         """Clears anvil on the bench, selects middle item"""
         for index, champion in enumerate(self.bench):
-            if champion is None:
+            if champion is None and not self.anvil_free[index]:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
         sleep(0.7)
         anvil_msg: str = ocr.get_text(screenxy=screen_coords.ANVIL_MSG_POS.get_coords(), scale=3, psm=7,
