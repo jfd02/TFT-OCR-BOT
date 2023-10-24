@@ -192,6 +192,7 @@ class Arena:
         if anvil_msg == 'ChooseOne':
             print('clear anvil')
             mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
+            sleep(1)
 
     def place_items(self) -> None:
         """Iterates through items and tries to add them to champion"""
