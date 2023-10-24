@@ -511,8 +511,7 @@ class Arena:
                 mk_functions.press_e(slot.coords)
                 self.bench[index] = None
 
-        self.champs_to_buy = list(filter(f"{champion.name}".__ne__,
-                                         self.champs_to_buy))  # Remove all instances of champion in champs_to_buy
+        self.champs_to_buy.pop(champion.name)  # Remove all instances of champion in champs_to_buy
 
         mk_functions.press_e(champion.coords)
         if champion.name in self.board_names:

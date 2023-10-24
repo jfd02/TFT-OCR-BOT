@@ -23,7 +23,6 @@ COMPS_TO_SELECT_RANDOMLY_FROM: list = [bruiser_bites, noxus_rolls]
 def return_random_comp():
     return random.choice(COMPS_TO_SELECT_RANDOMLY_FROM)
 
-
 class Comp:
 
     def __init__(self, composition):

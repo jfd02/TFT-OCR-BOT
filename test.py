@@ -1,7 +1,7 @@
 import arena
 import arena_functions
 import comps
-import game_assets
+from set_9_5 import game_assets
 import screen_coords
 from champion import Champion
 

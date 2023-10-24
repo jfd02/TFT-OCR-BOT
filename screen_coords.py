@@ -106,9 +106,9 @@ KEEP_WATCHING_POS: Vec4 = Vec4(GameWindow(862, 634, 1070, 672))
 
 # The area representing the title of the augments the player can choose from.
 AUGMENT_POS: list[Vec4] = [
-    Vec4(GameWindow(423, 535, 675, 582)),
-    Vec4(GameWindow(835, 525, 1086, 582)),
-    Vec4(GameWindow(1231, 527, 1506, 583)),
+    Vec4(GameWindow(423, 525, 675, 560)),
+    Vec4(GameWindow(830, 525, 1086, 560)),
+    Vec4(GameWindow(1231, 525, 1495, 560)),
 ]
 
 # Where the mouse will click when the player needs
@@ -117,7 +117,7 @@ AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
 # Where the mouse will click to re-roll the augments the player can choose from.
 AUGMENT_ROLL: list[Vec2] = [Vec2(554, 875), Vec2(960, 875), Vec2(1366, 875)]
 
-VICTORY_POS: Vec4 = Vec4(GameWindow(916, 630, 1008, 652))
+VICTORY_POS: Vec4 = Vec4(GameWindow(906, 560, 1030, 587))
 
 BUY_LOC: list[Vec2] = [
     Vec2(575, 992),
@@ -309,6 +309,9 @@ TACTICIAN_RESTING_SPOT_LOC: Vec2 = Vec2(502, 496)
 
 # The area that covers the "Component Anvil" text when you hover right-click an anvil.
 COMPONENT_ANVIL_TEXT_POS: Vec4 = Vec4(GameWindow(78, 11, 236, 35), use_screen_offset=False)
+
+# The area covering the "Choose One" text that appears when an anvil is sold.
+ARMORY_SHOP_POS: Vec4 = Vec4(GameWindow(818, 838, 932, 859))
 
 # The text that appears over the bench when the tactician tries to pick up items,
 # but the player already has the maximum of 10 items.
