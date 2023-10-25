@@ -5,4 +5,5 @@ PyDirectInput==1.0.4
 requests==2.31.0
 screeninfo==0.8.1
 urllib3==2.0.7
-PyAutoGUI~=0.9.54
+PyAutoGUI~=0.9.54; sys_platform == 'darwin'
+pypiwin32==223; sys_platform == 'win32'
