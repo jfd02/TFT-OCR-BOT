@@ -72,15 +72,16 @@ class Game:
         while True:
             game_health: int = arena_functions.get_health()
             if game_health == 0 and last_game_health > 0:
-                # defeated by other player
-                while True:
+                count: int = 15
+                while count >0:
                     if not game_functions.check_alive():
                         self.message_queue.put("CLEAR")
                         game_functions.exit_game()
                         break
+                    sleep(1)
+                    count-=1
                 break
             if game_health == -1 and last_game_health > 0:
-                # won the game and exit game automatically
                 self.message_queue.put("CLEAR")
                 break
             last_game_health = game_health
@@ -95,19 +96,19 @@ class Game:
                 return
 
             if self.round != ran_round:
-                if self.round in game_assets.SECOND_ROUND:
-                    self.second_round()
-                    ran_round: str = self.round
-                elif self.round in game_assets.CAROUSEL_ROUND:
-                    self.carousel_round()
+                if self.round in game_assets.PVP_ROUND:
+                    game_functions.default_pos()
+                    self.pvp_round()
                     ran_round: str = self.round
                 elif self.round in game_assets.PVE_ROUND:
                     game_functions.default_pos()
                     self.pve_round()
                     ran_round: str = self.round
-                elif self.round in game_assets.PVP_ROUND:
-                    game_functions.default_pos()
-                    self.pvp_round()
+                elif self.round in game_assets.CAROUSEL_ROUND:
+                    self.carousel_round()
+                    ran_round: str = self.round
+                elif self.round in game_assets.SECOND_ROUND:
+                    self.second_round()
                     ran_round: str = self.round
             sleep(0.5)
 
@@ -174,7 +175,10 @@ class Game:
         self.arena.bench_cleanup()
         if self.round in game_assets.ANVIL_ROUNDS:
             self.arena.clear_anvil()
-        self.arena.spend_gold()
+        if self.round in game_assets.PICKUP_ROUNDS:
+            self.arena.spend_gold(speedy=True)
+        else:
+            self.arena.spend_gold()
         self.arena.move_champions()
         self.arena.replace_unknown()
         if self.arena.final_comp:

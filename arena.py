@@ -22,6 +22,7 @@ class Arena:
         self.message_queue = message_queue
         self.board_size = 0
         self.bench: list[None] = [None, None, None, None, None, None, None, None, None]
+        self.anvil_free: list[bool] = [False, False, False, False, False, False, False, False, False]
         self.board: list = []
         self.board_unknown: list = []
         self.unknown_slots: list = comps.get_unknown_slots()
@@ -54,8 +55,10 @@ class Arena:
                     self.champs_to_buy[champ_name]-=1
                 else:
                     self.bench[index] = "?"
+                continue
             if isinstance(slot, str) and not bench_occupied[index]:
                 self.bench[index] = None
+                continue
             if isinstance(slot, Champion) and not bench_occupied[index]:
                 self.bench[index] = None
 
@@ -170,21 +173,26 @@ class Arena:
 
     def bench_cleanup(self) -> None:
         """Sells unknown champions"""
+        self.anvil_free: list[bool] = [False] * 9
         for index, champion in enumerate(self.bench):
             if champion == "?" or isinstance(champion, str):
                 print("  Selling unknown champion")
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                 self.bench[index] = None
+                self.anvil_free[index] = True
             elif isinstance(champion, Champion):
                 if self.champs_to_buy.get(champion.name,0) <= 0 and champion.name in self.board_names:
                     print("  Selling unknown champion")
                     mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                     self.bench[index] = None
+                    self.anvil_free[index] = True
+                else:
+                    self.anvil_free[index] = False
 
     def clear_anvil(self) -> None:
         """Clears anvil on the bench, selects middle item"""
         for index, champion in enumerate(self.bench):
-            if champion is None:
+            if champion is None and not self.anvil_free[index]:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
         sleep(0.7)
         anvil_msg: str = ocr.get_text(screenxy=screen_coords.ANVIL_MSG_POS.get_coords(), scale=3, psm=7,
@@ -303,10 +311,10 @@ class Arena:
         except TypeError:
             print("  Item could not be read for Tacticians Check")
 
-    def spend_gold(self) -> None:
+    def spend_gold(self, speedy = False) -> None:
         """Spends gold every round"""
         first_run = True
-        min_gold = 24 if self.spam_roll else 50
+        min_gold = 100 if speedy else (24 if self.spam_roll else 56)
         while first_run or arena_functions.get_gold() >= min_gold:
             if not first_run:
                 if arena_functions.get_level() != 9:
