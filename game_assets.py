@@ -111,6 +111,22 @@ CHAMPIONS: dict[str, dict[str, int]] = {
 }
 
 
+# All portals in the game. Gathered from https://mobalytics.gg/tft/portals
+PORTALS: set[str] = {"Bandle Cafeteria", "Scuttle Puddle", "Yuumi's Zoom Zone", "Finn’s Market", "Rat Town",
+                     "Slaughter Docks", "Ehrenmount", "House Lightshield", "Hearth-Home", "Ornn's Forge",
+                     "Valar’s Hollow", "God-Willow's Grove", "Placidium Library", "The Dreaming Pool",
+                     "Cardinal Arcology", "Rock'n'Rollin", "Ixaocan", "Serpentine River", "Fleshing Arena",
+                     "Immortal Bastion", "Noxkraya", "Jayce's Workshop", "Stillwater Hold", "The University",
+                     "Thresh's Sanctum", "Yorick's Graveyard", "Shifting Sands", "Shuriman Bazaar", "Warlord's Palace",
+                     "Marus Omegnum", "Targon Prime", "The Summit", "The Hall Of The Nine", "The Rupture",
+                     "Unstable Rift", "Ecliptic Vaults", "Glasc Industries", "The Sump",
+                     # UNCONFIRMED PORTALS
+                     "Foodfight Tactics", "High Notes", "VIP Lounge", "Chill Beats", "Center Stage", "Opening Act",
+                     "Ionian Duet", "Beats by Scuttle", "Battle of the Sands", "Processional Dirge", "The Golden Era",
+                     "Ruptured Harmony", "Crescendo", "Basement Show"}
+
+ANVIL_PORTALS: set[str] = {"Ehrenmount", "Opening Act"}
+
 ROUNDS: set[str] = {"1-1", "1-2", "1-3", "1-4",
                     "2-1", "2-2", "2-3", "2-4", "2-5", "2-6", "2-7",
                     "3-1", "3-2", "3-3", "3-4", "3-5", "3-6", "3-7",
@@ -121,7 +137,9 @@ ROUNDS: set[str] = {"1-1", "1-2", "1-3", "1-4",
 
 SECOND_ROUND: set[str] = {"1-2"}
 
-CAROUSEL_ROUND: set[str] = {"1-1", "2-4", "3-4", "4-4", "5-4", "6-4", "7-4"}
+PORTAL_ROUND: set[str] = {"1-1"}
+
+CAROUSEL_ROUND: set[str] = {"2-4", "3-4", "4-4", "5-4", "6-4", "7-4"}
 
 PVE_ROUND: set[str] = {"1-3", "1-4", "2-7", "3-7", "4-7", "5-7", "6-7", "7-7"}
 

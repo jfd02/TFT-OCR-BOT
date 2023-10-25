@@ -43,11 +43,32 @@ ITEM_POS: list[list] = [
     [Vec2(457, 628), Vec4(GameWindow(559, 670, 797, 701))],
 ]
 
+WHOLE_SCREEN: Vec4 = Vec4(GameWindow(0, 0, 1920, 1080))
+
+# The locations of the 3 different portals that appear in round 1-1
+PORTAL_POS: list[Vec4] = [
+    Vec4(GameWindow(64, 335, 270, 372)),
+    Vec4(GameWindow(64, 425, 270, 462)),
+    Vec4(GameWindow(64, 515, 270, 552))
+]
+
+PORTAL_BUTTON_POS: list[Vec2] = [
+    Vec2(30, 345),
+    Vec2(30, 435),
+    Vec2(30, 535)
+]
+
+# The area to click to reveal the portal name and chosen augments
+ARENA_INFO_BUTTON_POS: Vec2 = Vec2(520, 360)
+
+# The subsequent area containing the portal name
+PORTAL_NAME_POS: Vec4 = Vec4(GameWindow(660, 290, 810, 325))
+
 ROUND_POS: Vec4 = Vec4(GameWindow(767, 10, 870, 34))
 
 ROUND_POS_ONE: Vec4 = Vec4(GameWindow(2, 0, 42, 24), use_screen_offset=False)
 
-ROUND_POS_TWO: Vec4 = Vec4(GameWindow(57, 0, 96, 24), use_screen_offset=False)
+ROUND_POS_TWO: Vec4 = Vec4(GameWindow(57, 1, 96, 21), use_screen_offset=False)
 
 SHOP_POS: Vec4 = Vec4(GameWindow(481, 1039, 1476, 1070))
 

@@ -13,14 +13,16 @@ Functions used by the Arena class to get game data
 
 from difflib import SequenceMatcher
 import threading
-from PIL import ImageGrab
+from PIL import ImageGrab, Image
 import numpy as np
 import requests
 import screen_coords
 import ocr
 import game_assets
 import mk_functions
+from vec2 import Vec2
 from vec4 import Vec4
+from time import sleep
 
 
 def get_level() -> int:
@@ -112,6 +114,52 @@ def empty_slot() -> int:
         if not (np.abs(screenshot_array - (0, 255, 18, 255)) <= 3).all(axis=2).any():
             return slot  # Slot 0-8
     return -1  # No empty slot
+
+
+def process_portal_data(position, portal_button_pos) -> dict:
+    """Process portal data based on given position and button coordinates"""
+    screen_capture = ImageGrab.grab(bbox=position.get_coords())
+    portal_name = ocr.get_text_from_image(image=screen_capture, whitelist=ocr.PORTAL_WHITELIST)
+
+    match = {portal: SequenceMatcher(a=portal, b=portal_name).ratio() for portal in game_assets.PORTALS}
+    closest_match = max(match, key=match.get)
+
+    if match[closest_match] >= 0.7:
+        # Returns a dict of portal names and their button coordinates (button of the portal)
+        return {closest_match: portal_button_pos}
+    else:
+        # TODO: This is a hacky fix, but it works for now
+        return {"NULL": "NULL"}
+
+
+def get_portals() -> dict:
+    """Gets the portals that are currently open in round 1-1"""
+    portals: dict = {}
+    for position, portal_button_pos in zip(screen_coords.PORTAL_POS, screen_coords.PORTAL_BUTTON_POS):
+        portal_data = process_portal_data(position, portal_button_pos)
+        portals.update(portal_data)
+
+    return portals  # Returns a dict of portals and their button coordinates (button of the portal)
+
+
+def get_active_portal() -> str:
+    """Gets the active portal name from the arena info flag thing using OCR"""
+    arena_info_button = screen_coords.ARENA_INFO_BUTTON_POS
+    mk_functions.right_click(arena_info_button.get_coords())
+    sleep(0.1)  # Sleep for a short period to allow the portal name to appear
+    portal_name = screen_coords.PORTAL_NAME_POS
+    portal_data = process_portal_data(portal_name, None)
+    if not portal_data:
+        return ""
+    return list(portal_data.keys())[0]  # Returns the portal name
+
+
+def bbox_of_portal_vote() -> Vec2:
+    """Returns the bounding box of the portal vote button"""
+    vote_button = ocr.get_bbox_of_portal_vote()
+
+    # Convert the coordinates of the vote button to a Vec2 object and return
+    return Vec2(vote_button[0] + 0.5 * vote_button[2], vote_button[1] + 0.5 * vote_button[3])
 
 
 def bench_occupied_check() -> list:

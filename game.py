@@ -78,7 +78,7 @@ class Game:
         Vec2.setup_screen(x_pos, y_pos, width, height)
         self.found_window = True
 
-    def callback_macos(self) -> None:  # pylint: disable=unused-argument
+    def callback_macos(self) -> None:
         """Function used to find the game window and get its size"""
         desired_window_title = "League Of Legends"
 
@@ -140,9 +140,18 @@ class Game:
                 return
 
             if self.round != ran_round:
+                # TODO: Check that game_assets still considers 1-1 to be protal and SECOND ROUND
                 if self.round in game_assets.PVP_ROUND:
                     game_functions.default_pos()
                     self.pvp_round()
+                elif self.round in game_assets.PORTAL_ROUND:
+                    self.portal_round()
+                    ran_round: str = self.round
+                elif self.round in game_assets.SECOND_ROUND:
+                    self.second_round()
+                    ran_round: str = self.round
+                elif self.round in game_assets.CAROUSEL_ROUND:
+                    self.carousel_round()
                     ran_round: str = self.round
                 elif self.round in game_assets.PVE_ROUND:
                     game_functions.default_pos()
@@ -156,6 +165,12 @@ class Game:
                     ran_round: str = self.round
             sleep(0.5)
 
+    def portal_round(self) -> None:
+        """Handles tasks for portal rounds"""
+        print(f"\n\n[Portal Round] {self.round}")
+        self.arena.pick_portal()
+        # self.message_queue.put("CLEAR")
+
     def second_round(self) -> None:
         """Move unknown champion to board after the first carousel"""
         print(f"\n[Second Round] {self.round}")
@@ -166,6 +181,8 @@ class Game:
                 break
         self.arena.bench[result.index(True)] = "?"
         self.arena.move_unknown()
+        sleep(2.5)  # Sleep for a short period to allow the arena info button to appear
+        self.arena.confirm_portal()
         self.end_round_tasks()
 
     def carousel_round(self) -> None:
@@ -187,9 +204,12 @@ class Game:
             sleep(1)
             self.arena.augment_roll = True
             self.arena.pick_augment()
-            # Can't purchase champions for a short period after choosing augment
+            # Can't purchase champions for a short period after choosing augment, so sleep for a short period
             sleep(2.5)
         if self.round == "1-3":
+            # Check if the active portal is an anvil portal and clear the anvils it if it is
+            if self.arena.active_portal in game_assets.ANVIL_PORTALS:
+                self.arena.clear_anvil()
             sleep(1.5)
             self.arena.fix_unknown()
             self.arena.anvil_free[1:] = [True] * 8

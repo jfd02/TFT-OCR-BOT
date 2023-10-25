@@ -15,7 +15,7 @@
 Handles the board / bench state inside the game and
 other variables used by the bot to make decisions
 """
-
+import random
 from time import sleep
 import game_assets
 import mk_functions
@@ -47,6 +47,7 @@ class Arena:
         self.augment_roll = True
         self.spam_roll = False
         self.have_headliner = False
+        self.active_portal: str = ""
 
     def fix_bench_state(self) -> None:
         """Iterates through bench and fixes invalid slots"""
@@ -142,12 +143,13 @@ class Arena:
 
     def sell_bench(self) -> None:
         """Sells all the champions on the bench"""
-        for index, _ in enumerate(self.bench):
+        for index, name in enumerate(self.bench):
+            print(f"  Selling {name}")
             mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
             self.bench[index] = None
 
     def unknown_in_bench(self) -> bool:
-        """Sells all the champions on the bench"""
+        """Checks if there is any unknown champions on the bench"""
         return any(isinstance(slot, str) for slot in self.bench)
 
     def move_champions(self) -> None:
@@ -222,6 +224,7 @@ class Arena:
 
     def clear_anvil(self) -> None:
         """Clears anvil on the bench, selects middle item"""
+        # TODO: Add support for multiple anvils
         for index, champion in enumerate(self.bench):
             if champion is None and not self.anvil_free[index]:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
@@ -506,3 +509,47 @@ class Arena:
             for index, slot in enumerate(self.board_unknown)
         )
         self.message_queue.put(("LABEL", labels))
+
+    def pick_portal(self) -> None:
+        """Picks a portal to vote for"""
+        portals = arena_functions.get_portals()
+        # E.g., portals = {"Ehrenmount": Vec2(30, 345), ...}
+        print(f"\t[!] Portals: {[key for key in portals]}")
+        # Remove any non-portal keys
+        for key in list(portals.keys()):
+            if key not in game_assets.PORTALS:
+                portals.pop(key)
+
+        # Check if there are any portals
+        if not portals:
+            print(f"\t[!] No portals found")
+            return
+
+        # Else, there are portals
+        # Select a random portal
+        portal = random.choice(list(portals.keys()))
+        self.active_portal = portal  # Update the active portal
+        print(f"\t[!] Selected portal: {portal}")
+        # Click the portal button
+        mk_functions.left_click(portals[portal].get_coords())
+        sleep(0.5)  # Sleep for a short period to allow the portal vote button to appear
+
+        # Get the location of the portal vote button
+        coords = arena_functions.bbox_of_portal_vote()
+
+        # Click the portal vote button
+        mk_functions.left_click(coords.get_coords())
+        sleep(0.5)
+        print(f"\t[!] Voted for {portal}")
+
+    def confirm_portal(self) -> None:
+        """Confirms if the portal we voted for is the active portal"""
+        current_portal = arena_functions.get_active_portal()
+        if current_portal != self.active_portal:
+            print(f"\t[!] The active portal is {current_portal}, not {self.active_portal}")
+            # Update the active portal
+            self.active_portal = current_portal
+        elif current_portal == "":
+            print(f"\t[!] Failed to get the active portal")
+        else:
+            print(f"\t[!] The active portal is {current_portal}, as expected")
