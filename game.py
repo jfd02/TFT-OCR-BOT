@@ -72,15 +72,16 @@ class Game:
         while True:
             game_health: int = arena_functions.get_health()
             if game_health == 0 and last_game_health > 0:
-                # defeated by other player
-                while True:
+                count: int = 15
+                while count >0:
                     if not game_functions.check_alive():
                         self.message_queue.put("CLEAR")
                         game_functions.exit_game()
                         break
+                    sleep(1)
+                    count-=1
                 break
             if game_health == -1 and last_game_health > 0:
-                # won the game and exit game automatically
                 self.message_queue.put("CLEAR")
                 break
             last_game_health = game_health
