@@ -3,7 +3,7 @@
 # Original authors:
 # - @jfd02
 # - @danparizher
-# Modified by the-user-created on 22/10/2023
+# Modified by the-user-created
 #
 
 """
@@ -28,7 +28,8 @@ def game_loop(ui_queue: multiprocessing.Queue) -> None:
 if __name__ == "__main__":
     if platform.system() == 'Darwin' and settings.LEAGUE_CLIENT_PATH_OSX is None:
         raise ValueError("No league client path specified. Please set the path in settings.py")
-    elif platform.system() != 'Darwin' and settings.LEAGUE_CLIENT_PATH is None:
+
+    if platform.system() != 'Darwin' and settings.LEAGUE_CLIENT_PATH is None:
         raise ValueError("No league client path specified. Please set the path in settings.py")
 
     message_queue = multiprocessing.Queue()

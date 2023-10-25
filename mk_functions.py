@@ -3,7 +3,7 @@
 # Original authors:
 # - @jfd02
 # - @danparizher
-# Modified by the-user-created on 21/10/2023
+# Modified by the-user-created
 #
 
 """
@@ -18,8 +18,6 @@ if platform.system() == 'Darwin':
 else:
     import pydirectinput
 
-
-# TODO: Add mouse movement for macOS
 
 def left_click(coords: tuple) -> None:
     """Left clicks at argument ones coordinates"""

@@ -8,7 +8,7 @@
 # - @Rexblane
 # - @stardust136
 # - @anthony5301
-# Modified by the-user-created on 21/10/2023
+# Modified by the-user-created
 #
 
 """
