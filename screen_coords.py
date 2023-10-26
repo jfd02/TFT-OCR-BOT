@@ -45,6 +45,10 @@ ITEM_POS: list[list] = [
 
 WHOLE_SCREEN: Vec4 = Vec4(GameWindow(0, 0, 1920, 1080))
 
+# The area containing the whole board (not perfect)
+# bottom = 732, top = 163, left = 465, right = 1403
+BOARD_AREA: Vec4 = Vec4(GameWindow(465, 163, 1403, 732))
+
 # The locations of the 3 different portals that appear in round 1-1
 PORTAL_POS: list[Vec4] = [
     Vec4(GameWindow(64, 335, 270, 372)),
@@ -178,6 +182,9 @@ BUY_XP_LOC: Vec2 = Vec2(364, 964)
 REFRESH_LOC: Vec2 = Vec2(364, 1039)
 
 DEFAULT_LOC: Vec2 = Vec2(60, 222)
+
+# The location where the tactician will rest when not doing anything
+DEFAULT_TACTICIAN_LOC: Vec2 = Vec2(500, 540)
 
 HEALTH_LOC: Vec2 = Vec2(1897, 126)
 

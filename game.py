@@ -132,10 +132,7 @@ class Game:
 
             self.round: str = game_functions.get_round()
 
-            if (
-                    settings.FORFEIT
-                    and perf_counter() - self.start_time > self.forfeit_time
-            ):
+            if settings.FORFEIT and perf_counter() - self.start_time > self.forfeit_time:
                 game_functions.forfeit()
                 return
 
@@ -168,6 +165,7 @@ class Game:
     def portal_round(self) -> None:
         """Handles tasks for portal rounds"""
         print(f"\n\n[Portal Round] {self.round}")
+        sleep(2.0)  # Sleep to avoid flashes on screen
         self.arena.pick_portal()
         # self.message_queue.put("CLEAR")
 
@@ -194,6 +192,7 @@ class Game:
         self.arena.check_health()
         print("  Getting a champ from the carousel")
         game_functions.get_champ_carousel(self.round)
+        # TODO: Should we move the tactician back to the default position here?
 
     def pve_round(self) -> None:
         """Handles tasks for PVE rounds"""
@@ -266,4 +265,5 @@ class Game:
         """Common tasks across rounds that happen at the end"""
         self.arena.check_health()
         self.arena.get_label()
+        # game_functions.default_tactician_pos()  # TODO: I don't think this step is necessary
         game_functions.default_pos()

@@ -123,3 +123,20 @@ def get_bbox_of_portal_vote() -> tuple:
     extracted_y += 310
 
     return extracted_x, extracted_y, extracted_w, extracted_h
+
+
+def find_circle_centers(image, template):
+    threshold = 0.55
+    result = cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
+    locations = cv2.findNonZero((result >= threshold).astype(int))
+
+    centers = []
+    if locations is not None:
+        for loc in locations:
+            x, y = loc[0]
+            h, w = template.shape
+            center_x = x + w // 2
+            center_y = y + h // 2
+            centers.append((center_x, center_y))
+
+    return centers
