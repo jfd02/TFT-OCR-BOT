@@ -186,8 +186,6 @@ class Arena:
                     mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
                     self.bench[index] = None
                     self.anvil_free[index] = True
-                else:
-                    self.anvil_free[index] = False
 
     def clear_anvil(self) -> None:
         """Clears anvil on the bench, selects middle item"""
