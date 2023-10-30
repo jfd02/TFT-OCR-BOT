@@ -47,7 +47,8 @@ Open by clicking the file or executing from a terminal with `python comp_editor.
 - Revamp auto queue to have more safety checks / fail-safes
 - Grab the best compositions from TFT website
 - Intelligent carousel item selection
-- Change item pickup to be based on the coordinates of orbs
+- NEW: Perfectly pickup orbs from the board (including certain augment drops)
+- NEW: Add a GUI (showing the board state, items, etc.)
 
 ## FAQ:
 > ModuleNotFoundError: No module named 'win32gui'
