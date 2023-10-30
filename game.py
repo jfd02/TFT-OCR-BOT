@@ -198,6 +198,7 @@ class Game:
         """Handles tasks for PVE rounds"""
         print(f"\n[PvE Round] {self.round}")
         self.message_queue.put("CLEAR")
+        game_functions.default_tactician_pos()
         sleep(0.5)
         if self.round in game_assets.AUGMENT_ROUNDS:
             sleep(1)
@@ -230,17 +231,22 @@ class Game:
         """Handles tasks for PVP rounds"""
         print(f"\n[PvP Round] {self.round}")
         self.message_queue.put("CLEAR")
+        game_functions.default_tactician_pos()
         sleep(0.5)
+
         if self.round in game_assets.AUGMENT_ROUNDS:
             sleep(1)
             self.arena.augment_roll = True
             self.arena.pick_augment()
             sleep(2.5)
+
         if self.round in ("2-1", "2-5"):
             self.arena.buy_xp_round()
+
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items")
-            game_functions.pickup_items()
+            sleep(2.5)  # Sleep to avoid flashes on screen affecting the image processing
+            self.arena.pickup_items()
 
         self.arena.fix_bench_state()
         self.arena.bench_cleanup()
@@ -265,5 +271,5 @@ class Game:
         """Common tasks across rounds that happen at the end"""
         self.arena.check_health()
         self.arena.get_label()
-        # game_functions.default_tactician_pos()  # TODO: I don't think this step is necessary
+        game_functions.default_tactician_pos()
         game_functions.default_pos()

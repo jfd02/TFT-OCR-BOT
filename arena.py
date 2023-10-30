@@ -15,6 +15,7 @@
 Handles the board / bench state inside the game and
 other variables used by the bot to make decisions
 """
+
 import random
 from time import sleep
 import game_assets
@@ -127,7 +128,8 @@ class Arena:
     def move_unknown(self) -> None:
         """Moves unknown champion to the board"""
         for index, champion in enumerate(self.bench):
-            if isinstance(champion, str):
+            # Check if the object at the slot is a champion and the board is not full
+            if isinstance(champion, str) and self.board_size < self.level:
                 print(f"  Moving {champion} to board")
                 mk_functions.left_click(screen_coords.BENCH_LOC[index].get_coords())
                 sleep(0.1)
@@ -157,11 +159,13 @@ class Arena:
         self.level: int = arena_functions.get_level()
         while self.level > self.board_size:
             champion: Champion | None = self.have_champion()
+            # Check if the champion is known
             if champion is not None:
                 self.move_known(champion)
-            elif self.unknown_in_bench():
+            elif self.unknown_in_bench():  # Check if there are any unknown champions on the bench
                 self.move_unknown()
             else:
+                # Puts champions from the shop on the board
                 bought_unknown = False
                 shop: list = arena_functions.get_shop()
                 for champion in shop:
@@ -326,12 +330,14 @@ class Arena:
     def final_comp_check(self) -> None:
         """Checks the board and replaces champions not in final comp"""
         for slot in self.bench:
+            # Check if the object at the slot is a champion
             if (
                     isinstance(slot, Champion)
                     and slot.final_comp
                     and slot.name not in self.board_names
             ):
                 for champion in self.board:
+                    # Check if the champion is not in the final comp and the size is the same
                     if not champion.final_comp and champion.size == slot.size:
                         print(f"  Replacing {champion.name} with {slot.name}")
                         self.remove_champion(champion)
@@ -530,8 +536,8 @@ class Arena:
         portal = random.choice(list(portals.keys()))
         self.active_portal = portal  # Update the active portal
         print(f"\t[!] Selected portal: {portal}")
-        # Click the portal button
-        mk_functions.left_click(portals[portal].get_coords())
+        # Move the mouse to the portal button to reveal the vote button
+        mk_functions.move_mouse(portals[portal].get_coords())
         sleep(0.5)  # Sleep for a short period to allow the portal vote button to appear
 
         # Get the location of the portal vote button
@@ -553,3 +559,33 @@ class Arena:
             print(f"\t[!] Failed to get the active portal")
         else:
             print(f"\t[!] The active portal is {current_portal}, as expected")
+
+    def pickup_items(self) -> None:
+        """Picks up items from the board after PVP round"""
+        shortest_route = arena_functions.get_orb_pick_up_route()
+
+        """# Check if just clicked a champion (if so, adjust the coords slightly)
+            champ_name: str = ocr.get_text(screenxy=screen_coords.PANEL_NAME_LOC.get_coords(), scale=3, psm=7,
+                                           whitelist=ocr.ALPHABET_WHITELIST)
+            if champ_name in game_assets.CHAMPIONS:
+                # Left click the default position to clear the panel name
+                mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
+                # Right click slightly further away from the champion to avoid clicking the champion
+                mk_functions.right_click(coords=(step[0] + 10, step[1] + 10))"""
+
+        """            for champ in self.board:
+                added_distance = 10
+                champ_coords: tuple = champ.coords
+                # Check if the distance between the current step and the champion is less than 20 pixels 
+                # (with incrementing added_distance)
+                if math.sqrt((step[0] + added_distance - champ_coords[0]) ** 2 + 
+                             (step[1] + added_distance - champ_coords[1]) ** 2) <= 20:
+                    added_distance += 20
+                    break"""
+
+        # Move through the shortest path
+        for step in shortest_route:
+            # TODO: Sometimes the bot will click on a champion instead of the orb, so we need to fix that
+            #  (potentially using the champion panel as indicator or something else)
+            mk_functions.right_click(coords=step)
+            sleep(2.0)
