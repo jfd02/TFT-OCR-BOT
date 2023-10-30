@@ -31,7 +31,7 @@ import arena_functions
 class Arena:
     """Arena class that handles game logic such as board and bench state"""
 
-    # pylint: disable=too-many-instance-attributes,too-many-public-methods
+    # pylint: disable=too-many-instance-attributes,too-many-public-methods,fixme
     def __init__(self, message_queue) -> None:
         self.message_queue = message_queue
         self.board_size = 0
@@ -520,7 +520,7 @@ class Arena:
         """Picks a portal to vote for"""
         portals = arena_functions.get_portals()
         # E.g., portals = {"Ehrenmount": Vec2(30, 345), ...}
-        print(f"\t[!] Portals: {[key for key in portals]}")
+        print(f"\t[!] Portals: {list(portals.keys())}")
         # Remove any non-portal keys
         for key in list(portals.keys()):
             if key not in game_assets.PORTALS:
@@ -528,7 +528,7 @@ class Arena:
 
         # Check if there are any portals
         if not portals:
-            print(f"\t[!] No portals found")
+            print("\t[!] No portals found")
             return
 
         # Else, there are portals
@@ -556,7 +556,7 @@ class Arena:
             # Update the active portal
             self.active_portal = current_portal
         elif current_portal == "":
-            print(f"\t[!] Failed to get the active portal")
+            print("\t[!] Failed to get the active portal")
         else:
             print(f"\t[!] The active portal is {current_portal}, as expected")
 

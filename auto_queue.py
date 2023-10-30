@@ -13,11 +13,11 @@ Handles getting into a game
 
 from time import sleep
 import json
+import platform
 from requests.auth import HTTPBasicAuth
 import requests
 import urllib3
 import settings
-import platform
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 

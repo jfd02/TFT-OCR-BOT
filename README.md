@@ -1,5 +1,7 @@
 ![main](https://i.imgur.com/roX0N3C.png)
 
+[![Pylint](https://github.com/the-user-created/TFT-OCR-BOT/actions/workflows/pylint.yml/badge.svg)](https://github.com/the-user-created/TFT-OCR-BOT/actions/workflows/pylint.yml)
+
 ## NOTES:
 - Make sure you don't have any overlays on (Blitz, Mobalytics, etc.).
 - League & client must be in English.

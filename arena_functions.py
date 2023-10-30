@@ -23,8 +23,9 @@ import mk_functions
 from vec2 import Vec2
 from vec4 import Vec4
 from time import sleep
-import cv2
 from math import sqrt
+
+# pylint: disable=fixme
 
 
 def get_level() -> int:
@@ -129,9 +130,9 @@ def process_portal_data(position, portal_button_pos) -> dict:
     if match[closest_match] >= 0.7:
         # Returns a dict of portal names and their button coordinates (button of the portal)
         return {closest_match: portal_button_pos}
-    else:
-        # TODO: This is a hacky fix, but it works for now
-        return {"NULL": "NULL"}
+
+    # TODO: This is a hacky fix, but it works for now
+    return {"NULL": "NULL"}
 
 
 def get_portals() -> dict:

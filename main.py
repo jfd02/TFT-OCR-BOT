@@ -11,11 +11,11 @@ Where the bot execution starts & contains the game loop that keeps the bot runni
 """
 
 import multiprocessing
+import platform
 from ui import UI
 import auto_queue
 from game import Game
 import settings
-import platform
 
 
 def game_loop(ui_queue: multiprocessing.Queue) -> None:
@@ -36,7 +36,8 @@ if __name__ == "__main__":
     overlay: UI = UI(message_queue)  # TODO: Implement overlay on macOS
     game_thread = multiprocessing.Process(target=game_loop, args=(message_queue,))
 
-    print("TFT OCR | https://github.com/the-user-created/TFT-OCR-BOT")
+    print("Original TFT OCR | https://github.com/jfd02/TFT-OCR-BOT")
+    print("Forked TFT OCR | https://github.com/the-user-created/TFT-OCR-BOT")
     print("Close this window to terminate the overlay window & program")
     game_thread.start()
     overlay.ui_loop()

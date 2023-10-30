@@ -28,14 +28,17 @@ from vec2 import Vec2
 
 try:
     import win32gui
-    platform = "Windows"
+    PLATFORM = "Windows"
 except ModuleNotFoundError:
     from Quartz import CGWindowListCopyWindowInfo, kCGWindowListOptionOnScreenOnly, kCGNullWindowID
-    platform = "macOS"
+
+    PLATFORM = "macOS"
 
 
 class Game:
     """Game class that handles game logic such as round tasks"""
+
+    # pylint: disable=fixme
 
     def __init__(self, message_queue: multiprocessing.Queue) -> None:
         self.message_queue = message_queue
@@ -48,7 +51,7 @@ class Game:
         print("\n[!] Searching for game window")
         while not self.found_window:
             print("  Did not find window, trying again...")
-            if platform == "Windows":
+            if PLATFORM == "Windows":
                 win32gui.EnumWindows(self.callback, None)
             else:
                 self.callback_macos()
