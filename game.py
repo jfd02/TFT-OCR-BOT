@@ -154,11 +154,9 @@ class Game:
                     game_functions.default_pos()
                     self.pve_round()
                     ran_round: str = self.round
-                elif self.round in game_assets.CAROUSEL_ROUND:
-                    self.carousel_round()
-                    ran_round: str = self.round
-                elif self.round in game_assets.SECOND_ROUND:
-                    self.second_round()
+                elif self.round in game_assets.PVP_ROUND:
+                    game_functions.default_pos()
+                    self.pvp_round()
                     ran_round: str = self.round
             sleep(0.5)
 
@@ -179,7 +177,7 @@ class Game:
                 break
         self.arena.bench[result.index(True)] = "?"
         self.arena.move_unknown()
-        sleep(2.5)  # Sleep for a short period to allow the arena info button to appear
+        sleep(0.5)  # Sleep for a short period to allow the arena info button to appear
         self.arena.confirm_portal()
         self.end_round_tasks()
 
