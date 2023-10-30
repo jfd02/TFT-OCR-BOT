@@ -82,53 +82,15 @@ def get_text_from_image(image: Image, whitelist: str = "") -> str:
     return text.strip()
 
 
-def get_bbox_of_portal_vote() -> tuple:
-    minimum_text_area = 6500  # Minimum area to filter small noise
+def find_template_centers(template_path: str, threshold: float,
+                          region: tuple[int, int, int, int]) -> list[tuple[int, int]]:
+    """Finds template centers within the specified region of the screen."""
+    image = np.array(ImageGrab.grab(bbox=region).convert("L"))
+    template = cv2.imread(template_path, cv2.IMREAD_GRAYSCALE)
 
-    # Get a screenshot of all the vote buttons, convert it to RGB,
-    # and turn it into an array (so it can be processed by cv2)
-    # bbox=(left, top, right, bottom)
-    img = np.array(ImageGrab.grab(bbox=(166, 310, 520, 900)).convert("RGB"))
-
-    # Convert the image to grayscale for better contour detection
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    # Apply thresholding to create a binary image
-    _, thresholded = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-    # Find contours in the binary image
-    contours, _ = cv2.findContours(thresholded, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-    # Initialize variables to store bounding box coordinates of the extracted region
-    extracted_x, extracted_y, extracted_w, extracted_h = 0, 0, 0, 0
-
-    # Iterate through the contours and filter based on size (area)
-    for contour in contours:
-        x, y, w, h = cv2.boundingRect(contour)
-        aspect_ratio = w / h  # Calculate the aspect ratio (width / height)
-
-        # Filter rectangles based on the aspect ratio and area
-        if w * h > minimum_text_area and aspect_ratio > 5:  # Customize the aspect ratio threshold as needed
-            # Store the coordinates of the extracted rectangle
-            extracted_x, extracted_y, extracted_w, extracted_h = x, y, w, h
-
-            # Draw rectangles around the detected text regions (optional, for debugging purposes)
-            # cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
-    # Save image to disk for debugging purposes (optional)
-    # cv2.imwrite("temp_files/test.png", img)
-
-    # Adjust the bounding box coordinates to the original image (center of the vote button)
-    extracted_x += 166
-    extracted_y += 310
-
-    return extracted_x, extracted_y, extracted_w, extracted_h
-
-
-def find_circle_centers(image, template):
-    threshold = 0.55
     result = cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
-    locations = cv2.findNonZero((result >= threshold).astype(int))
+    _, thresholded_result = cv2.threshold(result, threshold, 1, cv2.THRESH_BINARY)
+    locations = cv2.findNonZero(thresholded_result)
 
     centers = []
     if locations is not None:
@@ -139,4 +101,14 @@ def find_circle_centers(image, template):
             center_y = y + h // 2
             centers.append((center_x, center_y))
 
-    return centers
+    return filter_centers(centers)
+
+
+def filter_centers(centers, min_distance_squared=100) -> list[tuple[int, int]]:
+    """Filters the centers to remove duplicates"""
+    filtered_centers = set()
+    for center in centers:
+        if not any(np.sum((np.array(center) - np.array(filtered_center)) ** 2) < min_distance_squared
+                   for filtered_center in filtered_centers):
+            filtered_centers.add(center)
+    return list(filtered_centers)

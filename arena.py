@@ -541,7 +541,7 @@ class Arena:
         sleep(0.5)  # Sleep for a short period to allow the portal vote button to appear
 
         # Get the location of the portal vote button
-        coords = arena_functions.bbox_of_portal_vote()
+        coords = arena_functions.get_portal_vote_loc()
 
         # Click the portal vote button
         mk_functions.left_click(coords.get_coords())

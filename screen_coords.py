@@ -49,6 +49,10 @@ WHOLE_SCREEN: Vec4 = Vec4(GameWindow(0, 0, 1920, 1080))
 # bottom = 732, top = 163, left = 465, right = 1403
 BOARD_AREA: Vec4 = Vec4(GameWindow(465, 163, 1403, 732))
 
+# The area containing the portal vote buttons in round 1-1
+# left=166, top=310, right=520, bottom=900
+PORTAL_VOTE_AREA: Vec4 = Vec4(GameWindow(166, 310, 520, 900))
+
 # The locations of the 3 different portals that appear in round 1-1
 PORTAL_POS: list[Vec4] = [
     Vec4(GameWindow(64, 335, 270, 372)),

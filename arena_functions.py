@@ -156,19 +156,18 @@ def get_active_portal() -> str:
     return list(portal_data.keys())[0]  # Returns the portal name
 
 
-def bbox_of_portal_vote() -> Vec2:
-    """Returns the bounding box of the portal vote button"""
-    vote_button = ocr.get_bbox_of_portal_vote()
+def get_portal_vote_loc() -> Vec2:
+    """Returns the location of the portal vote button"""
+    vote_button = ocr.find_template_centers(template_path="ProgramFiles/vote_button.png", threshold=0.65,
+                                            region=screen_coords.PORTAL_VOTE_AREA.get_coords())
+
+    # De-apply the crop
+    crop_coords = screen_coords.PORTAL_VOTE_AREA.get_coords()
+    vote_button = [(x + crop_coords[0], y + crop_coords[1]) for x, y in vote_button]
+    # TODO: vote_button should only be one coordinate, not a list of coordinates
 
     # Convert the coordinates of the vote button to a Vec2 object and return
-    return Vec2(vote_button[0] + 0.5 * vote_button[2], vote_button[1] + 0.5 * vote_button[3])
-
-
-def get_centers(template_path: str, image: np.ndarray) -> list[tuple[int, int]]:
-    """Gets the centers of the circles on the board"""
-    template = cv2.imread(template_path, cv2.IMREAD_GRAYSCALE)
-    centers = ocr.find_circle_centers(image=image, template=template)
-    return filter_circle_centers(centers=centers)
+    return Vec2(vote_button[0][0], vote_button[0][1])
 
 
 def nearest_neighbor(coordinates) -> list:
@@ -192,34 +191,20 @@ def calculate_distance(coord1, coord2):
     return sqrt((coord1[0] - coord2[0]) ** 2 + (coord1[1] - coord2[1]) ** 2)
 
 
-def filter_circle_centers(centers):
-    unique_centers = []
-    for center in centers:
-        if not any(
-                [np.linalg.norm(np.array(center) - np.array(unique_center)) < 10 for unique_center in unique_centers]
-        ):
-            unique_centers.append(center)
-    return unique_centers
-
-
 def get_orb_pick_up_route() -> list:
     """Picks up items from the board after PVP round"""
     # TODO: This is not perfect, it occasionally misses orbs due to obstructions preventing cv2 from matching
     #  the template.
     #  Also haven't tested for yellow orbs yet
 
-    # Screenshot the board, convert to a numpy array (for cv2), and convert to grayscale
-    screen_capture = np.array(ImageGrab.grab(bbox=screen_coords.BOARD_AREA.get_coords()).convert('L'))
-    # Save the image to disk for debugging
-    cv2.imwrite("ProgramFiles/screen_capture.png", screen_capture)
-
     # Load and process templates
-    blue_centers = get_centers("ProgramFiles/blueTemplate.png", screen_capture)
-    gray_centers = get_centers("ProgramFiles/grayTemplate.png", screen_capture)
+    blue_centers = ocr.find_template_centers(template_path="ProgramFiles/blueTemplate.png", threshold=0.55,
+                                             region=screen_coords.BOARD_AREA.get_coords())
+    gray_centers = ocr.find_template_centers(template_path="ProgramFiles/grayTemplate.png", threshold=0.55,
+                                             region=screen_coords.BOARD_AREA.get_coords())
 
-    # Adjust the centers to the correct position on screen
+    # Adjust the centers to the correct position on screen ("de-apply" the crop)
     crop_coords = screen_coords.BOARD_AREA.get_coords()
-
     blue_centers = [(x + crop_coords[0], y + crop_coords[1]) for x, y in blue_centers]
     gray_centers = [(x + crop_coords[0], y + crop_coords[1]) for x, y in gray_centers]
 
