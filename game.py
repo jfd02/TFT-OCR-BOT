@@ -61,20 +61,9 @@ class Game:
         """Loop that runs while the game is in the loading screen"""
         game_functions.default_pos()
         while game_functions.get_round() != "1-1":
-            self.check_failed_to_connect_window()
             sleep(1)
         self.start_time: float = perf_counter()
         self.game_loop()
-
-    def check_failed_to_connect_window(self) -> bool:
-        """Check "Failed to Connect" windows and try to reconnect"""
-        hwnd = win32gui.FindWindow(None, "Failed to Connect")
-        if hwnd:
-            print("  Found \"Failed to Connect\" window, reconnecting")
-            reconnect_button = win32gui.FindWindowEx(hwnd, 0, "Button", None)
-            if reconnect_button:
-                print(f"Button name: {win32gui.GetWindowText(reconnect_button)}")
-                win32gui.SendMessage(reconnect_button, BM_CLICK, 0, 0)
 
     def game_loop(self) -> None:
         """Loop that runs while the game is active, handles calling the correct tasks for round and exiting game"""
