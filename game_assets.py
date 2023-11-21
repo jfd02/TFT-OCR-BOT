@@ -6,32 +6,27 @@ BASIC_ITEM: set[str] = {"BFSword","ChainVest","GiantsBelt","NeedlesslyLargeRod",
                             "NegatronCloak","RecurveBow","SparringGloves","Spatula",
                             "TearoftheGoddess"}
 
-COMBINED_ITEMS: set[str] = {"BFSword","ChainVest","GiantsBelt","NeedlesslyLargeRod",
-                            "NegatronCloak","RecurveBow","SparringGloves","Spatula",
-                            "TearoftheGoddess","8bitEmblem","EmoEmblem","HEARTSTEELEmblem",
-                            "JazzEmblem","KDAEmblem","PentakillEmblem","PunkEmblem",
-                            "TrueDamageEmblem","AdaptiveHelm","ArchangelsStaff","Bloodthirster",
-                            "BlueBuff","BrambleVest","Crownguard","Deathblade",
-                            "DragonsClaw","EdgeofNight","Evenshroud","GargoyleStoneplate",
-                            "GiantSlayer","Guardbreaker","GuinsoosRageblade","HandofJustice",
-                            "HextechGunblade","InfinityEdge","IonicSpark","JeweledGauntlet",
-                            "LastWhisper","Morellonomicon","NashorsTooth","ProtectorsVow",
-                            "Quicksilver","RabadonsDeathcap","RedBuff","Redemption",
-                            "RunaansHurricane","SpearofShojin","StatikkShiv","SteadfastHeart",
-                            "SteraksGage","SunfireCape","TacticiansCrown","ThiefsGloves",
-                            "TitansResolve","WarmogsArmor","BigShotEmblem","BruiserEmblem",
-                            "CountryEmblem","CrowdDiverEmblem","DazzlerEmblem","DiscoEmblem",
-                            "EdgelordEmblem","ExecutionerEmblem","GuardianEmblem","HyperpopEmblem",
-                            "MosherEmblem","RapidfireEmblem","SentinelEmblem","SpellweaverEmblem",
-                            "SuperfanEmblem"}
+COMBINED_ITEMS: set[str] = {"8bitEmblem","EmoEmblem","HEARTSTEELEmblem","JazzEmblem",
+                            "KDAEmblem","PentakillEmblem","PunkEmblem","TrueDamageEmblem",
+                            "AdaptiveHelm","ArchangelsStaff","Bloodthirster","BlueBuff",
+                            "BrambleVest","Crownguard","Deathblade","DragonsClaw",
+                            "EdgeofNight","Evenshroud","GargoyleStoneplate","GiantSlayer",
+                            "Guardbreaker","GuinsoosRageblade","HandofJustice","HextechGunblade",
+                            "InfinityEdge","IonicSpark","JeweledGauntlet","LastWhisper",
+                            "Morellonomicon","NashorsTooth","ProtectorsVow","Quicksilver",
+                            "RabadonsDeathcap","RedBuff","Redemption","RunaansHurricane",
+                            "SpearofShojin","StatikkShiv","SteadfastHeart","SteraksGage",
+                            "SunfireCape","TacticiansCrown","ThiefsGloves","TitansResolve",
+                            "WarmogsArmor"}
 
 SUPPORT_ITEM: set[str] = {"AegisoftheLegion","BansheesVeil","ChaliceofPower","CrestofCinders",
                             "LocketoftheIronSolari","NeedlesslyBigGem","ObsidianCleaver","RanduinsOmen",
                             "ShroudofStillness","VirtueoftheMartyr","ZekesHerald","Zephyr","ZzRotPortal"}
 
-NON_CRAFTABLE_ITEMS: set[str] = {"BastionEmblem","BruiserEmblem","DeadeyeEmblem","FreljordEmblem",
-                                    "GunnerEmblem","InvokerEmblem","PiltoverEmblem","RogueEmblem",
-                                    "StrategistEmblem","TargonEmblem","VoidEmblem","ZaunEmblem"}
+NON_CRAFTABLE_ITEMS: set[str] = {"BigShotEmblem","BruiserEmblem","CountryEmblem","CrowdDiverEmblem",
+                                    "DazzlerEmblem","DiscoEmblem","EdgelordEmblem","ExecutionerEmblem",
+                                    "GuardianEmblem","HyperpopEmblem","MosherEmblem","RapidfireEmblem",
+                                    "SentinelEmblem","SpellweaverEmblem","SuperfanEmblem"}
 
 ORNN_ITEMS: set[str] = {"AnimaVisage","BlacksmithsGloves","DeathfireGrasp","DeathsDefiance",
                         "EternalWinter","GoldCollector","GoldmancersStaff","Hullcrusher",
