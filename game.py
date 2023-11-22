@@ -144,6 +144,7 @@ class Game:
         if self.round == "1-3":
             sleep(1.5)
             self.arena.fix_unknown()
+            self.arena.clear_anvil()
             # self.arena.tacticians_crown_check() #not getting any item in set9 round 1-3, skipped
 
         self.arena.fix_bench_state()
