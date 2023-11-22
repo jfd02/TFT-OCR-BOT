@@ -54,7 +54,7 @@ COMP = {
         "final_comp": True
     },
     "KSante": {
-        "board_position": 24,
+        "board_position": 25,
         "items": [],
         "level": 2,
         "final_comp": False
