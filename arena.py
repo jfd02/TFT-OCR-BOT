@@ -371,19 +371,21 @@ class Arena:
                         and comps.COMP[champion[1]]["final_comp"]
                         and gold - game_assets.CHAMPIONS[champion[1]]["Gold"] * 3 >= 0
                     ):
-                        if comps.COMP[champion[1]]["level"] < 3:
-                            for champion in self.board:
-                                if champion.name == champion[1]:
-                                    print(
-                                        f"  Replace {champion[1]} with Headliner: {champion[1]}"
-                                    )
-                                    self.remove_champion(champion)
-                                    self.buy_champion(champion, 0)
-                                    self.move_known(champion)
-                        else:
-                            self.buy_champion(champion, 3)
-                        self.have_headliner = True
+                        self.buy_headliner(champion[1])
             first_run = False
+
+    def buy_headliner(self, champion: str) -> None:
+        """Buy headliner and replace the normal one if level not equal 3"""
+        if comps.COMP[champion]["level"] < 3:
+            for champ in self.board:
+                if champ.name == champion:
+                    print(f"  Replace {champion} with Headliner: {champion}")
+                    self.remove_champion(champ)
+                    self.buy_champion(champ, 0)
+                    self.move_known(champ)
+        else:
+            self.buy_champion(champion, 3)
+        self.have_headliner = True
 
     def buy_champion(self, champion, quantity) -> None:
         """Buy champion in shop"""
