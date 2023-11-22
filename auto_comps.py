@@ -135,7 +135,8 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
                                 query_data.get("champions"),
                             ),
                         )[0]["name"]
-                        #.replace("BelVeth", "Bel'Veth")
+                        .replace("Akali (K/DA)", "Akali")
+                        .replace("Akali (True Damage)", "Akali")
                     )
                     star = each_slot.get("star", 1)
                 except Exception:

@@ -234,10 +234,11 @@ class Game:
         self.message_queue.put("CLEAR")
         sleep(0.5)
         seconds_in_round = 30
-        sleep(1)
-        self.arena.augment_roll = True
-        self.arena.pick_augment()
-        sleep(2.5)
+        if self.round in game_assets.AUGMENT_ROUNDS:
+            sleep(1)
+            self.arena.augment_roll = True
+            self.arena.pick_augment()
+            sleep(2.5)
 
         if self.round == "1-3": # Third Round
             sleep(1.5)
