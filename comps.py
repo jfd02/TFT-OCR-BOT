@@ -5,59 +5,77 @@ Items are in camel case and a-Z
 """
 
 COMP = {
-    "Kayle": {
+    "MissFortune": {
         "board_position": 6,
-        "items": ["GuinsoosRageblade","GuinsoosRageblade"],
-        "level": 3,
-        "final_comp": True
-    },
-    "Fiora": {
-        "board_position": 25,
-        "items": ["Bloodthirster","TitansResolve"],
-        "level": 3,
-        "final_comp": True
-    },
-    "JarvanIV": {
-        "board_position": 26,
-        "items": ["ProtectorsVow","SunfireCape"],
+        "items": ["Deathblade","LastWhisper","GuinsoosRageblade"],
         "level": 2,
         "final_comp": True
     },
-    "Shen": {
-        "board_position": 27,
-        "items": ["Redemption"],
-        "level": 2,
-        "final_comp": True
-    },
-    "Poppy": {
+    "Neeko": {
         "board_position": 24,
+        "items": ["WarmogsArmor","BrambleVest","DragonsClaw"],
+        "level": 3,
+        "final_comp": True
+    },
+    "Lucian": {
+        "board_position": 3,
+        "items": ["StatikkShiv"],
+        "level": 2,
+        "final_comp": True
+    },
+    "Kennen": {
+        "board_position": 17,
+        "items": ["Evenshroud"],
+        "level": 2,
+        "final_comp": True
+    },
+    "Ekko": {
+        "board_position": 5,
         "items": [],
         "level": 2,
         "final_comp": True
     },
-    "Galio": {
-        "board_position": 23,
-        "items": [],
-        "level": 2,
-        "final_comp": True
-    },
-    "Quinn": {
+    "Bard": {
         "board_position": 0,
         "items": [],
         "level": 2,
         "final_comp": True
     },
-    "Sona": {
-        "board_position": 5,
-        "items": ["SpearofShojin"],
+    "KaiSa": {
+        "board_position": 1,
+        "items": [],
         "level": 2,
         "final_comp": True
+    },
+    "Lillia": {
+        "board_position": 16,
+        "items": [],
+        "level": 2,
+        "final_comp": True
+    },
+    "KSante": {
+        "board_position": 25,
+        "items": [],
+        "level": 2,
+        "final_comp": False
+    },
+    "Corki": {
+        "board_position": 7,
+        "items": [],
+        "level": 2,
+        "final_comp": False
     }
 }
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
 # (Anything that changes gameplay or adds something to the bench).
 AUGMENTS: list[str] = [
+    "That's Jazz Baby!",
+    "You Have My Bow",
+    "Blistering Strikes"
+    "Buried Treasures",
+    "Switching Gears",
+    "Caretaker's Favor",
     "Gotta Go Fast",
     "Tiny Power",
     "Shurima's Legacy",
@@ -69,7 +87,7 @@ AUGMENTS: list[str] = [
     "Big Friend",
     "First Aid Kit",
     "Stand United",
-    "Urf's Grab Bag",
+    "Grab Bag",
     "Component Grab Bag",
     "Thrill of the Hunt",
     "Better Together",

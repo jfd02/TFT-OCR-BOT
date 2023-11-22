@@ -18,8 +18,11 @@ def get_level() -> int:
     """Returns the level for the tactician"""
     try:
         response = requests.get(
-            'https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
-        return int(response.json()['activePlayer']['level'])
+            "https://127.0.0.1:2999/liveclientdata/allgamedata",
+            timeout=10,
+            verify=False,
+        )
+        return int(response.json()["activePlayer"]["level"])
     except (requests.exceptions.ConnectionError, KeyError):
         return 1
 
@@ -28,15 +31,23 @@ def get_health() -> int:
     """Returns the health for the tactician"""
     try:
         response = requests.get(
-            'https://127.0.0.1:2999/liveclientdata/allgamedata', timeout=10, verify=False)
-        return int(response.json()['activePlayer']['championStats']["currentHealth"])
+            "https://127.0.0.1:2999/liveclientdata/allgamedata",
+            timeout=10,
+            verify=False,
+        )
+        return int(response.json()["activePlayer"]["championStats"]["currentHealth"])
     except (requests.exceptions.ConnectionError, KeyError):
         return -1
 
 
 def get_gold() -> int:
     """Returns the gold for the tactician"""
-    gold: str = ocr.get_text(screenxy=screen_coords.GOLD_POS.get_coords(), scale=3, psm=7, whitelist="0123456789")
+    gold: str = ocr.get_text(
+        screenxy=screen_coords.GOLD_POS.get_coords(),
+        scale=3,
+        psm=7,
+        whitelist="0123456789",
+    )
     try:
         return int(gold)
     except ValueError:
@@ -57,7 +68,10 @@ def valid_champ(champ: str) -> str:
         "",
     )
 
-def get_champ(screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, shop_array: list) -> str:
+
+def get_champ(
+    screen_capture: ImageGrab.Image, name_pos: Vec4, shop_pos: int, shop_array: list
+) -> str:
     """Returns a tuple containing the shop position and champion name"""
     champ: str = screen_capture.crop(name_pos.get_coords())
     champ: str = ocr.get_text_from_image(image=champ, whitelist="")
@@ -70,13 +84,15 @@ def get_shop() -> list:
     shop: list = []
     thread_list: list = []
     for shop_index, name_pos in enumerate(screen_coords.CHAMP_NAME_POS):
-        thread = threading.Thread(target=get_champ, args=(screen_capture, name_pos, shop_index, shop))
+        thread = threading.Thread(
+            target=get_champ, args=(screen_capture, name_pos, shop_index, shop)
+        )
         thread_list.append(thread)
     for thread in thread_list:
         thread.start()
     for thread in thread_list:
         thread.join()
-    return shop
+    return sorted(shop)
 
 
 def empty_slot() -> int:
@@ -109,7 +125,7 @@ def valid_item(item: str) -> str | None:
             valid_item_name
             for valid_item_name in game_assets.ITEMS
             if valid_item_name in item
-            or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7
+            or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.85
         ),
         None,
     )
@@ -120,8 +136,26 @@ def get_items() -> list:
     item_bench: list = []
     for positions in screen_coords.ITEM_POS:
         mk_functions.move_mouse(positions[0].get_coords())
-        item: str = ocr.get_text(screenxy=positions[1].get_coords(), scale=3, psm=7,
-                            whitelist=ocr.ALPHABET_WHITELIST)
+        item: str = ocr.get_text(
+            screenxy=positions[1].get_coords(),
+            scale=3,
+            psm=7,
+            whitelist=ocr.ALPHABET_WHITELIST,
+        )
         item_bench.append(valid_item(item))
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
     return item_bench
+
+
+def check_headliner() -> bool:
+    """Check if the last Champion in the store is a headliner"""
+    for positions in screen_coords.HEADLINER_POS:
+        headliner: str = ocr.get_text(
+            screenxy=positions.get_coords(),
+            scale=3,
+            psm=10,
+            whitelist=ocr.ROUND_WHITELIST.replace("-", ""),
+        )
+        if headliner == "2":
+            return True
+    return False
