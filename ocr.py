@@ -18,12 +18,12 @@ ROUND_WHITELIST = "0123456789-"
 
 
 def image_grayscale(image: ImageGrab.Image) -> Any:
-    """Converts an image to grayscale so OCR has an easier time deciphering characters"""
+    """Converts an image to grayscale to improve OCR performance."""
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 
 def image_thresholding(image: ImageGrab.Image) -> Any:
-    """Applies thresholding to the image https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html"""
+    """Applies thresholding to the image to enhance text visibility."""
     return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
 
@@ -35,13 +35,13 @@ def image_array(image: ImageGrab.Image) -> Any:
 
 
 def image_resize(image: int, scale: int) -> Any:
-    """Resizes the image using the scale passed in argument two"""
+    """Resizes the image using the specified scale."""
     (width, height) = (image.width * scale, image.height * scale)
     return image.resize((width, height))
 
 
 def get_text(screenxy: tuple, scale: int, psm: int, whitelist: str = "") -> str:
-    """Returns text from screen coordinates"""
+    """Returns text from specified screen coordinates."""
     screenshot = ImageGrab.grab(bbox=screenxy)
     resize = image_resize(screenshot, scale)
     array = image_array(resize)
@@ -62,7 +62,7 @@ def get_text(screenxy: tuple, scale: int, psm: int, whitelist: str = "") -> str:
 
 
 def get_text_from_image(image: ImageGrab.Image, whitelist: str = "") -> str:
-    """Takes an image and returns the text"""
+    """Extracts text from the given image."""
     resize = image_resize(image, 3)
     array = image_array(resize)
     grayscale = image_grayscale(array)

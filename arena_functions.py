@@ -6,6 +6,7 @@ import threading
 from difflib import SequenceMatcher
 from time import sleep
 
+from typing import Optional
 import numpy as np
 import requests
 from PIL import ImageGrab
@@ -41,7 +42,7 @@ def get_health() -> int:
         )
         return int(response.json()["activePlayer"]["championStats"]["currentHealth"])
     except (requests.exceptions.ConnectionError, KeyError):
-        return 100
+        return -1
 
 
 def get_gold() -> int:
@@ -126,12 +127,12 @@ def bench_occupied_check() -> list:
     return bench_occupied
 
 
-def valid_item(item: str) -> str | None:
+def valid_item(item: str) -> Optional[str]:
     """Checks if the item passed in arg one is valid"""
     return next(
         (
             valid_item_name
-            for valid_item_name in game_assets.ITEMS
+            for valid_item_name in game_assets.ALL_ITEMS
             if valid_item_name in item
             or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7
         ),
@@ -148,9 +149,19 @@ def get_items() -> list:
         item: str = ocr.get_text(
             screenxy=positions[1].get_coords(),
             scale=3,
-            psm=13,
+            psm=7,
             whitelist=ocr.ALPHABET_WHITELIST,
         )
         item_bench.append(valid_item(item))
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
     return item_bench
+
+
+def get_seconds_remaining() -> int:
+    """Returns how many seconds are remaining before the next phase of this round."""
+    seconds: str = ocr.get_text(screenxy=screen_coords.SECONDS_REMAINING_POS.get_coords(), scale=3,
+                                psm=7, whitelist="0123456789")
+    try:
+        return int(seconds)
+    except ValueError:
+        return -1

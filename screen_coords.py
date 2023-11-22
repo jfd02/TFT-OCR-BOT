@@ -32,11 +32,11 @@ ITEM_POS: list[list] = [
     [Vec2(457, 628), Vec4(GameWindow(559, 670, 797, 701))],
 ]
 
-ROUND_POS: Vec4 = Vec4(GameWindow(767, 10, 870, 31))
+ROUND_POS: Vec4 = Vec4(GameWindow(767, 10, 870, 34))
 
-ROUND_POS_ONE: Vec4 = Vec4(GameWindow(2, 0, 42, 21), use_screen_offset=False)
+ROUND_POS_ONE: Vec4 = Vec4(GameWindow(2, 0, 42, 24), use_screen_offset=False)
 
-ROUND_POS_TWO: Vec4 = Vec4(GameWindow(57, 1, 96, 21), use_screen_offset=False)
+ROUND_POS_TWO: Vec4 = Vec4(GameWindow(57, 0, 96, 24), use_screen_offset=False)
 
 SHOP_POS: Vec4 = Vec4(GameWindow(481, 1039, 1476, 1070))
 
@@ -48,7 +48,7 @@ CHAMP_NAME_POS: list[Vec4] = [
     Vec4(GameWindow(808, 5, 912, 24), use_screen_offset=False),
 ]
 
-PANEL_NAME_LOC: Vec4 = Vec4(GameWindow(1707, 320, 1830, 340))
+PANEL_NAME_LOC: Vec4 = Vec4(GameWindow(1707, 320, 1821, 342))
 
 GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 
@@ -143,7 +143,11 @@ BOARD_LOC: list[Vec2] = [
     Vec2(1251, 423),
 ]
 
-CAROUSEL_LOC: Vec2 = Vec2(964, 644)
+CAROUSEL_LOC: list[Vec2] = [
+    Vec2(964, 644),
+    Vec2(775, 505),
+    Vec2(1150, 505)
+]
 
 EXIT_NOW_LOC: Vec2 = Vec2(962, 575)
 
@@ -160,3 +164,7 @@ HEALTH_LOC: Vec2 = Vec2(1897, 126)
 SURRENDER_LOC: Vec2 = Vec2(771, 843)
 
 SURRENDER_TWO_LOC: Vec2 = Vec2(832, 489)
+
+SECONDS_REMAINING_POS: Vec4 = Vec4(GameWindow(1128, 8, 1160, 30))
+
+SECONDS_REMAINING_LOC: Vec2 = Vec2(1143, 19)

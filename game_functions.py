@@ -3,6 +3,7 @@ Functions used by the Game class to retrieve relevant data
 """
 
 from time import sleep
+from random import randint
 
 from PIL import ImageGrab
 
@@ -10,6 +11,7 @@ import game_assets
 import mk_functions
 import ocr
 import screen_coords
+
 
 
 def get_round() -> str:
@@ -47,8 +49,9 @@ def pickup_items() -> (
 
 def get_champ_carousel(tft_round: str) -> None:
     """Gets a champion from the carousel"""
+    #carousel_coords = randint(0, 2)
     while tft_round == get_round():
-        mk_functions.right_click(screen_coords.CAROUSEL_LOC.get_coords())
+        mk_functions.right_click(screen_coords.CAROUSEL_LOC[randint(0,2)].get_coords())
         sleep(0.7)
 
 
@@ -68,11 +71,8 @@ def check_alive() -> bool:  # Refactor this function to use API
 def exit_game() -> None:
     """Exits the game"""
     mk_functions.left_click(screen_coords.EXIT_NOW_LOC.get_coords())
-
-
-def victory_exit() -> None:
-    """Exits the game after victory"""
-    mk_functions.left_click(screen_coords.VICTORY_CONTINUE_LOC.get_coords())
+    mk_functions.left_click(screen_coords.EXIT_NOW_LOC.get_coords())
+    sleep(2)
 
 
 def default_pos() -> None:

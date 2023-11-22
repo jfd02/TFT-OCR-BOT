@@ -339,7 +339,7 @@ dump_comps.py
 main.bat
 RUN.lnk
 #Comps
-cached_data/cached9.5.json
+cached_data/cached10.json
 cached_data/deck.json
 cached_data/inputed
 #Tesserocr
