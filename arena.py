@@ -376,6 +376,7 @@ class Arena:
                     ):
                         self.buy_headliner(champion[1])
             first_run = False
+
     def buy_headliner(self, champion: str) -> None:
         """Buy headliner and replace the normal one if level not equal 3"""
         if comps.COMP[champion]["level"] < 3:
@@ -401,7 +402,8 @@ class Arena:
             mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
             print(f"    Purchased {champion[1]}")
             self.bought_champion(champion[1], none_slot)
-            self.champs_to_buy[champion[1]] -= quantity
+            if champion[1] in self.champs_to_buy:
+                self.champs_to_buy[champion[1]] -= quantity
         else:
             # Try to buy champ 3 when bench is full
             print(f"  Board is full but want {champion[1]}")
@@ -413,7 +415,8 @@ class Arena:
             sleep(0.5)
             if none_slot != -1:
                 print(f"    Purchased {champion[1]}")
-                self.champs_to_buy[champion[1]] -= quantity
+                if champion[1] in self.champs_to_buy:
+                    self.champs_to_buy[champion[1]] -= quantity
 
     def buy_xp_round(self) -> None:
         """Buys XP if gold is equals or over 4"""
