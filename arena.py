@@ -21,18 +21,8 @@ class Arena:
     def __init__(self, message_queue) -> None:
         self.message_queue = message_queue
         self.board_size = 0
-        self.bench: list[None] = [None, None, None, None, None, None, None, None, None]
-        self.anvil_free: list[bool] = [
-            False,
-            False,
-            False,
-            False,
-            False,
-            False,
-            False,
-            False,
-            False,
-        ]
+        self.bench: list[None] = [None] * 9
+        self.anvil_free: list[bool] = [False] * 9
         self.board: list = []
         self.board_unknown: list = []
         self.unknown_slots: list = comps.get_unknown_slots()

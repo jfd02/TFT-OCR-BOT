@@ -73,13 +73,13 @@ class Game:
             game_health: int = arena_functions.get_health()
             if game_health == 0 and last_game_health > 0:
                 count: int = 15
-                while count >0:
+                while count > 0:
                     if not game_functions.check_alive():
                         self.message_queue.put("CLEAR")
                         game_functions.exit_game()
                         break
                     sleep(1)
-                    count-=1
+                    count -= 1
                 break
             if game_health == -1 and last_game_health > 0:
                 self.message_queue.put("CLEAR")
@@ -144,7 +144,7 @@ class Game:
         if self.round == "1-3":
             sleep(1.5)
             self.arena.fix_unknown()
-            #self.arena.tacticians_crown_check() #not getting any item in set9 round 1-3, skipped
+            # self.arena.tacticians_crown_check() #not getting any item in set9 round 1-3, skipped
 
         self.arena.fix_bench_state()
         self.arena.spend_gold()
