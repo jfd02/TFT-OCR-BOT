@@ -294,7 +294,7 @@ class Arena:
         self.board_size -= 1
 
     def remove_champion(self, champion: Champion) -> None:
-        """Checks if the item passed in arg one is valid"""
+        """Remove the specify champion in both board and bench"""
         for index, slot in enumerate(self.bench):
             if isinstance(slot, Champion) and slot.name == champion.name:
                 mk_functions.press_e(slot.coords)
@@ -371,7 +371,17 @@ class Arena:
                         and comps.COMP[champion[1]]["final_comp"]
                         and gold - game_assets.CHAMPIONS[champion[1]]["Gold"] * 3 >= 0
                     ):
-                        self.buy_champion(champion, 3)
+                        if comps.COMP[champion[1]]["level"] < 3:
+                            for champion in self.board:
+                                if champion.name == champion[1]:
+                                    print(
+                                        f"  Replace {champion[1]} with Headliner: {champion[1]}"
+                                    )
+                                    self.remove_champion(champion)
+                                    self.buy_champion(champion, 0)
+                                    self.move_known(champion)
+                        else:
+                            self.buy_champion(champion, 3)
                         self.have_headliner = True
             first_run = False
 
