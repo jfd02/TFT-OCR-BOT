@@ -460,7 +460,7 @@ class Arena:
             augments.append(augment)
 
         for augment in augments:
-            for potential in comp_augments:
+            for potential in comp_augments+game_assets.AUGMENTS:
                 if potential in augment:
                     print(f"  Choosing augment: {augment}")
                     mk_functions.left_click(
