@@ -21,8 +21,10 @@ class Arena:
     def __init__(self, message_queue) -> None:
         self.message_queue = message_queue
         self.board_size = 0
-        self.bench: list[None] = [None, None, None, None, None, None, None, None, None]
-        self.anvil_free: list[bool] = [False, False, False, False, False, False, False, False, False]
+        self.bench: list[None] = [None, None, None,
+                                  None, None, None, None, None, None]
+        self.anvil_free: list[bool] = [False, False,
+                                       False, False, False, False, False, False, False]
         self.board: list = []
         self.board_unknown: list = []
         self.unknown_slots: list = comps.get_unknown_slots()
@@ -33,6 +35,7 @@ class Arena:
         self.level = 0
         self.augment_roll = True
         self.spam_roll = False
+        self.have_headliner = False
 
     def fix_bench_state(self) -> None:
         """Iterates through bench and fixes invalid slots"""
@@ -40,19 +43,22 @@ class Arena:
         for index, slot in enumerate(self.bench):
             if slot is None and bench_occupied[index]:
                 # ocr + right click
-                mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
+                mk_functions.right_click(
+                    screen_coords.BENCH_LOC[index].get_coords())
                 champ_name: str = ocr.get_text(screenxy=screen_coords.PANEL_NAME_LOC.get_coords(), scale=3, psm=7,
-                            whitelist=ocr.ALPHABET_WHITELIST)
-                if self.champs_to_buy.get(champ_name,0) > 0:
-                    print(f"  The unknown champion {champ_name} exists in comps, keeping it.")
+                                               whitelist=ocr.ALPHABET_WHITELIST)
+                if self.champs_to_buy.get(champ_name, 0) > 0:
+                    print(
+                        f"  The unknown champion {champ_name} exists in comps, keeping it.")
                     self.bench[index] = Champion(name=champ_name,
-                                    coords=screen_coords.BENCH_LOC[index].get_coords(
-                                    ),
-                                    build=comps.COMP[champ_name]["items"].copy(),
-                                    slot=index,
-                                    size=game_assets.CHAMPIONS[champ_name]["Board Size"],
-                                    final_comp=comps.COMP[champ_name]["final_comp"])
-                    self.champs_to_buy[champ_name]-=1
+                                                 coords=screen_coords.BENCH_LOC[index].get_coords(
+                                                 ),
+                                                 build=comps.COMP[champ_name]["items"].copy(
+                                                 ),
+                                                 slot=index,
+                                                 size=game_assets.CHAMPIONS[champ_name]["Board Size"],
+                                                 final_comp=comps.COMP[champ_name]["final_comp"])
+                    self.champs_to_buy[champ_name] -= 1
                 else:
                     self.bench[index] = "?"
                 continue
@@ -90,7 +96,8 @@ class Arena:
     def move_known(self, champion: Champion) -> None:
         """Moves champion to the board"""
         print(f"  Moving {champion.name} to board")
-        destination: tuple = screen_coords.BOARD_LOC[comps.COMP[champion.name]["board_position"]].get_coords()
+        destination: tuple = screen_coords.BOARD_LOC[comps.COMP[champion.name]["board_position"]].get_coords(
+        )
         mk_functions.left_click(champion.coords)
         sleep(0.1)
         mk_functions.left_click(destination)
@@ -106,7 +113,8 @@ class Arena:
         for index, champion in enumerate(self.bench):
             if isinstance(champion, str):
                 print(f"  Moving {champion} to board")
-                mk_functions.left_click(screen_coords.BENCH_LOC[index].get_coords())
+                mk_functions.left_click(
+                    screen_coords.BENCH_LOC[index].get_coords())
                 sleep(0.1)
                 mk_functions.left_click(
                     screen_coords.BOARD_LOC[self.unknown_slots[len(self.board_unknown)]].get_coords())
@@ -143,13 +151,14 @@ class Arena:
                         champion[1] in game_assets.CHAMPIONS and
                         game_assets.champion_gold_cost(champion[1]) <= gold and
                         game_assets.champion_board_size(champion[1]) == 1 and
-                        self.champs_to_buy.get(champion[1],0) <= 0 and
+                        self.champs_to_buy.get(champion[1], 0) <= 0 and
                         champion[1] not in self.board_unknown
                     )
 
                     if valid_champ:
                         none_slot: int = arena_functions.empty_slot()
-                        mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
+                        mk_functions.left_click(
+                            screen_coords.BUY_LOC[champion[0]].get_coords())
                         sleep(0.2)
                         self.bench[none_slot] = f"{champion[1]}"
                         self.move_unknown()
@@ -177,13 +186,15 @@ class Arena:
         for index, champion in enumerate(self.bench):
             if champion == "?" or isinstance(champion, str):
                 print("  Selling unknown champion")
-                mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
+                mk_functions.press_e(
+                    screen_coords.BENCH_LOC[index].get_coords())
                 self.bench[index] = None
                 self.anvil_free[index] = True
             elif isinstance(champion, Champion):
-                if self.champs_to_buy.get(champion.name,0) <= 0 and champion.name in self.board_names:
+                if self.champs_to_buy.get(champion.name, 0) <= 0 and champion.name in self.board_names:
                     print("  Selling unknown champion")
-                    mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
+                    mk_functions.press_e(
+                        screen_coords.BENCH_LOC[index].get_coords())
                     self.bench[index] = None
                     self.anvil_free[index] = True
 
@@ -191,10 +202,11 @@ class Arena:
         """Clears anvil on the bench, selects middle item"""
         for index, champion in enumerate(self.bench):
             if champion is None and not self.anvil_free[index]:
-                mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
+                mk_functions.press_e(
+                    screen_coords.BENCH_LOC[index].get_coords())
         sleep(0.7)
         anvil_msg: str = ocr.get_text(screenxy=screen_coords.ANVIL_MSG_POS.get_coords(), scale=3, psm=7,
-                            whitelist=ocr.ALPHABET_WHITELIST)
+                                      whitelist=ocr.ALPHABET_WHITELIST)
         if anvil_msg == 'ChooseOne':
             print('  Clear anvil')
             mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
@@ -210,9 +222,12 @@ class Arena:
 
     def add_item_to_champs(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
-        for champ in self.board:
-            if champ.does_need_items() and self.items[item_index] is not None:
-                self.add_item_to_champ(item_index, champ)
+        for champ_name in comps.COMP:
+            for champ in self.board:
+                if champ_name == champ.name:
+                    if champ.does_need_items() and self.items[item_index] is not None:
+                        self.add_item_to_champ(item_index, champ)
+                    break
 
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
@@ -271,7 +286,8 @@ class Arena:
                 mk_functions.press_e(slot.coords)
                 self.bench[index] = None
 
-        self.champs_to_buy.pop(champion.name)  # Remove all instances of champion in champs_to_buy
+        # Remove all instances of champion in champs_to_buy
+        self.champs_to_buy.pop(champion.name)
 
         mk_functions.press_e(champion.coords)
         self.board_names.remove(champion.name)
@@ -298,7 +314,7 @@ class Arena:
         mk_functions.move_mouse(screen_coords.ITEM_POS[0][0].get_coords())
         sleep(0.5)
         item: str = ocr.get_text(screenxy=screen_coords.ITEM_POS[0][1].get_coords(), scale=3, psm=7,
-                            whitelist=ocr.ALPHABET_WHITELIST)
+                                 whitelist=ocr.ALPHABET_WHITELIST)
         item: str = arena_functions.valid_item(item)
         try:
             if "TacticiansCrown" in item:
@@ -309,7 +325,7 @@ class Arena:
         except TypeError:
             print("  Item could not be read for Tacticians Check")
 
-    def spend_gold(self, speedy = False) -> None:
+    def spend_gold(self, speedy=False) -> None:
         """Spends gold every round"""
         first_run = True
         min_gold = 100 if speedy else (24 if self.spam_roll else 56)
@@ -322,29 +338,42 @@ class Arena:
                 print("  Rerolling shop")
             shop: list = arena_functions.get_shop()
             print(f"  Shop: {shop}")
+            gold: int = arena_functions.get_gold()
             for champion in shop:
-                if (self.champs_to_buy.get(champion[1],0) > 0 and
-                    arena_functions.get_gold() - game_assets.CHAMPIONS[champion[1]]["Gold"] >= 0
-                 ):
-                    none_slot: int = arena_functions.empty_slot()
-                    if none_slot != -1:
-                        mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
-                        print(f"    Purchased {champion[1]}")
-                        self.bought_champion(champion[1], none_slot)
-                        self.champs_to_buy[champion[1]]-=1
-                    else:
-                        # Try to buy champ 3 when bench is full
-                        print(f"  Board is full but want {champion[1]}")
-                        mk_functions.left_click(screen_coords.BUY_LOC[champion[0]].get_coords())
-                        game_functions.default_pos()
-                        sleep(0.5)
-                        self.fix_bench_state()
-                        none_slot = arena_functions.empty_slot()
-                        sleep(0.5)
-                        if none_slot != -1:
-                            print(f"    Purchased {champion[1]}")
-                            self.champs_to_buy[champion[1]]-=1
+                if (self.champs_to_buy.get(champion[1], 0) > 0 and
+                            gold - game_assets.CHAMPIONS[champion[1]]["Gold"] >= 0
+                        ):
+                    if champion[0] != 4 or not arena_functions.check_headliner():
+                        self.buy_champion(champion, 1)
+                    elif (champion[0] == 4 and arena_functions.check_headliner() and not self.have_headliner
+                        and comps.COMP[champion[1]]["final_comp"] and
+                            gold - game_assets.CHAMPIONS[champion[1]]["Gold"]*3 >= 0):
+                        self.buy_champion(champion, 3)
+                        self.have_headliner = True
             first_run = False
+
+    def buy_champion(self, champion, quantity) -> None:
+        """Buy champion in shop"""
+        none_slot: int = arena_functions.empty_slot()
+        if none_slot != -1:
+            mk_functions.left_click(
+                screen_coords.BUY_LOC[champion[0]].get_coords())
+            print(f"    Purchased {champion[1]}")
+            self.bought_champion(champion[1], none_slot)
+            self.champs_to_buy[champion[1]] -= quantity
+        else:
+            # Try to buy champ 3 when bench is full
+            print(f"  Board is full but want {champion[1]}")
+            mk_functions.left_click(
+                screen_coords.BUY_LOC[champion[0]].get_coords())
+            game_functions.default_pos()
+            sleep(0.5)
+            self.fix_bench_state()
+            none_slot = arena_functions.empty_slot()
+            sleep(0.5)
+            if none_slot != -1:
+                print(f"    Purchased {champion[1]}")
+                self.champs_to_buy[champion[1]] -= quantity
 
     def buy_xp_round(self) -> None:
         """Buys XP if gold is equals or over 4"""
@@ -353,22 +382,30 @@ class Arena:
 
     def pick_augment(self) -> None:
         """Picks an augment from user defined augment priority list or defaults to first augment"""
-        augments: list = []
-        for coords in screen_coords.AUGMENT_POS:
-            augment: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
-            augments.append(augment)
+        while True:
+            sleep(1)
+            augments: list = []
+            for coords in screen_coords.AUGMENT_POS:
+                augment: str = ocr.get_text(
+                    screenxy=coords.get_coords(), scale=3, psm=7)
+                augments.append(augment)
+            print(augments)
+            if len(augments) == 3 and '' not in augments:
+                break
 
-        for augment in augments:
-            for potential in comps.AUGMENTS:
+        for potential in comps.AUGMENTS:
+            for augment in augments:
                 if potential in augment:
                     print(f"  Choosing augment {augment}")
-                    mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
+                    mk_functions.left_click(
+                        screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
                     return
 
         if self.augment_roll:
             print("  Rolling for augment")
-            for i in range(0,3):
-                mk_functions.left_click(screen_coords.AUGMENT_ROLL[i].get_coords())
+            for i in range(0, 3):
+                mk_functions.left_click(
+                    screen_coords.AUGMENT_ROLL[i].get_coords())
             self.augment_roll = False
             self.pick_augment()
 
@@ -398,7 +435,8 @@ class Arena:
                 labels.append((f"{slot.name}", slot.coords))
 
         labels.extend(
-            (slot, screen_coords.BOARD_LOC[self.unknown_slots[index]].get_coords())
+            (slot,
+             screen_coords.BOARD_LOC[self.unknown_slots[index]].get_coords())
             for index, slot in enumerate(self.board_unknown)
         )
         self.message_queue.put(("LABEL", labels))
