@@ -367,7 +367,9 @@ class Arena:
                         self.buy_champion(champion, 1)
                     elif (
                         champion[0] == 4
-                        and arena_functions.check_headliner()
+                        and (
+                            arena_functions.check_headliner() & comps.get_headliner_tag(champion[1]) != 0
+                        )
                         and not self.have_headliner
                         and comps.COMP[champion[1]]["final_comp"]
                         and arena_functions.get_gold()
