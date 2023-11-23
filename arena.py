@@ -213,7 +213,7 @@ class Arena:
         for index, champion in enumerate(self.bench):
             if champion is None and not self.anvil_free[index]:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
-        sleep(0.7)
+        sleep(0.5)
         anvil_msg: str = ocr.get_text(
             screenxy=screen_coords.ANVIL_MSG_POS.get_coords(),
             scale=3,
