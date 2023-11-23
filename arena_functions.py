@@ -149,7 +149,8 @@ def get_items() -> list:
 
 def check_headliner() -> bool:
     """Check if the last Champion in the store is a headliner"""
-    for positions in screen_coords.HEADLINER_POS:
+    result: int = 0
+    for index, positions in enumerate(screen_coords.HEADLINER_POS):
         headliner: str = ocr.get_text(
             screenxy=positions.get_coords(),
             scale=3,
@@ -157,5 +158,5 @@ def check_headliner() -> bool:
             whitelist=ocr.ROUND_WHITELIST.replace("-", ""),
         )
         if headliner == "2":
-            return True
-    return False
+            result += 2**index
+    return result

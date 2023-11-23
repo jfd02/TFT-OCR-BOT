@@ -69,9 +69,9 @@ AUGMENT_ROLL: list[Vec2] = [Vec2(549, 875), Vec2(960, 875), Vec2(1363, 875)]
 VICTORY_POS: Vec4 = Vec4(GameWindow(906, 560, 1030, 587))
 
 HEADLINER_POS: list[Vec4] = [
-    Vec4(GameWindow(1280, 964, 1289, 976)),
+    Vec4(GameWindow(1280, 1018, 1289, 1030)),
     Vec4(GameWindow(1280, 990, 1289, 1002)),
-    Vec4(GameWindow(1280, 1018, 1289, 1030))
+    Vec4(GameWindow(1280, 964, 1289, 976))
 ]
 
 BUY_LOC: list[Vec2] = [
