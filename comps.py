@@ -4,7 +4,7 @@ Comps come from https://tftactics.gg/tierlist/team-comps
 Items are in camel case and a-Z
 The "headliner" tag represents a trait from bottom to top.
 Set to True if you want it in your board.
-Only final comp champion will be headliner and need to set 'headliner' tag to True.
+Only final comp champion will become headliner and need to set the corresponding 'headliner' tag to True.
 More info in README
 """
 
@@ -78,7 +78,7 @@ COMP = {
         "level": 2,
         "final_comp": False,
         "headliner": [False, False, False]
-    },
+    }
 }
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
