@@ -349,7 +349,7 @@ class Arena:
         min_gold = 100 if speedy else (24 if self.spam_roll else 56)
         while first_run or arena_functions.get_gold() >= min_gold:
             if not first_run:
-                if arena_functions.get_level() != 9:
+                if arena_functions.get_level() != 10:
                     mk_functions.buy_xp()
                     print("  Purchasing XP")
                 mk_functions.reroll()
