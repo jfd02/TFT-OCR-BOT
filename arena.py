@@ -384,7 +384,9 @@ class Arena:
                 if champ.name == champion:
                     self.remove_champion(champ)
                     self.buy_champion([4, champion], 0)
-                    self.move_known(champ)
+                    for newchamp in self.bench:
+                        if newchamp.name == champion:
+                            self.move_known(champ)
                     break
             else:
                 for index, slot in enumerate(self.bench):
