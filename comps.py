@@ -5,7 +5,8 @@ Items are in camel case and a-Z
 The "headliner" tag represents a trait from bottom to top.
 Set to True if you want it in your board.
 Only final comp champion will become headliner and need to set the corresponding 'headliner' tag to True.
-More info in README
+e.g. Only want "Sentinel" Ekko, set it to "headliner": [True, False, False]
+e.g.2 want either "Sentinel" or "True Damage" Ekko, set it to "headliner": [True, False, True]
 """
 
 COMP = {
