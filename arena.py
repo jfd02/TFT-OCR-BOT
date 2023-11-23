@@ -386,11 +386,12 @@ class Arena:
                     self.buy_champion([4, champion], 0)
                     self.move_known(champ)
                     break
-            for index, slot in enumerate(self.bench):
-                if isinstance(slot, Champion) and slot.name == champion:
-                    mk_functions.press_e(slot.coords)
-                    self.bench[index] = None
-            self.buy_champion([4, champion], 3)
+            else:
+                for index, slot in enumerate(self.bench):
+                    if isinstance(slot, Champion) and slot.name == champion:
+                        mk_functions.press_e(slot.coords)
+                        self.bench[index] = None
+                self.buy_champion([4, champion], 3)
         else:
             self.buy_champion([4, champion], 3)
         self.have_headliner = True
