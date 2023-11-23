@@ -213,7 +213,7 @@ class Arena:
         for index, champion in enumerate(self.bench):
             if champion is None and not self.anvil_free[index]:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
-        sleep(0.7)
+        sleep(0.5)
         anvil_msg: str = ocr.get_text(
             screenxy=screen_coords.ANVIL_MSG_POS.get_coords(),
             scale=3,
@@ -386,11 +386,12 @@ class Arena:
                     self.buy_champion([4, champion], 0)
                     self.move_known(champ)
                     break
-            for index, slot in enumerate(self.bench):
-                if isinstance(slot, Champion) and slot.name == champion:
-                    mk_functions.press_e(slot.coords)
-                    self.bench[index] = None
-            self.buy_champion([4, champion], 3)
+            else:
+                for index, slot in enumerate(self.bench):
+                    if isinstance(slot, Champion) and slot.name == champion:
+                        mk_functions.press_e(slot.coords)
+                        self.bench[index] = None
+                self.buy_champion([4, champion], 3)
         else:
             self.buy_champion([4, champion], 3)
         self.have_headliner = True
