@@ -51,3 +51,5 @@
 - Check if your game path is correct and open League of Legends by yourself.
 > RuntimeError: Failed to init API, possibly an invalid tessdata path.
 - You don't need to change the TESSDATA_PATH in settings.py if you didn't modify the destination folder while installing Tesseract.
+> ImportError: DLL load failed while importing _tesserocr: The specified module could not be found.
+- Download and install vc_redist : https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
