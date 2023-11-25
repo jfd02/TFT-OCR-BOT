@@ -127,6 +127,60 @@ class CompEditor(tk.Tk):
         self.board_position_var.trace_add(
             "write", lambda *args: self.validate_inputs())
         self.level_var.trace_add("write", lambda *args: self.validate_inputs())
+        self.comp_tree.bind(
+            "<Double-1>", lambda event: self.on_tree_double_click())
+
+    def on_tree_double_click(self):
+        """
+        Handle double-click event on the Treeview widget.
+        """
+        selected_item = self.comp_tree.selection()
+        if selected_item:
+            champion = self.comp_tree.item(selected_item, "text")
+            self.load_champion_details(champion)
+
+    def load_champion_details(self, champion):
+        """
+        Load champion details into the input fields.
+        """
+        details = self.comp.get(champion)
+
+        if details is None:
+            print(f"Champion '{champion}' not found in comp.")
+            return
+
+        # Set champion name
+        self.champion_name_var.set(champion)
+
+        # Set other input fields
+        self.board_position_var.set(details.get("board_position", ""))
+        self.level_var.set(details.get("level", ""))
+        self.final_comp_var.set(details.get("final_comp", ""))
+
+        # Set item dropdowns
+        for i, item_var in enumerate(self.item_dropdowns):
+            items = details.get("items", [])
+            if i < len(items):
+                item_var.set(items[i])
+            else:
+                item_var.set("")
+
+        # Update traits dropdowns based on the selected champion
+        self.update_traits_dropdowns()
+
+        # Set headliner traits
+        headliner_traits = details.get("headliner", [])
+        for i, (trait_var, trait_dropdown) in enumerate(
+            zip(self.trait_vars, self.trait_dropdowns)
+        ):
+            if i < len(headliner_traits) and headliner_traits[i]:
+                # Set trait only if headliner value is True
+                trait_name = CHAMPIONS[champion].get(f"Trait{i + 1}", "")
+                trait_var.set(trait_name)
+                trait_dropdown.set(trait_name)
+            else:
+                trait_var.set("")
+                trait_dropdown.set("")
 
     def create_trait_dropdowns(self, frame):
         """
@@ -322,9 +376,15 @@ class CompEditor(tk.Tk):
         Returns:
             bool: True if the board position is valid, False otherwise.
         """
+        selected_champion = self.champion_name_var.get()
+
+        # Exclude the currently chosen champion from the check
+        champions_to_check = {
+            name: champion["board_position"] for name, champion in self.comp.items() if name != selected_champion
+        }
+
         return 0 <= board_position <= 27 and not any(
-            champion["board_position"] == board_position
-            for champion in self.comp.values()
+            position == board_position for position in champions_to_check.values()
         )
 
     def is_valid_level_str(self, level_str):
