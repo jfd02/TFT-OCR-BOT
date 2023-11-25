@@ -93,7 +93,7 @@ class CompEditor(tk.Tk):
 
         self.final_comp_var = tk.BooleanVar()
         self.create_checkbox(
-            left_frame, "Final Composition:", self.final_comp_var, row=9
+            left_frame, "Final Composition", self.final_comp_var, row=9
         )
 
         self.add_button = tk.Button(
