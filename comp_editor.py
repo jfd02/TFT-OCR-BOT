@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import ttk, simpledialog
+import subprocess
 import json
 import os
+import re
 from comps import COMP
 from game_assets import FULL_ITEMS, CHAMPIONS
 
@@ -140,14 +142,48 @@ class CompEditor(tk.Tk):
             champion_traits = CHAMPIONS[selected_champion]
             traits = [champion_traits["Trait1"],
                       champion_traits["Trait2"], champion_traits["Trait3"]]
+            num_traits = sum(1 for trait in traits if trait)
         else:
             traits = ["", "", ""]
+            num_traits = 0
+
+        filtered_traits = []
+        seen_traits = set()
+
+        for item in traits:
+            if item and item not in seen_traits:
+                filtered_traits.append(item)
+                seen_traits.add(item)
 
         # Update the values in the dropdowns
         for i, (trait_var, trait_dropdown) in enumerate(zip(self.trait_vars, self.trait_dropdowns)):
-            trait_var.set(traits[i])
-            trait_dropdown['values'] = [""] + traits
-            trait_dropdown.set(traits[i])
+            trait_var.set("")  # Set the default choice to blank
+            trait_dropdown['values'] = [""] + filtered_traits
+            trait_dropdown.set("")
+
+            # Disable dropdowns based on the number of available traits
+            trait_dropdown['state'] = 'normal'  # Reset state to normal
+            if i >= num_traits:
+                # Reset value to blank for disabled dropdowns
+                trait_dropdown.set("")
+                trait_dropdown['state'] = 'disabled'
+
+    def map_traits_to_headliner(self, selected_traits, champion_traits):
+        """
+        Map selected traits to positions in the headliner list.
+
+        Args:
+            selected_traits (list): List of selected traits by the user.
+            champion_traits (list): List of traits associated with the selected champion.
+
+        Returns:
+            list: A list representing the headliner with True at positions corresponding to selected traits.
+        """
+        headliner = [False] * 3
+        for trait in selected_traits:
+            if trait in champion_traits and trait != "":
+                headliner[champion_traits.index(trait)] = True
+        return headliner
 
     def create_label_entry(self, frame, label_text, variable, var_type=tk.StringVar, row=None):
         """
@@ -183,11 +219,28 @@ class CompEditor(tk.Tk):
         Populate the Treeview widget with champion data.
         """
         for champion, details in sorted(self.COMP.items(), key=lambda x: x[1]["board_position"]):
+            # Fetch traits from CHAMPIONS
+            champion_data = CHAMPIONS.get(champion, {})
+            traits = [champion_data.get(f"Trait{i+1}", "") for i in range(3)]
+
+            # Update traits based on headliner values
+            headliner_values = details.get("headliner", [False, False, False])
+            traits = [trait if headliner else "" for trait,
+                      headliner in zip(traits, headliner_values)]
+
+            filtered_traits = []
+            seen_traits = set()
+
+            for item in traits:
+                if item and item not in seen_traits:
+                    filtered_traits.append(item)
+                    seen_traits.add(item)
+
             self.comp_tree.insert("", "end", text=champion, values=(
                 details["board_position"],
                 details["level"],
                 ", ".join(details["items"]),
-                ", ".join(details.get("traits", [])),
+                ", ".join(filtered_traits),
                 details["final_comp"]
             ))
 
@@ -267,6 +320,9 @@ class CompEditor(tk.Tk):
     def add_champion(self):
         """
         Add a new champion based on user inputs.
+
+        This function retrieves information entered by the user, validates it,
+        and then adds a new champion to the COMP data structure.
         """
         board_position_str = self.board_position_var.get()
         try:
@@ -305,15 +361,27 @@ class CompEditor(tk.Tk):
                 filtered_traits.append(item)
                 seen_traits.add(item)
 
+        selected_champion = self.champion_name_var.get()
+
+        if selected_champion in CHAMPIONS:
+            champion_traits = CHAMPIONS[selected_champion]
+            traits = [champion_traits["Trait1"],
+                      champion_traits["Trait2"], champion_traits["Trait3"]]
+        else:
+            traits = ["", "", ""]
+
+        headliner = self.map_traits_to_headliner(selected_traits, traits)
+
         new_champion = {
             "board_position": int(board_position_str),
             "level": int(level_str),
             "items": filtered_items,
             "traits": filtered_traits,
-            "final_comp": final_comp
+            "final_comp": final_comp,
+            "headliner": headliner
         }
 
-        self.COMP[self.champion_name_var.get()] = new_champion
+        self.COMP[selected_champion] = new_champion
         self.comp_tree.delete(*self.comp_tree.get_children())
         self.populate_tree()
 
@@ -373,12 +441,15 @@ class CompEditor(tk.Tk):
 
         updated_file_content = (
             file_content[:comp_line_start] +
-            "COMP = " + updated_comp_str +
+            "COMP = " + re.sub(r'"traits": \[.*?\],\n?', '', json.dumps(self.COMP, indent=4), flags=re.DOTALL) +
             file_content[comp_line_end:]
         )
 
         with open(comps_file_path, "w") as file:
             file.write(updated_file_content)
+
+        # Format the file using black
+        subprocess.run(["black", comps_file_path], check=True)
 
         with open(comps_file_path, "r") as file:
             file_content = file.read()
