@@ -2,68 +2,83 @@
 Team composition used by the bot
 Comps come from https://tftactics.gg/tierlist/team-comps
 Items are in camel case and a-Z
+The "headliner" tag represents a trait from bottom to top.
+Set to True if you want it in your team.
+Only final comp champion will become headliner and need to set the corresponding 'headliner' tag to True.
+e.g. Only want "Sentinel" Ekko, set it to "headliner": [True, False, False]
+e.g.2 want either "Sentinel" or "True Damage" Ekko, set it to "headliner": [True, False, True]
 """
 
 COMP = {
     "MissFortune": {
         "board_position": 6,
-        "items": ["Deathblade","LastWhisper","GuinsoosRageblade"],
+        "items": ["Deathblade", "LastWhisper", "GuinsoosRageblade"],
         "level": 2,
-        "final_comp": True
+        "final_comp": True,
+        "headliner": [False, True, False]
     },
     "Neeko": {
         "board_position": 24,
-        "items": ["WarmogsArmor","BrambleVest","DragonsClaw"],
+        "items": ["WarmogsArmor", "BrambleVest", "DragonsClaw"],
         "level": 3,
-        "final_comp": True
+        "final_comp": True,
+        "headliner": [False, False, False]
     },
     "Lucian": {
         "board_position": 3,
         "items": ["StatikkShiv"],
         "level": 2,
-        "final_comp": True
+        "final_comp": True,
+        "headliner": [False, True, False]
     },
     "Kennen": {
         "board_position": 17,
         "items": ["Evenshroud"],
         "level": 2,
-        "final_comp": True
+        "final_comp": True,
+        "headliner": [False, False, False]
     },
     "Ekko": {
         "board_position": 5,
         "items": [],
         "level": 2,
-        "final_comp": True
+        "final_comp": True,
+        "headliner": [False, False, False]
     },
     "Bard": {
         "board_position": 0,
         "items": [],
         "level": 2,
-        "final_comp": True
+        "final_comp": True,
+        "headliner": [False, True, False]
     },
     "KaiSa": {
         "board_position": 1,
         "items": [],
         "level": 2,
-        "final_comp": True
+        "final_comp": True,
+        "headliner": [False, False, False]
     },
     "Lillia": {
         "board_position": 16,
         "items": [],
         "level": 2,
-        "final_comp": True
+        "final_comp": True,
+        "headliner": [False, False, False]
     },
     "KSante": {
         "board_position": 25,
         "items": [],
         "level": 2,
-        "final_comp": False
+        "final_comp": False,
+        "headliner": [False, False, False]
     },
     "Corki": {
         "board_position": 7,
         "items": [],
         "level": 2,
-        "final_comp": False
+        "final_comp": False,
+        "headliner": [False, False, False]
     }
 }
 
@@ -72,7 +87,7 @@ COMP = {
 AUGMENTS: list[str] = [
     "That's Jazz Baby!",
     "You Have My Bow",
-    "Blistering Strikes"
+    "Blistering Strikes",
     "Buried Treasures",
     "Switching Gears",
     "Caretaker's Favor",
@@ -140,3 +155,12 @@ def get_unknown_slots() -> list:
     for _, champion_data in COMP.items():
         container.append(champion_data["board_position"])
     return [n for n in range(27) if n not in container]
+
+
+def get_headliner_tag(name: str) -> int:
+    """Return what trait of specify champion can become headliner"""
+    return (
+        int(COMP[name]["headliner"][0])
+        + int(COMP[name]["headliner"][1]) * 2
+        + int(COMP[name]["headliner"][2]) * 4
+    )

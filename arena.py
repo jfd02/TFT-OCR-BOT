@@ -349,7 +349,7 @@ class Arena:
         min_gold = 100 if speedy else (24 if self.spam_roll else 56)
         while first_run or arena_functions.get_gold() >= min_gold:
             if not first_run:
-                if arena_functions.get_level() != 9:
+                if arena_functions.get_level() != 10:
                     mk_functions.buy_xp()
                     print("  Purchasing XP")
                 mk_functions.reroll()
@@ -367,7 +367,9 @@ class Arena:
                         self.buy_champion(champion, 1)
                     elif (
                         champion[0] == 4
-                        and arena_functions.check_headliner()
+                        and (
+                            arena_functions.check_headliner() & comps.get_headliner_tag(champion[1]) != 0
+                        )
                         and not self.have_headliner
                         and comps.COMP[champion[1]]["final_comp"]
                         and arena_functions.get_gold()

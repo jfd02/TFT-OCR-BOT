@@ -116,7 +116,11 @@ class Game:
         """Move unknown champion to board after first carousel"""
         print(f"\n[Second Round] {self.round}")
         self.message_queue.put("CLEAR")
-        self.arena.bench[arena_functions.bench_occupied_check().index(True)] = "?"
+        while True:
+            result = arena_functions.bench_occupied_check()
+            if any(result):
+                break
+        self.arena.bench[result.index(True)] = "?"
         self.arena.move_unknown()
         self.end_round_tasks()
 
