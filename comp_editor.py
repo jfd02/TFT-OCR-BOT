@@ -33,8 +33,10 @@ class CompEditor(tk.Tk):
         self.title("Comp Editor")
         self.geometry("1280x720")
 
-        self.comp_tree = ttk.Treeview(self, columns=(
-            "board_position", "level", "items", "traits", "final_comp"))
+        self.comp_tree = ttk.Treeview(
+            self, columns=("board_position", "level",
+                           "items", "traits", "final_comp")
+        )
         self.comp_tree.heading("#0", text="Champion")
         self.comp_tree.heading("board_position", text="Board Position")
         self.comp_tree.heading("level", text="Level")
@@ -54,28 +56,33 @@ class CompEditor(tk.Tk):
 
         self.champion_name_var = tk.StringVar(value=CHAMPION_NAMES[0])
         self.champion_dropdown = ttk.Combobox(
-            left_frame, textvariable=self.champion_name_var, values=CHAMPION_NAMES)
+            left_frame, textvariable=self.champion_name_var, values=CHAMPION_NAMES
+        )
         self.champion_dropdown.grid(
-            row=0, column=0, columnspan=2, pady=5, padx=5, sticky="w")
+            row=0, column=0, columnspan=2, pady=5, padx=5, sticky="w"
+        )
         self.champion_dropdown.bind(
-            "<<ComboboxSelected>>", lambda event: self.update_traits_dropdowns())
+            "<<ComboboxSelected>>", lambda event: self.update_traits_dropdowns()
+        )
 
         self.board_position_var = tk.StringVar()
         self.create_label_entry(
-            left_frame, "Board Position:", self.board_position_var, row=1)
+            left_frame, "Board Position:", self.board_position_var, row=1
+        )
 
         self.level_var = tk.StringVar()
-        self.create_label_entry(left_frame, "Level:",
-                                self.level_var, row=2)
+        self.create_label_entry(left_frame, "Level:", self.level_var, row=2)
 
         self.item_dropdowns = []
         for i in range(3):
             item_var = tk.StringVar()
             item_label = f"Item {i+1}:"
             item_dropdown = ttk.Combobox(
-                left_frame, textvariable=item_var, values=[""] + ITEM_OPTIONS)
+                left_frame, textvariable=item_var, values=[""] + ITEM_OPTIONS
+            )
             ttk.Label(left_frame, text=item_label).grid(
-                row=i + 3, column=0, sticky="w", padx=5)
+                row=i + 3, column=0, sticky="w", padx=5
+            )
             item_dropdown.grid(row=i + 3, column=1,
                                columnspan=2, pady=5, sticky="w")
             self.item_dropdowns.append(item_var)
@@ -84,17 +91,23 @@ class CompEditor(tk.Tk):
         self.update_traits_dropdowns()
 
         self.final_comp_var = tk.BooleanVar()
-        self.create_checkbox(left_frame, "Final Composition:",
-                             self.final_comp_var, row=9)
+        self.create_checkbox(
+            left_frame, "Final Composition:", self.final_comp_var, row=9
+        )
 
         self.add_button = tk.Button(
-            left_frame, text="Add Champion", command=self.add_champion, state=tk.DISABLED)
+            left_frame,
+            text="Add Champion",
+            command=self.add_champion,
+            state=tk.DISABLED,
+        )
         self.add_button.grid(
             row=10, column=0, columnspan=2, pady=10, sticky="w")
 
         # Right side (Remove Champion)
         remove_button = tk.Button(
-            self, text="Remove Champion", command=self.remove_champion)
+            self, text="Remove Champion", command=self.remove_champion
+        )
         remove_button.grid(row=8, column=1, sticky="e", pady=10, padx=10)
 
         # Save button
@@ -109,7 +122,8 @@ class CompEditor(tk.Tk):
 
         # Bind the validation function to the variables
         self.champion_dropdown.bind(
-            "<<ComboboxSelected>>", lambda event: self.update_traits_dropdowns())
+            "<<ComboboxSelected>>", lambda event: self.update_traits_dropdowns()
+        )
         self.board_position_var.trace_add(
             "write", lambda *args: self.validate_inputs())
         self.level_var.trace_add("write", lambda *args: self.validate_inputs())
@@ -130,8 +144,9 @@ class CompEditor(tk.Tk):
             trait_var = tk.StringVar()
             trait_dropdown = ttk.Combobox(
                 frame, textvariable=trait_var, values=[""])
-            ttk.Label(
-                frame, text=f"Trait {i + 1}:").grid(row=i + 6, column=0, sticky="w", padx=5)
+            ttk.Label(frame, text=f"Trait {i + 1}:").grid(
+                row=i + 6, column=0, sticky="w", padx=5
+            )
             trait_dropdown.grid(row=i + 6, column=1,
                                 columnspan=2, pady=5, sticky="w")
             trait_dropdowns.append(trait_dropdown)
@@ -145,8 +160,11 @@ class CompEditor(tk.Tk):
 
         if selected_champion in CHAMPIONS:
             champion_traits = CHAMPIONS[selected_champion]
-            traits = [champion_traits["Trait1"],
-                      champion_traits["Trait2"], champion_traits["Trait3"]]
+            traits = [
+                champion_traits["Trait1"],
+                champion_traits["Trait2"],
+                champion_traits["Trait3"],
+            ]
             num_traits = sum(1 for trait in traits if trait)
         else:
             traits = ["", "", ""]
@@ -161,17 +179,19 @@ class CompEditor(tk.Tk):
                 seen_traits.add(item)
 
         # Update the values in the dropdowns
-        for i, (trait_var, trait_dropdown) in enumerate(zip(self.trait_vars, self.trait_dropdowns)):
+        for i, (trait_var, trait_dropdown) in enumerate(
+            zip(self.trait_vars, self.trait_dropdowns)
+        ):
             trait_var.set("")  # Set the default choice to blank
-            trait_dropdown['values'] = [""] + filtered_traits
+            trait_dropdown["values"] = [""] + filtered_traits
             trait_dropdown.set("")
 
             # Disable dropdowns based on the number of available traits
-            trait_dropdown['state'] = 'normal'  # Reset state to normal
+            trait_dropdown["state"] = "normal"  # Reset state to normal
             if i >= num_traits:
                 # Reset value to blank for disabled dropdowns
                 trait_dropdown.set("")
-                trait_dropdown['state'] = 'disabled'
+                trait_dropdown["state"] = "disabled"
 
     def map_traits_to_headliner(self, selected_traits, champion_traits):
         """
@@ -204,7 +224,8 @@ class CompEditor(tk.Tk):
         ttk.Label(frame, text=label_text).grid(
             row=row, column=0, sticky="w", padx=5)
         tk.Entry(frame, textvariable=variable).grid(
-            row=row, column=1, sticky="w", padx=5)
+            row=row, column=1, sticky="w", padx=5
+        )
 
     def create_checkbox(self, frame, label_text, variable, row=None):
         """
@@ -223,15 +244,19 @@ class CompEditor(tk.Tk):
         """
         Populate the Treeview widget with champion data.
         """
-        for champion, details in sorted(self.comp.items(), key=lambda x: x[1]["board_position"]):
+        for champion, details in sorted(
+            self.comp.items(), key=lambda x: x[1]["board_position"]
+        ):
             # Fetch traits from CHAMPIONS
             champion_data = CHAMPIONS.get(champion, {})
             traits = [champion_data.get(f"Trait{i+1}", "") for i in range(3)]
 
             # Update traits based on headliner values
             headliner_values = details.get("headliner", [False, False, False])
-            traits = [trait if headliner else "" for trait,
-                      headliner in zip(traits, headliner_values)]
+            traits = [
+                trait if headliner else ""
+                for trait, headliner in zip(traits, headliner_values)
+            ]
 
             filtered_traits = []
             seen_traits = set()
@@ -241,13 +266,18 @@ class CompEditor(tk.Tk):
                     filtered_traits.append(item)
                     seen_traits.add(item)
 
-            self.comp_tree.insert("", "end", text=champion, values=(
-                details["board_position"],
-                details["level"],
-                ", ".join(details["items"]),
-                ", ".join(filtered_traits),
-                details["final_comp"]
-            ))
+            self.comp_tree.insert(
+                "",
+                "end",
+                text=champion,
+                values=(
+                    details["board_position"],
+                    details["level"],
+                    ", ".join(details["items"]),
+                    ", ".join(filtered_traits),
+                    details["final_comp"],
+                ),
+            )
 
     def validate_inputs(self):
         """
@@ -258,9 +288,9 @@ class CompEditor(tk.Tk):
         level_str = self.level_var.get()
 
         if (
-            champion_selected and
-            self.is_valid_board_position_str(board_position_str) and
-            self.is_valid_level_str(level_str)
+            champion_selected
+            and self.is_valid_board_position_str(board_position_str)
+            and self.is_valid_level_str(level_str)
         ):
             self.add_button["state"] = tk.NORMAL
         else:
@@ -292,10 +322,9 @@ class CompEditor(tk.Tk):
         Returns:
             bool: True if the board position is valid, False otherwise.
         """
-        return (
-            0 <= board_position <= 27 and
-            not any(champion["board_position"] ==
-                    board_position for champion in self.comp.values())
+        return 0 <= board_position <= 27 and not any(
+            champion["board_position"] == board_position
+            for champion in self.comp.values()
         )
 
     def is_valid_level_str(self, level_str):
@@ -354,7 +383,7 @@ class CompEditor(tk.Tk):
             "items": items,
             "traits": selected_traits,
             "final_comp": final_comp,
-            "headliner": headliner
+            "headliner": headliner,
         }
 
         self.comp[selected_champion] = new_champion
@@ -373,12 +402,15 @@ class CompEditor(tk.Tk):
             board_position = int(board_position_str)
             if not self.is_valid_board_position(board_position):
                 simpledialog.messagebox.showerror(
-                    "Error", "Board Position must be a valid number between 0 and 27 and not already taken.")
+                    "Error",
+                    "Board Position must be a valid number between 0 and 27 and not already taken.",
+                )
                 return None
             return board_position
         except ValueError:
             simpledialog.messagebox.showerror(
-                "Error", "Board Position must be a valid number.")
+                "Error", "Board Position must be a valid number."
+            )
             return None
 
     def validate_and_filter_items(self):
@@ -392,7 +424,8 @@ class CompEditor(tk.Tk):
         filtered_items = list(filter(lambda item: item, items_selected))
         if not all(self.is_valid_item(item) for item in items_selected):
             simpledialog.messagebox.showerror(
-                "Error", "Items can only contain letters (a-zA-Z) and commas.")
+                "Error", "Items can only contain letters (a-zA-Z) and commas."
+            )
             return None
         return filtered_items
 
@@ -406,7 +439,8 @@ class CompEditor(tk.Tk):
         level_str = self.level_var.get()
         if not self.is_valid_level_str(level_str):
             simpledialog.messagebox.showerror(
-                "Error", "Level must be a valid number between 1 and 3.")
+                "Error", "Level must be a valid number between 1 and 3."
+            )
             return None
         return int(level_str)
 
@@ -439,7 +473,7 @@ class CompEditor(tk.Tk):
         Returns:
             bool: True if the item string is valid, False otherwise.
         """
-        return all(c.isalpha() or c.isnumeric() or c == ',' for c in item)
+        return all(c.isalpha() or c.isnumeric() or c == "," for c in item)
 
     def remove_champion(self):
         """
@@ -482,9 +516,15 @@ class CompEditor(tk.Tk):
                 break
 
         updated_file_content = (
-            file_content[:comp_line_start] +
-            "COMP = " + re.sub(r'"traits": \[.*?\],\n?', '', json.dumps(self.comp, indent=4), flags=re.DOTALL) +
-            file_content[comp_line_end:]
+            file_content[:comp_line_start]
+            + "COMP = "
+            + re.sub(
+                r'"traits": \[.*?\],\n?',
+                "",
+                json.dumps(self.comp, indent=4),
+                flags=re.DOTALL,
+            )
+            + file_content[comp_line_end:]
         )
 
         with open(comps_file_path, "w", encoding="utf-8") as file:
