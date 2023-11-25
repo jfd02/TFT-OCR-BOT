@@ -182,13 +182,30 @@ class CompEditor(tk.Tk):
                 trait_var.set("")
                 trait_dropdown.set("")
 
+    def create_trait_dropdown(self, frame, label_text, variable, row):
+        """
+        Create a single trait dropdown in the given frame.
+
+        Args:
+            frame (ttk.Frame): The frame in which to create the dropdown.
+            label_text (str): The text for the dropdown label.
+            variable: The variable associated with the dropdown.
+            row (int): The row in which to place the dropdown.
+        """
+        trait_dropdown = ttk.Combobox(
+            frame, textvariable=variable, values=[""])
+        ttk.Label(frame, text=label_text).grid(
+            row=row, column=0, sticky="w", padx=5)
+        trait_dropdown.grid(row=row, column=1,
+                            columnspan=2, pady=5, sticky="w")
+        return trait_dropdown
+
     def create_trait_dropdowns(self, frame):
         """
         Create trait dropdowns for the given champion.
 
         Args:
             frame (ttk.Frame): The frame in which to create the trait dropdowns.
-            champion_name (str): The name of the selected champion.
 
         Returns:
             list: List of trait dropdowns.
@@ -196,13 +213,9 @@ class CompEditor(tk.Tk):
         trait_dropdowns = []
         for i in range(3):
             trait_var = tk.StringVar()
-            trait_dropdown = ttk.Combobox(
-                frame, textvariable=trait_var, values=[""])
-            ttk.Label(frame, text=f"Trait {i + 1}:").grid(
-                row=i + 6, column=0, sticky="w", padx=5
+            trait_dropdown = self.create_trait_dropdown(
+                frame, f"Trait {i + 1}:", trait_var, i + 6
             )
-            trait_dropdown.grid(row=i + 6, column=1,
-                                columnspan=2, pady=5, sticky="w")
             trait_dropdowns.append(trait_dropdown)
         return trait_dropdowns
 
@@ -380,7 +393,9 @@ class CompEditor(tk.Tk):
 
         # Exclude the currently chosen champion from the check
         champions_to_check = {
-            name: champion["board_position"] for name, champion in self.comp.items() if name != selected_champion
+            name: champion["board_position"]
+            for name, champion in self.comp.items()
+            if name != selected_champion
         }
 
         return 0 <= board_position <= 27 and not any(
