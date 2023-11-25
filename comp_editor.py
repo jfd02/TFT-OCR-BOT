@@ -27,6 +27,7 @@ class CompEditor(tk.Tk):
         trait_vars (list): List of StringVar instances for trait dropdowns.
     """
 
+    # pylint: disable=too-many-instance-attributes,too-many-public-methods
     def __init__(self, comp_data):
         super().__init__()
 
