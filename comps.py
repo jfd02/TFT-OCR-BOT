@@ -72,7 +72,7 @@ COMP = {
 AUGMENTS: list[str] = [
     "That's Jazz Baby!",
     "You Have My Bow",
-    "Blistering Strikes"
+    "Blistering Strikes",
     "Buried Treasures",
     "Switching Gears",
     "Caretaker's Favor",
