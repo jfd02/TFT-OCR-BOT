@@ -1,3 +1,9 @@
+"""
+CompEditor Application
+
+This script defines a Tkinter-based GUI application for editing champion compositions.
+"""
+
 import tkinter as tk
 from tkinter import ttk, simpledialog
 import subprocess
@@ -37,7 +43,7 @@ class CompEditor(tk.Tk):
         self.comp_tree.heading("final_comp", text="Final Comp")
         self.comp_tree.grid(row=0, column=1, rowspan=8, sticky="nsew")
 
-        self.COMP = comp_data
+        self.comp = comp_data
         self.trait_vars = [tk.StringVar() for _ in range(3)]
         self.populate_tree()
 
@@ -56,11 +62,11 @@ class CompEditor(tk.Tk):
 
         self.board_position_var = tk.StringVar()
         self.create_label_entry(
-            left_frame, "Board Position:", self.board_position_var, tk.IntVar, row=1)
+            left_frame, "Board Position:", self.board_position_var, row=1)
 
         self.level_var = tk.StringVar()
         self.create_label_entry(left_frame, "Level:",
-                                self.level_var, tk.IntVar, row=2)
+                                self.level_var, row=2)
 
         self.item_dropdowns = []
         for i in range(3):
@@ -74,8 +80,7 @@ class CompEditor(tk.Tk):
                                columnspan=2, pady=5, sticky="w")
             self.item_dropdowns.append(item_var)
 
-        self.trait_dropdowns = self.create_trait_dropdowns(
-            left_frame, self.champion_name_var.get())
+        self.trait_dropdowns = self.create_trait_dropdowns(left_frame)
         self.update_traits_dropdowns()
 
         self.final_comp_var = tk.BooleanVar()
@@ -109,7 +114,7 @@ class CompEditor(tk.Tk):
             "write", lambda *args: self.validate_inputs())
         self.level_var.trace_add("write", lambda *args: self.validate_inputs())
 
-    def create_trait_dropdowns(self, frame, champion_name):
+    def create_trait_dropdowns(self, frame):
         """
         Create trait dropdowns for the given champion.
 
@@ -132,7 +137,7 @@ class CompEditor(tk.Tk):
             trait_dropdowns.append(trait_dropdown)
         return trait_dropdowns
 
-    def update_traits_dropdowns(self, *args):
+    def update_traits_dropdowns(self):
         """
         Update the traits dropdowns based on the selected champion.
         """
@@ -185,7 +190,7 @@ class CompEditor(tk.Tk):
                 headliner[champion_traits.index(trait)] = True
         return headliner
 
-    def create_label_entry(self, frame, label_text, variable, var_type=tk.StringVar, row=None):
+    def create_label_entry(self, frame, label_text, variable, row=None):
         """
         Create a label and entry widget pair in the given frame.
 
@@ -218,7 +223,7 @@ class CompEditor(tk.Tk):
         """
         Populate the Treeview widget with champion data.
         """
-        for champion, details in sorted(self.COMP.items(), key=lambda x: x[1]["board_position"]):
+        for champion, details in sorted(self.comp.items(), key=lambda x: x[1]["board_position"]):
             # Fetch traits from CHAMPIONS
             champion_data = CHAMPIONS.get(champion, {})
             traits = [champion_data.get(f"Trait{i+1}", "") for i in range(3)]
@@ -287,7 +292,11 @@ class CompEditor(tk.Tk):
         Returns:
             bool: True if the board position is valid, False otherwise.
         """
-        return 0 <= board_position <= 27 and not any(champion["board_position"] == board_position for champion in self.COMP.values())
+        return (
+            0 <= board_position <= 27 and
+            not any(champion["board_position"] ==
+                    board_position for champion in self.comp.values())
+        )
 
     def is_valid_level_str(self, level_str):
         """
@@ -321,8 +330,43 @@ class CompEditor(tk.Tk):
         """
         Add a new champion based on user inputs.
 
-        This function retrieves information entered by the user, validates it,
+        Retrieves information entered by the user, validates it,
         and then adds a new champion to the COMP data structure.
+        """
+        board_position = self.validate_board_position()
+        items = self.validate_and_filter_items()
+        level = self.validate_level()
+        final_comp = self.final_comp_var.get()
+        selected_traits = self.get_selected_traits()
+        selected_champion = self.champion_name_var.get()
+
+        if selected_champion in CHAMPIONS:
+            champion_traits = CHAMPIONS[selected_champion]
+            traits = [champion_traits[f"Trait{i+1}"] for i in range(3)]
+        else:
+            traits = ["", "", ""]
+
+        headliner = self.map_traits_to_headliner(selected_traits, traits)
+
+        new_champion = {
+            "board_position": board_position,
+            "level": level,
+            "items": items,
+            "traits": selected_traits,
+            "final_comp": final_comp,
+            "headliner": headliner
+        }
+
+        self.comp[selected_champion] = new_champion
+        self.comp_tree.delete(*self.comp_tree.get_children())
+        self.populate_tree()
+
+    def validate_board_position(self):
+        """
+        Validate and retrieve the board position entered by the user.
+
+        Returns:
+            int or None: The validated board position or None if validation fails.
         """
         board_position_str = self.board_position_var.get()
         try:
@@ -330,27 +374,49 @@ class CompEditor(tk.Tk):
             if not self.is_valid_board_position(board_position):
                 simpledialog.messagebox.showerror(
                     "Error", "Board Position must be a valid number between 0 and 27 and not already taken.")
-                return
+                return None
+            return board_position
         except ValueError:
             simpledialog.messagebox.showerror(
                 "Error", "Board Position must be a valid number.")
-            return
+            return None
 
+    def validate_and_filter_items(self):
+        """
+        Validate and filter the selected items entered by the user.
+
+        Returns:
+            list or None: The filtered list of items or None if validation fails.
+        """
         items_selected = [item_var.get() for item_var in self.item_dropdowns]
         filtered_items = list(filter(lambda item: item, items_selected))
         if not all(self.is_valid_item(item) for item in items_selected):
             simpledialog.messagebox.showerror(
                 "Error", "Items can only contain letters (a-zA-Z) and commas.")
-            return
+            return None
+        return filtered_items
 
+    def validate_level(self):
+        """
+        Validate and retrieve the level entered by the user.
+
+        Returns:
+            int or None: The validated level or None if validation fails.
+        """
         level_str = self.level_var.get()
         if not self.is_valid_level_str(level_str):
             simpledialog.messagebox.showerror(
                 "Error", "Level must be a valid number between 1 and 3.")
-            return
+            return None
+        return int(level_str)
 
-        final_comp = self.final_comp_var.get()
+    def get_selected_traits(self):
+        """
+        Retrieve and filter the selected traits entered by the user.
 
+        Returns:
+            list: The filtered list of selected traits.
+        """
         selected_traits = [trait_var.get()
                            for trait_var in self.trait_dropdowns]
         filtered_traits = []
@@ -361,29 +427,7 @@ class CompEditor(tk.Tk):
                 filtered_traits.append(item)
                 seen_traits.add(item)
 
-        selected_champion = self.champion_name_var.get()
-
-        if selected_champion in CHAMPIONS:
-            champion_traits = CHAMPIONS[selected_champion]
-            traits = [champion_traits["Trait1"],
-                      champion_traits["Trait2"], champion_traits["Trait3"]]
-        else:
-            traits = ["", "", ""]
-
-        headliner = self.map_traits_to_headliner(selected_traits, traits)
-
-        new_champion = {
-            "board_position": int(board_position_str),
-            "level": int(level_str),
-            "items": filtered_items,
-            "traits": filtered_traits,
-            "final_comp": final_comp,
-            "headliner": headliner
-        }
-
-        self.COMP[selected_champion] = new_champion
-        self.comp_tree.delete(*self.comp_tree.get_children())
-        self.populate_tree()
+        return filtered_traits
 
     def is_valid_item(self, item):
         """
@@ -404,7 +448,7 @@ class CompEditor(tk.Tk):
         selected_item = self.comp_tree.selection()
         if selected_item:
             champion = self.comp_tree.item(selected_item, "text")
-            del self.COMP[champion]
+            del self.comp[champion]
             self.comp_tree.delete(selected_item)
 
     def save_changes(self):
@@ -415,9 +459,7 @@ class CompEditor(tk.Tk):
         comps_file_path = os.path.join(
             os.path.dirname(current_file_path), "comps.py")
 
-        updated_comp_str = json.dumps(self.COMP, indent=4)
-
-        with open(comps_file_path, "r") as file:
+        with open(comps_file_path, "r", encoding="utf-8") as file:
             file_content = file.read()
 
         comp_line_start = file_content.find("COMP = {")
@@ -428,7 +470,7 @@ class CompEditor(tk.Tk):
         comp_line_end = comp_line_start
         brace_count = 0
 
-        for line_number, char in enumerate(file_content[comp_line_start:], start=1):
+        for _, char in enumerate(file_content[comp_line_start:], start=1):
             comp_line_end += 1
 
             if char == "{":
@@ -441,23 +483,23 @@ class CompEditor(tk.Tk):
 
         updated_file_content = (
             file_content[:comp_line_start] +
-            "COMP = " + re.sub(r'"traits": \[.*?\],\n?', '', json.dumps(self.COMP, indent=4), flags=re.DOTALL) +
+            "COMP = " + re.sub(r'"traits": \[.*?\],\n?', '', json.dumps(self.comp, indent=4), flags=re.DOTALL) +
             file_content[comp_line_end:]
         )
 
-        with open(comps_file_path, "w") as file:
+        with open(comps_file_path, "w", encoding="utf-8") as file:
             file.write(updated_file_content)
 
         # Format the file using black
         subprocess.run(["black", comps_file_path], check=True)
 
-        with open(comps_file_path, "r") as file:
+        with open(comps_file_path, "r", encoding="utf-8") as file:
             file_content = file.read()
 
         updated_content = file_content.replace(
             "false", "False").replace("true", "True")
 
-        with open(comps_file_path, "w") as file:
+        with open(comps_file_path, "w", encoding="utf-8") as file:
             file.write(updated_content)
 
 
