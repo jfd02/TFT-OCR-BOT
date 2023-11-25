@@ -31,6 +31,15 @@
 - Place correct items onto champions
 - Plays the user-defined team comp
 - Auto queue using the LCU API
+- Comp editor with GUI
+
+## Comp Editor
+
+**Note:** Make sure you have a valid `comps.py` file (copy the one from the repo if you get syntax errors)!
+
+Open by clicking the file or executing from a terminal with `python comp_editor.py` (in the correct folder).
+
+![main](https://i.imgur.com/3e6hKFp.png)
 
 ## TODO:
 - Implement tome of traits logic
