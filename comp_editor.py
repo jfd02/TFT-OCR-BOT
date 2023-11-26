@@ -592,10 +592,7 @@ class CompEditor(tk.Tk):
             .replace("                ", "        ")
             .replace("\n           ", "")
             .replace("\n        ]", "]")
-            .replace("\r           ", "")
-            .replace("\r        ]", "]")
             .replace("[ ", "[")
-            .replace("\r\n",'\n')
             + file_content[comp_line_end:]
         )
 
