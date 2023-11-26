@@ -6,7 +6,6 @@ This script defines a Tkinter-based GUI application for editing champion composi
 
 import tkinter as tk
 from tkinter import ttk, simpledialog
-import subprocess
 import json
 import os
 import re
@@ -35,8 +34,7 @@ class CompEditor(tk.Tk):
         self.geometry("1280x720")
 
         self.comp_tree = ttk.Treeview(
-            self, columns=("board_position", "level",
-                           "items", "traits", "final_comp")
+            self, columns=("board_position", "level", "items", "traits", "final_comp")
         )
         self.comp_tree.heading("#0", text="Champion")
         self.comp_tree.heading("board_position", text="Board Position")
@@ -52,8 +50,7 @@ class CompEditor(tk.Tk):
 
         # Left side (Add Champion)
         left_frame = ttk.Frame(self)
-        left_frame.grid(row=0, column=0, rowspan=8,
-                        padx=10, pady=10, sticky="nsew")
+        left_frame.grid(row=0, column=0, rowspan=8, padx=10, pady=10, sticky="nsew")
 
         self.champion_name_var = tk.StringVar(value=CHAMPION_NAMES[0])
         self.champion_dropdown = ttk.Combobox(
@@ -84,8 +81,7 @@ class CompEditor(tk.Tk):
             ttk.Label(left_frame, text=item_label).grid(
                 row=i + 3, column=0, sticky="w", padx=5
             )
-            item_dropdown.grid(row=i + 3, column=1,
-                               columnspan=2, pady=5, sticky="w")
+            item_dropdown.grid(row=i + 3, column=1, columnspan=2, pady=5, sticky="w")
             self.item_dropdowns.append(item_var)
 
         self.trait_dropdowns = self.create_trait_dropdowns(left_frame)
@@ -102,8 +98,7 @@ class CompEditor(tk.Tk):
             command=self.add_champion,
             state=tk.DISABLED,
         )
-        self.add_button.grid(
-            row=10, column=0, columnspan=2, pady=10, sticky="w")
+        self.add_button.grid(row=10, column=0, columnspan=2, pady=10, sticky="w")
 
         # Right side (Remove Champion)
         remove_button = tk.Button(
@@ -125,11 +120,9 @@ class CompEditor(tk.Tk):
         self.champion_dropdown.bind(
             "<<ComboboxSelected>>", lambda event: self.update_traits_dropdowns()
         )
-        self.board_position_var.trace_add(
-            "write", lambda *args: self.validate_inputs())
+        self.board_position_var.trace_add("write", lambda *args: self.validate_inputs())
         self.level_var.trace_add("write", lambda *args: self.validate_inputs())
-        self.comp_tree.bind(
-            "<Double-1>", lambda event: self.on_tree_double_click())
+        self.comp_tree.bind("<Double-1>", lambda event: self.on_tree_double_click())
 
     def on_tree_double_click(self):
         """
@@ -193,12 +186,9 @@ class CompEditor(tk.Tk):
             variable: The variable associated with the dropdown.
             row (int): The row in which to place the dropdown.
         """
-        trait_dropdown = ttk.Combobox(
-            frame, textvariable=variable, values=[""])
-        ttk.Label(frame, text=label_text).grid(
-            row=row, column=0, sticky="w", padx=5)
-        trait_dropdown.grid(row=row, column=1,
-                            columnspan=2, pady=5, sticky="w")
+        trait_dropdown = ttk.Combobox(frame, textvariable=variable, values=[""])
+        ttk.Label(frame, text=label_text).grid(row=row, column=0, sticky="w", padx=5)
+        trait_dropdown.grid(row=row, column=1, columnspan=2, pady=5, sticky="w")
         return trait_dropdown
 
     def create_trait_dropdowns(self, frame):
@@ -289,8 +279,7 @@ class CompEditor(tk.Tk):
             var_type: The type of variable to create (default is tk.StringVar).
             row (int): The row in which to place the widgets.
         """
-        ttk.Label(frame, text=label_text).grid(
-            row=row, column=0, sticky="w", padx=5)
+        ttk.Label(frame, text=label_text).grid(row=row, column=0, sticky="w", padx=5)
         tk.Entry(frame, textvariable=variable).grid(
             row=row, column=1, sticky="w", padx=5
         )
@@ -527,8 +516,7 @@ class CompEditor(tk.Tk):
         Returns:
             list: The filtered list of selected traits.
         """
-        selected_traits = [trait_var.get()
-                           for trait_var in self.trait_dropdowns]
+        selected_traits = [trait_var.get() for trait_var in self.trait_dropdowns]
         filtered_traits = []
         seen_traits = set()
 
@@ -566,10 +554,9 @@ class CompEditor(tk.Tk):
         Save changes made in the application to the comps.py file.
         """
         current_file_path = os.path.abspath(__file__)
-        comps_file_path = os.path.join(
-            os.path.dirname(current_file_path), "comps.py")
+        comps_file_path = os.path.join(os.path.dirname(current_file_path), "comps.py")
 
-        with open(comps_file_path, "r", encoding="utf-8") as file:
+        with open(comps_file_path, "r", encoding="utf-8", newline='') as file:
             file_content = file.read()
 
         comp_line_start = file_content.find("COMP = {")
@@ -600,23 +587,17 @@ class CompEditor(tk.Tk):
                 json.dumps(self.comp, indent=4),
                 flags=re.DOTALL,
             )
+            .replace("false", "False")
+            .replace("true", "True")
+            .replace("                ", "        ")
+            .replace("\n           ", "")
+            .replace("\n        ]", "]")
+            .replace("[ ", "[")
             + file_content[comp_line_end:]
         )
 
-        with open(comps_file_path, "w", encoding="utf-8") as file:
+        with open(comps_file_path, "w", encoding="utf-8", newline='') as file:
             file.write(updated_file_content)
-
-        # Format the file using black
-        subprocess.run(["black", comps_file_path], check=True)
-
-        with open(comps_file_path, "r", encoding="utf-8") as file:
-            file_content = file.read()
-
-        updated_content = file_content.replace(
-            "false", "False").replace("true", "True")
-
-        with open(comps_file_path, "w", encoding="utf-8") as file:
-            file.write(updated_content)
 
 
 if __name__ == "__main__":
