@@ -573,7 +573,7 @@ class CompEditor(tk.Tk):
             if char == "{":
                 brace_count += 1
             elif char == "}":
-                brace_count -= 1.0
+                brace_count -= 1
 
             if brace_count == 0 and char == "}":
                 break
