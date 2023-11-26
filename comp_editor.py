@@ -6,7 +6,6 @@ This script defines a Tkinter-based GUI application for editing champion composi
 
 import tkinter as tk
 from tkinter import ttk, simpledialog
-import subprocess
 import json
 import os
 import re
@@ -27,6 +26,7 @@ class CompEditor(tk.Tk):
         trait_vars (list): List of StringVar instances for trait dropdowns.
     """
 
+    # pylint: disable=too-many-instance-attributes,too-many-public-methods
     def __init__(self, comp_data):
         super().__init__()
 
@@ -573,7 +573,7 @@ class CompEditor(tk.Tk):
             if char == "{":
                 brace_count += 1
             elif char == "}":
-                brace_count -= 1
+                brace_count -= 1.0
 
             if brace_count == 0 and char == "}":
                 break
