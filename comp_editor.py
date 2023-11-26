@@ -556,7 +556,7 @@ class CompEditor(tk.Tk):
         current_file_path = os.path.abspath(__file__)
         comps_file_path = os.path.join(os.path.dirname(current_file_path), "comps.py")
 
-        with open(comps_file_path, "r", encoding="utf-8") as file:
+        with open(comps_file_path, "r", encoding="utf-8", newline='') as file:
             file_content = file.read()
 
         comp_line_start = file_content.find("COMP = {")
@@ -596,7 +596,7 @@ class CompEditor(tk.Tk):
             + file_content[comp_line_end:]
         )
 
-        with open(comps_file_path, "w", encoding="utf-8") as file:
+        with open(comps_file_path, "w", encoding="utf-8", newline='') as file:
             file.write(updated_file_content)
 
 
