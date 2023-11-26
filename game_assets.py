@@ -30,7 +30,7 @@ NON_CRAFTABLE_ITEMS: set[str] = {"BigShotEmblem","BruiserEmblem","CountryEmblem"
 
 ORNN_ITEMS: set[str] = {"AnimaVisage","BlacksmithsGloves","DeathfireGrasp","DeathsDefiance",
                         "EternalWinter","GoldCollector","GoldmancersStaff","Hullcrusher",
-                        "InfinityForce","MogulsMail","Muramana","Rocket-PropelledFist",
+                        "InfinityForce","MogulsMail","Muramana","RocketPropelledFist",
                         "SnipersFocus","TrickstersGlass","ZhonyasParadox"}
 
 ITEMS: set[str] = BASIC_ITEM.union(COMBINED_ITEMS).union(SUPPORT_ITEM).union(NON_CRAFTABLE_ITEMS).union(ORNN_ITEMS)
