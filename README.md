@@ -13,6 +13,7 @@
 3. Install tesseract 5.3.1.20230401 using the Windows installer available at: https://github.com/UB-Mannheim/tesseract/wiki
    - Note the tesseract path from the installation.
    - Set Tesseract tessdata folder path in settings.py file (probably already correct)
+   (Note: the tesseract path changes when you don't install it for everyone on your computer, most likely it will be placed in AppData\Local\Programs when choosing to only install it for the current user.)
 4. Download tesserocr v2.6.0 to the bot folder via: https://github.com/simonflueckiger/tesserocr-windows_build/releases
    - Please note that the version must be 2.6.0 to be compatible with tesseract 5.3.1
    - Select the installation file for either 3.10 or 3.11 based on the Python version you are currently using
