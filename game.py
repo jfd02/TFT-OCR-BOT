@@ -25,6 +25,7 @@ class Game:
         self.time: None = None
         self.forfeit_time: int = settings.FORFEIT_TIME + random.randint(50, 150)
         self.found_window = False
+        self.force_board_check: bool = False
 
         print("\n[!] Searching for game window")
         while not self.found_window:
@@ -71,6 +72,7 @@ class Game:
     def game_loop(self) -> None:
         """Loop that runs while the game is active, handles calling the correct tasks for round and exiting game"""
         ran_round: str = None
+        booted_round: str = game_functions.get_round()
         last_game_health: int = 100
 
         while True:
@@ -98,6 +100,13 @@ class Game:
             ):
                 game_functions.forfeit()
                 return
+            
+            if ran_round is None and booted_round == self.round and self.round != "1-1":
+                if sent_boot_round_message is False:
+                    print("  Waiting for boot round to end...")
+                    sent_boot_round_message = True
+                    self.force_board_check = True
+                continue
 
             if self.round != ran_round:
                 if self.round in game_assets.PVP_ROUND:
@@ -119,7 +128,7 @@ class Game:
     def second_round(self) -> None:
         """Move unknown champion to board after first carousel"""
         print(f"\n[Second Round] {self.round}")
-        self.message_queue.put("CLEAR")
+        self.start_round_tasks()
         while True:
             result = arena_functions.bench_occupied_check()
             if any(result):
@@ -131,17 +140,17 @@ class Game:
     def carousel_round(self) -> None:
         """Handles tasks for carousel rounds"""
         print(f"\n[Carousel Round] {self.round}")
-        self.message_queue.put("CLEAR")
+        self.start_round_tasks()
         if self.round == "3-4":
             self.arena.final_comp = True
-        self.arena.check_health()
-        print("  Getting a champ from the carousel")
+
+        print("  Waiting for carousel round to end...")
         game_functions.get_champ_carousel(self.round)
 
     def pve_round(self) -> None:
         """Handles tasks for PVE rounds"""
         print(f"\n[PvE Round] {self.round}")
-        self.message_queue.put("CLEAR")
+        self.start_round_tasks()
         sleep(0.5)
         if self.round in game_assets.AUGMENT_ROUNDS:
             sleep(1)
@@ -170,7 +179,7 @@ class Game:
     def pvp_round(self) -> None:
         """Handles tasks for PVP rounds"""
         print(f"\n[PvP Round] {self.round}")
-        self.message_queue.put("CLEAR")
+        self.start_round_tasks()
         sleep(0.5)
         if self.round in game_assets.AUGMENT_ROUNDS:
             sleep(1)
@@ -202,8 +211,22 @@ class Game:
             self.arena.place_items()
         self.end_round_tasks()
 
+    def start_round_tasks(self) -> None:
+        """Common tasks across rounds that happen at the start"""
+        self.message_queue.put("CLEAR")
+        game_functions.default_pos()
+        self.arena.check_health()
+
+        if self.force_board_check is True:
+            self.arena.fix_board_state()
+
     def end_round_tasks(self) -> None:
         """Common tasks across rounds that happen at the end"""
-        self.arena.check_health()
         self.arena.get_label()
         game_functions.default_pos()
+
+        if arena_functions.get_time() >= 20:
+            print("  Enough time left to check the board state")
+            self.arena.fix_board_state()
+
+        print(f"  [Time Left] {arena_functions.get_time()} seconds")
