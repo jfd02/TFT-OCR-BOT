@@ -22,7 +22,6 @@ def get_round() -> str:
     game_round: str = ocr.get_text_from_image(image=round_one, whitelist=ocr.ROUND_WHITELIST)
     return game_round
 
-
 def pickup_items() -> None:  # Refacor this function to make it more clear whats happening
     """Picks up items from the board after PVP round"""
     for index, coords in enumerate(screen_coords.ITEM_PICKUP_LOC):
@@ -40,8 +39,8 @@ def pickup_items() -> None:  # Refacor this function to make it more clear whats
 def get_champ_carousel(tft_round: str) -> None:
     """Gets a champion from the carousel"""
     while tft_round == get_round():
-        mk_functions.right_click(screen_coords.CAROUSEL_LOC.get_coords())
-        sleep(0.7)
+        #mk_functions.right_click(screen_coords.CAROUSEL_LOC.get_coords())
+        sleep(1.3)
 
 
 def check_alive() -> bool:    # Refactor this function to use API
