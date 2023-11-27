@@ -59,7 +59,11 @@ class Game:
     def loading_screen(self) -> None:
         """Loop that runs while the game is in the loading screen"""
         game_functions.default_pos()
-        while game_functions.get_round() != "1-1":
+        while game_functions.get_round() not in game_assets.ROUNDS:
+            hwnd = win32gui.FindWindow(None, "League of Legends (TM) Client")
+            if not win32gui.IsWindowVisible(hwnd):
+                print("Window is not visible. Returning and starting another queue.")
+                break
             sleep(1)
         self.start_time: float = perf_counter()
         self.game_loop()

@@ -12,7 +12,11 @@ import settings
 def game_loop(ui_queue: multiprocessing.Queue) -> None:
     """Keeps the program running indefinetly by calling queue and game start in a loop"""
     while True:
-        auto_queue.queue()
+        client_info: tuple = auto_queue.get_client()
+        
+        if not auto_queue.check_game_status(client_info):
+            auto_queue.queue()
+            
         Game(ui_queue)
 
 
