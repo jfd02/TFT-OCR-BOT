@@ -4,6 +4,7 @@ other variables used by the bot to make decisions
 """
 
 from time import sleep
+import random
 import game_assets
 import mk_functions
 import screen_coords
@@ -68,6 +69,59 @@ class Arena:
                 continue
             if isinstance(slot, Champion) and not bench_occupied[index]:
                 self.bench[index] = None
+
+    def fix_board_state(self) -> None:
+        """Iterates through board and fixes all slots"""
+        mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
+        self.board_size = 0
+
+        # Create a list of tuples containing original index and Vec2 object
+        indexed_board_loc = list(enumerate(screen_coords.BOARD_LOC))
+
+        # Shuffle the list of tuples in-place
+        random.shuffle(indexed_board_loc)
+
+        # Iterate over the shuffled list of tuples
+        for original_index, (_, coords) in enumerate(indexed_board_loc):
+            mk_functions.right_click(coords.get_coords())
+            champ_name: str = ocr.get_text(
+                screenxy=screen_coords.PANEL_NAME_LOC.get_coords(),
+                scale=3,
+                psm=7,
+                whitelist=ocr.ALPHABET_WHITELIST,
+            )
+
+            for champion in self.board:
+                if champion.name is not None:
+                    if champion.name == champ_name and champion.index != original_index:
+                        champion.index = original_index
+                    elif champion.index == original_index and champion.name != champ_name:
+                        if champion.name in self.board_names:
+                            self.board_names.remove(champion.name)
+                        self.board.remove(champion)
+
+            if champ_name in game_assets.CHAMPIONS:
+                print(f"  Found {champ_name} on board")
+
+                size = game_assets.CHAMPIONS[champ_name]["Board Size"]
+                self.board_size += size
+
+                champion = Champion(
+                    name=champ_name,
+                    coords=coords.get_coords(),
+                    build = comps.COMP.get(champ_name, {"items": []})["items"].copy(),
+                    size=size,
+                    slot=original_index,
+                    final_comp=comps.COMP.get(champ_name, {"final_comp": False})["final_comp"],
+                )
+
+                if champion.name not in self.board_names:
+                    self.board.append(champion)
+                    self.board_names.append(champion.name)
+
+                mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
+
+        mk_functions.right_click(screen_coords.DEFAULT_PLAYER_LOC.get_coords())
 
     def bought_champion(self, name: str, slot: int) -> None:
         """Purchase champion and creates champion instance"""
@@ -135,7 +189,7 @@ class Arena:
             self.bench[index] = None
 
     def unknown_in_bench(self) -> bool:
-        """Sells all of the champions on the bench"""
+        """Sells all the unknown champions on the bench"""
         return any(isinstance(slot, str) for slot in self.bench)
 
     def move_champions(self) -> None:
@@ -236,8 +290,34 @@ class Arena:
     def add_item_to_champs(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
         for champ in self.board:
-            if champ.does_need_items() and self.items[item_index] is not None:
-                self.add_item_to_champ(item_index, champ)
+            if self.items[item_index] is not None:
+                if champ.does_need_items():
+                    self.add_item_to_champ(item_index, champ)
+                elif len(champ.build) == 0:
+                    print(f"  Possible candidate for item {champ.name} on board.")
+                    item = self.items[item_index]
+                    if self.other_instances_dont_need_item(item) and item in game_assets.FULL_ITEMS:
+                        mk_functions.left_click(
+                            screen_coords.ITEM_POS[item_index][0].get_coords()
+                        )
+                        mk_functions.left_click(champ.coords)
+                        print(f"  Placed {item} on {champ.name} to free up space")
+                        champ.completed_items.append(item)
+                        self.items[self.items.index(item)] = None
+                    else:
+                        print("  Other instance needs item or not a full item.")
+                
+    def other_instances_dont_need_item(self, item):
+        """Checks if the full item can be placed on a champion that has no items defined in COMPS"""
+        board_needs_item = any(item in champ.build for champ in self.board)
+        bench_needs_item = any(item in champ.build for champ in self.bench)
+        champions_to_buy_needs_item = any(item in comps.COMP[champion]["items"] for champion in comps.champions_to_buy())
+
+        print("Board needs item: ", board_needs_item)
+        print("Bench needs item: ", bench_needs_item)
+        print("Champions to buy needs item: ", champions_to_buy_needs_item)
+
+        return not (board_needs_item or bench_needs_item or champions_to_buy_needs_item)
 
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
@@ -301,7 +381,8 @@ class Arena:
                 self.bench[index] = None
 
         # Remove all instances of champion in champs_to_buy
-        self.champs_to_buy.pop(champion.name)
+        if champion.name in self.champs_to_buy:
+            self.champs_to_buy.pop(champion.name)
 
         mk_functions.press_e(champion.coords)
         self.board_names.remove(champion.name)
