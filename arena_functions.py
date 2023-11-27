@@ -53,6 +53,21 @@ def get_gold() -> int:
     except ValueError:
         return 0
 
+def get_time() -> int:
+    """Returns the time left for the current round"""
+    time: str = ocr.get_text(
+        screenxy=screen_coords.TIME_POS.get_coords(),
+        scale=3,
+        psm=7,
+        whitelist="0123456789",
+    )
+    try:
+        if int(time) > 60:
+            return 0
+
+        return int(time)
+    except ValueError:
+        return 0
 
 def valid_champ(champ: str) -> str:
     """Matches champion string to a valid champion name string and returns it"""

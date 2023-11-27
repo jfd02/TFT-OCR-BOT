@@ -40,6 +40,8 @@ ROUND_POS_TWO: Vec4 = Vec4(GameWindow(57, 0, 96, 24), use_screen_offset=False)
 
 SHOP_POS: Vec4 = Vec4(GameWindow(481, 1039, 1476, 1070))
 
+TIME_POS: Vec4 = Vec4(GameWindow(1130, 10, 1161, 32))
+
 CHAMP_NAME_POS: list[Vec4] = [
     Vec4(GameWindow(3, 5, 120, 24), use_screen_offset=False),
     Vec4(GameWindow(204, 5, 320, 24), use_screen_offset=False),
