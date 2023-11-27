@@ -73,6 +73,7 @@ class Game:
         """Loop that runs while the game is active, handles calling the correct tasks for round and exiting game"""
         ran_round: str = None
         booted_round: str = game_functions.get_round()
+        sent_boot_round_message: bool = False
         last_game_health: int = 100
 
         while True:
@@ -168,7 +169,10 @@ class Game:
             # self.arena.tacticians_crown_check() #not getting any item in set9 round 1-3, skipped
 
         self.arena.fix_bench_state()
-        self.arena.spend_gold()
+        
+        if self.force_board_check is False:
+            self.arena.spend_gold()
+        
         self.arena.move_champions()
         self.arena.replace_unknown()
         if self.arena.final_comp:
@@ -196,10 +200,11 @@ class Game:
         self.arena.bench_cleanup()
         if self.round in game_assets.ANVIL_ROUNDS:
             self.arena.clear_anvil()
-        if self.round in game_assets.PICKUP_ROUNDS:
-            self.arena.spend_gold(speedy=True)
-        else:
-            self.arena.spend_gold()
+        if self.force_board_check is False:
+            if self.round in game_assets.PICKUP_ROUNDS:
+                self.arena.spend_gold(speedy=True)
+            else:
+                self.arena.spend_gold()
         self.arena.move_champions()
         self.arena.replace_unknown()
         if self.arena.final_comp:
@@ -217,16 +222,21 @@ class Game:
         game_functions.default_pos()
         self.arena.check_health()
 
-        if self.force_board_check is True:
+        if self.force_board_check is True and self.round not in game_assets.AUGMENT_ROUNDS:
+            # Wait for board to load
+            sleep(1)
             self.arena.fix_board_state()
+            self.force_board_check = False
 
     def end_round_tasks(self) -> None:
         """Common tasks across rounds that happen at the end"""
-        self.arena.get_label()
-        game_functions.default_pos()
-
         if arena_functions.get_time() >= 20:
             print("  Enough time left to check the board state")
             self.arena.fix_board_state()
 
-        print(f"  [Time Left] {arena_functions.get_time()} seconds")
+        time_left = arena_functions.get_time()
+        if time_left != 0:
+            print(f"  [Time Left] {time_left} seconds")
+            
+        self.arena.get_label()
+        game_functions.default_pos()

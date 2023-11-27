@@ -75,14 +75,8 @@ class Arena:
         mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
         self.board_size = 0
 
-        # Create a list of tuples containing original index and Vec2 object
-        indexed_board_loc = list(enumerate(screen_coords.BOARD_LOC))
-
-        # Shuffle the list of tuples in-place
-        random.shuffle(indexed_board_loc)
-
         # Iterate over the shuffled list of tuples
-        for original_index, (_, coords) in enumerate(indexed_board_loc):
+        for index, coords in enumerate(screen_coords.BOARD_LOC):
             mk_functions.right_click(coords.get_coords())
             champ_name: str = ocr.get_text(
                 screenxy=screen_coords.PANEL_NAME_LOC.get_coords(),
@@ -93,9 +87,9 @@ class Arena:
 
             for champion in self.board:
                 if champion.name is not None:
-                    if champion.name == champ_name and champion.index != original_index:
-                        champion.index = original_index
-                    elif champion.index == original_index and champion.name != champ_name:
+                    if champion.name == champ_name and champion.index != index:
+                        champion.index = index
+                    elif champion.index == index and champion.name != champ_name:
                         if champion.name in self.board_names:
                             self.board_names.remove(champion.name)
                         self.board.remove(champion)
@@ -111,7 +105,7 @@ class Arena:
                     coords=coords.get_coords(),
                     build = comps.COMP.get(champ_name, {"items": []})["items"].copy(),
                     size=size,
-                    slot=original_index,
+                    slot=index,
                     final_comp=comps.COMP.get(champ_name, {"final_comp": False})["final_comp"],
                 )
 
@@ -122,6 +116,7 @@ class Arena:
                 mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
 
         mk_functions.right_click(screen_coords.DEFAULT_PLAYER_LOC.get_coords())
+        mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
 
     def bought_champion(self, name: str, slot: int) -> None:
         """Purchase champion and creates champion instance"""
@@ -293,9 +288,10 @@ class Arena:
             if self.items[item_index] is not None:
                 if champ.does_need_items():
                     self.add_item_to_champ(item_index, champ)
-                elif len(champ.build) == 0:
+                if len(champ.build) == 0:
                     print(f"  Possible candidate for item {champ.name} on board.")
                     item = self.items[item_index]
+                    print(f"  Item in FULL_ITEMS: {item in game_assets.FULL_ITEMS}")
                     if self.other_instances_dont_need_item(item) and item in game_assets.FULL_ITEMS:
                         mk_functions.left_click(
                             screen_coords.ITEM_POS[item_index][0].get_coords()
@@ -306,18 +302,24 @@ class Arena:
                         self.items[self.items.index(item)] = None
                     else:
                         print("  Other instance needs item or not a full item.")
-                
+
+    def item_needed_on_champions(self, champions, item):
+        """Checks if the item is needed on any champions"""
+        return any(
+            champ is not None and getattr(champ, 'build', None) is not None and item in champ.build
+            for champ in champions
+        )
+
     def other_instances_dont_need_item(self, item):
-        """Checks if the full item can be placed on a champion that has no items defined in COMPS"""
-        board_needs_item = any(item in champ.build for champ in self.board)
-        bench_needs_item = any(item in champ.build for champ in self.bench)
-        champions_to_buy_needs_item = any(item in comps.COMP[champion]["items"] for champion in comps.champions_to_buy())
+        """Checks if any other instance needs the item"""
+        item_needed_on_board = self.item_needed_on_champions(self.board, item)
+        item_needed_on_bench = self.item_needed_on_champions(self.bench, item)
+        item_needed_on_champions_to_buy = any(
+            item in comps.COMP.get(champion, {"items": []})["items"]
+            for champion in comps.champions_to_buy()
+        )
 
-        print("Board needs item: ", board_needs_item)
-        print("Bench needs item: ", bench_needs_item)
-        print("Champions to buy needs item: ", champions_to_buy_needs_item)
-
-        return not (board_needs_item or bench_needs_item or champions_to_buy_needs_item)
+        return not (item_needed_on_board or item_needed_on_bench or item_needed_on_champions_to_buy)
 
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
