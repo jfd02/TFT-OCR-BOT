@@ -288,9 +288,7 @@ class Arena:
                 if champ.does_need_items():
                     self.add_item_to_champ(item_index, champ)
                 if len(champ.build) == 0:
-                    print(f"  Possible candidate for item {champ.name} on board.")
                     item = self.items[item_index]
-                    print(f"  Item in FULL_ITEMS: {item in game_assets.FULL_ITEMS}")
                     if self.other_instances_dont_need_item(item) and item in game_assets.FULL_ITEMS:
                         mk_functions.left_click(
                             screen_coords.ITEM_POS[item_index][0].get_coords()
@@ -299,8 +297,6 @@ class Arena:
                         print(f"  Placed {item} on {champ.name} to free up space")
                         champ.completed_items.append(item)
                         self.items[self.items.index(item)] = None
-                    else:
-                        print("  Other instance needs item or not a full item.")
 
     def item_needed_on_champions(self, champions, item):
         """Checks if the item is needed on any champions"""
