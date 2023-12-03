@@ -21,3 +21,4 @@ class Champion:
     def does_need_items(self) -> bool:
         """Returns if the champion instance needs items"""
         return len(self.completed_items) != 3 or len(self.build) + len(self.current_building) == 0
+    

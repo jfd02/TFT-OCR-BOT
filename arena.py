@@ -75,7 +75,6 @@ class Arena:
         mk_functions.left_click(screen_coords.DEFAULT_LOC.get_coords())
         self.board_size = 0
 
-        # Iterate over the shuffled list of tuples
         for index, coords in enumerate(screen_coords.BOARD_LOC):
             mk_functions.right_click(coords.get_coords())
             champ_name: str = ocr.get_text(
