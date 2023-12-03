@@ -205,7 +205,7 @@ class Arena:
                         champion[1] in game_assets.CHAMPIONS
                         and game_assets.champion_gold_cost(champion[1]) <= gold
                         and game_assets.champion_board_size(champion[1]) == 1
-                        and self.champs_to_buy.get(champion[1], 0) <= 0
+                        and self.champs_to_buy.get(champion[1], -1) < 0
                         and champion[1] not in self.board_unknown
                     )
 
@@ -249,7 +249,7 @@ class Arena:
                 self.anvil_free[index] = True
             elif isinstance(champion, Champion):
                 if (
-                    self.champs_to_buy.get(champion.name, 0) <= 0
+                    self.champs_to_buy.get(champion.name, -1) < 0
                     and champion.name in self.board_names
                 ):
                     print("  Selling unknown champion")
@@ -441,17 +441,21 @@ class Arena:
             print(f"  Shop: {shop}")
             for champion in shop:
                 if (
-                    self.champs_to_buy.get(champion[1], 0) > 0
+                    self.champs_to_buy.get(champion[1], -1) >= 0
                     and arena_functions.get_gold()
                     - game_assets.CHAMPIONS[champion[1]]["Gold"]
                     >= 0
                 ):
-                    if champion[0] != 4 or not arena_functions.check_headliner():
+                    if (
+                        champion[0] != 4 or not arena_functions.check_headliner()
+                    ) and self.champs_to_buy.get(champion[1], -1) > 0:
                         self.buy_champion(champion, 1)
                     elif (
                         champion[0] == 4
                         and (
-                            arena_functions.check_headliner() & comps.get_headliner_tag(champion[1]) != 0
+                            arena_functions.check_headliner()
+                            & comps.get_headliner_tag(champion[1])
+                            != 0
                         )
                         and not self.have_headliner
                         and comps.COMP[champion[1]]["final_comp"]
