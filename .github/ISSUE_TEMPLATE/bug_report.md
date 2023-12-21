@@ -12,9 +12,9 @@ A clear and concise description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior or what is the bot doing:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
+1. Start round 2-x
+2. Buying champion
+3. Moving champion to board
 4. See error
 
 **Expected behavior**
