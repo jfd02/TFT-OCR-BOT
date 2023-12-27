@@ -28,7 +28,7 @@ class Vec2:
                 round(y_pos + Vec2.screen_y_offset),
             )
 
-        return (round(x_pos), round(y_pos))
+        return round(x_pos), round(y_pos)
 
     @classmethod
     def setup_screen(cls, x_pos: int, y_pos: int, width: int, height: int) -> None:

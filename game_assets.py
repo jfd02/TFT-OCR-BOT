@@ -31,7 +31,7 @@ CRAFTABLE_NON_EMBLEM_ITEMS: set[str] = {
     "GiantSlayer",
     "Guardbreaker",
     "GuinsoosRageblade",
-    "HandofJustice",
+    "HandOfJustice",
     "HextechGunblade",
     "InfinityEdge",
     "IonicSpark",
@@ -60,7 +60,7 @@ CRAFTABLE_NON_EMBLEM_ITEMS: set[str] = {
 CRAFTABLE_EMBLEM_ITEMS: set[str] = {
     "8bitEmblem",
     "EmoEmblem",
-    "HEARTSTEELEmblem",
+    "HeartsteelEmblem",
     "JazzEmblem",
     "KDAEmblem",
     "PentakillEmblem",
@@ -142,7 +142,9 @@ ORNN_ITEMS: set[str] = {
     "BlacksmithsGloves",
     "DeathsDefiance",
     "DeathfireGrasp",
+    "DiamondHands",
     "EternalWinter",
+    "GamblersBlade",
     "GoldCollector",
     "GoldmancersStaff",
     "Hullcrusher",
@@ -173,9 +175,7 @@ RADIANT_ITEMS: set[str] = {
     "GuinsoosReckoning",
     "HextechLifeblade",
     "JakshotheProtean",
-    "LeagacyoftheColossus",
     "LuminousDeathblade",
-    "MidnightReaper",
     "MoreMoreellonomicon",
     "NashorsToothRadiant",
     "Quickestsilver",
@@ -209,6 +209,14 @@ MISC_ITEMS: set[str] = {
 
 # Union of all holdable items
 HOLDABLE_ITEMS: set[str] = COMPONENT_AND_CRAFTABLE_ITEMS \
+    .union(SUPPORT_ITEMS) \
+    .union(TRAIT_ITEMS) \
+    .union(ELUSIVE_ITEMS) \
+    .union(ORNN_ITEMS) \
+    .union(RADIANT_ITEMS)
+
+FORCED_ITEMS: set[str] = CRAFTABLE_NON_EMBLEM_ITEMS \
+    .union(CRAFTABLE_EMBLEM_ITEMS) \
     .union(ELUSIVE_ITEMS) \
     .union(SUPPORT_ITEMS) \
     .union(TRAIT_ITEMS) \
@@ -270,11 +278,13 @@ ROUNDS: set[str] = {
 
 # Specific rounds
 PORTAL_ROUND: set[str] = {"1-1"}
+
 SECOND_ROUND: set[str] = {"1-2"}
-THIRD_ROUND: set[str] = {"1-3"}
-FOURTH_ROUND: set[str] = {"1-4"}
+
 CAROUSEL_ROUND: set[str] = {"2-4", "3-4", "4-4", "5-4", "6-4", "7-4"}
-PVE_ROUND: set[str] = {"2-7", "3-7", "4-7", "5-7", "6-7", "7-7"}
+
+PVE_ROUND: set[str] = {"1-3", "1-4", "2-7", "3-7", "4-7", "5-7", "6-7", "7-7"}
+
 PVP_ROUND: set[str] = {
     "2-1", "2-2", "2-3", "2-5", "2-6",
     "3-1", "3-2", "3-3", "3-5", "3-6",
@@ -284,6 +294,7 @@ PVP_ROUND: set[str] = {
     "7-1", "7-2", "7-3", "7-5", "7-6"
 }
 PICKUP_ROUNDS: set[str] = {"2-1", "3-1", "4-1", "5-1", "6-1", "7-1"}
+
 ANVIL_ROUNDS: set[str] = {
     "2-1", "2-5",
     "3-1", "3-5",
@@ -292,9 +303,22 @@ ANVIL_ROUNDS: set[str] = {
     "6-1", "6-5",
     "7-1", "7-5"
 }
-LEVEL_ROUNDS: set[str] = {"2-1": 4, "2-5": 5, "3-2": 6, "4-1": 7, "5-1": 8}
+
+LEVEL_ROUNDS: set[str] = {
+    "2-1": 4,
+    "2-5": 5,
+    "3-2": 6,
+    "4-1": 7,
+    "4-5": 8,
+    "5-1": 8, 
+    "5-5": 9,
+    "6-1": 9
+}
+
 AUGMENT_ROUNDS: set[str] = {"2-1", "3-2", "4-2"}
+
 REGION_ROUNDS: set[str] = {"2-5", "4-5"}
+
 ITEM_PLACEMENT_ROUNDS: set[str] = {
     "2-1", "2-3", "2-5",
     "3-1", "3-3", "3-5",
@@ -303,6 +327,7 @@ ITEM_PLACEMENT_ROUNDS: set[str] = {
     "6-1", "6-3", "6-5",
     "7-1", "7-3", "7-5"
 }
+
 FINAL_COMP_ROUND = "4-1"
 
 # Dictionary of craftable items and their components
@@ -324,7 +349,7 @@ CRAFTABLE_ITEMS_DICT = {
     "Guardbreaker":("GiantsBelt","SparringGloves"),
     "GuinsoosRageblade":("NeedlesslyLargeRod","RecurveBow"),
     "HeartsteelEmblem":("Spatula","GiantsBelt"),
-    "HandofJustice":("SparringGloves","TearoftheGoddess"),
+    "HandOfJustice":("SparringGloves","TearoftheGoddess"),
     "HextechGunblade":("BFSword","NeedlesslyLargeRod"),
     "InfinityEdge":("BFSword","SparringGloves"),
     "IonicSpark":("NeedlesslyLargeRod","NegatronCloak"),
@@ -368,7 +393,7 @@ RADIANT_ITEMS_DICT = {
     "DvarapalaStoneplate": "GargoyleStoneplate",
     "Equinox": "Evenshroud",
     "EternalWhisper": "LastWhisper",
-    "FistofFairness": "HandofJustice",
+    "FistofFairness": "HandOfJustice",
     "GlamorousGauntlet": "JeweledGauntlet",
     "GuinsoosReckoning": "GuinsoosRageblade",
     "HextechLifeblade": "HextechGunblade",
@@ -397,59 +422,93 @@ RADIANT_ITEMS_DICT = {
 
 # List of augment names
 AUGMENTS: list[str] = [
-    "That's Jazz, Baby!",
-    "Three's a Crowd",
-    "Bigger Shot",
-    "Binary Aidrop",
-    "Phreaky Friday",
-    "Stationary Support I",
-    "Crash Test Dummies",
-    "Heroic Presence",
-    "Stationary Support III",
-    "Bounty Hunters",
-    "The Golden Egg",
-    "March of Progress",
-    "A Cut Above",
-    "Cutting Corners",
-    "Lucky Gloves+",
-    "Endless Hordes",
-    "Escort Quest",
-    "Stationary Support II",
-    "Expose Weakness",
+    "Capricious Forge",
     "Sleight of Hand",
-    "Portable Forge",
-    "Shopping Spree",
     "Roll The Dice",
-    "Pumping Up III",
-    "Buried Treasures III",
-    "Silver Spoon",
-    "Inspiring Epitaph",
-    "Emotional Connection",
-    "Scrappy Inventions",
-    "Impentrable Bulwark",
-    "Phreaky Friday+",
-    "Iron Assets",
-    "Good For Something I",
-    "Burried Treasures II",
-    "Scape goat",
-    "Overwhelming Force",
-    "Living Forge",
-    "Idealism",
-    "Patient Study",
-    "Jeweled Lotus III",
+    "That's Jazz Baby!",
+    "You Have My Bow",
     "Blistering Strikes",
-    "Cybernetic Bulk I",
-    "Cybernetic Bulk III",
-    "Vampirism I"
+    "Buried Treasures",
+    "Switching Gears",
+    "Caretaker's Favor",
+    "Gotta Go Fast",
+    "Tiny Power",
+    "Shurima's Legacy",
+    "Featherweights",
+    "Reconnaissance Team",
+    "Electrocharge",
+    "Quickdraw Soul",
+    "InfiniTeam",
+    "Big Friend",
+    "First Aid Kit",
+    "Stand United",
+    "Grab Bag",
+    "Component Grab Bag",
+    "Thrill of the Hunt",
+    "Better Together",
+    "Cybernetic Uplink",
+    "Cybernetic Implants",
+    "Celestial Blessing",
+    "Cybernetic Shell",
+    "Weakspot",
+    "Tri Force",
+    "Gadget Expert",
+    "Metabolic Accelerator",
+    "Second Wind",
+    "Luden's Echo",
+    "Last Stand",
+    "Ascension",
+    "Tiny Titans",
+    "Sunfire Board",
+    "Wise Spending",
+    "Component Grab Bag+",
+    "Preparation",
+    "Blue Battery",
+    "Hustler",
+    "Windfall++",
+    "Verdant Veil",
+    "Rich Get Richer+",
+    "Combat Training",
+    "Meditation",
+    "Axiom Arc",
 ]
 
 # List of portal names
 PORTALS: list[str] = [
+    "All Gold Augments",
+    "All Prismatic Augments",
+    "All Silver Augments",
+    "Double Item Carousel",
+    "Duplicator Start",
+    "Entourage",
+    "Gold Augment First",
+    "Gold Augment Third",
+    "Gold Per Augment",
+    "Gold Per Item",
+    "Kill Counter",
+    "Max Intrest",
+    "Multi-Talented",
+    "Player Health Decrease",
+    "Player Health Increase",
     "Pot of Gold",
+    "Prismatic Augment First",
+    "Prismatic Augment Third",
+    "Scuttle Puddle",
+    "Showtime",
+    "Spatula",
+    "3-Cost Start",
+    "Training Dummy",
+    "Triple Champion Start",
+    "Unit Accelerator"
+]
+
+ANVIL_PORTALS: list[str] = [
+    "Artifact Anvil",
     "Completed Anvil",
     "Component Anvils",
+    "Radiant Item",
     "Support Anvil",
-    "Max Interest",
-    "Scuttle Puddle",
     "Tome of Traits"
 ]
+
+All_PORTALS: list[str] = PORTALS + ANVIL_PORTALS

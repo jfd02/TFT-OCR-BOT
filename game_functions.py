@@ -52,7 +52,7 @@ def get_champ_carousel(tft_round: str) -> None:
     #carousel_coords = randint(0, 2)
     while tft_round == get_round():
         mk_functions.right_click(screen_coords.CAROUSEL_LOC[randint(0,2)].get_coords())
-        sleep(0.7)
+        sleep(2.3)
 
 
 def check_alive() -> bool:  # Refactor this function to use API
@@ -94,3 +94,8 @@ def forfeit() -> None:
     sleep(0.1)
     mk_functions.left_click(screen_coords.SURRENDER_TWO_LOC.get_coords())
     sleep(1)
+
+
+def default_tactician_pos() -> None:
+    """Moves the mouse to the default tactician position"""
+    mk_functions.right_click(screen_coords.DEFAULT_TACTICIAN_LOC.get_coords())

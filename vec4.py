@@ -50,7 +50,7 @@ class Vec4:
                 round(height + Vec4.screen_y_offset),
             )
 
-        return (round(x_pos), round(y_pos), round(width), round(height))
+        return round(x_pos), round(y_pos), round(width), round(height)
 
     @classmethod
     def setup_screen(cls, x_pos: int, y_pos: int, width: int, height: int) -> None:

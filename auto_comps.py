@@ -94,8 +94,11 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
             .strip()
         )
         afs = deck.select_one(".open-builder>a").attrs["href"]
-        deck_list.append((nms, afs))
+        # Check "Early Build summary" comp exists and skip adding to deck_list since it's useless
+        if nms != "Early Build summary":
+            deck_list.append((nms, afs))
     pattern = r'<script id="__NEXT_DATA__" type="application/json">\s*({[\s\S]*?})\s*</script>'
+    champion_name = ""  # Initialize headliner_champion outside the loop
     for nms, afs in deck_list:
         deck_keys = afs.split("/guide/")[-1].split("?type=guide")[0]
         deck_response = requests.get(
@@ -118,6 +121,26 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
             f"https://tft.dakgg.io/api/v1/team-builders/{deck_keys}",
             timeout=10).json()
         counter = 0
+        headliner_trait_key_info = deck_slots.get("lv9TeamBuilder", {}).get("specialUnit", {})
+
+        # Check if there is enough information in headliner_trait_key_info
+        if headliner_trait_key_info.get("traitKey") and headliner_trait_key_info.get("championKey"):
+            headliner_champion = headliner_trait_key_info.get("championKey", "")
+            headliner_trait_key = headliner_trait_key_info.get("traitKey", "")
+
+        # Check if there is enough information in headliner_trait_key_info
+        if headliner_champion and headliner_trait_key:
+
+            # Normalize champion names
+            champion_name = (
+                champion_name
+                .replace("MissFortune", "Miss Fortune")
+                .replace("TwistedFate", "Twisted Fate")
+                .replace("Kaisa", "Kai'Sa")
+                .replace("ahri", "Ahri")
+                .replace("TahmKench", "Tahm Kench")
+            )
+
         augments = deck_slots.get("teamBuilder", {}).get("augments", [])
         real_augments = [
             arg.get("name")
@@ -125,7 +148,7 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
             if arg.get("key") in augments
         ]
         slots = {}
-        for each_slot in deck_slots.get("teamBuilder", {}).get("slots", []):
+        for each_slot in deck_slots.get("lv9TeamBuilder", {}).get("slots", []):
             if each_slot is not None:
                 try:
                     champion_name = (
@@ -137,6 +160,10 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
                         )[0]["name"]
                         .replace("Akali (K/DA)", "Akali")
                         .replace("Akali (True Damage)", "Akali")
+                        .replace("MissFortune", "Miss Fortune")
+                        .replace("TwistedFate", "Twisted Fate")
+                        .replace("Kaisa", "Kai'Sa")
+                        .replace("TahmKench", "Tahm Kench")
                     )
                     star = each_slot.get("star", 1)
                 except Exception:
@@ -145,14 +172,26 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
                     query_data.get("items"),
                     each_slot.get("items", []),
                 )
+                # Check if the current champion matches the specified headliner champion
+                if champion_name == headliner_champion:
+                    headliner_value = (
+                       headliner_trait_key_info["traitKey"]
+                       .strip()
+                       # Set headliner to the first part of headliner_trait_key for the corresponding champion
+                    )
+                else:
+                    headliner_value = ""  # Set headliner to an empty string for other champions
+
                 slots[champion_name] = {
                     "board_position": LOLCHESS_BOARD_ARRANGE[each_slot.get("index")],
                     "items": slot_items,
                     "level": star,
                     "final_comp": True,
+                    "headliner": headliner_value,
                 }
             counter += 3
         output_comps.append([nms, slots, real_augments])
+
     return output_comps
 
 def render_item(ob, ids):

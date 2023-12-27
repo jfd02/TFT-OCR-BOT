@@ -19,7 +19,7 @@ from comps import CompsManager
 from vec4 import Vec4
 
 
-def get_level() -> int:
+def get_level_via_https_request() -> int:
     """Returns the level for the tactician"""
     try:
         response = requests.get(
@@ -30,6 +30,16 @@ def get_level() -> int:
         return int(response.json()["activePlayer"]["level"])
     except (requests.exceptions.ConnectionError, KeyError):
         return 1
+
+
+def get_level_via_ocr() -> int:
+    """Returns the level of the tactician"""
+    level: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_LEVEL_POS.get_coords(), scale=3, psm=8,
+                              whitelist="0123456789")
+    try:
+        return int(level)
+    except ValueError:
+        return -1
 
 
 def get_health() -> int:
@@ -101,7 +111,7 @@ def get_shop(comps: CompsManager) -> list:
         thread.start()
     for thread in thread_list:
         thread.join()
-    return shop
+    return sorted(shop)
 
 
 def empty_slot() -> int:
@@ -134,7 +144,7 @@ def valid_item(item: str) -> Optional[str]:
             valid_item_name
             for valid_item_name in game_assets.ALL_ITEMS
             if valid_item_name in item
-            or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.7
+            or SequenceMatcher(a=valid_item_name, b=item).ratio() >= 0.85
         ),
         None,
     )
@@ -149,7 +159,7 @@ def get_items() -> list:
         item: str = ocr.get_text(
             screenxy=positions[1].get_coords(),
             scale=3,
-            psm=7,
+            psm=8,
             whitelist=ocr.ALPHABET_WHITELIST,
         )
         item_bench.append(valid_item(item))
@@ -157,11 +167,29 @@ def get_items() -> list:
     return item_bench
 
 
+def check_headliner() -> bool:
+    """Check if the last Champion in the store is a headliner"""
+    result: int = 0
+    for index, positions in enumerate(screen_coords.HEADLINER_POS):
+        headliner: str = ocr.get_text(
+            screenxy=positions.get_coords(),
+            scale=3,
+            psm=10,
+            whitelist=ocr.ROUND_WHITELIST.replace("-", ""),
+        )
+        if headliner == "2":
+            result += 2**index
+    return result
+
+
 def get_seconds_remaining() -> int:
     """Returns how many seconds are remaining before the next phase of this round."""
     seconds: str = ocr.get_text(screenxy=screen_coords.SECONDS_REMAINING_POS.get_coords(), scale=3,
                                 psm=7, whitelist="0123456789")
     try:
+        if int(seconds) > 60:
+            return -1
+
         return int(seconds)
     except ValueError:
         return -1

@@ -13,7 +13,6 @@ import game_assets
 import game_functions
 import screen_coords
 import settings
-import mk_functions
 from arena import Arena
 from comps import CompsManager
 from vec2 import Vec2
@@ -129,39 +128,30 @@ class Game:
                 print(
                     f"\n[Comps] Stick to [{','.join(self.comps_manager.current_comp()[1])}] "
                 )
-                if self.round in game_assets.PVP_ROUND:
-                    game_functions.default_pos()
-                    self.pvp_round()
-                    ran_round: str = self.round
-                elif self.round in game_assets.PVE_ROUND:
-                    game_functions.default_pos()
-                    self.pve_round()
-                    ran_round: str = self.round
                 if self.round in game_assets.PORTAL_ROUND:
-                    game_functions.default_pos()
                     self.portal_round()
                     ran_round: str = self.round
                 elif self.round in game_assets.SECOND_ROUND:
                     game_functions.default_pos()
                     self.second_round()
                     ran_round: str = self.round
-                elif self.round in game_assets.THIRD_ROUND:
-                    game_functions.default_pos()
-                    self.third_round()
-                    ran_round: str = self.round
-                elif self.round in game_assets.FOURTH_ROUND:
-                    game_functions.default_pos()
-                    self.fourth_round()
-                    ran_round: str = self.round
                 elif self.round in game_assets.CAROUSEL_ROUND:
                     self.carousel_round()
+                    ran_round: str = self.round
+                elif self.round in game_assets.PVE_ROUND:
+                    game_functions.default_pos()
+                    self.pve_round()
+                    ran_round: str = self.round
+                elif self.round in game_assets.PVP_ROUND:
+                    game_functions.default_pos()
+                    self.pvp_round()
                     ran_round: str = self.round
             sleep(0.5)
 
     def portal_round(self) -> None:
         """Waits for Region Augment decision."""
         print(f"\n[Portal Round] {self.round}")
-        self.message_queue.put("CLEAR")
+        self.start_round_tasks()
         sleep(2.5)
         print("  Voting for a portal")
         self.arena.portal_vote()
@@ -169,88 +159,54 @@ class Game:
     def second_round(self) -> None:
         """"Move unknown champion to board after first carousel."""
         print(f"\n[Second Round] {self.round}")
-        self.message_queue.put("CLEAR")
-        sleep(2)
-        self.arena.region_augment()
-        if self.arena.starting_anvils is True:
-            self.end_round_tasks()
-        else:
-            self.arena.bench[0] = "?"
-            self.arena.move_unknown()
-            self.end_round_tasks()
-
-    def third_round(self) -> None:
-        """Clears starting anvils for Demacia Region otherwise plays normally."""
-        print(f"\n[PvE Round] {self.round}")
-        self.message_queue.put("CLEAR")
-        sleep(0.5)
-        if self.arena.starting_anvils is True:
-            self.arena.clear_anvil()
-            self.arena.clear_anvil()
-            self.arena.clear_anvil()
-            self.end_round_tasks()
-        else:
-            self.arena.fix_bench_state()
-            self.arena.spend_gold()
-            self.arena.move_champions()
-            self.arena.replace_unknown()
-            self.arena.bench_cleanup()
-            self.end_round_tasks()
-
-    def fourth_round(self) -> None:
-        """Fixes board after starting anvils sold from Demacia Region otherwise plays normally."""
-        print(f"\n[PvE Round] {self.round}")
-        self.message_queue.put("CLEAR")
-        sleep(0.5)
-        if self.arena.starting_anvils is True:
-            mk_functions.press_e(screen_coords.BOARD_LOC[3].get_coords())
-            self.arena.fix_bench_state()
-            self.arena.spend_gold()
-            self.arena.move_champions()
-            self.arena.replace_unknown()
-            self.arena.bench_cleanup()
-            self.end_round_tasks()
-        else:
-            self.arena.fix_bench_state()
-            self.arena.spend_gold()
-            self.arena.move_champions()
-            self.arena.replace_unknown()
-            self.arena.bench_cleanup()
-            self.end_round_tasks()
+        self.start_round_tasks()
+        while True:
+            result = arena_functions.bench_occupied_check()
+            if any(result):
+                break
+        self.arena.bench[result.index(True)] = "?"
+        self.arena.move_unknown()
+        sleep(2.5)
+        self.arena.portal_augment()
+        self.end_round_tasks()
 
     def carousel_round(self) -> None:
         """Handles tasks for carousel rounds"""
         print(f"\n[Carousel Round] {self.round}")
-        self.message_queue.put("CLEAR")
+        self.start_round_tasks()
         if self.round == "3-4":
             self.arena.final_comp = True
-        self.arena.check_health()
         print("  Getting a champ from the carousel")
         game_functions.get_champ_carousel(self.round)
 
     def pve_round(self) -> None:
         """Handles tasks for PVE rounds."""
         print(f"\n[PvE Round] {self.round}")
-        self.message_queue.put("CLEAR")
-        sleep(0.5)
+        self.start_round_tasks()
+        sleep(0.8)
         seconds_in_round = 30
         if self.round in game_assets.AUGMENT_ROUNDS:
             sleep(1)
             self.arena.augment_roll = True
             self.arena.pick_augment()
             sleep(2.5)
-
-        if self.round == "1-3": # Third Round
+        if self.round == "1-3":
             sleep(1.5)
-            #self.arena.fix_unknown()
-            # self.arena.tacticians_crown_check()
-
-        if self.round == "1-4": #Fourth Round
-            if self.arena.starting_anvils is True:
-                mk_functions.press_e(screen_coords.BOARD_LOC[3].get_coords())
+            # Check if the active portal is an anvil portal and clear the anvils it if it is
+            if self.arena.active_portal in game_assets.ANVIL_PORTALS:
+                self.arena.anvil_free[1:] = [True] * 8
+                self.arena.clear_anvil()
+                self.arena.anvil_free[:2] = [True, False]
+                self.arena.clear_anvil()
+            self.arena.fix_unknown()
+        if self.round == "3-7":
+            if self.arena.radiant_item is True:
+                sleep(1.5)
+                self.arena.clear_anvil()
 
         self.arena.fix_bench_state()
         self.arena.spend_gold()
+
         if seconds_in_round - (time.time() - self.start_time_of_round) >= 5.0:  # number picked randomly
             self.arena.move_champions()
         else:
@@ -264,24 +220,11 @@ class Game:
         self.arena.bench_cleanup()
         self.end_round_tasks()
 
-    def level_up(self, target_level: int, stop_seconds: float) -> None:
-        """Level up to the target level, with a maximum duration to avoid being stuck.
-        Args:
-            target_level (int): Target level to reach.
-            stop_seconds (float): Maximum duration for leveling up."""
-        while arena_functions.get_level() < target_level:
-            self.arena.buy_xp_round()
-            if time.time() - self.start_time_of_round >= stop_seconds:
-                break
-
-        print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level()}")
-
     def pvp_round(self) -> None:
         """Handles tasks for PVP rounds."""
         print(f"\n[PvP Round] {self.round}")
-        self.message_queue.put("CLEAR")
-        sleep(0.5)
-        self.arena.check_health()
+        self.start_round_tasks()
+        sleep(0.8)
         seconds_in_round = 30
         if self.round in game_assets.AUGMENT_ROUNDS:
             seconds_in_round = 50
@@ -302,8 +245,10 @@ class Game:
 
         self.arena.fix_bench_state()
         self.arena.bench_cleanup()
+
         if self.round in game_assets.ANVIL_ROUNDS:
             self.arena.clear_anvil()
+
         if self.round in game_assets.PICKUP_ROUNDS:
             self.arena.spend_gold(speedy=True)
         else:
@@ -333,8 +278,28 @@ class Game:
 
         self.end_round_tasks()
 
+    def level_up(self, target_level: int, stop_seconds: float) -> None:
+        """Level up to the target level, with a maximum duration to avoid being stuck.
+        Args:
+            target_level (int): Target level to reach.
+            stop_seconds (float): Maximum duration for leveling up."""
+        while arena_functions.get_level_via_https_request() < target_level:
+            self.arena.buy_xp_round()
+            if time.time() - self.start_time_of_round >= stop_seconds:
+                break
+
+        print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level_via_https_request()}")
+
+    def start_round_tasks(self) -> None:
+        """Common tasks across rounds that happen at the start"""
+        self.message_queue.put("CLEAR")
+        game_functions.default_pos()
+        game_functions.default_tactician_pos()
+        self.arena.check_health()
+
     def end_round_tasks(self) -> None:
         """Common tasks across rounds that happen at the end."""
         self.arena.check_health()
         self.arena.get_label()
+        game_functions.default_tactician_pos()
         game_functions.default_pos()

@@ -57,9 +57,9 @@ ANVIL_MSG_POS: Vec4 = Vec4(GameWindow(818, 838, 932, 859))
 EXIT_NOW_POS: Vec4 = Vec4(GameWindow(910, 566, 1018, 584))
 
 AUGMENT_POS: list[Vec4] = [
-    Vec4(GameWindow(423, 525, 675, 560)),
-    Vec4(GameWindow(830, 525, 1086, 560)),
-    Vec4(GameWindow(1231, 525, 1495, 560)),
+    Vec4(GameWindow(417, 536, 687, 566)),
+    Vec4(GameWindow(825, 536, 1095, 566)),
+    Vec4(GameWindow(1230, 536, 1500, 566)),
 ]
 
 AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
@@ -76,11 +76,17 @@ PORTALS_LOC: list[Vec2] = [Vec2(32, 345), Vec2(32, 440), Vec2(32, 526)]
 
 PORTALS_VOTES: list[Vec2] = [Vec2(354, 469), Vec2(354, 560), Vec2(354, 648)]
 
-REGION_AUGMENT_LOC: Vec2 = Vec2(500, 350)
+PORTAL_AUGMENT_LOC: Vec2 = Vec2(500, 350)
 
-REGION_AUGMENT_POS: Vec4 = Vec4(GameWindow(660, 285, 845, 340))
+PORTAL_AUGMENT_POS: Vec4 = Vec4(GameWindow(660, 285, 845, 340))
 
 VICTORY_POS: Vec4 = Vec4(GameWindow(906, 560, 1030, 587))
+
+HEADLINER_POS: list[Vec4] = [
+    Vec4(GameWindow(1280, 1018, 1289, 1030)),
+    Vec4(GameWindow(1280, 990, 1289, 1002)),
+    Vec4(GameWindow(1280, 964, 1289, 976))
+]
 
 BUY_LOC: list[Vec2] = [
     Vec2(575, 992),
@@ -91,7 +97,7 @@ BUY_LOC: list[Vec2] = [
 ]
 
 ITEM_PICKUP_LOC: list[Vec2] = [
-    Vec2(1459, 605),
+    Vec2(1480, 605),
     Vec2(1293, 313),
     Vec2(1093, 235),
     Vec2(683, 309),
@@ -158,6 +164,15 @@ BUY_XP_LOC: Vec2 = Vec2(364, 964)
 REFRESH_LOC: Vec2 = Vec2(364, 1039)
 
 DEFAULT_LOC: Vec2 = Vec2(60, 222)
+
+# Helps for reading items correctly
+DEFAULT_TACTICIAN_LOC: Vec2 = Vec2(466, 484)
+
+# The area covering the number that is the tactician's level.
+TACTICIAN_LEVEL_POS: Vec4 = Vec4(GameWindow(316, 880, 332, 902))
+
+# The center location of the number that is the tactician's level.
+TACTICIAN_LEVEL_LOC: Vec2 = Vec2(324, 891)
 
 HEALTH_LOC: Vec2 = Vec2(1897, 126)
 
