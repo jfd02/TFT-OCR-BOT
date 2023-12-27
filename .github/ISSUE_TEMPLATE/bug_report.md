@@ -1,32 +1,31 @@
 ---
 name: Bug report
-about: Outline for bug reports
+about: Create a report to help us improve
 title: ''
-labels: bug
+labels: ''
 assignees: ''
 
 ---
 
 **Describe the bug**
-A description of what the bug is.
+A clear and concise description of what the bug is.
 
 **To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
+Steps to reproduce the behavior or what is the bot doing:
+1. Start round 2-x
+2. Buying champion
+3. Moving champion to board
 4. See error
 
 **Expected behavior**
-A description of what you expected to happen or should be happening.
+A clear and concise description of what you expected to happen.
 
 **Screenshots**
-Add screenshots to help explain your problem.
+Add screenshots to help explain your problem. Both bot(cmd) and game screenshots are acceptable. Remember to blur any player names in tthe screenshot.
 
-**Specs (please complete the following information):**
- - Python version
-- Dependency versions (pip version etc..)
-
+**Your setup (please complete the following information):**
+ - screen size: [e.g. 1920x1080]
+ - Python version: [e.g. 3.11.4]
 
 **Additional context**
 Add any other context about the problem here.
