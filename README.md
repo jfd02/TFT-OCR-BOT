@@ -3,7 +3,8 @@
 ## NOTES:
 - Make sure you don't have any overlays on (Blitz, Mobalytics, etc.).
 - League & client must be in English.
-- 16:9 resolution borderless windowed is required in League, the game must also be on the main monitor (Use 1920x1080 for best results).
+- 16:9 resolution borderless windowed is required in League, the game must also be on the main monitor ~~(Use 1920x1080 for best results).~~
+- Due to some adjustments by Riot, other resolutions are not exactly scaled versions of 1080p, so now **only support 1920x1080 borderless window.**
 - If the program crashes or not working, please read the FAQ first. If the issue still cannot be resolved, then create an issue with the error.
 
 ## INSTALLATION:
@@ -20,7 +21,7 @@
 5. Run install.py
 6. Configure settings.py so the league client path is correct
 7. Disable all in-game overlays
-8. Run the main.py file
+8. Run the main.py file in CMD
 
 ## FEATURES:
 ![main](https://i.imgur.com/1bXOmag.png)
