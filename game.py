@@ -61,7 +61,8 @@ class Game:
         """Loop that runs while the game is in the loading screen"""
         game_functions.default_pos()
         while game_functions.get_round() != "1-1":
-            self.check_failed_to_connect_window()
+            if self.check_failed_to_connect_window():
+                return
             sleep(1)
         self.start_time: float = perf_counter()
         self.game_loop()
@@ -75,12 +76,12 @@ class Game:
                 if cancel_button := win32gui.FindWindowEx(hwnd, reconnect_button, "Button", None):
                     print(f"{win32gui.GetWindowText(cancel_button)} button found.")
                     win32gui.SendMessage(cancel_button, BM_CLICK, 0, 0)
-                    sleep(1)
-
-                else:
-                    print("  Cancel button not found.")
+                    sleep(5)
+                    return True
+                print("  Cancel button not found.")
             else:
                 print("  Reconnect button not found.")
+        return False
 
 
     def game_loop(self) -> None:

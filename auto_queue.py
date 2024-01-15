@@ -72,7 +72,7 @@ def check_game_status(client_info: tuple) -> bool:
             timeout=10,
             verify=False,
         )
-        return status.json()["phase"]
+        return status.json().get("phase", "None")
     except ConnectionError:
         return False
 
