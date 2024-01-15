@@ -74,7 +74,7 @@ class Game:
             print("  Found \"Failed to Connect\" window, trying to exit and reconnect")
             if reconnect_button := win32gui.FindWindowEx(hwnd, 0, "Button", None):
                 if cancel_button := win32gui.FindWindowEx(hwnd, reconnect_button, "Button", None):
-                    print(f"{win32gui.GetWindowText(cancel_button)} button found.")
+                    print(f"  {win32gui.GetWindowText(cancel_button)} button found.")
                     win32gui.SendMessage(cancel_button, BM_CLICK, 0, 0)
                     sleep(5)
                     return True
