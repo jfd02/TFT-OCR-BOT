@@ -72,7 +72,7 @@ def check_game_status(client_info: tuple) -> bool:
             timeout=10,
             verify=False,
         )
-        return status.json()["phase"] == "InProgress"
+        return status.json().get("phase", "None")
     except ConnectionError:
         return False
 
@@ -124,9 +124,25 @@ def get_client() -> tuple:
     return (remoting_auth_token, server_url)
 
 
+def reconnect(client_info: tuple) -> None:
+    """Reconnect to game when "Failed to Connect" windows are found"""
+    requests.post(
+        f"{client_info[1]}/lol-gameflow/v1/reconnect",
+        auth=HTTPBasicAuth('riot', client_info[0]),
+        timeout=10,
+        verify=False,
+    )
+
+
 def queue() -> None:
     """Function that handles getting into a game"""
     client_info: tuple = get_client()
+    while check_game_status(client_info) == "InProgress":
+        sleep(1)
+    if check_game_status(client_info) == "Reconnect":
+        print("  Reconnecting")
+        reconnect(client_info)
+        return
     while not create_lobby(client_info):
         sleep(3)
 
@@ -148,7 +164,7 @@ def queue() -> None:
             sleep(5)
             start_queue(client_info)
         accept_queue(client_info)
-        if check_game_status(client_info):
+        if check_game_status(client_info) == "InProgress":
             in_queue = False
         sleep(1)
         time += 1
