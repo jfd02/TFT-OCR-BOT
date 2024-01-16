@@ -137,6 +137,8 @@ def reconnect(client_info: tuple) -> None:
 def queue() -> None:
     """Function that handles getting into a game"""
     client_info: tuple = get_client()
+    while check_game_status(client_info) == "InProgress":
+        sleep(1)
     if check_game_status(client_info) == "Reconnect":
         print("  Reconnecting")
         reconnect(client_info)
