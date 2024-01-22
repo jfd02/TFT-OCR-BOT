@@ -12,7 +12,7 @@ e.g.2 want either "Sentinel" or "True Damage" Ekko, set it to "headliner": [True
 COMP = {
     "MissFortune": {
         "board_position": 6,
-        "items": ["Deathblade", "LastWhisper", "GuinsoosRageblade"],
+        "items": ["GuinsoosRageblade", "Deathblade", "LastWhisper"],
         "level": 2,
         "final_comp": True,
         "headliner": [False, True, False]
@@ -40,21 +40,21 @@ COMP = {
     },
     "Ekko": {
         "board_position": 5,
-        "items": [],
+        "items": ["ThiefsGloves"],
         "level": 2,
         "final_comp": True,
         "headliner": [False, False, False]
     },
     "Bard": {
         "board_position": 0,
-        "items": [],
+        "items": ["JeweledGauntlet","SpearofShojin"],
         "level": 2,
         "final_comp": True,
         "headliner": [False, True, False]
     },
     "KaiSa": {
         "board_position": 1,
-        "items": [],
+        "items": ["ThiefsGloves"],
         "level": 2,
         "final_comp": True,
         "headliner": [False, False, False]
@@ -84,6 +84,7 @@ COMP = {
 
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
 # (Anything that changes gameplay or adds something to the bench).
+# The ones on the top will be prioritized for selection.
 AUGMENTS: list[str] = [
     "That's Jazz Baby!",
     "You Have My Bow",
