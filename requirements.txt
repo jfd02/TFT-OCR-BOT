@@ -1,6 +1,6 @@
 numpy==1.25.2
 opencv_python==4.8.0.74
-Pillow==10.0.1
+Pillow==10.2.0
 PyDirectInput==1.0.4
 requests==2.31.0
 screeninfo==0.8.1
