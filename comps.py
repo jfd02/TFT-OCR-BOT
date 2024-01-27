@@ -5,6 +5,7 @@ This module contains the CompsManager class, which manages team compositions and
 import random
 from typing import Dict, List, Union
 
+
 class CompsManager:
     """
     Class to manage team compositions and champions.
@@ -19,7 +20,9 @@ class CompsManager:
         self.comps_loaded: list[str, dict[str, dict[str,]]] = []
         self.champions: dict[str, dict[str, int]] = {}
 
-    def set_comps_loaded(self, input_data: List[Union[str, Dict[str, Dict[str, int]]]]) -> None:
+    def set_comps_loaded(
+        self, input_data: List[Union[str, Dict[str, Dict[str, int]]]]
+    ) -> None:
         """
         Set the loaded compositions.
 
@@ -112,14 +115,16 @@ class CompsManager:
         ]
         return [n for n in range(27) if n not in container]
 
-
     def convert_headliner_data(self, name, headliner_data):
         """Convert headliner data to a boolean list."""
         if not headliner_data or headliner_data == "[]":
             return [False, False, False]
 
         champion_data = self.champions.get(name, {})
-        return [champion_data.get(f"Trait{i+1}", "").lower() == headliner_data.lower() for i in range(3)]
+        return [
+            champion_data.get(f"Trait{i+1}", "").lower() == headliner_data.lower()
+            for i in range(3)
+        ]
 
     def get_headliner_tag(self, name: str) -> int:
         """Return what trait of specified champion can become headliner"""

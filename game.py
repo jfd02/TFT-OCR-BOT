@@ -37,6 +37,7 @@ class Game:
         self.forfeit_time = settings.FORFEIT_TIME + random.randint(50, 150)
         self.found_window = False
         self.start_time_of_round = None
+        self.fast8_leveling = False
 
         print("\n[!] Searching for game window")
         while not self.found_window:
@@ -76,6 +77,8 @@ class Game:
     def loading_screen(self) -> None:
         """Loop that runs while the game is in the loading screen."""
         game_functions.default_pos()
+        if self.comps_manager.current_comp()[0] == "High Value":
+            self.fast8_leveling = True
         while game_functions.get_round() != "1-1":
             sleep(1)
         self.start_time: float = perf_counter()
@@ -84,8 +87,14 @@ class Game:
     def game_loop(self) -> None:
         """Loop that runs while the game is active, handles calling the correct tasks for round and exiting game."""
         self.start_time_of_round = time.time()
-        labels = [(f"{arena_functions.get_seconds_remaining()}",
-                screen_coords.SECONDS_REMAINING_LOC.get_coords(), -40, -10)]
+        labels = [
+            (
+                f"{arena_functions.get_seconds_remaining()}",
+                screen_coords.SECONDS_REMAINING_LOC.get_coords(),
+                -40,
+                -10,
+            )
+        ]
         self.message_queue.put(("LABEL", labels))
 
         ran_round: str = None
@@ -114,8 +123,14 @@ class Game:
 
             # Display the seconds remaining for this phase in real-time.
             self.start_time_of_round = time.time()
-            labels = [(f"{arena_functions.get_seconds_remaining()}",
-                    screen_coords.SECONDS_REMAINING_LOC.get_coords(), -40, -10)]
+            labels = [
+                (
+                    f"{arena_functions.get_seconds_remaining()}",
+                    screen_coords.SECONDS_REMAINING_LOC.get_coords(),
+                    -40,
+                    -10,
+                )
+            ]
             self.message_queue.put(("LABEL", labels))
             if (
                 settings.FORFEIT
@@ -157,7 +172,7 @@ class Game:
         self.arena.portal_vote()
 
     def second_round(self) -> None:
-        """"Move unknown champion to board after first carousel."""
+        """ "Move unknown champion to board after first carousel."""
         print(f"\n[Second Round] {self.round}")
         self.start_round_tasks()
         while True:
@@ -176,6 +191,7 @@ class Game:
         self.start_round_tasks()
         if self.round == "3-4":
             self.arena.final_comp = True
+        sleep(4.7)
         print("  Getting a champ from the carousel")
         game_functions.get_champ_carousel(self.round)
 
@@ -207,14 +223,20 @@ class Game:
         self.arena.fix_bench_state()
         self.arena.spend_gold()
 
-        if seconds_in_round - (time.time() - self.start_time_of_round) >= 5.0:  # number picked randomly
+        if (
+            seconds_in_round - (time.time() - self.start_time_of_round) >= 5.0
+        ):  # number picked randomly
             self.arena.move_champions()
         else:
             print("  Less than 5 seconds left in planning. No time to move champions.")
-        if seconds_in_round - (time.time() - self.start_time_of_round) >= 5.0:  # number picked randomly
+        if (
+            seconds_in_round - (time.time() - self.start_time_of_round) >= 5.0
+        ):  # number picked randomly
             self.arena.replace_unknown()
         else:
-            print("  Less than 5 seconds left in planning. No time to replace unknown units.")
+            print(
+                "  Less than 5 seconds left in planning. No time to replace unknown units."
+            )
         if self.arena.final_comp:
             self.arena.final_comp_check()
         self.arena.bench_cleanup()
@@ -232,12 +254,21 @@ class Game:
             self.arena.augment_roll = True
             self.arena.pick_augment()
             sleep(2.5)
-        if self.round in game_assets.LEVEL_ROUNDS:
-            target_level = game_assets.LEVEL_ROUNDS[self.round]
 
-            if target_level > 0:
-                stop_seconds = 10
-                self.level_up(target_level, stop_seconds)
+        if self.fast8_leveling:
+            if self.round in game_assets.FAST8_LEVEL_ROUNDS:
+                target_level = game_assets.FAST8_LEVEL_ROUNDS[self.round]
+
+                if target_level > 0:
+                    stop_seconds = 10
+                    self.level_up(target_level, stop_seconds)
+        else:
+            if self.round in game_assets.NORMAL_LEVEL_ROUNDS:
+                target_level = game_assets.NORMAL_LEVEL_ROUNDS[self.round]
+
+                if target_level > 0:
+                    stop_seconds = 10
+                    self.level_up(target_level, stop_seconds)
 
         if self.round in game_assets.PICKUP_ROUNDS:
             print("  Picking up items")
@@ -254,27 +285,36 @@ class Game:
         else:
             self.arena.spend_gold()
 
-        if seconds_in_round - (time.time() - self.start_time_of_round) >= 3.0:  # number picked randomly
+        if (
+            seconds_in_round - (time.time() - self.start_time_of_round) >= 3.0
+        ):  # number picked randomly
             self.arena.move_champions()
         else:
             print("  Less than 3 seconds left in planning. No time to move champions.")
 
-
-        if seconds_in_round - (time.time() - self.start_time_of_round) >= 3.0:  # number picked randomly
+        if (
+            seconds_in_round - (time.time() - self.start_time_of_round) >= 3.0
+        ):  # number picked randomly
             self.arena.replace_unknown()
         else:
-            print("  Less than 3 seconds left in planning. No time to replace unknown units.")
+            print(
+                "  Less than 3 seconds left in planning. No time to replace unknown units."
+            )
 
         if self.arena.final_comp:
             self.arena.final_comp_check()
         self.arena.bench_cleanup()
 
-        if (seconds_in_round - (time.time() - self.start_time_of_round)) >= 3.0 and \
-            (self.round in game_assets.ITEM_PLACEMENT_ROUNDS or \
-                 arena_functions.get_health() <= 15 or len(self.arena.items) >= 8):
+        if (seconds_in_round - (time.time() - self.start_time_of_round)) >= 3.0 and (
+            self.round in game_assets.ITEM_PLACEMENT_ROUNDS
+            or arena_functions.get_health() <= 15
+            or len(self.arena.items) >= 8
+        ):
             self.arena.place_items()
         else:
-            print("  Less than 3 seconds left in planning. No time to give items to units.")
+            print(
+                "  Less than 3 seconds left in planning. No time to give items to units."
+            )
 
         self.end_round_tasks()
 

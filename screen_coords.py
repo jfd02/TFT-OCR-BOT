@@ -85,7 +85,7 @@ VICTORY_POS: Vec4 = Vec4(GameWindow(906, 560, 1030, 587))
 HEADLINER_POS: list[Vec4] = [
     Vec4(GameWindow(1280, 1018, 1289, 1030)),
     Vec4(GameWindow(1280, 990, 1289, 1002)),
-    Vec4(GameWindow(1280, 964, 1289, 976))
+    Vec4(GameWindow(1280, 964, 1289, 976)),
 ]
 
 BUY_LOC: list[Vec2] = [
@@ -149,11 +149,7 @@ BOARD_LOC: list[Vec2] = [
     Vec2(1251, 423),
 ]
 
-CAROUSEL_LOC: list[Vec2] = [
-    Vec2(964, 644),
-    Vec2(775, 505),
-    Vec2(1150, 505)
-]
+CAROUSEL_LOC: list[Vec2] = [Vec2(964, 644), Vec2(775, 505), Vec2(1150, 505)]
 
 EXIT_NOW_LOC: Vec2 = Vec2(962, 575)
 

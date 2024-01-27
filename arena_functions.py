@@ -34,8 +34,12 @@ def get_level_via_https_request() -> int:
 
 def get_level_via_ocr() -> int:
     """Returns the level of the tactician"""
-    level: str = ocr.get_text(screenxy=screen_coords.TACTICIAN_LEVEL_POS.get_coords(), scale=3, psm=8,
-                              whitelist="0123456789")
+    level: str = ocr.get_text(
+        screenxy=screen_coords.TACTICIAN_LEVEL_POS.get_coords(),
+        scale=3,
+        psm=8,
+        whitelist="0123456789",
+    )
     try:
         return int(level)
     except ValueError:
@@ -184,8 +188,12 @@ def check_headliner() -> bool:
 
 def get_seconds_remaining() -> int:
     """Returns how many seconds are remaining before the next phase of this round."""
-    seconds: str = ocr.get_text(screenxy=screen_coords.SECONDS_REMAINING_POS.get_coords(), scale=3,
-                                psm=7, whitelist="0123456789")
+    seconds: str = ocr.get_text(
+        screenxy=screen_coords.SECONDS_REMAINING_POS.get_coords(),
+        scale=3,
+        psm=7,
+        whitelist="0123456789",
+    )
     try:
         if int(seconds) > 60:
             return -1

@@ -2,6 +2,8 @@
 Where the bot execution starts & contains the game loop that keeps the bot running indefinitely
 """
 
+import ctypes
+import sys
 import multiprocessing
 import os
 import time
@@ -19,14 +21,28 @@ NO_CHOICES = ["no", "n"]
 def game_loop(ui_queue: multiprocessing.Queue, comps: CompsManager) -> None:
     """Keeps the program running indefinitely by calling queue and game start in a loop"""
     while True:
-        auto_queue.queue()
+        auto_queue.handle_queue()
         Game(ui_queue, comps)
+
+
+def is_admin():
+    """Check if bot is running as admin to prevent bot can't move in-game"""
+    try:
+        return ctypes.windll.shell32.IsUserAnAdmin()
+    except: # pylint: disable=bare-except
+        return False
+
 
 def check_league_client_path():
     """Check if League of Legends client path is specified."""
     if LEAGUE_CLIENT_PATH is None:
-        print("No League of Legends client path specified. Please set the path in settings.py")
-        raise ValueError("No League of Legends client path specified. Please set the path in settings.py")
+        print(
+            "No League of Legends client path specified. Please set the path in settings.py"
+        )
+        raise ValueError(
+            "No League of Legends client path specified. Please set the path in settings.py"
+        )
+
 
 def load_champions_data() -> dict:
     """Load champions data from a file or other source."""
@@ -123,7 +139,14 @@ def main():
     Raises:
         ValueError: If the League of Legends client path is not specified in settings.py.
     """
-    print("AUTO COMPS TFT OCR BOT started.")
+    ctypes.windll.kernel32.SetConsoleTitleW("Auto Comps TFT OCR Bot")
+    print(r"""
+     ___       __         _____                      ________________  ____  ________    ___       __ 
+    / _ |__ __/ /____    / ___/__  __ _  ___  ___   /_  __/ __/_  __/ / __ \/ ___/ _ \  / _ )___  / /_
+   / __ / // / __/ _ \  / /__/ _ \/  ' \/ _ \(_-<    / / / _/  / /   / /_/ / /__/ , _/ / _  / _ \/ __/
+  /_/ |_\_,_/\__/\___/  \___/\___/_/_/_/ .__/___/   /_/ /_/   /_/    \____/\___/_/|_| /____/\___/\__/
+                                      /_/
+    """)
 
     check_league_client_path()
 
@@ -135,7 +158,9 @@ def main():
 
     message_queue = multiprocessing.Queue()
     overlay = UI(message_queue)
-    game_thread = multiprocessing.Process(target=game_loop, args=(message_queue, comps_manager))
+    game_thread = multiprocessing.Process(
+        target=game_loop, args=(message_queue, comps_manager)
+    )
 
     print(
         "\nOriginal version - https://github.com/jfd02/TFT-OCR-BOT"
@@ -153,5 +178,9 @@ def main():
     game_thread.start()
     overlay.ui_loop()
 
+
 if __name__ == "__main__":
-    main()
+    if is_admin():
+        main()
+    else:
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)

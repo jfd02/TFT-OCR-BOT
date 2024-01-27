@@ -16,11 +16,36 @@ from comps import CompsManager
 LOLCHESS_CHAMPIONS_URL = "https://lolchess.gg/champions/"
 LOLCHESS_META_COMPS_URL = "https://lolchess.gg/meta"
 LOLCHESS_BOARD_ARRANGE = [
-    21, 22, 23, 24, 25, 26, 27,
-    14, 15, 16, 17, 18, 19, 20,
-    7, 8, 9, 10, 11, 12, 13,
-    0, 1, 2, 3, 4, 5, 6,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
 ]
+
 
 def find_substring_index(input_str, from_where, to, start_index=0):
     """
@@ -30,8 +55,9 @@ def find_substring_index(input_str, from_where, to, start_index=0):
     if index_from != -1:
         index_to = input_str.find(to, index_from + 1)
         if index_to != -1:
-            return index_from, input_str[index_from + len(from_where):index_to]
+            return index_from, input_str[index_from + len(from_where) : index_to]
     return -1, None
+
 
 def extract_substrings(input_str, from_where, to):
     """
@@ -47,6 +73,7 @@ def extract_substrings(input_str, from_where, to):
             index += len(from_where)
     return output
 
+
 def load_lolchess_prices():
     """
     Load champion prices from LOLCHESS.
@@ -56,26 +83,29 @@ def load_lolchess_prices():
     current_tft_set = response.url.split("/")[4][3:]
 
     # Extracting JSON data from the response text
-    json_in_text = (
-        find_substring_index(
-            response.text,
-            "window.guideChampion = {\n            champions: ",
-            r"}}],",
-        )[1]
-        + r"}}]"
+    json_match = re.search(
+        r'<script id="__NEXT_DATA__" type="application/json">(\s*{[\s\S]*?})\s*</script>',
+        response.text
     )
-    json_parsed = json.loads(json_in_text)
 
-    output_dictionary = {}
-    for each_character in json_parsed:
-        character_code = each_character["code"]
-        character_name_ingame = each_character["ingame_code"]
-        character_price = int(each_character["cost"])
-        if character_name_ingame not in output_dictionary:
-            character_code = each_character["code"]
-            character_price = int(each_character["cost"])
-            output_dictionary[character_name_ingame] = (character_price, character_code)
-    return [current_tft_set, output_dictionary]
+    if json_match:
+        json_data = json_match.group(1)
+        json_parsed = json.loads(json_data)
+
+        output_dictionary = {}
+        champions = (
+            json_parsed.get('props', {}).get('pageProps', {}).get('champion', {})
+            .get('data', {}).get('allChampions', [])
+        )
+        for each_character in champions:
+            character_code = each_character.get("key")
+            character_name_ingame = each_character.get("ingameKey")
+            character_price = int(each_character.get("cost", [])[0])  # Assuming we want the cost for the 1-star version
+            if character_name_ingame not in output_dictionary:
+                output_dictionary[character_name_ingame] = (character_price, character_code)
+
+        return [current_tft_set, output_dictionary]
+
 
 def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManager):
     # pylint: disable=unused-argument
@@ -103,7 +133,8 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
         deck_keys = afs.split("/guide/")[-1].split("?type=guide")[0]
         deck_response = requests.get(
             f"https://lolchess.gg/builder/set{set_str}?hl=en&deck={deck_keys}",
-            timeout=10)
+            timeout=10,
+        )
         json_in_text = re.search(pattern, deck_response.text)[1]
         query_data = (
             json.loads(json_in_text)
@@ -118,23 +149,25 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
         with open("cached_data/deck.json", "w", encoding="utf-8") as f:
             f.write(json.dumps(query_data))
         deck_slots = requests.get(
-            f"https://tft.dakgg.io/api/v1/team-builders/{deck_keys}",
-            timeout=10).json()
+            f"https://tft.dakgg.io/api/v1/team-builders/{deck_keys}", timeout=10
+        ).json()
         counter = 0
-        headliner_trait_key_info = deck_slots.get("lv9TeamBuilder", {}).get("specialUnit", {})
+        headliner_trait_key_info = deck_slots.get("lv9TeamBuilder", {}).get(
+            "specialUnit", {}
+        )
 
         # Check if there is enough information in headliner_trait_key_info
-        if headliner_trait_key_info.get("traitKey") and headliner_trait_key_info.get("championKey"):
+        if headliner_trait_key_info.get("traitKey") and headliner_trait_key_info.get(
+            "championKey"
+        ):
             headliner_champion = headliner_trait_key_info.get("championKey", "")
             headliner_trait_key = headliner_trait_key_info.get("traitKey", "")
 
         # Check if there is enough information in headliner_trait_key_info
         if headliner_champion and headliner_trait_key:
-
             # Normalize champion names
             champion_name = (
-                champion_name
-                .replace("MissFortune", "Miss Fortune")
+                champion_name.replace("MissFortune", "Miss Fortune")
                 .replace("TwistedFate", "Twisted Fate")
                 .replace("Kaisa", "Kai'Sa")
                 .replace("ahri", "Ahri")
@@ -154,7 +187,8 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
                     champion_name = (
                         list(
                             filter(
-                                lambda e, each_slot=each_slot: e["key"] == each_slot.get("champion"),
+                                lambda e, each_slot=each_slot: e["key"]
+                                == each_slot.get("champion"),
                                 query_data.get("champions"),
                             ),
                         )[0]["name"]
@@ -175,12 +209,13 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
                 # Check if the current champion matches the specified headliner champion
                 if champion_name == headliner_champion:
                     headliner_value = (
-                       headliner_trait_key_info["traitKey"]
-                       .strip()
-                       # Set headliner to the first part of headliner_trait_key for the corresponding champion
+                        headliner_trait_key_info["traitKey"].strip()
+                        # Set headliner to the first part of headliner_trait_key for the corresponding champion
                     )
                 else:
-                    headliner_value = ""  # Set headliner to an empty string for other champions
+                    headliner_value = (
+                        ""  # Set headliner to an empty string for other champions
+                    )
 
                 slots[champion_name] = {
                     "board_position": LOLCHESS_BOARD_ARRANGE[each_slot.get("index")],
@@ -194,6 +229,7 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
 
     return output_comps
 
+
 def render_item(ob, ids):
     """
     Renders a list of items based on their IDs from given object.
@@ -203,6 +239,7 @@ def render_item(ob, ids):
         i["name"].replace(" ", "").replace("'", "").replace("\u2019", "") for i in items
     ]
 
+
 def load_from_cache(cached_file_path, comp_manager: CompsManager, set_current):
     """
     Load champions and comps data from the cache file.
@@ -210,6 +247,7 @@ def load_from_cache(cached_file_path, comp_manager: CompsManager, set_current):
     with open(cached_file_path + set_current + ".json", encoding="utf-8") as f:
         comp_manager.champions = json.loads(f.readline())
         comp_manager.set_comps_loaded(json.loads(f.readline()))
+
 
 def load_champions_and_comps(comp_manager: CompsManager):
     """
@@ -251,15 +289,15 @@ def load_champions_and_comps(comp_manager: CompsManager):
         if temp_inputed := pathlib.Path(inputed_file_path).read_text(encoding="utf-8"):
             print(
                 f'Your last selection was: "{temp_inputed}", '
-                'press Enter to use the last selection, '
+                "press Enter to use the last selection, "
                 'or type "n" and press Enter to make a new selection',
             )
             inputed = "" if input().lower() == "n" else temp_inputed
 
     if not inputed:
         print(
-            'Select mode:',
-            '\n-Press Enter to play random comps without a sequence',
+            "Select mode:",
+            "\n-Press Enter to play random comps without a sequence",
             '\n-Type "all" and press Enter to play all comps in sequence',
             '\n-Type "all_except 2 3 4" (for example) and press Enter to play all comps in sequence except selected',
             '\n-Type "1 2 3" (for example) and press Enter to play only selected comps in sequence (it will loop)',
@@ -290,6 +328,7 @@ def load_champions_and_comps(comp_manager: CompsManager):
     with open(inputed_file_path, "w", encoding="utf-8") as f:
         f.write(inputed)
 
+
 def save_to_cache(comp_manager: CompsManager, set_current, cached_file_path):
     """
     Save champions and comps data to a cache file.
@@ -315,5 +354,5 @@ def save_to_cache(comp_manager: CompsManager, set_current, cached_file_path):
 
     # Write JSON data to the cache file
     with open(cached_file_path + set_current + ".json", "w", encoding="utf-8") as f:
-        f.write(jsoned_champions + "\n") # Writes champions data to the file
-        f.write(jsoned_comps) # Writes comps data to the file
+        f.write(jsoned_champions + "\n")  # Writes champions data to the file
+        f.write(jsoned_comps)  # Writes comps data to the file

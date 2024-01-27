@@ -13,7 +13,6 @@ import ocr
 import screen_coords
 
 
-
 def get_round() -> str:
     """Gets the current game round"""
     screen_capture = ImageGrab.grab(bbox=screen_coords.ROUND_POS.get_coords())
@@ -49,10 +48,10 @@ def pickup_items() -> (
 
 def get_champ_carousel(tft_round: str) -> None:
     """Gets a champion from the carousel"""
-    #carousel_coords = randint(0, 2)
+    # carousel_coords = randint(0, 2)
     while tft_round == get_round():
-        mk_functions.right_click(screen_coords.CAROUSEL_LOC[randint(0,2)].get_coords())
-        sleep(2.3)
+        mk_functions.right_click(screen_coords.CAROUSEL_LOC[randint(0, 2)].get_coords())
+        sleep(2.7)
 
 
 def check_alive() -> bool:  # Refactor this function to use API
