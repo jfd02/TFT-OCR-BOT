@@ -343,15 +343,15 @@ class Arena:
                                     champ.completed_items = [
                                         item
                                     ] * 3  # Set to 3 completed_items
-                                    print(
-                                        f"  {champ.name} completed items: {champ.completed_items}"
-                                        f"  {champ.name} item slots number: {champ.max_item_slots}"
-                                    )
+                                    #print(
+                                    #    f"  {champ.name} completed items: {champ.completed_items}"
+                                    #    f"  {champ.name} item slots number: {champ.max_item_slots}"
+                                    #)
                                 champ.completed_items.append(item)
                                 self.items[self.items.index(item)] = None
-                                print(
-                                    f"  {champ.name} completed items: {champ.completed_items}"
-                                )
+                                #print(
+                                #    f"  {champ.name} completed items: {champ.completed_items}"
+                                #)
 
     def item_needed_on_champions(self, champions, item):
         """Checks if the item is needed on any champions"""
@@ -393,10 +393,10 @@ class Arena:
                 champ.completed_items.append(item)
                 champ.build.remove(item)
                 self.items[self.items.index(item)] = None
-                print(
-                    f"1  {champ.name} Completed Items: {champ.completed_items}\n"
-                    f"1  {champ.name} Build: {champ.build}"
-                )
+                #print(
+                #    f"1  {champ.name} Completed Items: {champ.completed_items}\n"
+                #    f"1  {champ.name} Build: {champ.build}"
+                #)
         elif len(champ.current_building) == 0:
             item_to_move = None
             for build_item in champ.build:
@@ -417,11 +417,11 @@ class Arena:
                 mk_functions.left_click(champ.coords)
                 print(f"  Placed {item} on {champ.name}")
                 self.items[self.items.index(item)] = None
-                print(
-                    f"2  {champ.name} Currently Building: {champ.current_building[0][0]}\n"
-                    f"2  {champ.name} Completed Items: {champ.completed_items}\n"
-                    f"2  {champ.name} Build: {champ.build}"
-                )
+                #print(
+                #    f"2  {champ.name} Currently Building: {champ.current_building[0][0]}\n"
+                #    f"2  {champ.name} Completed Items: {champ.completed_items}\n"
+                #    f"2  {champ.name} Build: {champ.build}"
+                #)
         else:
             for build_item in champ.current_building:
                 if item == build_item[1]:
@@ -434,10 +434,10 @@ class Arena:
                     self.items[self.items.index(item)] = None
                     print(f"  Placed {item} on {champ.name}")
                     print(f"  Completed {build_item[0]} on {champ.name}")
-                    print(
-                        f"3  {champ.name} Completed Items: {build_item[0]}\n"
-                        f"3  {champ.name} Build: {champ.build}"
-                    )
+                    #print(
+                    #    f"3  {champ.name} Completed Items: {build_item[0]}\n"
+                    #    f"3  {champ.name} Build: {champ.build}"
+                    #)
                     return
 
     def fix_unknown(self) -> None:
