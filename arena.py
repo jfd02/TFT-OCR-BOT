@@ -472,6 +472,9 @@ class Arena:
                 mk_functions.left_click(
                     screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords()
                 )
+                break
+        else:
+            mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
 
     def check_health(self) -> None:
         """Checks if current health is below 30 and conditionally activates spam roll"""
