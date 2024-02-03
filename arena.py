@@ -235,12 +235,9 @@ class Arena:
 
     def add_item_to_champs(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
-        for champ_name in comps.COMP:
-            for champ in self.board:
-                if champ_name == champ.name:
-                    if champ.does_need_items() and self.items[item_index] is not None:
-                        self.add_item_to_champ(item_index, champ)
-                    break
+        for champ in self.board:
+            if champ.does_need_items() and self.items[item_index] is not None:
+                self.add_item_to_champ(item_index, champ)
 
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
