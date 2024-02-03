@@ -137,7 +137,11 @@ AUGMENTS: list[str] = [
 AVOID_AUGMENTS: list[str] = [
     "Stationary Support",
     "Escort Quest",
-    "Scapegoat"
+    "Scapegoat",
+    "AFK",
+    "Recombobulator",
+    "Blank Slate",
+    "Forge"
 ]
 
 
