@@ -433,7 +433,7 @@ class Arena:
             mk_functions.buy_xp()
 
     def pick_augment(self) -> None:
-        """Picks an augment from user defined augment priority list or defaults to first augment"""
+        """Picks an augment from user defined augment priority list or defaults to the augment that not in AVOID list"""
         while True:
             sleep(1)
             augments: list = []
@@ -461,11 +461,20 @@ class Arena:
                 mk_functions.left_click(screen_coords.AUGMENT_ROLL[i].get_coords())
             self.augment_roll = False
             self.pick_augment()
+            return
 
         print(
             "  [!] No priority or backup augment found, undefined behavior may occur for the rest of the round"
         )
-        mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
+
+        for augment in augments:
+            if augment in comps.AVOID_AUGMENTS:
+                mk_functions.left_click(
+                    screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords()
+                )
+                break
+        else:
+            mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
 
     def check_health(self) -> None:
         """Checks if current health is below 30 and conditionally activates spam roll"""

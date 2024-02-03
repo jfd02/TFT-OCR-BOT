@@ -134,6 +134,16 @@ AUGMENTS: list[str] = [
     "Axiom Arc",
 ]
 
+AVOID_AUGMENTS: list[str] = [
+    "Stationary Support",
+    "Escort Quest",
+    "Scapegoat",
+    "AFK",
+    "Recombobulator",
+    "Blank Slate",
+    "Forge"
+]
+
 
 def champions_to_buy() -> dict:
     """Creates a list of champions to buy during the game"""
