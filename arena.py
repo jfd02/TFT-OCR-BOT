@@ -235,9 +235,12 @@ class Arena:
 
     def add_item_to_champs(self, item_index: int) -> None:
         """Iterates through champions in the board and checks if the champion needs items"""
-        for champ in self.board:
-            if champ.does_need_items() and self.items[item_index] is not None:
-                self.add_item_to_champ(item_index, champ)
+        for champ_name in comps.COMP:
+            for champ in self.board:
+                if champ_name == champ.name:
+                    if champ.does_need_items() and self.items[item_index] is not None:
+                        self.add_item_to_champ(item_index, champ)
+                    break
 
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
@@ -433,7 +436,7 @@ class Arena:
             mk_functions.buy_xp()
 
     def pick_augment(self) -> None:
-        """Picks an augment from user defined augment priority list or defaults to first augment"""
+        """Picks an augment from user defined augment priority list or defaults to the augment that not in AVOID list"""
         while True:
             sleep(1)
             augments: list = []
@@ -461,11 +464,17 @@ class Arena:
                 mk_functions.left_click(screen_coords.AUGMENT_ROLL[i].get_coords())
             self.augment_roll = False
             self.pick_augment()
+            return
 
         print(
             "  [!] No priority or backup augment found, undefined behavior may occur for the rest of the round"
         )
-        mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
+
+        for augment in augments:
+            if augment in comps.AVOID_AUGMENTS:
+                mk_functions.left_click(
+                    screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords()
+                )
 
     def check_health(self) -> None:
         """Checks if current health is below 30 and conditionally activates spam roll"""
