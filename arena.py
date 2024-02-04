@@ -334,7 +334,7 @@ class Arena:
                                         "  Tacticians Crown on bench, adding extra slot to board"
                                     )
                                     self.board_size -= 1
-                                    print(f"self.board_size = {self.board_size}")
+                                    #print(f"self.board_size = {self.board_size}")
                                     self.move_champions()
                                 print(
                                     f"  Placed {item} on {champ.name} to free up space"
@@ -567,7 +567,8 @@ class Arena:
         """Replace champion on the board with the headliner"""
         for champ in self.board:
             if champ and champ.name == champion:
-                print(f"  Replaced {champion} with Headliner: {champion}")
+                headliner_trait = self.comps_manager.current_comp()[1].get(champion, {}).get("headliner", "")
+                print(f"  Replaced {champion} with Headliner: {champion} ({headliner_trait})")
                 self.remove_champion(champ)
                 self.buy_champion([4, champion], 0)
                 for newchamp in self.bench:
@@ -621,7 +622,8 @@ class Arena:
         return self.comps_manager.current_comp()[2]
 
     def pick_augment(self) -> None:
-        """Picks an augment based on a comp-specific/user-defined augment list or defaults to the first augment"""
+        """Picks an augment based on a comp-specific/user-defined augment list
+        or defaults to the first augment that is not in the AVOID list"""
         while True:
             sleep(1)
             augments: list = []
@@ -650,11 +652,20 @@ class Arena:
                 mk_functions.left_click(screen_coords.AUGMENT_ROLL[i].get_coords())
             self.augment_roll = False
             self.pick_augment()
+            return
 
         print(
             "  [!] No priority or backup augment found, undefined behavior may occur for the rest of the round"
         )
-        mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
+
+        for augment in augments:
+            if augment in game_assets.AVOID_AUGMENTS:
+                mk_functions.left_click(
+                    screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords()
+                )
+                break
+        else:
+            mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
 
     def check_health(self) -> None:
         """Check the current health and activate spam roll if health is 30 or below"""

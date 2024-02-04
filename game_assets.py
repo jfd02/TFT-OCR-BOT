@@ -477,7 +477,7 @@ RADIANT_ITEMS_DICT = {
     "ZenithEdge": "InfinityEdge"
 }
 
-# List of augment names
+# List of augment names to pick
 AUGMENTS: list[str] = [
     "Capricious Forge",
     "Sleight of Hand",
@@ -528,6 +528,16 @@ AUGMENTS: list[str] = [
     "Combat Training",
     "Meditation",
     "Axiom Arc"
+]
+
+# List of augment names to avoid
+AVOID_AUGMENTS: list[str] = [
+    "Stationary Support",
+    "Escort Quest",
+    "Scapegoat",
+    "AFK",
+    "Recombobulator",
+    "Blank Slate"
 ]
 
 # List of portal names
