@@ -85,6 +85,8 @@ COMP = {
 # No logic for certain augments meaning the bot won't know what to do if they are included in here
 # (Anything that changes gameplay or adds something to the bench).
 # The ones on the top will be prioritized for selection.
+# For those augments names with suffixes like I, II, III, such as 'Cybernetic Uplink II',
+# You only need to add 'Cybernetic Uplink' in the list to cover all three levels.
 AUGMENTS: list[str] = [
     "That's Jazz Baby!",
     "You Have My Bow",
