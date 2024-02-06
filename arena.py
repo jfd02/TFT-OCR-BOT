@@ -467,14 +467,15 @@ class Arena:
             "  [!] No priority or backup augment found, undefined behavior may occur for the rest of the round"
         )
 
-        for augment in augments:
-            if augment in comps.AVOID_AUGMENTS:
-                mk_functions.left_click(
-                    screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords()
-                )
-                break
-        else:
-            mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
+        for potential in comps.AVOID_AUGMENTS:
+            for augment in augments:
+                if potential in augment:
+                    mk_functions.left_click(
+                        screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords()
+                    )
+                    break
+            else:
+                mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
 
     def check_health(self) -> None:
         """Checks if current health is below 30 and conditionally activates spam roll"""
