@@ -3,7 +3,6 @@ Handles the board / bench state inside of the game and
 other variables used by the bot to make decisions
 """
 
-from difflib import SequenceMatcher
 from time import sleep
 import game_assets
 import mk_functions
@@ -471,7 +470,7 @@ class Arena:
         for augment in augments:
             found = False
             for potential in comps.AVOID_AUGMENTS:
-                if SequenceMatcher(None, augment, potential).ratio() > 0.8:
+                if potential in augment:
                     found = True
                     break
             if not found:
