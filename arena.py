@@ -3,6 +3,7 @@ Handles the board / bench state inside of the game and
 other variables used by the bot to make decisions
 """
 
+from difflib import SequenceMatcher
 from time import sleep
 import game_assets
 import mk_functions
@@ -474,7 +475,9 @@ class Arena:
                     found = True
                     break
             if not found:
-                mk_functions.left_click(screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords())
+                mk_functions.left_click(
+                    screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords()
+                )
                 return
         mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
 
