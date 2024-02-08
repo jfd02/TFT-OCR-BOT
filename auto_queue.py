@@ -138,7 +138,7 @@ def queue() -> None:
     """Function that handles getting into a game"""
     client_info: tuple = get_client()
     while check_game_status(client_info) == "InProgress":
-        sleep(1)
+        sleep(2)
     if check_game_status(client_info) == "Reconnect":
         print("  Reconnecting")
         reconnect(client_info)
@@ -149,22 +149,15 @@ def queue() -> None:
     change_arena_skin(client_info)
 
     sleep(3)
-    while not check_queue(client_info):
-        sleep(5)
-        create_lobby(client_info)
-        sleep(3)
-        start_queue(client_info)
-        sleep(1)
 
-    in_queue = True
-    time = 0
-    while in_queue:
-        if time % 60 == 0:
+    while state := check_game_status(client_info):
+        if state == "None":
             create_lobby(client_info)
-            sleep(5)
+        if state == "Lobby":
             start_queue(client_info)
-        accept_queue(client_info)
-        if check_game_status(client_info) == "InProgress":
-            in_queue = False
-        sleep(1)
-        time += 1
+        if state == "ReadyCheck":
+            accept_queue(client_info)
+            print("  Accepting")
+        if state == "InProgress":
+            return
+        sleep(3)
