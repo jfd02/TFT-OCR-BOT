@@ -14,7 +14,7 @@ from comps import CompsManager
 
 # Constants
 LOLCHESS_CHAMPIONS_URL = "https://lolchess.gg/champions/"
-LOLCHESS_META_COMPS_URL = "https://lolchess.gg/meta"
+LOLCHESS_META_COMPS_URL = "https://lolchess.gg/meta?hl=en"
 LOLCHESS_BOARD_ARRANGE = [
     21,
     22,
@@ -117,16 +117,16 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
     extract_substrings(input_str, url_start_string, '"')
     deck_soup = BeautifulSoup(input_str, "lxml")
     deck_list = []
-    for deck in deck_soup.select(".guide-meta__deck-box"):
-        nms = (
-            deck.select_one(".guide-meta__deck__column.name.mr-3")
-            .find(text=True)
-            .strip()
-        )
-        afs = deck.select_one(".open-builder>a").attrs["href"]
-        # Check "Early Build summary" comp exists and skip adding to deck_list since it's useless
-        if nms != "Early Build summary":
-            deck_list.append((nms, afs))
+    for deck in deck_soup.select(".css-1xw5zum.emls75t0"):
+        deck_column = deck.select_one(".css-1xsl2fm.emls75t4")
+        if deck_column:
+            nms = deck_column.find("div").get_text(strip=True)
+            builder_link = deck.select_one(".css-128625v.emls75t7").parent
+            if builder_link:
+                afs = builder_link.get("href")
+                # Check "Early Build summary" comp exists and skip adding to deck_list since it's useless
+                if nms != "Early Build summary":
+                    deck_list.append((nms, afs))
     pattern = r'<script id="__NEXT_DATA__" type="application/json">\s*({[\s\S]*?})\s*</script>'
     champion_name = ""  # Initialize headliner_champion outside the loop
     for nms, afs in deck_list:
