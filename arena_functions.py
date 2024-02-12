@@ -7,6 +7,7 @@ from difflib import SequenceMatcher
 from time import sleep
 
 from typing import Optional
+from tenacity import retry, stop_after_attempt, wait_fixed
 import numpy as np
 import requests
 from PIL import ImageGrab
@@ -24,7 +25,7 @@ def get_level_via_https_request() -> int:
     try:
         response = requests.get(
             "https://127.0.0.1:2999/liveclientdata/allgamedata",
-            timeout=10,
+            timeout=20,
             verify=False,
         )
         return int(response.json()["activePlayer"]["level"])
@@ -46,17 +47,18 @@ def get_level_via_ocr() -> int:
         return -1
 
 
+@retry(stop=stop_after_attempt(3), wait=wait_fixed(2))
 def get_health() -> int:
     """Returns the health for the tactician"""
     try:
         response = requests.get(
             "https://127.0.0.1:2999/liveclientdata/allgamedata",
-            timeout=10,
+            timeout=20,
             verify=False,
         )
         return int(response.json()["activePlayer"]["championStats"]["currentHealth"])
-    except (requests.exceptions.ConnectionError, KeyError):
-        return -1
+    except (requests.exceptions.ConnectionError, KeyError) as exc:
+        raise Exception(f"Failed to fetch health: {exc}") from exc
 
 
 def get_gold() -> int:

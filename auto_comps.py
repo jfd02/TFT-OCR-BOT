@@ -133,7 +133,7 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
         deck_keys = afs.split("/guide/")[-1].split("?type=guide")[0]
         deck_response = requests.get(
             f"https://lolchess.gg/builder/set{set_str}?hl=en&deck={deck_keys}",
-            timeout=10,
+            timeout=20,
         )
         json_in_text = re.search(pattern, deck_response.text)[1]
         query_data = (
@@ -149,7 +149,7 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
         with open("cached_data/deck.json", "w", encoding="utf-8") as f:
             f.write(json.dumps(query_data))
         deck_slots = requests.get(
-            f"https://tft.dakgg.io/api/v1/team-builders/{deck_keys}", timeout=10
+            f"https://tft.dakgg.io/api/v1/team-builders/{deck_keys}", timeout=20
         ).json()
         counter = 0
         headliner_trait_key_info = deck_slots.get("lv9TeamBuilder", {}).get(
@@ -336,7 +336,7 @@ def save_to_cache(comp_manager: CompsManager, set_current, cached_file_path):
     print("Loading from web... (It can take up to ~1 min)")
 
     # Fetch meta comps data from LOLCHESS
-    response_meta_comps = requests.get(LOLCHESS_META_COMPS_URL, timeout=10).text
+    response_meta_comps = requests.get(LOLCHESS_META_COMPS_URL, timeout=20).text
 
     # Load LOLCHESS comps data
     lol_chess_comps = load_lolchess_comps(

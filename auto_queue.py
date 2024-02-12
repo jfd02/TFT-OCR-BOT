@@ -14,17 +14,20 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def create_lobby(client_info: tuple) -> bool:
     """Creates a lobby"""
-    payload = {"queueId": 1090}  # Ranked TFT is 1100 # Normal TFT is 1090
-    payload = json.dumps(payload)
+    payload: dict[str, int] = {"queueId": 1090}  # Ranked TFT is 1100
+    payload: dict[str, int] = json.dumps(payload)
     try:
         status = requests.post(
             f"{client_info[1]}/lol-lobby/v2/lobby/",
             payload,
             auth=HTTPBasicAuth("riot", client_info[0]),
-            timeout=15,
+            timeout=20,
             verify=False,
         )
-        return status.status_code == 200
+        if status.status_code == 200:
+            print("  Creating lobby")
+            return True
+        return False
     except ConnectionError:
         return False
 
@@ -34,7 +37,7 @@ def start_queue(client_info: tuple) -> bool:
         status = requests.post(
             f"{client_info[1]}/lol-lobby/v2/lobby/matchmaking/search",
             auth=HTTPBasicAuth("riot", client_info[0]),
-            timeout=15,
+            timeout=20,
             verify=False,
         )
         if status.status_code == 204:
@@ -50,7 +53,7 @@ def check_queue(client_info: tuple) -> bool:
         status = requests.get(
             f"{client_info[1]}/lol-lobby/v2/lobby/matchmaking/search-state",
             auth=HTTPBasicAuth("riot", client_info[0]),
-            timeout=15,
+            timeout=20,
             verify=False,
         )
         return status.json().get("searchState") == "Searching"
@@ -63,10 +66,10 @@ def check_game_status(client_info: tuple) -> bool:
         status = requests.get(
             f"{client_info[1]}/lol-gameflow/v1/session",
             auth=HTTPBasicAuth("riot", client_info[0]),
-            timeout=15,
+            timeout=20,
             verify=False,
         )
-        return status.json().get("phase", "") == "InProgress"
+        return status.json().get("phase", "None")
     except ConnectionError:
         return False
 
@@ -75,7 +78,7 @@ def accept_queue(client_info: tuple) -> None:
     requests.post(
         f"{client_info[1]}/lol-matchmaking/v1/ready-check/accept",
         auth=HTTPBasicAuth("riot", client_info[0]),
-        timeout=15,
+        timeout=20,
         verify=False,
     )
 
@@ -85,7 +88,7 @@ def change_arena_skin(client_info: tuple) -> bool:
         status = requests.delete(
             f"{client_info[1]}/lol-cosmetics/v1/selection/tft-map-skin",
             auth=HTTPBasicAuth("riot", client_info[0]),
-            timeout=15,
+            timeout=20,
             verify=False,
         )
         if status.status_code == 204:
@@ -112,34 +115,41 @@ def get_client() -> tuple:
             print("Client not open! Trying again in 10 seconds.")
             sleep(10)
     print("  Client found")
-    sleep(10)
     return remoting_auth_token, server_url
+
+def reconnect(client_info: tuple) -> None:
+    """Reconnect to game when "Failed to Connect" windows are found"""
+    requests.post(
+        f"{client_info[1]}/lol-gameflow/v1/reconnect",
+        auth=HTTPBasicAuth('riot', client_info[0]),
+        timeout=20,
+        verify=False,
+    )
 
 def handle_queue() -> None:
     """Handles getting into a game"""
-    client_info = get_client()
+    client_info: tuple = get_client()
+    while check_game_status(client_info) == "InProgress":
+        sleep(2)
+    if check_game_status(client_info) == "Reconnect":
+        print("  Reconnecting")
+        reconnect(client_info)
+        return
     while not create_lobby(client_info):
         sleep(3)
 
     change_arena_skin(client_info)
 
     sleep(3)
-    while not check_queue(client_info):
-        sleep(5)
-        create_lobby(client_info)
-        sleep(3)
-        start_queue(client_info)
-        sleep(1)
 
-    in_queue = True
-    time = 0
-    while in_queue:
-        if time % 60 == 0:
+    while state := check_game_status(client_info):
+        if state == "None":
             create_lobby(client_info)
-            sleep(5)
+        if state == "Lobby":
             start_queue(client_info)
-        accept_queue(client_info)
-        if check_game_status(client_info):
-            in_queue = False
-        sleep(1)
-        time += 1
+        if state == "ReadyCheck":
+            accept_queue(client_info)
+            print("  Accepting")
+        if state == "InProgress":
+            return
+        sleep(3)

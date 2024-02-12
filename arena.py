@@ -659,12 +659,16 @@ class Arena:
         )
 
         for augment in augments:
-            if augment in game_assets.AVOID_AUGMENTS:
-                mk_functions.left_click(
+            found = False
+            for potential in game_assets.AUGMENTS:
+                if potential in augment:
+                    found = True
+                    break
+                if not found:
+                    mk_functions.left_click(
                     screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords()
                 )
-                break
-        else:
+                    return
             mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
 
     def check_health(self) -> None:

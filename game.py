@@ -6,6 +6,7 @@ import multiprocessing
 import random
 import time
 from time import perf_counter, sleep
+from win32con import BM_CLICK
 import win32gui
 
 import arena_functions
@@ -80,9 +81,26 @@ class Game:
         if self.comps_manager.current_comp()[0] == "High Value":
             self.fast8_leveling = True
         while game_functions.get_round() != "1-1":
+            if self.check_failed_to_connect_window():
+                return
             sleep(1)
         self.start_time: float = perf_counter()
         self.game_loop()
+
+    def check_failed_to_connect_window(self) -> bool:
+        """Check "Failed to Connect" windows and try to reconnect"""
+        hwnd = win32gui.FindWindow(None, "Failed to Connect")
+        if hwnd:
+            print("  Found \"Failed to Connect\" window, trying to exit and reconnect")
+            if reconnect_button := win32gui.FindWindowEx(hwnd, 0, "Button", None):
+                if cancel_button := win32gui.FindWindowEx(hwnd, reconnect_button, "Button", None):
+                    print("  Exiting the game.")
+                    win32gui.SendMessage(cancel_button, BM_CLICK, 0, 0)
+                    return True
+                print("  Cancel button not found.")
+            else:
+                print("  Reconnect button not found.")
+        return False
 
     def game_loop(self) -> None:
         """Loop that runs while the game is active, handles calling the correct tasks for round and exiting game."""
@@ -101,7 +119,13 @@ class Game:
         last_game_health: int = 100
 
         while True:
-            game_health: int = arena_functions.get_health()
+            try:
+                game_health: int = arena_functions.get_health()
+            except Exception as e:
+                print(f"Error occurred while fetching game health: {e}")
+                # Handle the error here, such as logging or retrying
+                continue
+
             if game_health == 0 and last_game_health > 0:
                 # defeated by other player
                 count: int = 15
