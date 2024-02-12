@@ -25,7 +25,7 @@ ITEM_POS: list[list] = [
     [Vec2(289, 692), Vec4(GameWindow(391, 734, 629, 764))],
     [Vec2(356, 676), Vec4(GameWindow(458, 717, 696, 747))],
     [Vec2(307, 631), Vec4(GameWindow(410, 674, 648, 704))],
-    [Vec2(323, 586), Vec4(GameWindow(422, 623, 658, 659))],
+    [Vec2(323, 586), Vec4(GameWindow(422, 628, 658, 658))],
     [Vec2(407, 679), Vec4(GameWindow(507, 721, 745, 751))],
     [Vec2(379, 632), Vec4(GameWindow(482, 674, 721, 704))],
     [Vec2(396, 582), Vec4(GameWindow(497, 625, 735, 655))],
@@ -54,7 +54,7 @@ GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 
 ANVIL_MSG_POS: Vec4 = Vec4(GameWindow(818, 838, 932, 859))
 
-EXIT_NOW_POS: Vec4 = Vec4(GameWindow(910, 566, 1018, 584))
+EXIT_NOW_POS: Vec4 = Vec4(GameWindow(910, 560, 1029, 583))
 
 AUGMENT_POS: list[Vec4] = [
     Vec4(GameWindow(417, 536, 687, 566)),
@@ -85,7 +85,7 @@ VICTORY_POS: Vec4 = Vec4(GameWindow(906, 560, 1030, 587))
 HEADLINER_POS: list[Vec4] = [
     Vec4(GameWindow(1280, 1018, 1289, 1030)),
     Vec4(GameWindow(1280, 990, 1289, 1002)),
-    Vec4(GameWindow(1280, 964, 1289, 976)),
+    Vec4(GameWindow(1280, 964, 1289, 976))
 ]
 
 BUY_LOC: list[Vec2] = [

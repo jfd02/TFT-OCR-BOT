@@ -542,30 +542,35 @@ AVOID_AUGMENTS: list[str] = [
 
 # List of portal names
 PORTALS: list[str] = [
-    "All Gold Augments",
-    "All Prismatic Augments",
-    "All Silver Augments",
-    "Double Item Carousel",
-    "Duplicator Start",
+    "Tactician’s Crown",
+    "3 Champions",
+    "3-Cost Champion",
+    "Augment Payout",
+    "Champion Delivery",
+    "Crab Rave",
+    "Crescendo",
+    "Decrescendo",
     "Entourage",
-    "Gold Augment First",
-    "Gold Augment Third",
-    "Gold Per Augment",
-    "Gold Per Item",
+    "Golden Finale",
+    "Golden Prelude",
+    "Golden Symphony",
+    "Item Payout",
     "Kill Counter",
-    "Max Intrest",
+    "Larger Legends",
+    "Loaded Carousels",
+    "Loot Subscription",
+    "Max Interest",
     "Multi-Talented",
     "Player Health Decrease",
-    "Player Health Increase",
     "Pot of Gold",
-    "Prismatic Augment First",
-    "Prismatic Augment Third",
+    "Prismatic Finale",
+    "Prismatic Prelude",
+    "Prismatic Symphony",
     "Scuttle Puddle",
     "Showtime",
+    "Silver Symphony",
     "Spatula",
-    "3-Cost Start",
-    "Training Dummy",
-    "Triple Champion Start",
+    "Treasure Armory",
     "Unit Accelerator"
 ]
 
@@ -579,3 +584,9 @@ ANVIL_PORTALS: list[str] = [
 ]
 
 All_PORTALS: list[str] = PORTALS + ANVIL_PORTALS
+
+AVOID_PORTALS: list[str] = [
+    "Training Dummy",
+    "Wandering Trainers",
+    "Duplicator Start"
+]

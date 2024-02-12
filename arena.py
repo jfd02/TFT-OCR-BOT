@@ -42,16 +42,24 @@ class Arena:
         self.have_headliner = False
 
     def portal_vote(self) -> None:
-        """Votes for a portal based on user-defined priority or defaults to the first portal"""
-        portals: list = []
-        for coords in screen_coords.PORTALS_POS:
-            portal: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
-            portals.append(portal)
+        """Picks a portal based on a comp-specific/user-defined portal list
+        or defaults to the first portal that is not in the AVOID list"""
+        while True:
+            sleep(1)
+            portals: list = []
+            for coords in screen_coords.PORTALS_POS:
+                portal: str = ocr.get_text(
+                    screenxy=coords.get_coords(), scale=3, psm=7
+                )
+                portals.append(portal)
+            print(portals)
+            if len(portals) == 3 and "" not in portals:
+                break
 
-        for portal in portals:
-            for potential in game_assets.All_PORTALS:
+        for potential in game_assets.PORTALS:
+            for portal in portals:
                 if potential in portal:
-                    print(f"  Voted for: {portal}")
+                    print(f"  Choosing portal: {portal}")
                     mk_functions.left_click(
                         screen_coords.PORTALS_LOC[portals.index(portal)].get_coords()
                     )
@@ -61,10 +69,22 @@ class Arena:
                     )
                     return
 
-        print("  [!] No priority or backup region found, voting for first portal")
+        print(
+            "  [!] No priority or backup portal found, undefined behavior may occur for the rest of the round"
+        )
+
+        for portal in portals:
+            found = False
+            for potential in game_assets.AVOID_PORTALS:
+                if potential in portal:
+                    found = True
+                    break
+            if not found:
+                mk_functions.left_click(screen_coords.PORTALS_LOC[portals.index(portal)].get_coords())
+                sleep(0.7)
+                mk_functions.left_click(screen_coords.PORTALS_VOTES[portals.index(portal)].get_coords())
+                return
         mk_functions.left_click(screen_coords.PORTALS_LOC[0].get_coords())
-        sleep(0.7)
-        mk_functions.left_click(screen_coords.PORTALS_VOTES[0].get_coords())
 
     def portal_augment(self) -> None:
         """Check the region augment and set flags accordingly"""
@@ -82,6 +102,7 @@ class Arena:
             "Support Anvil": "Clearing Anvils at round 1-3",
             "Tome of Traits": "Clearing Anvils at round 1-3",
             "Radiant Item": "Clearing Radiant Item shop at 3-7",
+            "Tactician’s Crown": "Checking for Tactician’s Crown"
         }
 
         augment_name = next((name for name in augment_flags if name in region), None)
@@ -281,7 +302,7 @@ class Arena:
         for index, champion in enumerate(self.bench):
             if champion is None and not self.anvil_free[index]:
                 mk_functions.press_e(screen_coords.BENCH_LOC[index].get_coords())
-        sleep(0.5)
+        sleep(0.8)
         anvil_msg: str = ocr.get_text(
             screenxy=screen_coords.ANVIL_MSG_POS.get_coords(), scale=3, psm=7
         )
@@ -660,7 +681,7 @@ class Arena:
 
         for augment in augments:
             found = False
-            for potential in game_assets.AUGMENTS:
+            for potential in game_assets.AVOID_AUGMENTS:
                 if potential in augment:
                     found = True
                     break

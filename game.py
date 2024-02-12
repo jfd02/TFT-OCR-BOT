@@ -119,15 +119,8 @@ class Game:
         last_game_health: int = 100
 
         while True:
-            try:
-                game_health: int = arena_functions.get_health()
-            except Exception as e:
-                print(f"Error occurred while fetching game health: {e}")
-                # Handle the error here, such as logging or retrying
-                continue
-
+            game_health: int = arena_functions.get_health()
             if game_health == 0 and last_game_health > 0:
-                # defeated by other player
                 count: int = 15
                 while count > 0:
                     if not game_functions.check_alive():
@@ -238,6 +231,7 @@ class Game:
                 self.arena.clear_anvil()
                 self.arena.anvil_free[:2] = [True, False]
                 self.arena.clear_anvil()
+            #self.arena.tacticians_crown_check() #not getting any item in set9 round 1-3, skipped
             self.arena.fix_unknown()
         if self.round == "3-7":
             if self.arena.radiant_item is True:

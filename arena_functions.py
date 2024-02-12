@@ -57,8 +57,8 @@ def get_health() -> int:
             verify=False,
         )
         return int(response.json()["activePlayer"]["championStats"]["currentHealth"])
-    except (requests.exceptions.ConnectionError, KeyError) as exc:
-        raise Exception(f"Failed to fetch health: {exc}") from exc
+    except (requests.exceptions.ConnectionError, KeyError):
+        return -1
 
 
 def get_gold() -> int:
