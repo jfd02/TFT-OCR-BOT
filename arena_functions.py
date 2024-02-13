@@ -7,7 +7,6 @@ from difflib import SequenceMatcher
 from time import sleep
 
 from typing import Optional
-from tenacity import retry, stop_after_attempt, wait_fixed
 import numpy as np
 import requests
 from PIL import ImageGrab
@@ -47,7 +46,6 @@ def get_level_via_ocr() -> int:
         return -1
 
 
-@retry(stop=stop_after_attempt(3), wait=wait_fixed(2))
 def get_health() -> int:
     """Returns the health for the tactician"""
     try:

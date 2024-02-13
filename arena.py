@@ -130,6 +130,9 @@ class Arena:
                     + ocr.SPACE_WHITELIST
                     + ocr.APOSTROPHE_WHITELIST,
                 )
+                # Check if champ_name is "Ilaoi" and replaces it with "Illaoi"
+                if champ_name.strip() == "Ilaoi":
+                    champ_name = "Illaoi"
                 if self.champs_to_buy.get(champ_name, 0) > 0:
                     print(
                         f"  The unknown champion {champ_name} exists in comps, keeping it."
@@ -505,7 +508,7 @@ class Arena:
 
     def tacticians_crown_check(self) -> None:
         """Checks if the item from carousel is tacticians crown"""
-        mk_functions.move_mouse(screen_coords.ITEM_POS[0][0].get_coords())
+        mk_functions.move_mouse(screen_coords.ITEM_POS[3][0].get_coords())
         sleep(0.5)
         item: str = ocr.get_text(
             screenxy=screen_coords.ITEM_POS[0][1].get_coords(),
