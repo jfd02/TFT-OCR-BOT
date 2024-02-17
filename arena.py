@@ -356,7 +356,7 @@ class Arena:
                 print("  Rerolling shop")
             shop: list = arena_functions.get_shop()
             print(f"  Shop: {shop}")
-            for champion in shop:
+            for champion in reversed(shop):
                 if (
                     self.champs_to_buy.get(champion[1], -1) >= 0
                     and arena_functions.get_gold()
