@@ -4,7 +4,6 @@ other variables used by the bot to make decisions
 """
 from time import sleep
 from typing import List, Optional, Union
-from datetime import datetime
 
 import arena_functions
 import game_assets
@@ -330,13 +329,6 @@ class Arena:
                         self.board_size -= 1 # Adjusts board size due to Tacticians Crown
                         self.tacticians_crown = True
                     self.move_champions() # Moves champions based on new board size
-                    # Log the Tacticians Crown event with current composition for tracking
-                    with open('TacticiansCrown.log', 'a', encoding='utf-8') as log_file:
-                        log_file.write(
-                        f"[{datetime.now()}] Tacticians Crown found, "
-                        f"bench_tacticians_crown = {self.bench_tacticians_crown}. "
-                        f"Comp: {','.join(self.comps_manager.current_comp()[1])}. "
-                        f"tacticians_crown = {self.tacticians_crown}\n")
                     # Attempt to add the item to a suitable champion
                 self.add_item_to_champs(index)
 
@@ -375,12 +367,6 @@ class Arena:
                                 if item == "TacticiansCrown" and self.bench_tacticians_crown:
                                     self.bench_tacticians_crown = False
                                     self.tacticians_crown = False
-                                    # Log the event to a text file
-                                    with open('TacticiansCrown.log', 'a', encoding='utf-8') as log_file:
-                                        log_file.write(
-                                        f"[{datetime.now()}] Placed {self.items[item_index]} on {champ.name}. "
-                                        f"Updated board state. bench_tacticians_crown = {self.bench_tacticians_crown} "
-                                        f"and tacticians_crown = {self.tacticians_crown}\n")
                                 print(f"  Placed {item} on {champ.name} to free up space")
                                 if item in gloves and champ.max_item_slots == 3:
                                     champ.completed_items = [
