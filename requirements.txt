@@ -9,4 +9,4 @@ urllib3==2.0.4
 pypiwin32==223
 beautifulsoup4==4.12.3
 lxml==5.1.0
-tenacity=8.2.3
+tenacity==8.2.3
