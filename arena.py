@@ -4,6 +4,7 @@ other variables used by the bot to make decisions
 """
 from time import sleep
 from typing import List, Optional, Union
+from datetime import datetime
 
 import arena_functions
 import game_assets
@@ -35,7 +36,8 @@ class Arena:
         self.final_comp = False
         self.level = 0
         self.augment_roll = True
-        self.tacticians_crown = True
+        self.bench_tacticians_crown = False
+        self.tacticians_crown = False
         self.spam_roll = False
         self.active_portal: str = ""
         self.radiant_item = False
@@ -102,7 +104,7 @@ class Arena:
             "Support Anvil": "Clearing Anvils at round 1-3",
             "Tome of Traits": "Clearing Anvils at round 1-3",
             "Radiant Item": "Clearing Radiant Item shop at 3-7",
-            "Tactician’s Crown": "Checking for Tactician’s Crown"
+            "Tactician’s Crown": "Collecting Tactician’s Crown at 2-1"
         }
 
         augment_name = next((name for name in augment_flags if name in region), None)
@@ -315,15 +317,31 @@ class Arena:
         sleep(1)
 
     def place_items(self) -> None:
-        """Iterates through items and tries to add them to champion"""
+        """Iterates through items and tries to add them to champion."""
         self.items = arena_functions.get_items()
         print(f"  Items: {list(filter(None.__ne__, self.items))}")
         for index, _ in enumerate(self.items):
             if self.items[index] is not None:
+                # Handle Tacticians Crown placement and logic
+                if self.items[index] == "TacticiansCrown":
+                    print("  Tacticians Crown on bench, adding extra slot to board")
+                    self.bench_tacticians_crown = True
+                    if not self.tacticians_crown:
+                        self.board_size -= 1 # Adjusts board size due to Tacticians Crown
+                        self.tacticians_crown = True
+                    self.move_champions() # Moves champions based on new board size
+                    # Log the Tacticians Crown event with current composition for tracking
+                    with open('TacticiansCrown.log', 'a', encoding='utf-8') as log_file:
+                        log_file.write(
+                        f"[{datetime.now()}] Tacticians Crown found, "
+                        f"bench_tacticians_crown = {self.bench_tacticians_crown}. "
+                        f"Comp: {','.join(self.comps_manager.current_comp()[1])}. "
+                        f"tacticians_crown = {self.tacticians_crown}\n")
+                    # Attempt to add the item to a suitable champion
                 self.add_item_to_champs(index)
 
     def add_item_to_champs(self, item_index: int) -> None:
-        """Iterates through champions in the board and checks if the champion needs items"""
+        """Iterates through champions in the board and checks if the champion needs items."""
         for champ in self.board:
             if isinstance(champ, Champion):
                 if self.items[item_index] is not None:
@@ -353,16 +371,17 @@ class Arena:
                                     screen_coords.ITEM_POS[item_index][0].get_coords()
                                 )
                                 mk_functions.left_click(champ.coords)
-                                if "TacticiansCrown" in item and self.tacticians_crown:
-                                    print(
-                                        "  Tacticians Crown on bench, adding extra slot to board"
-                                    )
-                                    self.board_size -= 1
-                                    #print(f"self.board_size = {self.board_size}")
-                                    self.move_champions()
-                                print(
-                                    f"  Placed {item} on {champ.name} to free up space"
-                                )
+                                # Handle resetting Tacticians Crown flags once placed on random champ
+                                if item == "TacticiansCrown" and self.bench_tacticians_crown:
+                                    self.bench_tacticians_crown = False
+                                    self.tacticians_crown = False
+                                    # Log the event to a text file
+                                    with open('TacticiansCrown.log', 'a', encoding='utf-8') as log_file:
+                                        log_file.write(
+                                        f"[{datetime.now()}] Placed {self.items[item_index]} on {champ.name}. "
+                                        f"Updated board state. bench_tacticians_crown = {self.bench_tacticians_crown} "
+                                        f"and tacticians_crown = {self.tacticians_crown}\n")
+                                print(f"  Placed {item} on {champ.name} to free up space")
                                 if item in gloves and champ.max_item_slots == 3:
                                     champ.completed_items = [
                                         item
@@ -520,8 +539,11 @@ class Arena:
         try:
             if "TacticiansCrown" in item:
                 print("  Tacticians Crown on bench, adding extra slot to board")
-                self.board_size -= 1
-                self.tacticians_crown = False
+                self.bench_tacticians_crown = True
+                if not self.tacticians_crown:  # Check if adjustment is needed
+                    self.board_size -= 1
+                    self.tacticians_crown = True
+
             else:
                 print(f"{item} is not TacticiansCrown")
         except TypeError:
@@ -541,7 +563,7 @@ class Arena:
                 print("  Rerolling shop")
             shop: list = arena_functions.get_shop(self.comps_manager)
             print(f"  Shop: {shop}")
-            for champion in shop:
+            for champion in reversed(shop):
                 if (
                     self.champs_to_buy.get(champion[1], -1) >= 0
                     and arena_functions.get_gold()
