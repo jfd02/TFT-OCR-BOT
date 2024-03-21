@@ -18,6 +18,7 @@ from ui import UI
 YES_CHOICES = ["yes", "y"]
 NO_CHOICES = ["no", "n"]
 
+
 def game_loop(ui_queue: multiprocessing.Queue, comps: CompsManager) -> None:
     """Keeps the program running indefinitely by calling queue and game start in a loop"""
     while True:
@@ -29,7 +30,7 @@ def is_admin():
     """Check if bot is running as admin to prevent bot can't move in-game"""
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
-    except: # pylint: disable=bare-except
+    except:  # pylint: disable=bare-except
         return False
 
 
@@ -47,68 +48,69 @@ def check_league_client_path():
 def load_champions_data() -> dict:
     """Load champions data from a file or other source."""
     champions_data = {
-    "Ahri":{"Gold":4,"Board Size":1,"Trait1":"Spellweaver","Trait2":"KDA","Trait3":""},
-    "Akali":{"Gold":4,"Board Size":1,"Trait1":"Executioner","Trait2":"Breakout","Trait3":"TrueDamage"},
-    "Amumu":{"Gold":3,"Board Size":1,"Trait1":"Guardian","Trait2":"Emo","Trait3":""},
-    "Annie":{"Gold":1,"Board Size":1,"Trait1":"Spellweaver","Trait2":"Emo","Trait3":""},
-    "Aphelios":{"Gold":2,"Board Size":1,"Trait1":"Rapidfire","Trait2":"HEARTSTEEL","Trait3":""},
-    "Bard":{"Gold":2,"Board Size":1,"Trait1":"Dazzler","Trait2":"Jazz","Trait3":""},
-    "Blitzcrank":{"Gold":4,"Board Size":1,"Trait1":"Sentinel","Trait2":"Disco","Trait3":""},
-    "Caitlyn":{"Gold":4,"Board Size":1,"Trait1":"Rapidfire","Trait2":"8bit","Trait3":""},
-    "Corki":{"Gold":1,"Board Size":1,"Trait1":"BigShot","Trait2":"8bit","Trait3":""},
-    "Ekko":{"Gold":3,"Board Size":1,"Trait1":"Sentinel","Trait2":"Spellweaver","Trait3":"TrueDamage"},
-    "Evelynn":{"Gold":1,"Board Size":1,"Trait1":"CrowdDiver","Trait2":"K/DA","Trait3":""},
-    "Ezreal":{"Gold":4,"Board Size":1,"Trait1":"BigShot","Trait2":"HEARTSTEEL","Trait3":""},
-    "Garen":{"Gold":2,"Board Size":1,"Trait1":"Sentinel","Trait2":"8bit","Trait3":""},
-    "Gnar":{"Gold":2,"Board Size":1,"Trait1":"Mosher","Trait2":"Superfan","Trait3":"Pentakill"},
-    "Gragas":{"Gold":2,"Board Size":1,"Trait1":"Bruiser","Trait2":"Spellweaver","Trait3":"Disco"},
-    "Illaoi":{"Gold":5,"Board Size":1,"Trait1":"Bruiser","Trait2":"ILLBEATS","Trait3":""},
-    "Tentacle":{"Gold":0,"Board Size":1,"Trait1":"","Trait2":"","Trait3":""},
-    "Jax":{"Gold":2,"Board Size":1,"Trait1":"Mosher","Trait2":"EDM","Trait3":""},
-    "Jhin":{"Gold":5,"Board Size":1,"Trait1":"BigShot","Trait2":"Maestro","Trait3":""},
-    "Jinx":{"Gold":1,"Board Size":1,"Trait1":"Rapidfire","Trait2":"Punk","Trait3":""},
-    "Kai'Sa":{"Gold":2,"Board Size":1,"Trait1":"BigShot","Trait2":"K/DA","Trait3":""},
-    "Karthus":{"Gold":4,"Board Size":1,"Trait1":"Executioner","Trait2":"Pentakill","Trait3":""},
-    "Katarina":{"Gold":2,"Board Size":1,"Trait1":"CrowdDiver","Trait2":"Country","Trait3":""},
-    "Kayle":{"Gold":2,"Board Size":1,"Trait1":"Edgelord","Trait2":"Pentakill","Trait3":""},
-    "Kayn":{"Gold":5,"Board Size":1,"Trait1":"Edgelord","Trait2":"Wildcard","Trait3":"HEARTSTEEL"},
-    "Kennen":{"Gold":1,"Board Size":1,"Trait1":"Guardian","Trait2":"Superfan","Trait3":"TrueDamage"},
-    "K'Sante":{"Gold":1,"Board Size":1,"Trait1":"Sentinel","Trait2":"HEARTSTEEL","Trait3":""},
-    "Lillia":{"Gold":1,"Board Size":1,"Trait1":"Sentinel","Trait2":"Superfan","Trait3":"K/DA"},
-    "Lucian":{"Gold":5,"Board Size":1,"Trait1":"Rapidfire","Trait2":"Jazz","Trait3":""},
-    "Lulu":{"Gold":3,"Board Size":1,"Trait1":"Spellweaver","Trait2":"Hyperpop","Trait3":""},
-    "Lux":{"Gold":3,"Board Size":1,"Trait1":"Dazzler","Trait2":"EDM","Trait3":""},
-    "Miss Fortune":{"Gold":3,"Board Size":1,"Trait1":"BigShot","Trait2":"Jazz","Trait3":""},
-    "Mordekaiser":{"Gold":3,"Board Size":1,"Trait1":"Sentinel","Trait2":"Pentakill","Trait3":""},
-    "Nami":{"Gold":1,"Board Size":1,"Trait1":"Dazzler","Trait2":"Disco","Trait3":""},
-    "Neeko":{"Gold":3,"Board Size":1,"Trait1":"Guardian","Trait2":"Superfan","Trait3":"K/DA"},
-    "Olaf":{"Gold":1,"Board Size":1,"Trait1":"Bruiser","Trait2":"Pentakill","Trait3":""},
-    "Pantheon":{"Gold":2,"Board Size":1,"Trait1":"Guardian","Trait2":"Punk","Trait3":""},
-    "Poppy":{"Gold":4,"Board Size":1,"Trait1":"Mosher","Trait2":"Emo","Trait3":""},
-    "Qiyana":{"Gold":5,"Board Size":1,"Trait1":"CrowdDiver","Trait2":"TrueDamage","Trait3":""},
-    "Riven":{"Gold":3,"Board Size":1,"Trait1":"Edgelord","Trait2":"8bit","Trait3":""},
-    "Samira":{"Gold":3,"Board Size":1,"Trait1":"Executioner","Trait2":"Country","Trait3":""},
-    "Senna":{"Gold":2,"Board Size":1,"Trait1":"Rapidfire","Trait2":"TrueDamage","Trait3":""},
-    "Seraphine":{"Gold":2,"Board Size":1,"Trait1":"Spellweaver","Trait2":"K/DA","Trait3":""},
-    "Sett":{"Gold":3,"Board Size":1,"Trait1":"Mosher","Trait2":"Bruiser","Trait3":"HEARTSTEEL"},
-    "Sona":{"Gold":5,"Board Size":1,"Trait1":"Spellweaver","Trait2":"Mixmaster","Trait3":""},
-    "Tahm Kench":{"Gold":1,"Board Size":1,"Trait1":"Bruiser","Trait2":"Country","Trait3":""},
-    "Taric":{"Gold":1,"Board Size":1,"Trait1":"Guardian","Trait2":"Disco","Trait3":""},
-    "Thresh":{"Gold":4,"Board Size":1,"Trait1":"Guardian","Trait2":"Country","Trait3":""},
-    "Twisted Fate":{"Gold":4,"Board Size":1,"Trait1":"Dazzler","Trait2":"Disco","Trait3":""},
-    "Twitch":{"Gold":2,"Board Size":1,"Trait1":"Executioner","Trait2":"Punk","Trait3":""},
-    "Urgot":{"Gold":3,"Board Size":1,"Trait1":"Mosher","Trait2":"Country","Trait3":""},
-    "Vex":{"Gold":3,"Board Size":1,"Trait1":"Executioner","Trait2":"Emo","Trait3":""},
-    "Vi":{"Gold":1,"Board Size":1,"Trait1":"Mosher","Trait2":"Punk","Trait3":""},
-    "Viego":{"Gold":4,"Board Size":1,"Trait1":"Edgelord","Trait2":"Pentakill","Trait3":""},
-    "Yasuo":{"Gold":1,"Board Size":1,"Trait1":"Edgelord","Trait2":"TrueDamage","Trait3":""},
-    "Yone":{"Gold":3,"Board Size":1,"Trait1":"CrowdDiver","Trait2":"Edgelord","Trait3":"HEARTSTEEL"},
-    "Yorick":{"Gold":5,"Board Size":1,"Trait1":"Guardian","Trait2":"Mosher","Trait3":"Pentakill"},
-    "Zac":{"Gold":4,"Board Size":1,"Trait1":"Bruiser","Trait2":"EDM","Trait3":""},
-    "Zed":{"Gold":4,"Board Size":1,"Trait1":"CrowdDiver","Trait2":"EDM","Trait3":""},
-    "Ziggs":{"Gold":5,"Board Size":1,"Trait1":"Dazzler","Trait2":"Hyperpop","Trait3":""}
+    "Aatrox":{"Gold":2,"Board Size":1,"Trait1":"Ghostly","Trait2":"Bruiser","Trait3":"Inkshadow"},
+    "Ahri":{"Gold":1,"Board Size":1,"Trait1":"Fated","Trait2":"Arcanist","Trait3":""},
+    "Alune":{"Gold":3,"Board Size":1,"Trait1":"Umbral","Trait2":"Invoker","Trait3":""},
+    "Amumu":{"Gold":3,"Board Size":1,"Trait1":"Porcelain","Trait2":"Warden","Trait3":""},
+    "Annie":{"Gold":4,"Board Size":1,"Trait1":"Fortune","Trait2":"Invoker","Trait3":""},
+    "Aphelios":{"Gold":3,"Board Size":1,"Trait1":"Fated","Trait2":"Sniper","Trait3":""},
+    "Ashe":{"Gold":4,"Board Size":1,"Trait1":"Porcelain","Trait2":"Sniper","Trait3":""},
+    "Azir":{"Gold":5,"Board Size":1,"Trait1":"Dryad","Trait2":"Invoker","Trait3":""},
+    "Bard":{"Gold":3,"Board Size":1,"Trait1":"Mythic","Trait2":"Trickshot","Trait3":""},
+    "Caitlyn":{"Gold":1,"Board Size":1,"Trait1":"Ghostly","Trait2":"Sniper","Trait3":""},
+    "Cho'Gath":{"Gold":1,"Board Size":1,"Trait1":"Mythic","Trait2":"Behemoth","Trait3":""},
+    "Darius":{"Gold":1,"Board Size":1,"Trait1":"Umbral","Trait2":"Duelist","Trait3":""},
+    "Diana":{"Gold":3,"Board Size":1,"Trait1":"Dragonlord","Trait2":"Sage","Trait3":""},
+    "Galio":{"Gold":4,"Board Size":1,"Trait1":"Storyweaver","Trait2":"Bruiser","Trait3":""},
+    "Garen":{"Gold":1,"Board Size":1,"Trait1":"Storyweaver","Trait2":"Warden","Trait3":""},
+    "Gnar":{"Gold":2,"Board Size":1,"Trait1":"Dryad","Trait2":"Warden","Trait3":""},
+    "Hwei":{"Gold":5,"Board Size":1,"Trait1":"Mythic","Trait2":"Artist","Trait3":""},
+    "Illaoi":{"Gold":3,"Board Size":1,"Trait1":"Ghostly","Trait2":"Arcanist","Trait3":"Warden"},
+    "Irelia":{"Gold":5,"Board Size":1,"Trait1":"Storyweaver","Trait2":"Duelist","Trait3":""},
+    "Janna":{"Gold":2,"Board Size":1,"Trait1":"Dragonlord","Trait2":"Invoker","Trait3":""},
+    "Jax":{"Gold":1,"Board Size":1,"Trait1":"Inkshadow","Trait2":"Warden","Trait3":""},
+    "Kai'Sa":{"Gold":4,"Board Size":1,"Trait1":"Inkshadow","Trait2":"Trickshot","Trait3":""},
+    "Kayn": {"Gold": 4, "Board Size": 1, "Trait1": "Ghostly", "Trait2": "Reaper", "Trait3": ""},
+    "KhaZix": {"Gold": 1, "Board Size": 1, "Trait1": "Heavenly", "Trait2": "Reaper", "Trait3": ""},
+    "Kindred": {"Gold": 2, "Board Size": 1, "Trait1": "Dryad", "Trait2": "Fated", "Trait3": "Reaper"},
+    "Kobuko": {"Gold": 1, "Board Size": 1, "Trait1": "Fortune", "Trait2": "Bruiser", "Trait3": ""},
+    "KogMaw": {"Gold": 1, "Board Size": 1, "Trait1": "Mythic", "Trait2": "Invoker", "Trait3": "Sniper"},
+    "LeeSin": {"Gold": 4, "Board Size": 1, "Trait1": "Dragonlord", "Trait2": "Duelist", "Trait3": ""},
+    "Lillia": {"Gold": 4, "Board Size": 1, "Trait1": "Mythic", "Trait2": "Invoker", "Trait3": ""},
+    "Lissandra": {"Gold": 5, "Board Size": 1, "Trait1": "Porcelain", "Trait2": "Arcanist", "Trait3": ""},
+    "Lux": {"Gold": 2, "Board Size": 1, "Trait1": "Porcelain", "Trait2": "Arcanist", "Trait3": ""},
+    "Malphite": {"Gold": 1, "Board Size": 1, "Trait1": "Heavenly", "Trait2": "Behemoth", "Trait3": ""},
+    "Morgana": {"Gold": 4, "Board Size": 1, "Trait1": "Ghostly", "Trait2": "Sage", "Trait3": ""},
+    "Nautilus": {"Gold": 4, "Board Size": 1, "Trait1": "Mythic", "Trait2": "Warden", "Trait3": ""},
+    "Neeko": {"Gold": 2, "Board Size": 1, "Trait1": "Heavenly", "Trait2": "Mythic", "Trait3": "Arcanist"},
+    "Ornn": {"Gold": 4, "Board Size": 1, "Trait1": "Dryad", "Trait2": "Behemoth", "Trait3": ""},
+    "Qiyana": {"Gold": 2, "Board Size": 1, "Trait1": "Heavenly", "Trait2": "Duelist", "Trait3": ""},
+    "Rakan": {"Gold": 5, "Board Size": 1, "Trait1": "Dragonlord", "Trait2": "Altruist", "Trait3": "Lovers"},
+    "RekSai": {"Gold": 1, "Board Size": 1, "Trait1": "Dryad", "Trait2": "Bruiser", "Trait3": ""},
+    "Riven": {"Gold": 2, "Board Size": 1, "Trait1": "Storyweaver", "Trait2": "Altruist", "Trait3": "Bruiser"},
+    "Senna": {"Gold": 2, "Board Size": 1, "Trait1": "Inkshadow", "Trait2": "Sniper", "Trait3": ""},
+    "Sett": {"Gold": 5, "Board Size": 1, "Trait1": "Fated", "Trait2": "Umbral", "Trait3": "Warden"},
+    "Shen": {"Gold": 2, "Board Size": 1, "Trait1": "Ghostly", "Trait2": "Behemoth", "Trait3": ""},
+    "Sivir": {"Gold": 1, "Board Size": 1, "Trait1": "Storyweaver", "Trait2": "Trickshot", "Trait3": ""},
+    "Soraka": {"Gold": 3, "Board Size": 1, "Trait1": "Heavenly", "Trait2": "Altruist", "Trait3": ""},
+    "Sylas": {"Gold": 4, "Board Size": 1, "Trait1": "Umbral", "Trait2": "Bruiser", "Trait3": ""},
+    "Syndra": {"Gold": 4, "Board Size": 1, "Trait1": "Fated", "Trait2": "Arcanist", "Trait3": ""},
+    "Tahm Kench": {"Gold": 3, "Board Size": 1, "Trait1": "Mythic", "Trait2": "Bruiser", "Trait3": ""},
+    "Teemo": {"Gold": 2, "Board Size": 1, "Trait1": "Fortune", "Trait2": "Trickshot", "Trait3": ""},
+    "Thresh": {"Gold": 3, "Board Size": 1, "Trait1": "Fated", "Trait2": "Behemoth", "Trait3": ""},
+    "Tristana": {"Gold": 3, "Board Size": 1, "Trait1": "Fortune", "Trait2": "Duelist", "Trait3": ""},
+    "Udyr": {"Gold": 5, "Board Size": 1, "Trait1": "Inkshadow", "Trait2": "Behemoth", "Trait3": ""},
+    "Volibear": {"Gold": 3, "Board Size": 1, "Trait1": "Inkshadow", "Trait2": "Duelist", "Trait3": ""},
+    "Wukong": {"Gold": 5, "Board Size": 1, "Trait1": "Heavenly", "Trait2": "Sage", "Trait3": ""},
+    "Xayah": {"Gold": 5, "Board Size": 1, "Trait1": "Dragonlord", "Trait2": "Lovers", "Trait3": "Trickshot"},
+    "Yasuo": {"Gold": 1, "Board Size": 1, "Trait1": "Fated", "Trait2": "Duelist", "Trait3": ""},
+    "Yone": {"Gold": 3, "Board Size": 1, "Trait1": "Umbral", "Trait2": "Reaper", "Trait3": ""},
+    "Yorick": {"Gold": 2, "Board Size": 1, "Trait1": "Umbral", "Trait2": "Behemoth", "Trait3": ""},
+    "Zoe": {"Gold": 3, "Board Size": 1, "Trait1": "Fortune", "Trait2": "Storyweaver", "Trait3": "Arcanist"},
+    "Zyra": {"Gold": 2, "Board Size": 1, "Trait1": "Storyweaver", "Trait2": "Sage", "Trait3": ""}
     }
     return champions_data
+
 
 def update_comps(file_path):
     """Update comps if the user chooses to."""
@@ -127,6 +129,7 @@ def update_comps(file_path):
         else:
             print("Type yes or no")
 
+
 def main():
     """The main entry point for the TFT OCR BOT.
 
@@ -140,13 +143,15 @@ def main():
         ValueError: If the League of Legends client path is not specified in settings.py.
     """
     ctypes.windll.kernel32.SetConsoleTitleW("Auto Comps TFT OCR Bot")
-    print(r"""
+    print(
+        r"""
      ___       __         _____                      ________________  ____  ________    ___       __ 
     / _ |__ __/ /____    / ___/__  __ _  ___  ___   /_  __/ __/_  __/ / __ \/ ___/ _ \  / _ )___  / /_
    / __ / // / __/ _ \  / /__/ _ \/  ' \/ _ \(_-<    / / / _/  / /   / /_/ / /__/ , _/ / _  / _ \/ __/
   /_/ |_\_,_/\__/\___/  \___/\___/_/_/_/ .__/___/   /_/ /_/   /_/    \____/\___/_/|_| /____/\___/\__/
                                       /_/
-    """)
+    """
+    )
 
     check_league_client_path()
 
@@ -183,4 +188,6 @@ if __name__ == "__main__":
     if is_admin():
         main()
     else:
-        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+        ctypes.windll.shell32.ShellExecuteW(
+            None, "runas", sys.executable, " ".join(sys.argv), None, 1
+        )

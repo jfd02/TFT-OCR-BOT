@@ -19,6 +19,39 @@ BENCH_HEALTH_POS: list[Vec4] = [
     Vec4(GameWindow(1308, 622, 1411, 757)),
 ]
 
+BOARD_HEALTH_POS: list[Vec4] = [
+    # Bottom Row
+    Vec4(GameWindow(530, 525, 630, 656)),
+    Vec4(GameWindow(645, 525, 745, 656)),
+    Vec4(GameWindow(785, 525, 885, 656)),
+    Vec4(GameWindow(915, 525, 1015, 656)),
+    Vec4(GameWindow(1045, 525, 1145, 656)),
+    Vec4(GameWindow(1185, 525, 1285, 656)),
+    Vec4(GameWindow(1315, 525, 1415, 656)),
+    Vec4(GameWindow(465, 430, 745, 524)),
+    Vec4(GameWindow(615, 430, 715, 524)),
+    Vec4(GameWindow(730, 430, 830, 524)),
+    Vec4(GameWindow(850, 430, 950, 524)),
+    Vec4(GameWindow(975, 430, 1075, 524)),
+    Vec4(GameWindow(1115, 430, 1215, 524)),
+    Vec4(GameWindow(1235, 430, 1335, 524)),
+    Vec4(GameWindow(530, 365, 630, 425)),
+    Vec4(GameWindow(645, 365, 745, 425)),
+    Vec4(GameWindow(785, 365, 885, 425)),
+    Vec4(GameWindow(915, 365, 1015, 425)),
+    Vec4(GameWindow(1045, 365, 1145, 425)),
+    Vec4(GameWindow(1185, 365, 1285, 425)),
+    Vec4(GameWindow(1315, 365, 1415, 425)),
+    # Top Row
+    Vec4(GameWindow(465, 280, 745, 362)),
+    Vec4(GameWindow(615, 280, 715, 362)),
+    Vec4(GameWindow(730, 280, 830, 362)),
+    Vec4(GameWindow(850, 280, 950, 362)),
+    Vec4(GameWindow(975, 280, 1075, 362)),
+    Vec4(GameWindow(1115, 280, 1215, 362)),
+    Vec4(GameWindow(1235, 280, 1335, 362)),
+]
+
 ITEM_POS: list[list] = [
     [Vec2(273, 753), Vec4(GameWindow(373, 794, 611, 824))],
     [Vec2(348, 737), Vec4(GameWindow(451, 778, 689, 808))],
@@ -85,7 +118,7 @@ VICTORY_POS: Vec4 = Vec4(GameWindow(906, 560, 1030, 587))
 HEADLINER_POS: list[Vec4] = [
     Vec4(GameWindow(1280, 1018, 1289, 1030)),
     Vec4(GameWindow(1280, 990, 1289, 1002)),
-    Vec4(GameWindow(1280, 964, 1289, 976))
+    Vec4(GameWindow(1280, 964, 1289, 976)),
 ]
 
 BUY_LOC: list[Vec2] = [

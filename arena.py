@@ -2,9 +2,11 @@
 Handles the board / bench state inside of the game and
 other variables used by the bot to make decisions
 """
+
 from time import sleep
 from typing import List, Optional, Union
 
+import random
 import arena_functions
 import game_assets
 import game_functions
@@ -29,6 +31,7 @@ class Arena:
         self.board: List[Optional[Champion]] = [None] * 28
         self.board_unknown: List[Optional[str]] = []
         self.unknown_slots: List[int] = comps_manager.get_unknown_slots()
+        self.board_dummy: List[Optional[str]] = []
         self.champs_to_buy: dict = comps_manager.champions_to_buy()
         self.board_names: List[str] = []
         self.items: List[Optional[str]] = [None] * 10
@@ -49,9 +52,7 @@ class Arena:
             sleep(1)
             portals: list = []
             for coords in screen_coords.PORTALS_POS:
-                portal: str = ocr.get_text(
-                    screenxy=coords.get_coords(), scale=3, psm=7
-                )
+                portal: str = ocr.get_text(screenxy=coords.get_coords(), scale=3, psm=7)
                 portals.append(portal)
             print(portals)
             if len(portals) == 3 and "" not in portals:
@@ -81,9 +82,13 @@ class Arena:
                     found = True
                     break
             if not found:
-                mk_functions.left_click(screen_coords.PORTALS_LOC[portals.index(portal)].get_coords())
+                mk_functions.left_click(
+                    screen_coords.PORTALS_LOC[portals.index(portal)].get_coords()
+                )
                 sleep(0.7)
-                mk_functions.left_click(screen_coords.PORTALS_VOTES[portals.index(portal)].get_coords())
+                mk_functions.left_click(
+                    screen_coords.PORTALS_VOTES[portals.index(portal)].get_coords()
+                )
                 return
         mk_functions.left_click(screen_coords.PORTALS_LOC[0].get_coords())
 
@@ -103,7 +108,9 @@ class Arena:
             "Support Anvil": "Clearing Anvils at round 1-3",
             "Tome of Traits": "Clearing Anvils at round 1-3",
             "Radiant Item": "Clearing Radiant Item shop at 3-7",
-            "Tactician’s Crown": "Collecting Tactician’s Crown at 2-1"
+            "Tactician’s Crown": "Collecting Tactician’s Crown at 2-1",
+            "Training Dummy": "Checking for target dummy at 1-3",
+            "Wandering Trainers": "Checking for target dummy at 1-3",
         }
 
         augment_name = next((name for name in augment_flags if name in region), None)
@@ -115,6 +122,65 @@ class Arena:
                 self.radiant_item = True
         else:
             print(f"  Region Augment: {region}")
+
+    def check_dummy(self) -> None:
+        """Check the board for target dummies, move them to unknown slots, and label them."""
+        board_occupied = arena_functions.board_occupied_check()
+        for index, slot in enumerate(self.board_unknown):
+            # Check if the slot is not empty and contains a dummy target
+            if slot is not None and slot == "Dummy Target":
+                # Check if the board slot is occupied
+                if board_occupied[index]:
+                    # Handle the found dummy target. For example, move it or mark it in self.unknown_slots.
+                    # This step depends on how you want to handle the dummy.
+                    # For now, let's label it in self.board_unknown.
+                    # Assuming mk_functions and screen_coords are set up to work
+                    # with board slots similar to bench slots.
+                    mk_functions.right_click(
+                        screen_coords.BOARD_LOC[index].get_coords()
+                    )
+                    champ_name: str = ocr.get_text(
+                        screenxy=screen_coords.PANEL_NAME_LOC.get_coords(),
+                        scale=3,
+                        psm=7,
+                        whitelist=ocr.ALPHABET_WHITELIST
+                        + ocr.SPACE_WHITELIST
+                        + ocr.APOSTROPHE_WHITELIST,
+                    )
+                    # Specifically checking for "Dummy Target"
+                    if champ_name.strip() == "Dummy Target":
+                        # Check if there are any unknown slots available
+                        if self.unknown_slots:
+                            # Choose a random unknown slot
+                            chosen_slot_index = random.choice(self.unknown_slots)
+                            # Move the dummy target to the chosen unknown slot
+                            print(
+                                f"Moving dummy target from slot {index} to an unknown slot."
+                            )
+                            # Perform the click actions to move the dummy target
+                            mk_functions.left_click(
+                                screen_coords.BOARD_LOC[index].get_coords()
+                            )
+                            sleep(0.1)
+                            mk_functions.left_click(
+                                screen_coords.BOARD_LOC[chosen_slot_index].get_coords()
+                            )
+                            # Remove the chosen unknown slot
+                            self.unknown_slots.remove(chosen_slot_index)
+                            # Update the board and unknown slots lists to mark the dummy target
+                            self.board_unknown[index] = None
+                            # Append the dummy target with the chosen slot index to board_dummy list
+                            self.board_dummy.append(f"Dummy Target {chosen_slot_index}")
+                            # Optionally, you can break the loop here if you only want to move one dummy target
+                            break
+                        else:
+                            # If there are no unknown slots available, create a dedicated dummy slot
+                            print("Creating a dedicated dummy slot.")
+                            # Append the dummy target to the board_dummy list to create a dedicated slot
+                            self.board_dummy.append(f"Dummy Target {index}")
+                            break
+        else:
+            print("No target dummies found on the board.")
 
     def fix_bench_state(self) -> None:
         """Iterate through the bench, fix invalid slots, and handle unknown champions"""
@@ -310,7 +376,7 @@ class Arena:
         anvil_msg: str = ocr.get_text(
             screenxy=screen_coords.ANVIL_MSG_POS.get_coords(), scale=3, psm=7
         )
-        if anvil_msg == "Choose One":
+        if anvil_msg in ["Choose One", "Choose Your Path"]:
             print("clearing anvil")
             mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
         sleep(1)
@@ -326,9 +392,11 @@ class Arena:
                     print("  Tacticians Crown on bench, adding extra slot to board")
                     self.bench_tacticians_crown = True
                     if not self.tacticians_crown:
-                        self.board_size -= 1 # Adjusts board size due to Tacticians Crown
+                        self.board_size -= (
+                            1  # Adjusts board size due to Tacticians Crown
+                        )
                         self.tacticians_crown = True
-                    self.move_champions() # Moves champions based on new board size
+                    self.move_champions()  # Moves champions for updated board size
                     # Attempt to add the item to a suitable champion
                 self.add_item_to_champs(index)
 
@@ -364,23 +432,28 @@ class Arena:
                                 )
                                 mk_functions.left_click(champ.coords)
                                 # Handle resetting Tacticians Crown flags once placed on random champ
-                                if item == "TacticiansCrown" and self.bench_tacticians_crown:
+                                if (
+                                    item == "TacticiansCrown"
+                                    and self.bench_tacticians_crown
+                                ):
                                     self.bench_tacticians_crown = False
                                     self.tacticians_crown = False
-                                print(f"  Placed {item} on {champ.name} to free up space")
+                                print(
+                                    f"  Placed {item} on {champ.name} to free up space"
+                                )
                                 if item in gloves and champ.max_item_slots == 3:
                                     champ.completed_items = [
                                         item
                                     ] * 3  # Set to 3 completed_items
-                                    #print(
+                                    # print(
                                     #    f"  {champ.name} completed items: {champ.completed_items}"
                                     #    f"  {champ.name} item slots number: {champ.max_item_slots}"
-                                    #)
+                                    # )
                                 champ.completed_items.append(item)
                                 self.items[self.items.index(item)] = None
-                                #print(
+                                # print(
                                 #    f"  {champ.name} completed items: {champ.completed_items}"
-                                #)
+                                # )
 
     def item_needed_on_champions(self, champions, item):
         """Checks if the item is needed on any champions"""
@@ -422,10 +495,10 @@ class Arena:
                 champ.completed_items.append(item)
                 champ.build.remove(item)
                 self.items[self.items.index(item)] = None
-                #print(
+                # print(
                 #    f"1  {champ.name} Completed Items: {champ.completed_items}\n"
                 #    f"1  {champ.name} Build: {champ.build}"
-                #)
+                # )
         elif len(champ.current_building) == 0:
             item_to_move = None
             for build_item in champ.build:
@@ -446,11 +519,11 @@ class Arena:
                 mk_functions.left_click(champ.coords)
                 print(f"  Placed {item} on {champ.name}")
                 self.items[self.items.index(item)] = None
-                #print(
+                # print(
                 #    f"2  {champ.name} Currently Building: {champ.current_building[0][0]}\n"
                 #    f"2  {champ.name} Completed Items: {champ.completed_items}\n"
                 #    f"2  {champ.name} Build: {champ.build}"
-                #)
+                # )
         else:
             for build_item in champ.current_building:
                 if item == build_item[1]:
@@ -463,10 +536,10 @@ class Arena:
                     self.items[self.items.index(item)] = None
                     print(f"  Placed {item} on {champ.name}")
                     print(f"  Completed {build_item[0]} on {champ.name}")
-                    #print(
+                    # print(
                     #    f"3  {champ.name} Completed Items: {build_item[0]}\n"
                     #    f"3  {champ.name} Build: {champ.build}"
-                    #)
+                    # )
                     return
 
     def fix_unknown(self) -> None:
@@ -560,22 +633,22 @@ class Arena:
                         champion[0] != 4 or not arena_functions.check_headliner()
                     ) and self.champs_to_buy.get(champion[1], -1) > 0:
                         self.buy_champion(champion, 1)
-                    elif (
-                        champion[0] == 4
-                        and (
-                            arena_functions.check_headliner()
-                            & self.comps_manager.get_headliner_tag(champion[1])
-                            != 0
-                        )
-                        and not self.have_headliner
-                        and self.comps_manager.current_comp()[1][champion[1]][
-                            "final_comp"
-                        ]
-                        and arena_functions.get_gold()
-                        - self.comps_manager.champions[champion[1]]["Gold"] * 3
-                        >= 0
-                    ):
-                        self.buy_headliner(champion[1])
+                    #elif (
+                    #    champion[0] == 4
+                    #    and (
+                    #        arena_functions.check_headliner()
+                    #        & self.comps_manager.get_headliner_tag(champion[1])
+                    #        != 0
+                    #    )
+                    #    and not self.have_headliner
+                    #    and self.comps_manager.current_comp()[1][champion[1]][
+                    #        "final_comp"
+                    #    ]
+                    #    and arena_functions.get_gold()
+                    #    - self.comps_manager.champions[champion[1]]["Gold"] * 3
+                    #    >= 0
+                    #):
+                    #    self.buy_headliner(champion[1])
             first_run = False
 
     def buy_headliner(self, champion: str) -> None:
@@ -599,8 +672,14 @@ class Arena:
         """Replace champion on the board with the headliner"""
         for champ in self.board:
             if champ and champ.name == champion:
-                headliner_trait = self.comps_manager.current_comp()[1].get(champion, {}).get("headliner", "")
-                print(f"  Replaced {champion} with Headliner: {champion} ({headliner_trait})")
+                headliner_trait = (
+                    self.comps_manager.current_comp()[1]
+                    .get(champion, {})
+                    .get("headliner", "")
+                )
+                print(
+                    f"  Replaced {champion} with Headliner: {champion} ({headliner_trait})"
+                )
                 self.remove_champion(champ)
                 self.buy_champion([4, champion], 0)
                 for newchamp in self.bench:
@@ -676,7 +755,9 @@ class Arena:
                     mk_functions.left_click(
                         screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords()
                     )
-                    return
+                    #if augment in game_assets.DUMMY_AUGMENTS:
+                    #    self.check_dummy()
+                    #return
 
         if self.augment_roll:
             print("  Rolling for augment")
@@ -698,8 +779,8 @@ class Arena:
                     break
                 if not found:
                     mk_functions.left_click(
-                    screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords()
-                )
+                        screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords()
+                    )
                     return
             mk_functions.left_click(screen_coords.AUGMENT_LOC[0].get_coords())
 

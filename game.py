@@ -23,7 +23,9 @@ from vec4 import Vec4
 class Game:
     """Game class that handles game logic such as round tasks"""
 
-    def __init__(self, message_queue: multiprocessing.Queue, comps: CompsManager) -> None:
+    def __init__(
+        self, message_queue: multiprocessing.Queue, comps: CompsManager
+    ) -> None:
         """Initialize the Game instance.
 
         Args:
@@ -48,7 +50,9 @@ class Game:
 
         self.loading_screen()
 
-    def find_window_callback(self, hwnd, extra) -> None:  # pylint: disable=unused-argument
+    def find_window_callback(
+        self, hwnd, extra  # pylint: disable=unused-argument
+    ) -> None:
         """Callback function to find the game window and get its size.
 
         Args:
@@ -91,9 +95,11 @@ class Game:
         """Check "Failed to Connect" windows and try to reconnect"""
         hwnd = win32gui.FindWindow(None, "Failed to Connect")
         if hwnd:
-            print("  Found \"Failed to Connect\" window, trying to exit and reconnect")
+            print('  Found "Failed to Connect" window, trying to exit and reconnect')
             if reconnect_button := win32gui.FindWindowEx(hwnd, 0, "Button", None):
-                if cancel_button := win32gui.FindWindowEx(hwnd, reconnect_button, "Button", None):
+                if cancel_button := win32gui.FindWindowEx(
+                    hwnd, reconnect_button, "Button", None
+                ):
                     print("  Exiting the game.")
                     win32gui.SendMessage(cancel_button, BM_CLICK, 0, 0)
                     return True
@@ -208,7 +214,7 @@ class Game:
         self.start_round_tasks()
         if self.round == "3-4":
             self.arena.final_comp = True
-        sleep(4.7)
+        sleep(9.7)
         print("  Getting a champ from the carousel")
         game_functions.get_champ_carousel(self.round)
 
@@ -231,7 +237,7 @@ class Game:
                 self.arena.clear_anvil()
                 self.arena.anvil_free[:2] = [True, False]
                 self.arena.clear_anvil()
-            #self.arena.tacticians_crown_check() #not getting any item in set9 round 1-3, skipped
+            # self.arena.tacticians_crown_check() #not getting any item in set9 round 1-3, skipped
             self.arena.fix_unknown()
         if self.round == "3-7":
             if self.arena.radiant_item is True:
@@ -277,14 +283,14 @@ class Game:
             if self.round in game_assets.FAST8_LEVEL_ROUNDS:
                 target_level = game_assets.FAST8_LEVEL_ROUNDS[self.round]
 
-                if target_level > 0:
+                if target_level >= arena_functions.get_level_via_https_request():
                     stop_seconds = 10
                     self.level_up(target_level, stop_seconds)
         else:
             if self.round in game_assets.NORMAL_LEVEL_ROUNDS:
                 target_level = game_assets.NORMAL_LEVEL_ROUNDS[self.round]
 
-                if target_level > 0:
+                if target_level >= arena_functions.get_level_via_https_request():
                     stop_seconds = 10
                     self.level_up(target_level, stop_seconds)
 
@@ -341,12 +347,15 @@ class Game:
         Args:
             target_level (int): Target level to reach.
             stop_seconds (float): Maximum duration for leveling up."""
+        prev_level = arena_functions.get_level_via_https_request()
         while arena_functions.get_level_via_https_request() < target_level:
             self.arena.buy_xp_round()
             if time.time() - self.start_time_of_round >= stop_seconds:
                 break
+        current_level = arena_functions.get_level_via_https_request()
 
-        print(f"\n[LEVEL UP] Lvl. {arena_functions.get_level_via_https_request()}")
+        if current_level > prev_level:
+            print(f"  [LEVEL UP] Lvl. {current_level} from Lvl. {prev_level}\n")
 
     def start_round_tasks(self) -> None:
         """Common tasks across rounds that happen at the start"""
@@ -361,3 +370,6 @@ class Game:
         self.arena.get_label()
         game_functions.default_tactician_pos()
         game_functions.default_pos()
+        print(f"Board = {self.arena.board}")
+        print("             ")
+        print(f"Unknown Board = {self.arena.board_unknown}")

@@ -85,7 +85,7 @@ def load_lolchess_prices():
     # Extracting JSON data from the response text
     json_match = re.search(
         r'<script id="__NEXT_DATA__" type="application/json">(\s*{[\s\S]*?})\s*</script>',
-        response.text
+        response.text,
     )
 
     if json_match:
@@ -94,15 +94,23 @@ def load_lolchess_prices():
 
         output_dictionary = {}
         champions = (
-            json_parsed.get('props', {}).get('pageProps', {}).get('champion', {})
-            .get('data', {}).get('allChampions', [])
+            json_parsed.get("props", {})
+            .get("pageProps", {})
+            .get("champion", {})
+            .get("data", {})
+            .get("allChampions", [])
         )
         for each_character in champions:
             character_code = each_character.get("key")
             character_name_ingame = each_character.get("ingameKey")
-            character_price = int(each_character.get("cost", [])[0])  # Assuming we want the cost for the 1-star version
+            character_price = int(
+                each_character.get("cost", [])[0]
+            )  # Assuming we want the cost for the 1-star version
             if character_name_ingame not in output_dictionary:
-                output_dictionary[character_name_ingame] = (character_price, character_code)
+                output_dictionary[character_name_ingame] = (
+                    character_price,
+                    character_code,
+                )
 
         return [current_tft_set, output_dictionary]
 

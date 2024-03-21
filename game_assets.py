@@ -53,7 +53,7 @@ CRAFTABLE_NON_EMBLEM_ITEMS: set[str] = {
     "TacticiansCrown",
     "ThiefsGloves",
     "TitansResolve",
-    "WarmogsArmor"
+    "WarmogsArmor",
 }
 
 # Craftable emblem items
@@ -87,7 +87,7 @@ SUPPORT_ITEMS: set[str] = {
     "VirtueoftheMartyr",
     "ZekesHerald",
     "Zephyr",
-    "ZzRotPortal"
+    "ZzRotPortal",
 }
 
 # Trait items
@@ -115,7 +115,7 @@ TRAIT_ITEMS: set[str] = {
     "TargonEmblem",
     "VanquisherEmblem",
     "VoidEmblem",
-    "ZaunEmblem"
+    "ZaunEmblem",
 }
 
 # Trait Items that cannot be crafted
@@ -134,7 +134,7 @@ ELUSIVE_ITEMS: set[str] = {
     "RapidfireEmblem",
     "SentinelEmblem",
     "SpellweaverEmblem",
-    "SuperfanEmblem"
+    "SuperfanEmblem",
 }
 
 # Ornn items
@@ -154,7 +154,7 @@ ORNN_ITEMS: set[str] = {
     "MogulsMail",
     "SnipersFocus",
     "TrickstersGlass",
-    "ZhonyasParadox"
+    "ZhonyasParadox",
 }
 
 # Radiant items
@@ -165,7 +165,7 @@ RADIANT_ITEMS: set[str] = {
     "BrinkofDawn",
     "BulkwarsOath",
     "CovalentSpark",
-    "CrestofCinders"
+    "CrestofCinders",
     "Demonslayer",
     "DragonsWill",
     "DvarapalaStoneplate",
@@ -193,7 +193,7 @@ RADIANT_ITEMS: set[str] = {
     "TitansVow",
     "UrfAngelsStaff",
     "WarmogsPride",
-    "ZenithEdge"
+    "ZenithEdge",
 }
 
 # Miscellaneous items
@@ -205,7 +205,7 @@ MISC_ITEMS: set[str] = {
     "MasterworkUpgrade",
     "Reforger",
     "ScrollofKnowledge",
-    "TargetDummy"
+    "TargetDummy",
 }
 
 # Union of all holdable items
@@ -276,7 +276,7 @@ ROUNDS: set[str] = {
     "7-4",
     "7-5",
     "7-6",
-    "7-7"
+    "7-7",
 }
 
 # Specific rounds
@@ -318,7 +318,7 @@ PVP_ROUND: set[str] = {
     "7-2",
     "7-3",
     "7-5",
-    "7-6"
+    "7-6",
 }
 PICKUP_ROUNDS: set[str] = {"2-1", "3-1", "4-1", "5-1", "6-1", "7-1"}
 
@@ -334,7 +334,7 @@ ANVIL_ROUNDS: set[str] = {
     "6-1",
     "6-5",
     "7-1",
-    "7-5"
+    "7-5",
 }
 
 NORMAL_LEVEL_ROUNDS: set[str] = {
@@ -345,7 +345,7 @@ NORMAL_LEVEL_ROUNDS: set[str] = {
     "4-5": 8,
     "5-1": 8,
     "5-5": 9,
-    "6-1": 9
+    "6-1": 9,
 }
 
 FAST8_LEVEL_ROUNDS: set[str] = {
@@ -356,7 +356,7 @@ FAST8_LEVEL_ROUNDS: set[str] = {
     "4-2": 8,
     "4-5": 8,
     "6-1": 9,
-    "6-2": 9
+    "6-2": 9,
 }
 
 AUGMENT_ROUNDS: set[str] = {"2-1", "3-2", "4-2"}
@@ -382,7 +382,7 @@ ITEM_PLACEMENT_ROUNDS: set[str] = {
     "6-5",
     "7-1",
     "7-3",
-    "7-5"
+    "7-5",
 }
 
 FINAL_COMP_ROUND = "4-1"
@@ -433,7 +433,7 @@ CRAFTABLE_ITEMS_DICT = {
     "ThiefsGloves": ("SparringGloves", "SparringGloves"),
     "TitansResolve": ("ChainVest", "RecurveBow"),
     "TrueDamageEmblem": ("Spatula", "BFSword"),
-    "WarmogsArmor": ("GiantsBelt", "GiantsBelt")
+    "WarmogsArmor": ("GiantsBelt", "GiantsBelt"),
 }
 
 # Dictionary of radiant items and their base items
@@ -474,7 +474,7 @@ RADIANT_ITEMS_DICT = {
     "TitansVow": "TitansResolve",
     "UrfAngelsStaff": "ArchangelsStaff",
     "WarmogsPride": "WarmogsArmor",
-    "ZenithEdge": "InfinityEdge"
+    "ZenithEdge": "InfinityEdge",
 }
 
 # List of augment names to pick
@@ -527,17 +527,20 @@ AUGMENTS: list[str] = [
     "Rich Get Richer+",
     "Combat Training",
     "Meditation",
-    "Axiom Arc"
+    "Axiom Arc",
 ]
 
 # List of augment names to avoid
 AVOID_AUGMENTS: list[str] = [
+    "AFK",
+    "Recombobulator",
+    "Blank Slate",
+]
+
+DUMMY_AUGMENTS: list[str] = [
     "Stationary Support",
     "Escort Quest",
     "Scapegoat",
-    "AFK",
-    "Recombobulator",
-    "Blank Slate"
 ]
 
 # List of portal names
@@ -571,7 +574,7 @@ PORTALS: list[str] = [
     "Silver Symphony",
     "Spatula",
     "Treasure Armory",
-    "Unit Accelerator"
+    "Unit Accelerator",
 ]
 
 ANVIL_PORTALS: list[str] = [
@@ -580,7 +583,7 @@ ANVIL_PORTALS: list[str] = [
     "Component Anvils",
     "Radiant Item",
     "Support Anvil",
-    "Tome of Traits"
+    "Tome of Traits",
 ]
 
 All_PORTALS: list[str] = PORTALS + ANVIL_PORTALS
@@ -588,5 +591,5 @@ All_PORTALS: list[str] = PORTALS + ANVIL_PORTALS
 AVOID_PORTALS: list[str] = [
     "Training Dummy",
     "Wandering Trainers",
-    "Duplicator Start"
+    "Duplicator Start",
 ]

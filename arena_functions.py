@@ -55,7 +55,11 @@ def get_health() -> int:
             verify=False,
         )
         return int(response.json()["activePlayer"]["championStats"]["currentHealth"])
-    except (requests.exceptions.ConnectionError, KeyError):
+    except (
+        requests.exceptions.ReadTimeout,
+        requests.exceptions.ConnectionError,
+        KeyError,
+    ):
         return -1
 
 
@@ -139,6 +143,20 @@ def bench_occupied_check() -> list:
         else:
             bench_occupied.append(True)
     return bench_occupied
+
+
+def board_occupied_check() -> list:
+    """Returns a list of booleans that map to each board slot indicating if its occupied"""
+    board_occupied: list = []
+    for positions in enumerate(screen_coords.BOARD_HEALTH_POS):
+        screen_capture = ImageGrab.grab(bbox=positions.get_coords())
+        screenshot_array = np.array(screen_capture)
+        if not (np.abs(screenshot_array - (0, 255, 18)) <= 2).all(axis=2).any():
+            board_occupied.append(False)
+            # labels.append(("False", screen_coords.BOARD_LOC[index].get_coords(), 0, 0))  # it just clutters the screen
+        else:
+            board_occupied.append(True)
+    return board_occupied
 
 
 def valid_item(item: str) -> Optional[str]:

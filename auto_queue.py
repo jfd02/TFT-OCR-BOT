@@ -13,11 +13,20 @@ import settings
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+
 def retry_if_connection_error_or_timeout(exception):
     """Determine if a retry should be attempted based on the given exception."""
-    return isinstance(exception, (requests.exceptions.ConnectionError, urllib3.exceptions.ReadTimeoutError))
+    return isinstance(
+        exception,
+        (requests.exceptions.ConnectionError, urllib3.exceptions.ReadTimeoutError),
+    )
 
-@retry(retry_on_exception=retry_if_connection_error_or_timeout, wait_fixed=2000, stop_max_delay=20000)
+
+@retry(
+    retry_on_exception=retry_if_connection_error_or_timeout,
+    wait_fixed=2000,
+    stop_max_delay=20000,
+)
 def create_lobby(client_info: tuple) -> bool:
     """Creates a lobby"""
     payload: dict[str, int] = {"queueId": 1090}  # Ranked TFT is 1100
@@ -37,7 +46,12 @@ def create_lobby(client_info: tuple) -> bool:
     except (requests.exceptions.ConnectionError, urllib3.exceptions.ReadTimeoutError):
         return False
 
-@retry(retry_on_exception=retry_if_connection_error_or_timeout, wait_fixed=2000, stop_max_delay=20000)
+
+@retry(
+    retry_on_exception=retry_if_connection_error_or_timeout,
+    wait_fixed=2000,
+    stop_max_delay=20000,
+)
 def start_queue(client_info: tuple) -> bool:
     """Starts queue"""
     try:
@@ -54,7 +68,12 @@ def start_queue(client_info: tuple) -> bool:
     except (requests.exceptions.ConnectionError, urllib3.exceptions.ReadTimeoutError):
         return False
 
-@retry(retry_on_exception=retry_if_connection_error_or_timeout, wait_fixed=2000, stop_max_delay=20000)
+
+@retry(
+    retry_on_exception=retry_if_connection_error_or_timeout,
+    wait_fixed=2000,
+    stop_max_delay=20000,
+)
 def check_queue(client_info: tuple) -> bool:
     """Checks queue to see if we are searching"""
     try:
@@ -68,7 +87,12 @@ def check_queue(client_info: tuple) -> bool:
     except (requests.exceptions.ConnectionError, urllib3.exceptions.ReadTimeoutError):
         return False
 
-@retry(retry_on_exception=retry_if_connection_error_or_timeout, wait_fixed=2000, stop_max_delay=20000)
+
+@retry(
+    retry_on_exception=retry_if_connection_error_or_timeout,
+    wait_fixed=2000,
+    stop_max_delay=20000,
+)
 def check_game_status(client_info: tuple) -> bool:
     """Checks to see if we are in a game"""
     try:
@@ -82,7 +106,12 @@ def check_game_status(client_info: tuple) -> bool:
     except (requests.exceptions.ConnectionError, urllib3.exceptions.ReadTimeoutError):
         return False
 
-@retry(retry_on_exception=retry_if_connection_error_or_timeout, wait_fixed=2000, stop_max_delay=20000)
+
+@retry(
+    retry_on_exception=retry_if_connection_error_or_timeout,
+    wait_fixed=2000,
+    stop_max_delay=20000,
+)
 def accept_queue(client_info: tuple) -> bool:
     """Accepts the queue"""
     try:
@@ -96,7 +125,12 @@ def accept_queue(client_info: tuple) -> bool:
     except (requests.exceptions.ConnectionError, urllib3.exceptions.ReadTimeoutError):
         return False
 
-@retry(retry_on_exception=retry_if_connection_error_or_timeout, wait_fixed=2000, stop_max_delay=20000)
+
+@retry(
+    retry_on_exception=retry_if_connection_error_or_timeout,
+    wait_fixed=2000,
+    stop_max_delay=20000,
+)
 def change_arena_skin(client_info: tuple) -> bool:
     """Changes arena skin to default, other arena skins have different coordinates"""
     try:
@@ -112,6 +146,7 @@ def change_arena_skin(client_info: tuple) -> bool:
         return False
     except (requests.exceptions.ConnectionError, urllib3.exceptions.ReadTimeoutError):
         return False
+
 
 def get_client() -> tuple:
     """Gets data about the client such as port and auth token"""
@@ -132,19 +167,25 @@ def get_client() -> tuple:
     print("  Client found")
     return remoting_auth_token, server_url
 
-@retry(retry_on_exception=retry_if_connection_error_or_timeout, wait_fixed=2000, stop_max_delay=20000)
+
+@retry(
+    retry_on_exception=retry_if_connection_error_or_timeout,
+    wait_fixed=2000,
+    stop_max_delay=20000,
+)
 def reconnect(client_info: tuple) -> None:
     """Reconnect to game when "Failed to Connect" windows are found"""
     try:
         requests.post(
             f"{client_info[1]}/lol-gameflow/v1/reconnect",
-            auth=HTTPBasicAuth('riot', client_info[0]),
+            auth=HTTPBasicAuth("riot", client_info[0]),
             timeout=20,
             verify=False,
         )
         return True
     except (requests.exceptions.ConnectionError, urllib3.exceptions.ReadTimeoutError):
         return False
+
 
 def handle_queue() -> None:
     """Handles getting into a game"""

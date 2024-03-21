@@ -51,7 +51,8 @@ def get_champ_carousel(tft_round: str) -> None:
     # carousel_coords = randint(0, 2)
     while tft_round == get_round():
         mk_functions.right_click(screen_coords.CAROUSEL_LOC[randint(0, 2)].get_coords())
-        sleep(2.7)
+        sleep(3.7)
+    sleep(3)
 
 
 def check_alive() -> bool:  # Refactor this function to use API
@@ -71,7 +72,7 @@ def exit_game() -> None:
     """Exits the game"""
     mk_functions.left_click(screen_coords.EXIT_NOW_LOC.get_coords())
     mk_functions.left_click(screen_coords.EXIT_NOW_LOC.get_coords())
-    sleep(2)
+    sleep(8)
 
 
 def default_pos() -> None:
