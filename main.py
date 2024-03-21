@@ -172,7 +172,7 @@ def main():
         "\n\nAutoComps version - https://github.com/Sizzzles/TFT-OCR-BOT\n"
     )
 
-    file_path = os.path.join("cached_data", "cached10.json")
+    file_path = os.path.join("cached_data", "cached11.json")
     if os.path.isfile(file_path):
         last_modified_time = time.ctime(os.path.getmtime(file_path))
         print(f"Champions and comps already exist. Last modified: {last_modified_time}")

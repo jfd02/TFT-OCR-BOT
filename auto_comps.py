@@ -160,36 +160,44 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
             f"https://tft.dakgg.io/api/v1/team-builders/{deck_keys}", timeout=20
         ).json()
         counter = 0
-        headliner_trait_key_info = deck_slots.get("lv9TeamBuilder", {}).get(
-            "specialUnit", {}
-        )
+        #headliner_trait_key_info = deck_slots.get("lv9TeamBuilder", {}).get(
+        #    "specialUnit", {}
+        #)
+        #
+        ## Check if there is enough information in headliner_trait_key_info
+        #if headliner_trait_key_info.get("traitKey") and headliner_trait_key_info.get(
+        #    "championKey"
+        #):
+        #    headliner_champion = headliner_trait_key_info.get("championKey", "")
+        #    headliner_trait_key = headliner_trait_key_info.get("traitKey", "")
+        #
+        ## Check if there is enough information in headliner_trait_key_info
+        #if headliner_champion and headliner_trait_key:
+        #    # Normalize champion names
+        #    champion_name = (
+        #        champion_name.replace("MissFortune", "Miss Fortune")
+        #        .replace("TwistedFate", "Twisted Fate")
+        #        .replace("Kaisa", "Kai'Sa")
+        #        .replace("ahri", "Ahri")
+        #        .replace("TahmKench", "Tahm Kench")
+        #    )
 
-        # Check if there is enough information in headliner_trait_key_info
-        if headliner_trait_key_info.get("traitKey") and headliner_trait_key_info.get(
-            "championKey"
-        ):
-            headliner_champion = headliner_trait_key_info.get("championKey", "")
-            headliner_trait_key = headliner_trait_key_info.get("traitKey", "")
+        # Get the highest available team builder from lv5TeamBuilder to lv9TeamBuilder
+        highest_builder = {}
+        for i in range(9, 4, -1):  # Iterate from lv9 to lv5
+            builder_key = f"lv{i}TeamBuilder"
+            if builder_key in deck_slots:
+                highest_builder = deck_slots[builder_key]
+                break
 
-        # Check if there is enough information in headliner_trait_key_info
-        if headliner_champion and headliner_trait_key:
-            # Normalize champion names
-            champion_name = (
-                champion_name.replace("MissFortune", "Miss Fortune")
-                .replace("TwistedFate", "Twisted Fate")
-                .replace("Kaisa", "Kai'Sa")
-                .replace("ahri", "Ahri")
-                .replace("TahmKench", "Tahm Kench")
-            )
-
-        augments = deck_slots.get("teamBuilder", {}).get("augments", [])
+        augments = highest_builder.get("teamBuilder", {}).get("augments", [])
         real_augments = [
             arg.get("name")
             for arg in query_data.get("augments", [])
             if arg.get("key") in augments
         ]
         slots = {}
-        for each_slot in deck_slots.get("lv9TeamBuilder", {}).get("slots", []):
+        for each_slot in highest_builder.get("slots", []):
             if each_slot is not None:
                 try:
                     champion_name = (
@@ -214,23 +222,23 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
                     query_data.get("items"),
                     each_slot.get("items", []),
                 )
-                # Check if the current champion matches the specified headliner champion
-                if champion_name == headliner_champion:
-                    headliner_value = (
-                        headliner_trait_key_info["traitKey"].strip()
-                        # Set headliner to the first part of headliner_trait_key for the corresponding champion
-                    )
-                else:
-                    headliner_value = (
-                        ""  # Set headliner to an empty string for other champions
-                    )
+                ## Check if the current champion matches the specified headliner champion
+                #if champion_name == headliner_champion:
+                #    headliner_value = (
+                #        headliner_trait_key_info["traitKey"].strip()
+                #        # Set headliner to the first part of headliner_trait_key for the corresponding champion
+                #    )
+                #else:
+                #    headliner_value = (
+                #        ""  # Set headliner to an empty string for other champions
+                #    )
 
                 slots[champion_name] = {
                     "board_position": LOLCHESS_BOARD_ARRANGE[each_slot.get("index")],
                     "items": slot_items,
                     "level": star,
                     "final_comp": True,
-                    "headliner": headliner_value,
+                #    "headliner": headliner_value,
                 }
             counter += 3
         output_comps.append([nms, slots, real_augments])
