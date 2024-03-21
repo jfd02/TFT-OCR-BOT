@@ -370,6 +370,3 @@ class Game:
         self.arena.get_label()
         game_functions.default_tactician_pos()
         game_functions.default_pos()
-        print(f"Board = {self.arena.board}")
-        print("             ")
-        print(f"Unknown Board = {self.arena.board_unknown}")
