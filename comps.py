@@ -10,71 +10,71 @@ e.g.2 want either "Sentinel" or "True Damage" Ekko, set it to "headliner": [True
 """
 
 COMP = {
-    "MissFortune": {
-        "board_position": 6,
-        "items": ["GuinsoosRageblade", "Deathblade", "LastWhisper"],
+    "Galio": {
+        "board_position": 25,
+        "items": ["BrambleVest", "Dragonsclaw", "WarmogsArmor"],
         "level": 2,
         "final_comp": True,
-        "headliner": [False, True, False]
+        "headliner": [False, False, False]
     },
-    "Neeko": {
-        "board_position": 24,
-        "items": ["WarmogsArmor", "BrambleVest", "DragonsClaw"],
+    "Kaisa": {
+        "board_position": 5,
+        "items": ["InfinityEdge", "LastWhisper", "SpearofShojin"],
         "level": 3,
         "final_comp": True,
         "headliner": [False, False, False]
     },
-    "Lucian": {
-        "board_position": 3,
+    "Sivir": {
+        "board_position": 4,
         "items": ["StatikkShiv"],
         "level": 2,
         "final_comp": True,
-        "headliner": [False, True, False]
+        "headliner": [False, False, False]
     },
-    "Kennen": {
-        "board_position": 17,
+    "Aatrox": {
+        "board_position": 27,
         "items": ["Evenshroud"],
         "level": 2,
         "final_comp": True,
         "headliner": [False, False, False]
     },
-    "Ekko": {
-        "board_position": 5,
+    "Riven": {
+        "board_position": 21,
         "items": ["ThiefsGloves"],
         "level": 2,
         "final_comp": True,
         "headliner": [False, False, False]
     },
-    "Bard": {
+    "Teemo": {
         "board_position": 0,
         "items": ["JeweledGauntlet","SpearofShojin"],
         "level": 2,
         "final_comp": True,
-        "headliner": [False, True, False]
+        "headliner": [False, False, False]
     },
-    "KaiSa": {
-        "board_position": 1,
+    "Sylas": {
+        "board_position": 23,
         "items": ["ThiefsGloves"],
         "level": 2,
         "final_comp": True,
         "headliner": [False, False, False]
     },
-    "Lillia": {
-        "board_position": 16,
+    "Xayah": {
+        "board_position": 6,
         "items": [],
         "level": 2,
         "final_comp": True,
         "headliner": [False, False, False]
     },
-    "KSante": {
-        "board_position": 25,
+    "Kobuko": {
+        "board_position": 24,
         "items": [],
         "level": 2,
         "final_comp": False,
         "headliner": [False, False, False]
     },
-    "Corki": {
-        "board_position": 7,
+    "Zoe": {
+        "board_position": 5,
         "items": [],
         "level": 2,
         "final_comp": False,
@@ -139,10 +139,10 @@ AUGMENTS: list[str] = [
 AVOID_AUGMENTS: list[str] = [
     "Stationary Support",
     "Escort Quest",
+    "Mind Over Matter",
     "Scapegoat",
-    "AFK",
+    "Wandering Trainer",
     "Recombobulator",
-    "Blank Slate",
     "Forge"
 ]
 
