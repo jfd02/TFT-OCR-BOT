@@ -1,4 +1,4 @@
-0"""
+"""
 Contains static item & champion data
 """
 
