@@ -58,14 +58,14 @@ CRAFTABLE_NON_EMBLEM_ITEMS: set[str] = {
 
 # Craftable emblem items
 CRAFTABLE_EMBLEM_ITEMS: set[str] = {
-    "8bitEmblem",
-    "EmoEmblem",
-    "HeartsteelEmblem",
-    "JazzEmblem",
-    "KDAEmblem",
-    "PentakillEmblem",
-    "PunkEmblem",
-    "TrueDamgeEmblem",
+    "DryadEmblem",
+    "FatedEmblem",
+    "GhostlyEmblem",
+    "HeavenlyEmblem",
+    "MythicEmblem",
+    "PorcelainEmblem",
+    "StoryweaverEmblem",
+    "UmbralEmblem",
 }
 
 # Union of component, craftable non-emblem, and craftable emblem items
@@ -75,10 +75,11 @@ COMPONENT_AND_CRAFTABLE_ITEMS: set[str] = COMPONENT_ITEMS.union(
 
 # Support items
 SUPPORT_ITEMS: set[str] = {
+    "AccomplicesGloves",
     "AegisoftheLegion",
     "BansheesVeil",
     "ChaliceofPower",
-    "CrestOfCinders",
+    "CrestofCinders",
     "LocketoftheIronSolari",
     "NeedlesslyBigGem",
     "ObsidianCleaver",
@@ -87,58 +88,29 @@ SUPPORT_ITEMS: set[str] = {
     "VirtueoftheMartyr",
     "ZekesHerald",
     "Zephyr",
-    "ZzRotPortal",
-}
-
-# Trait items
-TRAIT_ITEMS: set[str] = {
-    "BastionEmblem",
-    "BilgewaterEmblem",
-    "BruiserEmblem",
-    "ChallengerEmblem",
-    "DeadeyeEmblem",
-    "DemaciaEmblem",
-    "FreljordEmblem",
-    "GunnerEmblem",
-    "InvokerEmblem",
-    "IoniaEmblem",
-    "IxtalEmblem",
-    "JuggernautEmblem",
-    "NoxusEmblem",
-    "PiltoverEmblem",
-    "RogueEmblem",
-    "ShadowIslesEmblem",
-    "ShurimaEmblem",
-    "SlayerEmblem",
-    "SorcererEmblem",
-    "StrategistEmblem",
-    "TargonEmblem",
-    "VanquisherEmblem",
-    "VoidEmblem",
-    "ZaunEmblem",
+    "ZzRotPortal"
 }
 
 # Trait Items that cannot be crafted
-ELUSIVE_ITEMS: set[str] = {
-    "BigShotEmblem",
+ELUSIVE_EMBLEM_ITEMS: set[str] = {
+    "AltruistEmblem",
+    "ArcanisEmblem",
+    "BehemothEmblem",
     "BruiserEmblem",
-    "CountryEmblem",
-    "CrowdDiverEmblem",
-    "DazzlerEmblem",
-    "DiscoEmblem",
-    "EdgelordEmblem",
-    "ExecutionerEmblem",
-    "GuardianEmblem",
-    "HyperpopEmblem",
-    "MosherEmblem",
-    "RapidfireEmblem",
-    "SentinelEmblem",
-    "SpellweaverEmblem",
-    "SuperfanEmblem",
+    "DragonlordEmblem",
+    "DuelistEmblem",
+    "ExaltedEmblem",
+    "FortuneEmblem",
+    "InkshadowEmblem",
+    "InvokerEmblem",
+    "ReaperEmblem",
+    "SageEmblem",
+    "SniperEmblem",
+    "WardenEmblem",
 }
 
-# Ornn items
-ORNN_ITEMS: set[str] = {
+# Artifact items
+ARTIFACT_ITEMS: set[str] = {
     "AnimaVisage",
     "BlacksmithsGloves",
     "DeathsDefiance",
@@ -152,6 +124,7 @@ ORNN_ITEMS: set[str] = {
     "InfinityForce",
     "Manazane",
     "MogulsMail",
+    "Rocket-PropelledFist",
     "SnipersFocus",
     "TrickstersGlass",
     "ZhonyasParadox",
@@ -211,18 +184,16 @@ MISC_ITEMS: set[str] = {
 # Union of all holdable items
 HOLDABLE_ITEMS: set[str] = (
     COMPONENT_AND_CRAFTABLE_ITEMS.union(SUPPORT_ITEMS)
-    .union(TRAIT_ITEMS)
-    .union(ELUSIVE_ITEMS)
-    .union(ORNN_ITEMS)
+    .union(ELUSIVE_EMBLEM_ITEMS)
+    .union(ARTIFACT_ITEMS)
     .union(RADIANT_ITEMS)
 )
 
 FORCED_ITEMS: set[str] = (
     CRAFTABLE_NON_EMBLEM_ITEMS.union(CRAFTABLE_EMBLEM_ITEMS)
-    .union(ELUSIVE_ITEMS)
+    .union(ELUSIVE_EMBLEM_ITEMS)
     .union(SUPPORT_ITEMS)
-    .union(TRAIT_ITEMS)
-    .union(ORNN_ITEMS)
+    .union(ARTIFACT_ITEMS)
     .union(RADIANT_ITEMS)
 )
 
@@ -389,7 +360,7 @@ FINAL_COMP_ROUND = "4-1"
 
 # Dictionary of craftable items and their components
 CRAFTABLE_ITEMS_DICT = {
-    "8BitEmblem": ("Spatula", "RecurveBow"),
+    "PorcelainEmblem": ("Spatula", "RecurveBow"),
     "AdaptiveHelm": ("NegatronCloak", "TearoftheGoddess"),
     "ArchangelsStaff": ("NeedlesslyLargeRod", "TearoftheGoddess"),
     "Bloodthirster": ("BFSword", "NegatronCloak"),

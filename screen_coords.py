@@ -90,9 +90,9 @@ ANVIL_MSG_POS: Vec4 = Vec4(GameWindow(818, 838, 932, 859))
 EXIT_NOW_POS: Vec4 = Vec4(GameWindow(910, 560, 1029, 583))
 
 AUGMENT_POS: list[Vec4] = [
-    Vec4(GameWindow(417, 536, 687, 566)),
-    Vec4(GameWindow(825, 536, 1095, 566)),
-    Vec4(GameWindow(1230, 536, 1500, 566)),
+    Vec4(GameWindow(417, 548, 687, 591)),
+    Vec4(GameWindow(825, 548, 1095, 591)),
+    Vec4(GameWindow(1230, 548, 1500, 591)),
 ]
 
 AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
