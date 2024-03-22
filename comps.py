@@ -12,73 +12,63 @@ e.g.2 want either "Sentinel" or "True Damage" Ekko, set it to "headliner": [True
 COMP = {
     "Galio": {
         "board_position": 25,
-        "items": ["BrambleVest", "Dragonsclaw", "WarmogsArmor"],
+        "items": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
         "level": 2,
-        "final_comp": True,
-        "headliner": [False, False, False]
+        "final_comp": True
     },
     "Kaisa": {
         "board_position": 5,
         "items": ["InfinityEdge", "LastWhisper", "SpearofShojin"],
         "level": 3,
-        "final_comp": True,
-        "headliner": [False, False, False]
+        "final_comp": True
     },
     "Sivir": {
         "board_position": 4,
-        "items": ["StatikkShiv"],
+        "items": ["SpearofShojin", "StatikkShiv"],
         "level": 2,
-        "final_comp": True,
-        "headliner": [False, False, False]
+        "final_comp": True
     },
     "Aatrox": {
         "board_position": 27,
         "items": ["Evenshroud"],
         "level": 2,
-        "final_comp": True,
-        "headliner": [False, False, False]
+        "final_comp": True
     },
     "Riven": {
         "board_position": 21,
         "items": ["ThiefsGloves"],
         "level": 2,
-        "final_comp": True,
-        "headliner": [False, False, False]
+        "final_comp": True
     },
     "Teemo": {
         "board_position": 0,
-        "items": ["JeweledGauntlet","SpearofShojin"],
+        "items": ["BlueBuff", "RabadonsDeathcap"],
         "level": 2,
-        "final_comp": True,
-        "headliner": [False, False, False]
+        "final_comp": True
     },
     "Sylas": {
         "board_position": 23,
         "items": ["ThiefsGloves"],
         "level": 2,
-        "final_comp": True,
-        "headliner": [False, False, False]
+        "final_comp": True
     },
     "Xayah": {
         "board_position": 6,
         "items": [],
         "level": 2,
-        "final_comp": True,
-        "headliner": [False, False, False]
+        "final_comp": True
     },
     "Kobuko": {
         "board_position": 24,
         "items": [],
         "level": 2,
-        "final_comp": False,
-        "headliner": [False, False, False]
+        "final_comp": False
     },
     "Zoe": {
-        "board_position": 5,
+        "board_position": 3,
         "items": [],
         "level": 2,
-        "final_comp": False,
-        "headliner": [False, False, False]
+        "final_comp": False
     }
 }
 
@@ -168,12 +158,3 @@ def get_unknown_slots() -> list:
     for _, champion_data in COMP.items():
         container.append(champion_data["board_position"])
     return [n for n in range(27) if n not in container]
-
-
-def get_headliner_tag(name: str) -> int:
-    """Return what trait of specify champion can become headliner"""
-    return (
-        int(COMP[name]["headliner"][0])
-        + int(COMP[name]["headliner"][1]) * 2
-        + int(COMP[name]["headliner"][2]) * 4
-    )

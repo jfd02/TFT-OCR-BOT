@@ -145,18 +145,3 @@ def get_items() -> list:
         item_bench.append(valid_item(item))
     mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
     return item_bench
-
-
-def check_headliner() -> bool:
-    """Check if the last Champion in the store is a headliner"""
-    result: int = 0
-    for index, positions in enumerate(screen_coords.HEADLINER_POS):
-        headliner: str = ocr.get_text(
-            screenxy=positions.get_coords(),
-            scale=3,
-            psm=10,
-            whitelist=ocr.ROUND_WHITELIST.replace("-", ""),
-        )
-        if headliner == "2":
-            result += 2**index
-    return result

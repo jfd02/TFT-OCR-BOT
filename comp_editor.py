@@ -8,7 +8,6 @@ import tkinter as tk
 from tkinter import ttk, simpledialog
 import json
 import os
-import re
 from comps import COMP
 from game_assets import FULL_ITEMS, CHAMPIONS
 
@@ -34,13 +33,12 @@ class CompEditor(tk.Tk):
         self.geometry("1280x720")
 
         self.comp_tree = ttk.Treeview(
-            self, columns=("board_position", "level", "items", "traits", "final_comp")
+            self, columns=("board_position", "level", "items", "final_comp")
         )
         self.comp_tree.heading("#0", text="Champion")
         self.comp_tree.heading("board_position", text="Board Position")
         self.comp_tree.heading("level", text="Level")
         self.comp_tree.heading("items", text="Items")
-        self.comp_tree.heading("traits", text="Traits")
         self.comp_tree.heading("final_comp", text="Final Comp")
         self.comp_tree.grid(row=0, column=1, rowspan=8, sticky="nsew")
 
@@ -58,9 +56,6 @@ class CompEditor(tk.Tk):
         )
         self.champion_dropdown.grid(
             row=0, column=0, columnspan=2, pady=5, padx=5, sticky="w"
-        )
-        self.champion_dropdown.bind(
-            "<<ComboboxSelected>>", lambda event: self.update_traits_dropdowns()
         )
 
         self.board_position_var = tk.StringVar()
@@ -83,9 +78,6 @@ class CompEditor(tk.Tk):
             )
             item_dropdown.grid(row=i + 3, column=1, columnspan=2, pady=5, sticky="w")
             self.item_dropdowns.append(item_var)
-
-        self.trait_dropdowns = self.create_trait_dropdowns(left_frame)
-        self.update_traits_dropdowns()
 
         self.final_comp_var = tk.BooleanVar()
         self.create_checkbox(
@@ -116,10 +108,6 @@ class CompEditor(tk.Tk):
         left_frame.grid_columnconfigure(1, weight=1)
         left_frame.grid_rowconfigure(11, weight=1)
 
-        # Bind the validation function to the variables
-        self.champion_dropdown.bind(
-            "<<ComboboxSelected>>", lambda event: self.update_traits_dropdowns()
-        )
         self.board_position_var.trace_add("write", lambda *args: self.validate_inputs())
         self.level_var.trace_add("write", lambda *args: self.validate_inputs())
         self.comp_tree.bind("<Double-1>", lambda event: self.on_tree_double_click())
@@ -159,115 +147,6 @@ class CompEditor(tk.Tk):
             else:
                 item_var.set("")
 
-        # Update traits dropdowns based on the selected champion
-        self.update_traits_dropdowns()
-
-        # Set headliner traits
-        headliner_traits = details.get("headliner", [])
-        for i, (trait_var, trait_dropdown) in enumerate(
-            zip(self.trait_vars, self.trait_dropdowns)
-        ):
-            if i < len(headliner_traits) and headliner_traits[i]:
-                # Set trait only if headliner value is True
-                trait_name = CHAMPIONS[champion].get(f"Trait{i + 1}", "")
-                trait_var.set(trait_name)
-                trait_dropdown.set(trait_name)
-            else:
-                trait_var.set("")
-                trait_dropdown.set("")
-
-    def create_trait_dropdown(self, frame, label_text, variable, row):
-        """
-        Create a single trait dropdown in the given frame.
-
-        Args:
-            frame (ttk.Frame): The frame in which to create the dropdown.
-            label_text (str): The text for the dropdown label.
-            variable: The variable associated with the dropdown.
-            row (int): The row in which to place the dropdown.
-        """
-        trait_dropdown = ttk.Combobox(frame, textvariable=variable, values=[""])
-        ttk.Label(frame, text=label_text).grid(row=row, column=0, sticky="w", padx=5)
-        trait_dropdown.grid(row=row, column=1, columnspan=2, pady=5, sticky="w")
-        return trait_dropdown
-
-    def create_trait_dropdowns(self, frame):
-        """
-        Create trait dropdowns for the given champion.
-
-        Args:
-            frame (ttk.Frame): The frame in which to create the trait dropdowns.
-
-        Returns:
-            list: List of trait dropdowns.
-        """
-        trait_dropdowns = []
-        for i in range(3):
-            trait_var = tk.StringVar()
-            trait_dropdown = self.create_trait_dropdown(
-                frame, f"Trait {i + 1}:", trait_var, i + 6
-            )
-            trait_dropdowns.append(trait_dropdown)
-        return trait_dropdowns
-
-    def update_traits_dropdowns(self):
-        """
-        Update the traits dropdowns based on the selected champion.
-        """
-        selected_champion = self.champion_name_var.get()
-
-        if selected_champion in CHAMPIONS:
-            champion_traits = CHAMPIONS[selected_champion]
-            traits = [
-                champion_traits["Trait1"],
-                champion_traits["Trait2"],
-                champion_traits["Trait3"],
-            ]
-            num_traits = sum(1 for trait in traits if trait)
-        else:
-            traits = ["", "", ""]
-            num_traits = 0
-
-        filtered_traits = []
-        seen_traits = set()
-
-        for item in traits:
-            if item and item not in seen_traits:
-                filtered_traits.append(item)
-                seen_traits.add(item)
-
-        # Update the values in the dropdowns
-        for i, (trait_var, trait_dropdown) in enumerate(
-            zip(self.trait_vars, self.trait_dropdowns)
-        ):
-            trait_var.set("")  # Set the default choice to blank
-            trait_dropdown["values"] = [""] + filtered_traits
-            trait_dropdown.set("")
-
-            # Disable dropdowns based on the number of available traits
-            trait_dropdown["state"] = "normal"  # Reset state to normal
-            if i >= num_traits:
-                # Reset value to blank for disabled dropdowns
-                trait_dropdown.set("")
-                trait_dropdown["state"] = "disabled"
-
-    def map_traits_to_headliner(self, selected_traits, champion_traits):
-        """
-        Map selected traits to positions in the headliner list.
-
-        Args:
-            selected_traits (list): List of selected traits by the user.
-            champion_traits (list): List of traits associated with the selected champion.
-
-        Returns:
-            list: A list representing the headliner with True at positions corresponding to selected traits.
-        """
-        headliner = [False] * 3
-        for trait in selected_traits:
-            if trait in champion_traits and trait != "":
-                headliner[champion_traits.index(trait)] = True
-        return headliner
-
     def create_label_entry(self, frame, label_text, variable, row=None):
         """
         Create a label and entry widget pair in the given frame.
@@ -304,25 +183,6 @@ class CompEditor(tk.Tk):
         for champion, details in sorted(
             self.comp.items(), key=lambda x: x[1]["board_position"]
         ):
-            # Fetch traits from CHAMPIONS
-            champion_data = CHAMPIONS.get(champion, {})
-            traits = [champion_data.get(f"Trait{i+1}", "") for i in range(3)]
-
-            # Update traits based on headliner values
-            headliner_values = details.get("headliner", [False, False, False])
-            traits = [
-                trait if headliner else ""
-                for trait, headliner in zip(traits, headliner_values)
-            ]
-
-            filtered_traits = []
-            seen_traits = set()
-
-            for item in traits:
-                if item and item not in seen_traits:
-                    filtered_traits.append(item)
-                    seen_traits.add(item)
-
             self.comp_tree.insert(
                 "",
                 "end",
@@ -331,7 +191,6 @@ class CompEditor(tk.Tk):
                     details["board_position"],
                     details["level"],
                     ", ".join(details["items"]),
-                    ", ".join(filtered_traits),
                     details["final_comp"],
                 ),
             )
@@ -431,24 +290,13 @@ class CompEditor(tk.Tk):
         items = self.validate_and_filter_items()
         level = self.validate_level()
         final_comp = self.final_comp_var.get()
-        selected_traits = self.get_selected_traits()
         selected_champion = self.champion_name_var.get()
-
-        if selected_champion in CHAMPIONS:
-            champion_traits = CHAMPIONS[selected_champion]
-            traits = [champion_traits[f"Trait{i+1}"] for i in range(3)]
-        else:
-            traits = ["", "", ""]
-
-        headliner = self.map_traits_to_headliner(selected_traits, traits)
 
         new_champion = {
             "board_position": board_position,
-            "level": level,
             "items": items,
-            "traits": selected_traits,
+            "level": level,
             "final_comp": final_comp,
-            "headliner": headliner,
         }
 
         self.comp[selected_champion] = new_champion
@@ -509,24 +357,6 @@ class CompEditor(tk.Tk):
             return None
         return int(level_str)
 
-    def get_selected_traits(self):
-        """
-        Retrieve and filter the selected traits entered by the user.
-
-        Returns:
-            list: The filtered list of selected traits.
-        """
-        selected_traits = [trait_var.get() for trait_var in self.trait_dropdowns]
-        filtered_traits = []
-        seen_traits = set()
-
-        for item in selected_traits:
-            if item and item not in seen_traits:
-                filtered_traits.append(item)
-                seen_traits.add(item)
-
-        return filtered_traits
-
     def is_valid_item(self, item):
         """
         Check if the item string is valid.
@@ -581,12 +411,7 @@ class CompEditor(tk.Tk):
         updated_file_content = (
             file_content[:comp_line_start]
             + "COMP = "
-            + re.sub(
-                r'"traits": \[.*?\],\n?',
-                "",
-                json.dumps(self.comp, indent=4),
-                flags=re.DOTALL,
-            )
+            + json.dumps(self.comp, indent=4)
             .replace("false", "False")
             .replace("true", "True")
             .replace("                ", "        ")
