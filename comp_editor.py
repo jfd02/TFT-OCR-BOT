@@ -8,7 +8,6 @@ import tkinter as tk
 from tkinter import ttk, simpledialog
 import json
 import os
-import re
 from comps import COMP
 from game_assets import FULL_ITEMS, CHAMPIONS
 
@@ -295,8 +294,8 @@ class CompEditor(tk.Tk):
 
         new_champion = {
             "board_position": board_position,
-            "level": level,
             "items": items,
+            "level": level,
             "final_comp": final_comp,
         }
 
@@ -412,12 +411,7 @@ class CompEditor(tk.Tk):
         updated_file_content = (
             file_content[:comp_line_start]
             + "COMP = "
-            + re.sub(
-                r'"traits": \[.*?\],\n?',
-                "",
-                json.dumps(self.comp, indent=4),
-                flags=re.DOTALL,
-            )
+            + json.dumps(self.comp, indent=4)
             .replace("false", "False")
             .replace("true", "True")
             .replace("                ", "        ")

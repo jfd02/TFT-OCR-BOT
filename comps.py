@@ -12,62 +12,62 @@ e.g.2 want either "Sentinel" or "True Damage" Ekko, set it to "headliner": [True
 COMP = {
     "Galio": {
         "board_position": 25,
-        "level": 2,
         "items": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
+        "level": 2,
         "final_comp": True
     },
     "Kaisa": {
         "board_position": 5,
-        "level": 3,
         "items": ["InfinityEdge", "LastWhisper", "SpearofShojin"],
+        "level": 3,
         "final_comp": True
     },
     "Sivir": {
         "board_position": 4,
+        "items": ["SpearofShojin", "StatikkShiv"],
         "level": 2,
-        "items": ["StatikkShiv"],
         "final_comp": True
     },
     "Aatrox": {
         "board_position": 27,
-        "level": 2,
         "items": ["Evenshroud"],
+        "level": 2,
         "final_comp": True
     },
     "Riven": {
         "board_position": 21,
-        "level": 2,
         "items": ["ThiefsGloves"],
+        "level": 2,
         "final_comp": True
     },
     "Teemo": {
         "board_position": 0,
+        "items": ["BlueBuff", "RabadonsDeathcap"],
         "level": 2,
-        "items": ["JeweledGauntlet", "SpearofShojin"],
         "final_comp": True
     },
     "Sylas": {
         "board_position": 23,
-        "level": 2,
         "items": ["ThiefsGloves"],
+        "level": 2,
         "final_comp": True
     },
     "Xayah": {
         "board_position": 6,
-        "level": 2,
         "items": [],
+        "level": 2,
         "final_comp": True
     },
     "Kobuko": {
         "board_position": 24,
-        "level": 2,
         "items": [],
+        "level": 2,
         "final_comp": False
     },
     "Zoe": {
         "board_position": 3,
-        "level": 2,
         "items": [],
+        "level": 2,
         "final_comp": False
     }
 }
