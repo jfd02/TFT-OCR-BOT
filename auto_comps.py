@@ -208,11 +208,9 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
                                 query_data.get("champions"),
                             ),
                         )[0]["name"]
-                        .replace("Akali (K/DA)", "Akali")
-                        .replace("Akali (True Damage)", "Akali")
-                        .replace("MissFortune", "Miss Fortune")
-                        .replace("TwistedFate", "Twisted Fate")
+                        .replace("KogMaw", "Kog'Maw")
                         .replace("Kaisa", "Kai'Sa")
+                        .replace("KhaZix", "Kha'Zix")
                         .replace("TahmKench", "Tahm Kench")
                     )
                     star = each_slot.get("star", 1)
