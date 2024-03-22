@@ -171,7 +171,7 @@ class Game:
             self.arena.clear_anvil()
             self.arena.anvil_free[:2] = [True, False]
             self.arena.clear_anvil()
-            # self.arena.tacticians_crown_check() #not getting any item in set9 round 1-3, skipped
+            self.arena.tacticians_crown_check()
 
         self.arena.fix_bench_state()
         self.arena.spend_gold()

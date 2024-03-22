@@ -57,9 +57,9 @@ ANVIL_MSG_POS: Vec4 = Vec4(GameWindow(818, 838, 932, 859))
 EXIT_NOW_POS: Vec4 = Vec4(GameWindow(910, 560, 1029, 583))
 
 AUGMENT_POS: list[Vec4] = [
-    Vec4(GameWindow(417, 536, 687, 566)),
-    Vec4(GameWindow(825, 536, 1095, 566)),
-    Vec4(GameWindow(1230, 536, 1500, 566)),
+    Vec4(GameWindow(417, 552, 687, 582)),
+    Vec4(GameWindow(825, 552, 1095, 582)),
+    Vec4(GameWindow(1230, 552, 1500, 582)),
 ]
 
 AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
@@ -67,12 +67,6 @@ AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
 AUGMENT_ROLL: list[Vec2] = [Vec2(549, 875), Vec2(960, 875), Vec2(1363, 875)]
 
 VICTORY_POS: Vec4 = Vec4(GameWindow(906, 560, 1030, 587))
-
-HEADLINER_POS: list[Vec4] = [
-    Vec4(GameWindow(1280, 1018, 1289, 1030)),
-    Vec4(GameWindow(1280, 990, 1289, 1002)),
-    Vec4(GameWindow(1280, 964, 1289, 976))
-]
 
 BUY_LOC: list[Vec2] = [
     Vec2(575, 992),
