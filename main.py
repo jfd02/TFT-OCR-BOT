@@ -86,7 +86,7 @@ def load_champions_data() -> dict:
     "Ornn": {"Gold": 4, "Board Size": 1, "Trait1": "Dryad", "Trait2": "Behemoth", "Trait3": ""},
     "Qiyana": {"Gold": 2, "Board Size": 1, "Trait1": "Heavenly", "Trait2": "Duelist", "Trait3": ""},
     "Rakan": {"Gold": 5, "Board Size": 1, "Trait1": "Dragonlord", "Trait2": "Altruist", "Trait3": "Lovers"},
-    "RekSai": {"Gold": 1, "Board Size": 1, "Trait1": "Dryad", "Trait2": "Bruiser", "Trait3": ""},
+    "Rek'Sai": {"Gold": 1, "Board Size": 1, "Trait1": "Dryad", "Trait2": "Bruiser", "Trait3": ""},
     "Riven": {"Gold": 2, "Board Size": 1, "Trait1": "Storyweaver", "Trait2": "Altruist", "Trait3": "Bruiser"},
     "Senna": {"Gold": 2, "Board Size": 1, "Trait1": "Inkshadow", "Trait2": "Sniper", "Trait3": ""},
     "Sett": {"Gold": 5, "Board Size": 1, "Trait1": "Fated", "Trait2": "Umbral", "Trait3": "Warden"},

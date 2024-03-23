@@ -65,11 +65,13 @@ ITEM_POS: list[list] = [
     [Vec2(457, 628), Vec4(GameWindow(559, 670, 797, 701))],
 ]
 
-ROUND_POS: Vec4 = Vec4(GameWindow(767, 10, 870, 34))
+ROUND_POS: Vec4 = Vec4(GameWindow(753, 10, 870, 34))
 
-ROUND_POS_ONE: Vec4 = Vec4(GameWindow(2, 0, 42, 24), use_screen_offset=False)
+ROUND_POS_ONE: Vec4 = Vec4(GameWindow(0, 0, 40, 24), use_screen_offset=False)
 
-ROUND_POS_TWO: Vec4 = Vec4(GameWindow(57, 0, 96, 24), use_screen_offset=False)
+ROUND_POS_TWO: Vec4 = Vec4(GameWindow(16, 0, 56, 24), use_screen_offset=False)
+
+ROUND_POS_THREE: Vec4 = Vec4(GameWindow(71, 0, 110, 24), use_screen_offset=False)
 
 SHOP_POS: Vec4 = Vec4(GameWindow(481, 1039, 1476, 1070))
 
@@ -90,9 +92,9 @@ ANVIL_MSG_POS: Vec4 = Vec4(GameWindow(818, 838, 932, 859))
 EXIT_NOW_POS: Vec4 = Vec4(GameWindow(910, 560, 1029, 583))
 
 AUGMENT_POS: list[Vec4] = [
-    Vec4(GameWindow(417, 548, 687, 591)),
-    Vec4(GameWindow(825, 548, 1095, 591)),
-    Vec4(GameWindow(1230, 548, 1500, 591)),
+    Vec4(GameWindow(417, 552, 687, 582)),
+    Vec4(GameWindow(825, 552, 1095, 582)),
+    Vec4(GameWindow(1230, 552, 1500, 582)),
 ]
 
 AUGMENT_LOC: list[Vec2] = [Vec2(549, 445), Vec2(955, 445), Vec2(1365, 445)]
@@ -114,12 +116,6 @@ PORTAL_AUGMENT_LOC: Vec2 = Vec2(500, 350)
 PORTAL_AUGMENT_POS: Vec4 = Vec4(GameWindow(660, 285, 845, 340))
 
 VICTORY_POS: Vec4 = Vec4(GameWindow(906, 560, 1030, 587))
-
-HEADLINER_POS: list[Vec4] = [
-    Vec4(GameWindow(1280, 1018, 1289, 1030)),
-    Vec4(GameWindow(1280, 990, 1289, 1002)),
-    Vec4(GameWindow(1280, 964, 1289, 976)),
-]
 
 BUY_LOC: list[Vec2] = [
     Vec2(575, 992),

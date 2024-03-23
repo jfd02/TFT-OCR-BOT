@@ -237,8 +237,8 @@ class Game:
                 self.arena.clear_anvil()
                 self.arena.anvil_free[:2] = [True, False]
                 self.arena.clear_anvil()
-            # self.arena.tacticians_crown_check() #not getting any item in set9 round 1-3, skipped
-            self.arena.fix_unknown()
+            self.arena.tacticians_crown_check()
+
         if self.round == "3-7":
             if self.arena.radiant_item is True:
                 sleep(1.5)
