@@ -5,6 +5,7 @@ other variables used by the bot to make decisions
 
 from time import sleep
 from typing import List, Optional, Union
+from datetime import datetime
 
 import random
 import arena_functions
@@ -43,7 +44,6 @@ class Arena:
         self.spam_roll = False
         self.active_portal: str = ""
         self.radiant_item = False
-        self.have_headliner = False
 
     def portal_vote(self) -> None:
         """Picks a portal based on a comp-specific/user-defined portal list
@@ -414,6 +414,7 @@ class Arena:
                                 "ThiefsGloves",
                                 "BlacksmithsGloves",
                                 "RascalsGloves",
+                                "AccomplicesGloves"
                             ]
                             if (
                                 self.other_instances_dont_need_item(item)
@@ -586,7 +587,7 @@ class Arena:
 
     def tacticians_crown_check(self) -> None:
         """Checks if the item from carousel is tacticians crown"""
-        mk_functions.move_mouse(screen_coords.ITEM_POS[3][0].get_coords())
+        mk_functions.move_mouse(screen_coords.ITEM_POS[0][0].get_coords())
         sleep(0.5)
         item: str = ocr.get_text(
             screenxy=screen_coords.ITEM_POS[0][1].get_coords(),
@@ -620,84 +621,18 @@ class Arena:
                     print("  Purchasing XP")
                 mk_functions.reroll()
                 print("  Rerolling shop")
+                sleep(0.1)
             shop: list = arena_functions.get_shop(self.comps_manager)
             print(f"  Shop: {shop}")
-            for champion in reversed(shop):
+            for champion in shop:
                 if (
                     self.champs_to_buy.get(champion[1], -1) >= 0
                     and arena_functions.get_gold()
                     - self.comps_manager.champions[champion[1]]["Gold"]
                     >= 0
                 ):
-                    if (
-                        champion[0] != 4 or not arena_functions.check_headliner()
-                    ) and self.champs_to_buy.get(champion[1], -1) > 0:
-                        self.buy_champion(champion, 1)
-                    #elif (
-                    #    champion[0] == 4
-                    #    and (
-                    #        arena_functions.check_headliner()
-                    #        & self.comps_manager.get_headliner_tag(champion[1])
-                    #        != 0
-                    #    )
-                    #    and not self.have_headliner
-                    #    and self.comps_manager.current_comp()[1][champion[1]][
-                    #        "final_comp"
-                    #    ]
-                    #    and arena_functions.get_gold()
-                    #    - self.comps_manager.champions[champion[1]]["Gold"] * 3
-                    #    >= 0
-                    #):
-                    #    self.buy_headliner(champion[1])
+                    self.buy_champion(champion, 1)
             first_run = False
-
-    def buy_headliner(self, champion: str) -> None:
-        """Buy headliner and replace the normal one if the level is not equal to 3"""
-        if self.comps_manager.current_comp()[1].get(champion, {}).get("level", 0) >= 3:
-            self.buy_champion([4, champion], 3)
-            self.have_headliner = True
-            return
-
-        champion_found = self.replace_champion_with_headliner_on_board(champion)
-        if not champion_found:
-            champion_found = self.replace_champion_with_headliner_on_bench(champion)
-
-        if not champion_found:
-            print(f"No matching champion found on the board or bench for {champion}")
-            self.buy_champion([4, champion], 3)
-
-        self.have_headliner = True
-
-    def replace_champion_with_headliner_on_board(self, champion: str) -> bool:
-        """Replace champion on the board with the headliner"""
-        for champ in self.board:
-            if champ and champ.name == champion:
-                headliner_trait = (
-                    self.comps_manager.current_comp()[1]
-                    .get(champion, {})
-                    .get("headliner", "")
-                )
-                print(
-                    f"  Replaced {champion} with Headliner: {champion} ({headliner_trait})"
-                )
-                self.remove_champion(champ)
-                self.buy_champion([4, champion], 0)
-                for newchamp in self.bench:
-                    if isinstance(newchamp, Champion) and newchamp.name == champion:
-                        self.move_known(newchamp)
-                        self.place_items()
-                return True
-        return False
-
-    def replace_champion_with_headliner_on_bench(self, champion: str) -> bool:
-        """Replace champion on the bench with the headliner"""
-        for index, slot in enumerate(self.bench):
-            if isinstance(slot, Champion) and slot.name == champion:
-                mk_functions.press_e(slot.coords)
-                self.bench[index] = None
-                self.buy_champion([4, champion], 3)
-                return True
-        return False
 
     def buy_champion(self, champion, quantity) -> None:
         """Buy champion in shop"""
@@ -755,9 +690,12 @@ class Arena:
                     mk_functions.left_click(
                         screen_coords.AUGMENT_LOC[augments.index(augment)].get_coords()
                     )
-                    #if augment in game_assets.DUMMY_AUGMENTS:
-                    #    self.check_dummy()
-                    #return
+                    if augment in game_assets.DUMMY_AUGMENTS:
+                        self.check_dummy()
+                        with open('check_dummy.log', 'a', encoding='utf-8') as log_file:
+                            log_file.write(
+                            f"[!] [{datetime.now()}] Dummy check STARTED! [!]\n")
+                    return
 
         if self.augment_roll:
             print("  Rolling for augment")

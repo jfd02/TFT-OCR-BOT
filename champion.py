@@ -16,7 +16,6 @@ class Champion:
         slot: int,
         size: int,
         final_comp: bool,
-        headliner: str = "",
     ) -> None:
         self.name: str = name
         self.coords: tuple = coords
@@ -27,7 +26,6 @@ class Champion:
         self.current_building: list = []
         self.max_item_slots: int = 3
         self.final_comp: bool = final_comp
-        self.headliner: str = headliner
 
     def __str__(self) -> str:
         return (
@@ -35,7 +33,6 @@ class Champion:
             f"build={self.build}, index={self.index}, size={self.size}, "
             f"completed_items={self.completed_items}, "
             f"current_building={self.current_building}, final_comp={self.final_comp}, "
-            f"headliner={self.headliner})"
         )
 
     def does_need_items(self) -> bool:

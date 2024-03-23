@@ -103,6 +103,7 @@ def load_champions_data() -> dict:
     "Volibear": {"Gold": 3, "Board Size": 1, "Trait1": "Inkshadow", "Trait2": "Duelist", "Trait3": ""},
     "Wukong": {"Gold": 5, "Board Size": 1, "Trait1": "Heavenly", "Trait2": "Sage", "Trait3": ""},
     "Xayah": {"Gold": 5, "Board Size": 1, "Trait1": "Dragonlord", "Trait2": "Lovers", "Trait3": "Trickshot"},
+    "Xayah & Rakan":{"Gold": 5, "Board Size": 1, "Trait1": "", "Trait2": "", "Trait3": ""},
     "Yasuo": {"Gold": 1, "Board Size": 1, "Trait1": "Fated", "Trait2": "Duelist", "Trait3": ""},
     "Yone": {"Gold": 3, "Board Size": 1, "Trait1": "Umbral", "Trait2": "Reaper", "Trait3": ""},
     "Yorick": {"Gold": 2, "Board Size": 1, "Trait1": "Umbral", "Trait2": "Behemoth", "Trait3": ""},

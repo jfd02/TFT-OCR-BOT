@@ -114,30 +114,3 @@ class CompsManager:
             for _, champion_data in self.current_comp()[1].items()
         ]
         return [n for n in range(27) if n not in container]
-
-    def convert_headliner_data(self, name, headliner_data):
-        """Convert headliner data to a boolean list."""
-        if not headliner_data or headliner_data == "[]":
-            return [False, False, False]
-
-        champion_data = self.champions.get(name, {})
-        return [
-            champion_data.get(f"Trait{i+1}", "").lower() == headliner_data.lower()
-            for i in range(3)
-        ]
-
-    def get_headliner_tag(self, name: str) -> int:
-        """Return what trait of specified champion can become headliner"""
-        try:
-            headliner_data = self.comps_loaded[self.index_current][1][name]["headliner"]
-            headliner_data_list = self.convert_headliner_data(name, headliner_data)
-
-            if len(headliner_data_list) >= 3:
-                digit_1 = int(headliner_data_list[0])
-                digit_2 = int(headliner_data_list[1]) * 2
-                digit_3 = int(headliner_data_list[2]) * 4
-
-                return digit_1 + digit_2 + digit_3
-
-        except (IndexError, KeyError, TypeError, ValueError):
-            return
