@@ -32,11 +32,13 @@ ITEM_POS: list[list] = [
     [Vec2(457, 628), Vec4(GameWindow(559, 670, 797, 701))],
 ]
 
-ROUND_POS: Vec4 = Vec4(GameWindow(767, 10, 870, 34))
+ROUND_POS: Vec4 = Vec4(GameWindow(753, 10, 870, 34))
 
-ROUND_POS_ONE: Vec4 = Vec4(GameWindow(2, 0, 42, 24), use_screen_offset=False)
+ROUND_POS_ONE: Vec4 = Vec4(GameWindow(0, 0, 40, 24), use_screen_offset=False)
 
-ROUND_POS_TWO: Vec4 = Vec4(GameWindow(57, 0, 96, 24), use_screen_offset=False)
+ROUND_POS_TWO: Vec4 = Vec4(GameWindow(16, 0, 56, 24), use_screen_offset=False)
+
+ROUND_POS_THREE: Vec4 = Vec4(GameWindow(71, 0, 110, 24), use_screen_offset=False)
 
 SHOP_POS: Vec4 = Vec4(GameWindow(481, 1039, 1476, 1070))
 
