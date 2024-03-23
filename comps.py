@@ -12,7 +12,7 @@ e.g.2 want either "Sentinel" or "True Damage" Ekko, set it to "headliner": [True
 COMP = {
     "Irelia": {
         "board_position": 6,
-        "items": ["GiantsBelt", "GuinsoosRageblade", "InfinityEdge"],
+        "items": ["GiantSlayer", "GuinsoosRageblade", "InfinityEdge"],
         "level": 3,
         "final_comp": True
     },
@@ -24,7 +24,7 @@ COMP = {
     },
     "Sivir": {
         "board_position": 5,
-        "items": ["GiantsBelt", "GuinsoosRageblade", "InfinityEdge"],
+        "items": ["GiantSlayer", "GuinsoosRageblade", "InfinityEdge"],
         "level": 2,
         "final_comp": True
     },
