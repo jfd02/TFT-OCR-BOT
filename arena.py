@@ -40,11 +40,13 @@ class Arena:
         for index, slot in enumerate(self.bench):
             if slot is None and bench_occupied[index]:
                 mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
-                champ_name: str = ocr.get_text(
-                    screenxy=screen_coords.PANEL_NAME_LOC.get_coords(),
-                    scale=3,
-                    psm=7,
-                    whitelist=ocr.ALPHABET_WHITELIST,
+                champ_name: str = arena_functions.valid_champ(
+                    ocr.get_text(
+                        screenxy=screen_coords.PANEL_NAME_LOC.get_coords(),
+                        scale=3,
+                        psm=7,
+                        whitelist=ocr.ALPHABET_WHITELIST,
+                    )
                 )
                 if self.champs_to_buy.get(champ_name, 0) > 0:
                     print(

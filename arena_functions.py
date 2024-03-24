@@ -74,7 +74,7 @@ def get_champ(
 ) -> str:
     """Returns a tuple containing the shop position and champion name"""
     champ: str = screen_capture.crop(name_pos.get_coords())
-    champ: str = ocr.get_text_from_image(image=champ, whitelist="")
+    champ: str = ocr.get_text_from_image(image=champ, whitelist=ocr.ALPHABET_WHITELIST)
     shop_array.append((shop_pos, valid_champ(champ)))
 
 
