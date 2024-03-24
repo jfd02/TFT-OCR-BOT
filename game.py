@@ -140,7 +140,8 @@ class Game:
             if any(result):
                 break
         self.arena.bench[result.index(True)] = "?"
-        self.arena.move_unknown()
+        for i in range(arena_functions.get_level()):
+            self.arena.move_unknown()
         self.end_round_tasks()
 
     def carousel_round(self) -> None:
