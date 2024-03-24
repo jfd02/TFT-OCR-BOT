@@ -140,7 +140,7 @@ class Game:
             if any(result):
                 break
         self.arena.bench[result.index(True)] = "?"
-        for i in range(arena_functions.get_level()):
+        for _ in range(arena_functions.get_level()):
             self.arena.move_unknown()
         self.end_round_tasks()
 
