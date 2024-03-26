@@ -63,7 +63,7 @@ class Arena:
                     self.champs_to_buy[champ_name] -= 1
                 else:
                     print(
-                        f"  The unknown champion {champ_name} not exists in comps, seeling it."
+                        f"  The unknown champion {champ_name} not exists in comps, selling it."
                     )
                     self.bench[index] = "?"
                 continue
