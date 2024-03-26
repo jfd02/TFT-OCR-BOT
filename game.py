@@ -203,7 +203,8 @@ class Game:
             if any(result):
                 break
         self.arena.bench[result.index(True)] = "?"
-        self.arena.move_unknown()
+        for _ in range(arena_functions.get_level_via_https_request()):
+            self.arena.move_unknown()
         sleep(2.5)
         self.arena.portal_augment()
         self.end_round_tasks()
@@ -229,6 +230,7 @@ class Game:
             self.arena.augment_roll = True
             self.arena.pick_augment()
             sleep(2.5)
+            self.arena.check_dummy()
         if self.round == "1-3":
             sleep(1.5)
             # Check if the active portal is an anvil portal and clear the anvils it if it is
@@ -278,6 +280,7 @@ class Game:
             self.arena.augment_roll = True
             self.arena.pick_augment()
             sleep(2.5)
+            self.arena.check_dummy()
 
         if self.fast8_leveling:
             if self.round in game_assets.FAST8_LEVEL_ROUNDS:

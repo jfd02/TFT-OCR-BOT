@@ -127,11 +127,11 @@ class Arena:
         """Check the board for target dummies, move them to unknown slots, and label them."""
         board_occupied = arena_functions.board_occupied_check()
         for index, slot in enumerate(self.board_unknown):
-            # Check if the slot is not empty and contains a dummy target
-            if slot is not None and slot == "Dummy Target":
+            # Check if the slot is not empty and contains a Target Dummy
+            if slot is not None and slot == "Target Dummy":
                 # Check if the board slot is occupied
                 if board_occupied[index]:
-                    # Handle the found dummy target. For example, move it or mark it in self.unknown_slots.
+                    # Handle the found Target Dummy. For example, move it or mark it in self.unknown_slots.
                     # This step depends on how you want to handle the dummy.
                     # For now, let's label it in self.board_unknown.
                     # Assuming mk_functions and screen_coords are set up to work
@@ -145,19 +145,20 @@ class Arena:
                         psm=7,
                         whitelist=ocr.ALPHABET_WHITELIST
                         + ocr.SPACE_WHITELIST
-                        + ocr.APOSTROPHE_WHITELIST,
+                        + ocr.SYMBOL_WHITELIST,
                     )
-                    # Specifically checking for "Dummy Target"
-                    if champ_name.strip() == "Dummy Target":
+                    print(f" Dummy Check name: {champ_name}")
+                    # Specifically checking for "Target Dummy"
+                    if champ_name.strip() == "Target Dummy":
                         # Check if there are any unknown slots available
                         if self.unknown_slots:
                             # Choose a random unknown slot
                             chosen_slot_index = random.choice(self.unknown_slots)
-                            # Move the dummy target to the chosen unknown slot
+                            # Move the Target Dummy to the chosen unknown slot
                             print(
-                                f"Moving dummy target from slot {index} to an unknown slot."
+                                f"Moving Target Dummy from slot {index} to an unknown slot."
                             )
-                            # Perform the click actions to move the dummy target
+                            # Perform the click actions to move the Target Dummy
                             mk_functions.left_click(
                                 screen_coords.BOARD_LOC[index].get_coords()
                             )
@@ -167,20 +168,20 @@ class Arena:
                             )
                             # Remove the chosen unknown slot
                             self.unknown_slots.remove(chosen_slot_index)
-                            # Update the board and unknown slots lists to mark the dummy target
+                            # Update the board and unknown slots lists to mark the Target Dummy
                             self.board_unknown[index] = None
-                            # Append the dummy target with the chosen slot index to board_dummy list
-                            self.board_dummy.append(f"Dummy Target {chosen_slot_index}")
-                            # Optionally, you can break the loop here if you only want to move one dummy target
+                            # Append the Target Dummy with the chosen slot index to board_dummy list
+                            self.board_dummy.append(f"Target Dummy {chosen_slot_index}")
+                            # Optionally, you can break the loop here if you only want to move one Target Dummy
                             break
                         else:
                             # If there are no unknown slots available, create a dedicated dummy slot
-                            print("Creating a dedicated dummy slot.")
-                            # Append the dummy target to the board_dummy list to create a dedicated slot
-                            self.board_dummy.append(f"Dummy Target {index}")
+                            print("Creating a dedicated Target Dummy slot.")
+                            # Append the Target Dummy to the board_dummy list to create a dedicated slot
+                            self.board_dummy.append(f"Target Dummy {index}")
                             break
         else:
-            print("No target dummies found on the board.")
+            print("No Target Dummies found on the board.")
 
     def fix_bench_state(self) -> None:
         """Iterate through the bench, fix invalid slots, and handle unknown champions"""
@@ -195,11 +196,15 @@ class Arena:
                     psm=7,
                     whitelist=ocr.ALPHABET_WHITELIST
                     + ocr.SPACE_WHITELIST
-                    + ocr.APOSTROPHE_WHITELIST,
+                    + ocr.SYMBOL_WHITELIST,
                 )
-                # Check if champ_name is "Ilaoi" and replaces it with "Illaoi"
+                print(f"Fix bench state: {champ_name}")
+                # Replaces "Ilaoi" with "Illaoi"
                 if champ_name.strip() == "Ilaoi":
                     champ_name = "Illaoi"
+                # Replaces "Xayah & Raka" with "Xayah & Rakan"
+                if champ_name.strip() == "Xayah & Raka":
+                    champ_name = "Xayah & Rakan"
                 if self.champs_to_buy.get(champ_name, 0) > 0:
                     print(
                         f"  The unknown champion {champ_name} exists in comps, keeping it."

@@ -101,7 +101,12 @@ def get_champ(
 ) -> str:
     """Returns a tuple containing the shop position and champion name"""
     champ: str = screen_capture.crop(name_pos.get_coords())
-    champ: str = ocr.get_text_from_image(image=champ, whitelist="")
+    champ: str = ocr.get_text_from_image(
+        image=champ,
+        whitelist=ocr.ALPHABET_WHITELIST
+        + ocr.SPACE_WHITELIST
+        + ocr.SYMBOL_WHITELIST,
+    )
     shop_array.append((shop_pos, valid_champ(champ, comps)))
 
 
@@ -148,7 +153,7 @@ def bench_occupied_check() -> list:
 def board_occupied_check() -> list:
     """Returns a list of booleans that map to each board slot indicating if its occupied"""
     board_occupied: list = []
-    for positions in enumerate(screen_coords.BOARD_HEALTH_POS):
+    for positions in screen_coords.BOARD_HEALTH_POS:
         screen_capture = ImageGrab.grab(bbox=positions.get_coords())
         screenshot_array = np.array(screen_capture)
         if not (np.abs(screenshot_array - (0, 255, 18)) <= 2).all(axis=2).any():
