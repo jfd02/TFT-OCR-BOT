@@ -75,7 +75,7 @@ def load_champions_data() -> dict:
     "Kindred": {"Gold": 2, "Board Size": 1, "Trait1": "Dryad", "Trait2": "Fated", "Trait3": "Reaper"},
     "Kobuko": {"Gold": 1, "Board Size": 1, "Trait1": "Fortune", "Trait2": "Bruiser", "Trait3": ""},
     "Kog'Maw": {"Gold": 1, "Board Size": 1, "Trait1": "Mythic", "Trait2": "Invoker", "Trait3": "Sniper"},
-    "LeeSin": {"Gold": 4, "Board Size": 1, "Trait1": "Dragonlord", "Trait2": "Duelist", "Trait3": ""},
+    "Lee Sin": {"Gold": 4, "Board Size": 1, "Trait1": "Dragonlord", "Trait2": "Duelist", "Trait3": ""},
     "Lillia": {"Gold": 4, "Board Size": 1, "Trait1": "Mythic", "Trait2": "Invoker", "Trait3": ""},
     "Lissandra": {"Gold": 5, "Board Size": 1, "Trait1": "Porcelain", "Trait2": "Arcanist", "Trait3": ""},
     "Lux": {"Gold": 2, "Board Size": 1, "Trait1": "Porcelain", "Trait2": "Arcanist", "Trait3": ""},
