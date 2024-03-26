@@ -365,22 +365,22 @@ class Arena:
             print(f"  Shop: {shop}")
 
             # For set 11 encounter round shop delay and choose items popup
-            if shop == [(1,""), (2,""), (3,""), (4,""), (5,"")]:
+            for _ in range(15):
                 if speedy:
                     return
-                sleep(10)
-                anvil_msg: str = ocr.get_text(
-                screenxy=screen_coords.ANVIL_MSG_POS.get_coords(),
-                scale=3,
-                psm=7,
-                whitelist=ocr.ALPHABET_WHITELIST,
-                )
-                if anvil_msg == "ChooseOne":
-                    print("  Choosing item")
-                    mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
+                if shop == [(1,""), (2,""), (3,""), (4,""), (5,"")]:
                     sleep(1)
-                self.spend_gold(True)
-                return
+                    anvil_msg: str = ocr.get_text(
+                    screenxy=screen_coords.ANVIL_MSG_POS.get_coords(),
+                    scale=3,
+                    psm=7,
+                    whitelist=ocr.ALPHABET_WHITELIST,
+                    )
+                    if anvil_msg in ["ChooseOne", "Feelinglucky"]:
+                        print("  Choosing item")
+                        mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
+                        sleep(1)
+                        break
 
             for champion in shop:
                 if (
