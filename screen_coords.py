@@ -8,15 +8,15 @@ from vec4 import Vec4, GameWindow
 from vec2 import Vec2
 
 BENCH_HEALTH_POS: list[Vec4] = [
-    Vec4(GameWindow(369, 670, 472, 757)),
-    Vec4(GameWindow(485, 670, 588, 757)),
-    Vec4(GameWindow(601, 670, 704, 757)),
-    Vec4(GameWindow(728, 670, 831, 757)),
-    Vec4(GameWindow(844, 670, 947, 757)),
-    Vec4(GameWindow(960, 670, 1063, 757)),
-    Vec4(GameWindow(1076, 670, 1179, 757)),
-    Vec4(GameWindow(1192, 670, 1295, 757)),
-    Vec4(GameWindow(1308, 670, 1411, 757)),
+    Vec4(GameWindow(369, 650, 472, 757)),
+    Vec4(GameWindow(485, 650, 588, 757)),
+    Vec4(GameWindow(601, 650, 704, 757)),
+    Vec4(GameWindow(728, 650, 831, 757)),
+    Vec4(GameWindow(844, 650, 947, 757)),
+    Vec4(GameWindow(960, 650, 1063, 757)),
+    Vec4(GameWindow(1076, 650, 1179, 757)),
+    Vec4(GameWindow(1192, 650, 1295, 757)),
+    Vec4(GameWindow(1308, 650, 1411, 757)),
 ]
 
 ITEM_POS: list[list] = [
