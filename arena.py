@@ -366,11 +366,9 @@ class Arena:
 
             # For set 11 encounter round shop delay and choose items popup
             for _ in range(15):
-                print("checking shop == blank")
                 if speedy:
                     return
                 if all(champ[1] == "" for champ in shop):
-                    print("shop == blank")
                     sleep(1)
                     anvil_msg: str = ocr.get_text(
                     screenxy=screen_coords.ANVIL_MSG_POS.get_coords(),
