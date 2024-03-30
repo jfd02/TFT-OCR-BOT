@@ -101,7 +101,7 @@ def empty_slot() -> int:
         screen_capture = ImageGrab.grab(bbox=positions.get_coords())
         screenshot_array = np.array(screen_capture)
         is_health_color = np.all(screenshot_array == [0, 255, 18], axis=-1)
-        if not any(np.convolve(is_health_color.reshape(-1), np.ones(5), mode='valid') >= 5):
+        if not any(np.convolve(is_health_color.reshape(-1), np.ones(5), mode='valid')):
             return slot  # Slot 0-8
     return -1  # No empty slot
 
@@ -113,7 +113,7 @@ def bench_occupied_check() -> list:
         screen_capture = ImageGrab.grab(bbox=positions.get_coords())
         screenshot_array = np.array(screen_capture)
         is_health_color = np.all(screenshot_array == [0, 255, 18], axis=-1)
-        occupied = any(np.convolve(is_health_color.reshape(-1), np.ones(5), mode='valid') >= 5)
+        occupied = any(np.convolve(is_health_color.reshape(-1), np.ones(5), mode='valid'))
         bench_occupied.append(occupied)
     return bench_occupied
 
@@ -124,7 +124,7 @@ def bench_occupied_check() -> list:
 #         screen_capture = ImageGrab.grab(bbox=screen_coords.SELL_MSG_POS.get_coords())
 #         mk_functions.left_click(destination.get_coords())
 #         screenshot_array = np.array(screen_capture)
-#         if (np.sum(np.abs(screenshot_array - (255, 247, 153)) == 0).all(axis=2)) >= 5:
+#         if (np.sum(screenshot_array - (255, 247, 153) == 0).all(axis=2)) >= 5:
 #             return True
 #         else:
 #             return False
