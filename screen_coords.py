@@ -8,15 +8,15 @@ from vec4 import Vec4, GameWindow
 from vec2 import Vec2
 
 BENCH_HEALTH_POS: list[Vec4] = [
-    Vec4(GameWindow(369, 622, 472, 757)),
-    Vec4(GameWindow(485, 622, 588, 757)),
-    Vec4(GameWindow(601, 622, 704, 757)),
-    Vec4(GameWindow(728, 622, 831, 757)),
-    Vec4(GameWindow(844, 622, 947, 757)),
-    Vec4(GameWindow(960, 622, 1063, 757)),
-    Vec4(GameWindow(1076, 622, 1179, 757)),
-    Vec4(GameWindow(1192, 622, 1295, 757)),
-    Vec4(GameWindow(1308, 622, 1411, 757)),
+    Vec4(GameWindow(369, 670, 472, 757)),
+    Vec4(GameWindow(485, 670, 588, 757)),
+    Vec4(GameWindow(601, 670, 704, 757)),
+    Vec4(GameWindow(728, 670, 831, 757)),
+    Vec4(GameWindow(844, 670, 947, 757)),
+    Vec4(GameWindow(960, 670, 1063, 757)),
+    Vec4(GameWindow(1076, 670, 1179, 757)),
+    Vec4(GameWindow(1192, 670, 1295, 757)),
+    Vec4(GameWindow(1308, 670, 1411, 757)),
 ]
 
 ITEM_POS: list[list] = [
@@ -56,6 +56,8 @@ GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 
 ANVIL_MSG_POS: Vec4 = Vec4(GameWindow(818, 838, 932, 859))
 
+SELL_MSG_POS: Vec4 = Vec4(GameWindow(817, 1001, 828, 1001))
+
 EXIT_NOW_POS: Vec4 = Vec4(GameWindow(910, 560, 1029, 583))
 
 AUGMENT_POS: list[Vec4] = [
@@ -81,7 +83,7 @@ BUY_LOC: list[Vec2] = [
 ITEM_PICKUP_LOC: list[Vec2] = [
     Vec2(1440, 611),
     Vec2(406, 544),
-    Vec2(1412, 486),
+    Vec2(1440, 486),
     Vec2(469, 440),
     Vec2(1380, 381),
     Vec2(644, 323),

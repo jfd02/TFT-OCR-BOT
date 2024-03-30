@@ -100,7 +100,8 @@ def empty_slot() -> int:
     for slot, positions in enumerate(screen_coords.BENCH_HEALTH_POS):
         screen_capture = ImageGrab.grab(bbox=positions.get_coords())
         screenshot_array = np.array(screen_capture)
-        if not (np.abs(screenshot_array - (0, 255, 18)) <= 3).all(axis=2).any():
+        is_health_color = np.all(screenshot_array == [0, 255, 18], axis=-1)
+        if not any(np.convolve(is_health_color.reshape(-1), np.ones(5), mode='valid') >= 5):
             return slot  # Slot 0-8
     return -1  # No empty slot
 
@@ -111,12 +112,22 @@ def bench_occupied_check() -> list:
     for positions in screen_coords.BENCH_HEALTH_POS:
         screen_capture = ImageGrab.grab(bbox=positions.get_coords())
         screenshot_array = np.array(screen_capture)
-        if not (np.abs(screenshot_array - (0, 255, 18)) <= 2).all(axis=2).any():
-            bench_occupied.append(False)
-        else:
-            bench_occupied.append(True)
+        is_health_color = np.all(screenshot_array == [0, 255, 18], axis=-1)
+        occupied = any(np.convolve(is_health_color.reshape(-1), np.ones(5), mode='valid') >= 5)
+        bench_occupied.append(occupied)
     return bench_occupied
 
+# def board_occupied_check(known: bool, destination: tuple) -> bool:
+#     if known:
+#         mk_functions.left_click(destination.get_coords())
+#         sleep(0.1)
+#         screen_capture = ImageGrab.grab(bbox=screen_coords.SELL_MSG_POS.get_coords())
+#         mk_functions.left_click(destination.get_coords())
+#         screenshot_array = np.array(screen_capture)
+#         if (np.sum(np.abs(screenshot_array - (255, 247, 153)) == 0).all(axis=2)) >= 5:
+#             return True
+#         else:
+#             return False
 
 def valid_item(item: str) -> str | None:
     """Checks if the item passed in arg one is valid"""
