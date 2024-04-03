@@ -362,13 +362,13 @@ class Arena:
                 mk_functions.reroll()
                 print("  Rerolling shop")
             shop: list = arena_functions.get_shop()
-            print(f"  Shop: {shop}")
 
             # For set 11 encounter round shop delay and choose items popup
             for _ in range(15):
                 if speedy:
                     return
                 if all(champ[1] == "" for champ in shop):
+                    print("  Waiting encounter round animation ends")
                     sleep(1)
                     anvil_msg: str = ocr.get_text(
                     screenxy=screen_coords.ANVIL_MSG_POS.get_coords(),
@@ -377,6 +377,7 @@ class Arena:
                     whitelist=ocr.ALPHABET_WHITELIST,
                     )
                     if anvil_msg in ["ChooseOne", "Feelinglucky"]:
+                        sleep(2)
                         print("  Choosing item")
                         mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
                         sleep(1.5)
@@ -386,6 +387,7 @@ class Arena:
                 else:
                     break
 
+            print(f"  Shop: {shop}")
             for champion in shop:
                 if (
                     self.champs_to_buy.get(champion[1], -1) >= 0

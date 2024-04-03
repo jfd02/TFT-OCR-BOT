@@ -2,70 +2,66 @@
 Team composition used by the bot
 Comps come from https://tftactics.gg/tierlist/team-comps
 Items are in camel case and a-Z
-The "headliner" tag represents a trait from bottom to top.
-Set to True if you want it in your team.
-Only final comp champion will become headliner and need to set the corresponding 'headliner' tag to True.
-e.g. Only want "Sentinel" Ekko, set it to "headliner": [True, False, False]
-e.g.2 want either "Sentinel" or "True Damage" Ekko, set it to "headliner": [True, False, True]
+Items will be placed on the top champion first, and prioritize building items on the left.
 """
 
 COMP = {
-    "Irelia": {
+    "Tristana": {
         "board_position": 6,
-        "items": ["GiantSlayer", "GuinsoosRageblade", "InfinityEdge"],
+        "items": ["GuinsoosRageblade", "InfinityEdge", "LastWhisper"],
         "level": 3,
         "final_comp": True
     },
-    "Galio": {
-        "board_position": 25,
-        "items": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
-        "level": 3,
-        "final_comp": True
-    },
-    "Sivir": {
-        "board_position": 5,
-        "items": ["GiantSlayer", "GuinsoosRageblade", "InfinityEdge"],
-        "level": 2,
-        "final_comp": True
-    },
-    "Zoe": {
-        "board_position": 4,
-        "items": ["JeweledGauntlet","RabadonsDeathcap","SpearofShojin"],
-        "level": 2,
-        "final_comp": True
-    },
-    "Illaoi": {
-        "board_position": 23,
-        "items": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
-        "level": 2,
-        "final_comp": True
-    },
-    "Zyra": {
-        "board_position": 1,
-        "items": [],
-        "level": 2,
-        "final_comp": True
-    },
-    "Riven": {
+    "Volibear": {
         "board_position": 27,
-        "items": ["ThiefsGloves"],
+        "items": ["Bloodthirster", "TitansResolve", "WarmogsArmor"],
+        "level": 3,
+        "final_comp": True
+    },
+    "Irelia": {
+        "board_position": 0,
+        "items": ["GiantSlayer", "GuinsoosRageblade", "InfinityEdge"],
         "level": 2,
         "final_comp": True
     },
-    "Garen": {
-        "board_position": 21,
+    "Wukong": {
+        "board_position": 22,
+        "items": ["HandofJustice"],
+        "level": 2,
+        "final_comp": True
+    },
+    "LeeSin": {
+        "board_position": 25,
         "items": [],
         "level": 2,
         "final_comp": True
     },
-    "Kobuko": {
-        "board_position": 22,
+    "Diana": {
+        "board_position": 26,
+        "items": ["BrambleVest", "DragonsClaw", "WarmogsArmor"],
+        "level": 2,
+        "final_comp": True
+    },
+    "Qiyana": {
+        "board_position": 24,
+        "items": [],
+        "level": 2,
+        "final_comp": True
+    },
+    "Darius": {
+        "board_position": 23,
+        "items": [],
+        "level": 2,
+        "final_comp": True
+    },
+    "Yorick": {
+        "board_position": 20,
         "items": [],
         "level": 2,
         "final_comp": False
     },
-    "Teemo": {
-        "board_position": 13,
+    "Yasuo": {
+        "board_position": 19,
         "items": [],
         "level": 2,
         "final_comp": False
@@ -78,7 +74,9 @@ COMP = {
 # For those augments names with suffixes like I, II, III, such as 'Cybernetic Uplink II',
 # You only need to add 'Cybernetic Uplink' in the list to cover all three levels.
 AUGMENTS: list[str] = [
-    "That's Jazz Baby!",
+    "Tiny but Deadly",
+    "Pumping up",
+    "Extended Duel",
     "You Have My Bow",
     "Blistering Strikes",
     "Buried Treasures",
@@ -133,7 +131,8 @@ AVOID_AUGMENTS: list[str] = [
     "Scapegoat",
     "Wandering Trainer",
     "Recombobulator",
-    "Forge"
+    "Forge",
+    "Crest Test Dummies"
 ]
 
 
