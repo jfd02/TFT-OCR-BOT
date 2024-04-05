@@ -84,6 +84,7 @@ class Game:
                 print("  Reconnect button not found.")
         return False
 
+    # pylint: disable=too-many-branches
     def game_loop(self) -> None:
         """Loop that runs while the game is active, handles calling the correct tasks for round and exiting game"""
         ran_round: str = None
@@ -167,9 +168,7 @@ class Game:
             for item_placement_round in game_assets.ITEM_PLACEMENT_ROUNDS
             if not item_placement_round.startswith(self.round[0].split("-"))
         }
-        for index, round_msg in enumerate(
-            game_functions.check_encounter_round()
-        ):
+        for index, round_msg in enumerate(game_functions.check_encounter_round()):
             if index == 0:
                 continue
             if round_msg == "carousel":
