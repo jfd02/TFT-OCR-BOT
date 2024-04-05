@@ -22,7 +22,7 @@ class Game:
     def __init__(self, message_queue: multiprocessing.Queue) -> None:
         self.message_queue = message_queue
         self.arena = Arena(self.message_queue)
-        self.round: str = "0-0"
+        self.round: list[str, int] = ["0-0", 0]
         self.time: None = None
         self.forfeit_time: int = settings.FORFEIT_TIME + random.randint(50, 150)
         self.found_window = False
@@ -60,7 +60,7 @@ class Game:
     def loading_screen(self) -> None:
         """Loop that runs while the game is in the loading screen"""
         game_functions.default_pos()
-        while game_functions.get_round() != "1-1":
+        while game_functions.get_round()[0] != "1-1":
             if self.check_failed_to_connect_window():
                 return
             sleep(1)
@@ -115,21 +115,80 @@ class Game:
                 game_functions.forfeit()
                 return
 
-            if self.round != ran_round:
-                if self.round in game_assets.PVP_ROUND:
+            if self.round[0] != ran_round:
+                if self.round[0] in game_assets.PVP_ROUND:
                     game_functions.default_pos()
                     self.pvp_round()
-                    ran_round: str = self.round
-                elif self.round in game_assets.PVE_ROUND:
+                    ran_round: str = self.round[0]
+                elif self.round[0] in game_assets.PVE_ROUND:
                     game_functions.default_pos()
                     self.pve_round()
-                    ran_round: str = self.round
-                elif self.round in game_assets.CAROUSEL_ROUND:
+                    ran_round: str = self.round[0]
+                elif self.round[0] in game_assets.CAROUSEL_ROUND:
                     self.carousel_round()
-                    ran_round: str = self.round
-                elif self.round in game_assets.SECOND_ROUND:
+                    ran_round: str = self.round[0]
+                elif self.round[0] in game_assets.SECOND_ROUND:
                     self.second_round()
-                    ran_round: str = self.round
+                    ran_round: str = self.round[0]
+                elif self.round[0] in game_assets.ENCOUNTER_ROUNDS:
+                    print(f"\n[Encounter Round] {self.round}")
+                    print("  Do nothing")
+                    self.message_queue.put("CLEAR")
+                    self.arena.check_health()
+                    ran_round: str = self.round[0]
+                if self.round[1] == 1 and self.round[0].split("-")[1] == "1":
+                    game_assets.CAROUSEL_ROUND = {
+                        carousel_round
+                        for carousel_round in game_assets.CAROUSEL_ROUND
+                        if not carousel_round.startswith(self.round[0].split("-"))
+                    }
+                    game_assets.PVE_ROUND = {
+                        pve_round
+                        for pve_round in game_assets.PVE_ROUND
+                        if not pve_round.startswith(self.round[0].split("-"))
+                    }
+                    game_assets.PVP_ROUND = {
+                        pvp_round
+                        for pvp_round in game_assets.PVP_ROUND
+                        if not pvp_round.startswith(self.round[0].split("-"))
+                    }
+                    game_assets.ANVIL_ROUNDS = {
+                        anvil_round
+                        for anvil_round in game_assets.ANVIL_ROUNDS
+                        if not anvil_round.startswith(self.round[0].split("-"))
+                    }
+                    game_assets.ITEM_PLACEMENT_ROUNDS = {
+                        item_placement_round
+                        for item_placement_round in game_assets.ITEM_PLACEMENT_ROUNDS
+                        if not item_placement_round.startswith(self.round[0].split("-"))
+                    }
+                    for index, round_msg in enumerate(
+                        game_functions.check_encounter_round()
+                    ):
+                        if index == 0:
+                            continue
+                        if round_msg == "carousel":
+                            game_assets.CAROUSEL_ROUND.add(
+                                self.round[0].split("-") + "-" + str(index + 1)
+                            )
+                            game_assets.ANVIL_ROUNDS.add(
+                                self.round[0].split("-") + "-" + str(index + 2)
+                            )
+                            game_assets.ITEM_PLACEMENT_ROUNDS.add(
+                                self.round[0].split("-") + "-" + str(index + 2)
+                            )
+                        elif round_msg == "pve":
+                            game_assets.PVE_ROUND.add(
+                                self.round[0].split("-") + "-" + str(index + 1)
+                            )
+                        elif round_msg == "pvp":
+                            game_assets.PVP_ROUND.add(
+                                self.round[0].split("-") + "-" + str(index + 1)
+                            )
+                        elif round_msg == "encounter":
+                            game_assets.ENCOUNTER_ROUNDS.add(
+                                self.round[0].split("-") + "-" + str(index + 1)
+                            )
             sleep(0.5)
 
     def second_round(self) -> None:
