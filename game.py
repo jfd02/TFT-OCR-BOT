@@ -23,7 +23,6 @@ class Game:
         self.message_queue = message_queue
         self.arena = Arena(self.message_queue)
         self.round: str = "0-0"
-        self.round_from: int = None
         self.time: None = None
         self.forfeit_time: int = settings.FORFEIT_TIME + random.randint(50, 150)
         self.found_window = False
@@ -72,7 +71,7 @@ class Game:
         """Check "Failed to Connect" windows and try to reconnect"""
         hwnd = win32gui.FindWindow(None, "Failed to Connect")
         if hwnd:
-            print('  Found "Failed to Connect" window, trying to exit and reconnect')
+            print(' Found "Failed to Connect" window, trying to exit and reconnect')
             if reconnect_button := win32gui.FindWindowEx(hwnd, 0, "Button", None):
                 if cancel_button := win32gui.FindWindowEx(
                     hwnd, reconnect_button, "Button", None
