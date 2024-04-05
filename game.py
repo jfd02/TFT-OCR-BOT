@@ -61,7 +61,7 @@ class Game:
     def loading_screen(self) -> None:
         """Loop that runs while the game is in the loading screen"""
         game_functions.default_pos()
-        while game_functions.get_round()[0] != "1-1":
+        while game_functions.get_round() != "1-1":
             if self.check_failed_to_connect_window():
                 return
             sleep(1)
@@ -107,7 +107,7 @@ class Game:
                 break
             last_game_health = game_health
 
-            self.round, self.round_from = game_functions.get_round()
+            self.round = game_functions.get_round()
 
             if (
                 settings.FORFEIT
