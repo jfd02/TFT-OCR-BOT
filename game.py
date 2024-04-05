@@ -193,6 +193,10 @@ class Game:
                 game_assets.ENCOUNTER_ROUNDS.add(
                     self.round[0].split("-") + "-" + str(index + 1)
                 )
+                if index+1 == 2:
+                    game_assets.AUGMENT_ROUNDS.add(
+                        self.round[0].split("-") + "-" + str(index + 1)
+                    )
 
     def second_round(self) -> None:
         """Move unknown champion to board after first carousel"""
