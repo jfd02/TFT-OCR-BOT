@@ -366,7 +366,7 @@ class Arena:
             # For set 11 encounter round shop delay and choose items popup
             for _ in range(15):
                 if speedy:
-                    return
+                    break
                 if all(champ[1] == "" for champ in shop):
                     print("  Waiting encounter round animation ends")
                     sleep(1)
