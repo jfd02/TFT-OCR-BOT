@@ -56,8 +56,6 @@ GOLD_POS: Vec4 = Vec4(GameWindow(870, 883, 920, 909))
 
 ANVIL_MSG_POS: Vec4 = Vec4(GameWindow(818, 838, 932, 859))
 
-SELL_MSG_POS: Vec4 = Vec4(GameWindow(817, 1001, 828, 1001))
-
 EXIT_NOW_POS: Vec4 = Vec4(GameWindow(910, 560, 1029, 583))
 
 AUGMENT_POS: list[Vec4] = [
