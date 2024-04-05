@@ -137,59 +137,63 @@ class Game:
                     self.arena.check_health()
                     ran_round: str = self.round[0]
                 if self.round[1] == 1 and self.round[0].split("-")[1] == "1":
-                    game_assets.CAROUSEL_ROUND = {
-                        carousel_round
-                        for carousel_round in game_assets.CAROUSEL_ROUND
-                        if not carousel_round.startswith(self.round[0].split("-"))
-                    }
-                    game_assets.PVE_ROUND = {
-                        pve_round
-                        for pve_round in game_assets.PVE_ROUND
-                        if not pve_round.startswith(self.round[0].split("-"))
-                    }
-                    game_assets.PVP_ROUND = {
-                        pvp_round
-                        for pvp_round in game_assets.PVP_ROUND
-                        if not pvp_round.startswith(self.round[0].split("-"))
-                    }
-                    game_assets.ANVIL_ROUNDS = {
-                        anvil_round
-                        for anvil_round in game_assets.ANVIL_ROUNDS
-                        if not anvil_round.startswith(self.round[0].split("-"))
-                    }
-                    game_assets.ITEM_PLACEMENT_ROUNDS = {
-                        item_placement_round
-                        for item_placement_round in game_assets.ITEM_PLACEMENT_ROUNDS
-                        if not item_placement_round.startswith(self.round[0].split("-"))
-                    }
-                    for index, round_msg in enumerate(
-                        game_functions.check_encounter_round()
-                    ):
-                        if index == 0:
-                            continue
-                        if round_msg == "carousel":
-                            game_assets.CAROUSEL_ROUND.add(
-                                self.round[0].split("-") + "-" + str(index + 1)
-                            )
-                            game_assets.ANVIL_ROUNDS.add(
-                                self.round[0].split("-") + "-" + str(index + 2)
-                            )
-                            game_assets.ITEM_PLACEMENT_ROUNDS.add(
-                                self.round[0].split("-") + "-" + str(index + 2)
-                            )
-                        elif round_msg == "pve":
-                            game_assets.PVE_ROUND.add(
-                                self.round[0].split("-") + "-" + str(index + 1)
-                            )
-                        elif round_msg == "pvp":
-                            game_assets.PVP_ROUND.add(
-                                self.round[0].split("-") + "-" + str(index + 1)
-                            )
-                        elif round_msg == "encounter":
-                            game_assets.ENCOUNTER_ROUNDS.add(
-                                self.round[0].split("-") + "-" + str(index + 1)
-                            )
+                    self.encounter_round_setup()
             sleep(0.5)
+
+    def encounter_round_setup(self) -> None:
+        """Remove rounds from game_assets and add it back by checking round message"""
+        game_assets.CAROUSEL_ROUND = {
+            carousel_round
+            for carousel_round in game_assets.CAROUSEL_ROUND
+            if not carousel_round.startswith(self.round[0].split("-"))
+        }
+        game_assets.PVE_ROUND = {
+            pve_round
+            for pve_round in game_assets.PVE_ROUND
+            if not pve_round.startswith(self.round[0].split("-"))
+        }
+        game_assets.PVP_ROUND = {
+            pvp_round
+            for pvp_round in game_assets.PVP_ROUND
+            if not pvp_round.startswith(self.round[0].split("-"))
+        }
+        game_assets.ANVIL_ROUNDS = {
+            anvil_round
+            for anvil_round in game_assets.ANVIL_ROUNDS
+            if not anvil_round.startswith(self.round[0].split("-"))
+        }
+        game_assets.ITEM_PLACEMENT_ROUNDS = {
+            item_placement_round
+            for item_placement_round in game_assets.ITEM_PLACEMENT_ROUNDS
+            if not item_placement_round.startswith(self.round[0].split("-"))
+        }
+        for index, round_msg in enumerate(
+            game_functions.check_encounter_round()
+        ):
+            if index == 0:
+                continue
+            if round_msg == "carousel":
+                game_assets.CAROUSEL_ROUND.add(
+                    self.round[0].split("-") + "-" + str(index + 1)
+                )
+                game_assets.ANVIL_ROUNDS.add(
+                    self.round[0].split("-") + "-" + str(index + 2)
+                )
+                game_assets.ITEM_PLACEMENT_ROUNDS.add(
+                    self.round[0].split("-") + "-" + str(index + 2)
+                )
+            elif round_msg == "pve":
+                game_assets.PVE_ROUND.add(
+                    self.round[0].split("-") + "-" + str(index + 1)
+                )
+            elif round_msg == "pvp":
+                game_assets.PVP_ROUND.add(
+                    self.round[0].split("-") + "-" + str(index + 1)
+                )
+            elif round_msg == "encounter":
+                game_assets.ENCOUNTER_ROUNDS.add(
+                    self.round[0].split("-") + "-" + str(index + 1)
+                )
 
     def second_round(self) -> None:
         """Move unknown champion to board after first carousel"""
