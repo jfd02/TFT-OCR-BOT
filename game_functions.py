@@ -37,7 +37,7 @@ def check_encounter_round() -> list[str]:
             screenxy=positions[1].get_coords(),
             scale=3,
             psm=7,
-            whitelist=ocr.ALPHABET_WHITELIST,
+            whitelist=(ocr.ALPHABET_WHITELIST + " "),
         )
         if any(keyword in round_message for keyword in ["Carousel"]):
             round_list.append("carousel")
