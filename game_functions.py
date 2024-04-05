@@ -43,7 +43,7 @@ def pickup_items() -> None:  # Refacor this function to make it more clear whats
 
 def get_champ_carousel(tft_round: str) -> None:
     """Gets a champion from the carousel"""
-    while tft_round == get_round()[0]:
+    while tft_round == get_round():
         mk_functions.right_click(screen_coords.CAROUSEL_LOC.get_coords())
         sleep(0.7)
     sleep(3)
