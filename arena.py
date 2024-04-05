@@ -40,11 +40,13 @@ class Arena:
         for index, slot in enumerate(self.bench):
             if slot is None and bench_occupied[index]:
                 mk_functions.right_click(screen_coords.BENCH_LOC[index].get_coords())
-                champ_name: str = ocr.get_text(
-                    screenxy=screen_coords.PANEL_NAME_LOC.get_coords(),
-                    scale=3,
-                    psm=7,
-                    whitelist=ocr.ALPHABET_WHITELIST,
+                champ_name: str = arena_functions.valid_champ(
+                    ocr.get_text(
+                        screenxy=screen_coords.PANEL_NAME_LOC.get_coords(),
+                        scale=3,
+                        psm=7,
+                        whitelist=ocr.ALPHABET_WHITELIST,
+                    )
                 )
                 if self.champs_to_buy.get(champ_name, 0) > 0:
                     print(
@@ -60,6 +62,9 @@ class Arena:
                     )
                     self.champs_to_buy[champ_name] -= 1
                 else:
+                    print(
+                        f"  The unknown champion {champ_name} not exists in comps, selling it."
+                    )
                     self.bench[index] = "?"
                 continue
             if isinstance(slot, str) and not bench_occupied[index]:
@@ -357,6 +362,31 @@ class Arena:
                 mk_functions.reroll()
                 print("  Rerolling shop")
             shop: list = arena_functions.get_shop()
+
+            # For set 11 encounter round shop delay and choose items popup
+            for _ in range(15):
+                if speedy:
+                    return
+                if all(champ[1] == "" for champ in shop):
+                    print("  Waiting encounter round animation ends")
+                    sleep(1)
+                    anvil_msg: str = ocr.get_text(
+                    screenxy=screen_coords.ANVIL_MSG_POS.get_coords(),
+                    scale=3,
+                    psm=7,
+                    whitelist=ocr.ALPHABET_WHITELIST,
+                    )
+                    if anvil_msg in ["ChooseOne", "Feelinglucky"]:
+                        sleep(2)
+                        print("  Choosing item")
+                        mk_functions.left_click(screen_coords.BUY_LOC[2].get_coords())
+                        sleep(1.5)
+                        shop: list = arena_functions.get_shop()
+                        break
+                    shop: list = arena_functions.get_shop()
+                else:
+                    break
+
             print(f"  Shop: {shop}")
             for champion in shop:
                 if (
@@ -406,7 +436,7 @@ class Arena:
                     screenxy=coords.get_coords(), scale=3, psm=7
                 )
                 augments.append(augment)
-            print(augments)
+            print(f"  Augments: {augments}")
             if len(augments) == 3 and "" not in augments:
                 break
 

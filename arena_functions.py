@@ -74,7 +74,7 @@ def get_champ(
 ) -> str:
     """Returns a tuple containing the shop position and champion name"""
     champ: str = screen_capture.crop(name_pos.get_coords())
-    champ: str = ocr.get_text_from_image(image=champ, whitelist="")
+    champ: str = ocr.get_text_from_image(image=champ, whitelist=ocr.ALPHABET_WHITELIST)
     shop_array.append((shop_pos, valid_champ(champ)))
 
 
@@ -100,7 +100,8 @@ def empty_slot() -> int:
     for slot, positions in enumerate(screen_coords.BENCH_HEALTH_POS):
         screen_capture = ImageGrab.grab(bbox=positions.get_coords())
         screenshot_array = np.array(screen_capture)
-        if not (np.abs(screenshot_array - (0, 255, 18)) <= 3).all(axis=2).any():
+        is_health_color = np.all(screenshot_array == [0, 255, 18], axis=-1)
+        if not any(np.convolve(is_health_color.reshape(-1), np.ones(5), mode='valid')):
             return slot  # Slot 0-8
     return -1  # No empty slot
 
@@ -111,10 +112,9 @@ def bench_occupied_check() -> list:
     for positions in screen_coords.BENCH_HEALTH_POS:
         screen_capture = ImageGrab.grab(bbox=positions.get_coords())
         screenshot_array = np.array(screen_capture)
-        if not (np.abs(screenshot_array - (0, 255, 18)) <= 2).all(axis=2).any():
-            bench_occupied.append(False)
-        else:
-            bench_occupied.append(True)
+        is_health_color = np.all(screenshot_array == [0, 255, 18], axis=-1)
+        occupied = any(np.convolve(is_health_color.reshape(-1), np.ones(5), mode='valid'))
+        bench_occupied.append(occupied)
     return bench_occupied
 
 
