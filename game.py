@@ -22,7 +22,8 @@ class Game:
     def __init__(self, message_queue: multiprocessing.Queue) -> None:
         self.message_queue = message_queue
         self.arena = Arena(self.message_queue)
-        self.round = "0-0"
+        self.round: str = "0-0"
+        self.round_from: int = None
         self.time: None = None
         self.forfeit_time: int = settings.FORFEIT_TIME + random.randint(50, 150)
         self.found_window = False
@@ -60,7 +61,7 @@ class Game:
     def loading_screen(self) -> None:
         """Loop that runs while the game is in the loading screen"""
         game_functions.default_pos()
-        while game_functions.get_round() != "1-1":
+        while game_functions.get_round()[0] != "1-1":
             if self.check_failed_to_connect_window():
                 return
             sleep(1)
@@ -71,9 +72,11 @@ class Game:
         """Check "Failed to Connect" windows and try to reconnect"""
         hwnd = win32gui.FindWindow(None, "Failed to Connect")
         if hwnd:
-            print("  Found \"Failed to Connect\" window, trying to exit and reconnect")
+            print('  Found "Failed to Connect" window, trying to exit and reconnect')
             if reconnect_button := win32gui.FindWindowEx(hwnd, 0, "Button", None):
-                if cancel_button := win32gui.FindWindowEx(hwnd, reconnect_button, "Button", None):
+                if cancel_button := win32gui.FindWindowEx(
+                    hwnd, reconnect_button, "Button", None
+                ):
                     print("  Exiting the game.")
                     win32gui.SendMessage(cancel_button, BM_CLICK, 0, 0)
                     return True
@@ -81,7 +84,6 @@ class Game:
             else:
                 print("  Reconnect button not found.")
         return False
-
 
     def game_loop(self) -> None:
         """Loop that runs while the game is active, handles calling the correct tasks for round and exiting game"""
@@ -105,7 +107,7 @@ class Game:
                 break
             last_game_health = game_health
 
-            self.round: str = game_functions.get_round()
+            self.round, self.round_from = game_functions.get_round()
 
             if (
                 settings.FORFEIT
@@ -203,10 +205,7 @@ class Game:
         self.arena.bench_cleanup()
         if self.round in game_assets.ANVIL_ROUNDS:
             self.arena.clear_anvil()
-        if self.round in game_assets.PICKUP_ROUNDS:
-            self.arena.spend_gold(speedy=True)
-        else:
-            self.arena.spend_gold()
+        self.arena.spend_gold(speedy=self.round in game_assets.PICKUP_ROUNDS)
         self.arena.move_champions()
         self.arena.replace_unknown()
         if self.arena.final_comp:

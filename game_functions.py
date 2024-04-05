@@ -10,21 +10,21 @@ import game_assets
 import mk_functions
 
 
-def get_round() -> str:
+def get_round() -> tuple[str, int]:
     """Gets the current game round"""
     screen_capture = ImageGrab.grab(bbox=screen_coords.ROUND_POS.get_coords())
     round_three = screen_capture.crop(screen_coords.ROUND_POS_THREE.get_coords())
     game_round: str = ocr.get_text_from_image(image=round_three, whitelist=ocr.ROUND_WHITELIST)
     if game_round in game_assets.ROUNDS:
-        return game_round
+        return game_round, 3
 
     round_two = screen_capture.crop(screen_coords.ROUND_POS_TWO.get_coords())
     game_round: str = ocr.get_text_from_image(image=round_two, whitelist=ocr.ROUND_WHITELIST)
     if game_round in game_assets.ROUNDS:
-        return game_round
+        return game_round, 2
     round_one = screen_capture.crop(screen_coords.ROUND_POS_ONE.get_coords())
     game_round: str = ocr.get_text_from_image(image=round_one, whitelist=ocr.ROUND_WHITELIST)
-    return game_round
+    return game_round, 1
 
 
 def pickup_items() -> None:  # Refacor this function to make it more clear whats happening
@@ -43,7 +43,7 @@ def pickup_items() -> None:  # Refacor this function to make it more clear whats
 
 def get_champ_carousel(tft_round: str) -> None:
     """Gets a champion from the carousel"""
-    while tft_round == get_round():
+    while tft_round == get_round()[0]:
         mk_functions.right_click(screen_coords.CAROUSEL_LOC.get_coords())
         sleep(0.7)
     sleep(3)

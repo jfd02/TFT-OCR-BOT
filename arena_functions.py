@@ -117,17 +117,6 @@ def bench_occupied_check() -> list:
         bench_occupied.append(occupied)
     return bench_occupied
 
-# def board_occupied_check(known: bool, destination: tuple) -> bool:
-#     if known:
-#         mk_functions.left_click(destination.get_coords())
-#         sleep(0.1)
-#         screen_capture = ImageGrab.grab(bbox=screen_coords.SELL_MSG_POS.get_coords())
-#         mk_functions.left_click(destination.get_coords())
-#         screenshot_array = np.array(screen_capture)
-#         if (np.sum(screenshot_array - (255, 247, 153) == 0).all(axis=2)) >= 5:
-#             return True
-#         else:
-#             return False
 
 def valid_item(item: str) -> str | None:
     """Checks if the item passed in arg one is valid"""

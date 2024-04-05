@@ -436,7 +436,7 @@ class Arena:
                     screenxy=coords.get_coords(), scale=3, psm=7
                 )
                 augments.append(augment)
-            print(augments)
+            print(f"  Augments: {augments}")
             if len(augments) == 3 and "" not in augments:
                 break
 

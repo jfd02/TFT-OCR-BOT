@@ -135,7 +135,7 @@ BOARD_LOC: list[Vec2] = [
     Vec2(1251, 423),
 ]
 
-CAROUSEL_LOC: Vec2 = Vec2(964, 644)
+CAROUSEL_LOC: Vec2 = Vec2(964, 620)
 
 EXIT_NOW_LOC: Vec2 = Vec2(963, 575)
 
