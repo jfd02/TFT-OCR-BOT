@@ -116,7 +116,7 @@ class Game:
                 and perf_counter() - self.start_time > self.forfeit_time
             ):
                 game_functions.forfeit()
-                return
+                continue
 
             if self.round[0] != ran_round:
                 if self.round[0] in game_assets.PVP_ROUND:
@@ -140,7 +140,7 @@ class Game:
                     self.arena.check_health()
                     ran_round: str = self.round[0]
                 if self.round[1] == 1 and self.round[0].split("-")[1] == "1":
-                    print("[Ecnounter round setup]")
+                    print("\n[Ecnounter round setup]")
                     self.encounter_round_setup()
             sleep(0.5)
 
@@ -172,7 +172,7 @@ class Game:
             if not item_placement_round.startswith(self.round[0].split("-")[0])
         }
         for index, round_msg in enumerate(game_functions.check_encounter_round()):
-            print(f"[Ecnounter round setup] Round list: {round_msg}")
+            print(f"  Round {self.round[0].split('-')[0]}-{str(index + 1)}: {round_msg} ROUND")
             if index == 0:
                 continue
             if round_msg == "carousel":
@@ -197,9 +197,9 @@ class Game:
                 game_assets.ENCOUNTER_ROUNDS.add(
                     self.round[0].split("-")[0] + "-" + str(index + 1)
                 )
-                if index+1 == 2:
+                if index+1 == 2 and int(self.round[0].split("-")[0]) <= 4:
                     game_assets.AUGMENT_ROUNDS.add(
-                        self.round[0].split("-")[0] + "-" + str(index + 1)
+                        self.round[0].split("-")[0] + "-" + str(index + 2)
                     )
 
     def second_round(self) -> None:
