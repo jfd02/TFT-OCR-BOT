@@ -40,6 +40,17 @@ ROUND_POS_TWO: Vec4 = Vec4(GameWindow(16, 0, 56, 24), use_screen_offset=False)
 
 ROUND_POS_THREE: Vec4 = Vec4(GameWindow(71, 0, 110, 24), use_screen_offset=False)
 
+ROUND_ENCOUNTER_ICON_POS: list[list[Vec2, Vec4]] = [
+    [Vec2(833, 20), Vec4(GameWindow(890, 49, 1218, 75))],
+    [Vec2(869, 20), Vec4(GameWindow(926, 49, 1254, 75))],
+    [Vec2(905, 20), Vec4(GameWindow(962, 49, 1290, 75))],
+    [Vec2(941, 20), Vec4(GameWindow(998, 49, 1326, 75))],
+    [Vec2(977, 20), Vec4(GameWindow(1034, 49, 1362, 75))],
+    [Vec2(1013, 20), Vec4(GameWindow(1070, 49, 1398, 75))],
+    [Vec2(1049, 20), Vec4(GameWindow(1106, 49, 1434, 75))],
+    [Vec2(1085, 20), Vec4(GameWindow(1142, 49, 1470, 75))],
+]
+
 SHOP_POS: Vec4 = Vec4(GameWindow(481, 1039, 1476, 1070))
 
 CHAMP_NAME_POS: list[Vec4] = [
