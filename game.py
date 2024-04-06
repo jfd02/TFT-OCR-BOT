@@ -132,7 +132,7 @@ class Game:
                     self.second_round()
                     ran_round: str = self.round[0]
                 elif self.round[0] in game_assets.ENCOUNTER_ROUNDS:
-                    print(f"\n[Encounter Round] {self.round}")
+                    print(f"\n[Encounter Round] {self.round[0]}")
                     print("  Do nothing")
                     self.message_queue.put("CLEAR")
                     self.arena.check_health()
@@ -200,7 +200,7 @@ class Game:
 
     def second_round(self) -> None:
         """Move unknown champion to board after first carousel"""
-        print(f"\n[Second Round] {self.round}")
+        print(f"\n[Second Round] {self.round[0]}")
         self.message_queue.put("CLEAR")
         while True:
             result = arena_functions.bench_occupied_check()
@@ -213,26 +213,26 @@ class Game:
 
     def carousel_round(self) -> None:
         """Handles tasks for carousel rounds"""
-        print(f"\n[Carousel Round] {self.round}")
+        print(f"\n[Carousel Round] {self.round[0]}")
         self.message_queue.put("CLEAR")
-        if self.round == "3-4":
+        if self.round[0] == "3-4":
             self.arena.final_comp = True
         self.arena.check_health()
         print("  Getting a champ from the carousel")
-        game_functions.get_champ_carousel(self.round)
+        game_functions.get_champ_carousel(self.round[0])
 
     def pve_round(self) -> None:
         """Handles tasks for PVE rounds"""
-        print(f"\n[PvE Round] {self.round}")
+        print(f"\n[PvE Round] {self.round[0]}")
         self.message_queue.put("CLEAR")
         sleep(0.5)
-        if self.round in game_assets.AUGMENT_ROUNDS:
+        if self.round[0] in game_assets.AUGMENT_ROUNDS:
             sleep(1)
             self.arena.augment_roll = True
             self.arena.pick_augment()
             # Can't purchase champions for a short period after choosing augment
             sleep(2.5)
-        if self.round == "1-3":
+        if self.round[0] == "1-3":
             sleep(1.5)
             self.arena.fix_unknown()
             self.arena.anvil_free[1:] = [True] * 8
@@ -252,32 +252,32 @@ class Game:
 
     def pvp_round(self) -> None:
         """Handles tasks for PVP rounds"""
-        print(f"\n[PvP Round] {self.round}")
+        print(f"\n[PvP Round] {self.round[0]}")
         self.message_queue.put("CLEAR")
         sleep(0.5)
-        if self.round in game_assets.AUGMENT_ROUNDS:
+        if self.round[0] in game_assets.AUGMENT_ROUNDS:
             sleep(1)
             self.arena.augment_roll = True
             self.arena.pick_augment()
             sleep(2.5)
-        if self.round in ("2-1", "2-5"):
+        if self.round[0] in ("2-1", "2-5"):
             self.arena.buy_xp_round()
-        if self.round in game_assets.PICKUP_ROUNDS:
+        if self.round[0] in game_assets.PICKUP_ROUNDS:
             print("  Picking up items")
             game_functions.pickup_items()
 
         self.arena.fix_bench_state()
         self.arena.bench_cleanup()
-        if self.round in game_assets.ANVIL_ROUNDS:
+        if self.round[0] in game_assets.ANVIL_ROUNDS:
             self.arena.clear_anvil()
-        self.arena.spend_gold(speedy=self.round in game_assets.PICKUP_ROUNDS)
+        self.arena.spend_gold(speedy=self.round[0] in game_assets.PICKUP_ROUNDS)
         self.arena.move_champions()
         self.arena.replace_unknown()
         if self.arena.final_comp:
             self.arena.final_comp_check()
         self.arena.bench_cleanup()
 
-        if self.round in game_assets.ITEM_PLACEMENT_ROUNDS:
+        if self.round[0] in game_assets.ITEM_PLACEMENT_ROUNDS:
             sleep(1)
             self.arena.place_items()
         self.end_round_tasks()
