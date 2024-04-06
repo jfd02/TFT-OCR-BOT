@@ -140,7 +140,7 @@ class Game:
                     self.arena.check_health()
                     ran_round: str = self.round[0]
                 if self.round[1] == 1 and self.round[0].split("-")[1] == "1":
-                    print("\n[Ecnounter round setup]")
+                    print("\n[Encounter round setup]")
                     self.encounter_round_setup()
             sleep(0.5)
 
