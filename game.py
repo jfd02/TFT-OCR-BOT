@@ -146,27 +146,27 @@ class Game:
         game_assets.CAROUSEL_ROUND = {
             carousel_round
             for carousel_round in game_assets.CAROUSEL_ROUND
-            if not carousel_round.startswith(self.round[0].split("-"))
+            if not carousel_round.startswith(self.round[0].split("-")[0])
         }
         game_assets.PVE_ROUND = {
             pve_round
             for pve_round in game_assets.PVE_ROUND
-            if not pve_round.startswith(self.round[0].split("-"))
+            if not pve_round.startswith(self.round[0].split("-")[0])
         }
         game_assets.PVP_ROUND = {
             pvp_round
             for pvp_round in game_assets.PVP_ROUND
-            if not pvp_round.startswith(self.round[0].split("-"))
+            if not pvp_round.startswith(self.round[0].split("-")[0])
         }
         game_assets.ANVIL_ROUNDS = {
             anvil_round
             for anvil_round in game_assets.ANVIL_ROUNDS
-            if not anvil_round.startswith(self.round[0].split("-"))
+            if not anvil_round.startswith(self.round[0].split("-")[0])
         }
         game_assets.ITEM_PLACEMENT_ROUNDS = {
             item_placement_round
             for item_placement_round in game_assets.ITEM_PLACEMENT_ROUNDS
-            if not item_placement_round.startswith(self.round[0].split("-"))
+            if not item_placement_round.startswith(self.round[0].split("-")[0])
         }
         for index, round_msg in enumerate(game_functions.check_encounter_round()):
             if index == 0:

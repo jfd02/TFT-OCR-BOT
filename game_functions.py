@@ -25,7 +25,9 @@ def get_round() -> list[str, int]:
 
     round_one = screen_capture.crop(screen_coords.ROUND_POS_ONE.get_coords())
     game_round: str = ocr.get_text_from_image(image=round_one, whitelist=ocr.ROUND_WHITELIST)
-    return [game_round, 1]
+    if game_round in game_assets.ROUNDS:
+        return [game_round, 1]
+    return ["999-999",0]
 
 
 def check_encounter_round() -> list[str]:
