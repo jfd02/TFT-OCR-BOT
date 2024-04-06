@@ -172,7 +172,7 @@ class Game:
             if not item_placement_round.startswith(self.round[0].split("-")[0])
         }
         for index, round_msg in enumerate(game_functions.check_encounter_round()):
-            print(f"  Round {self.round[0].split('-')[0]}-{str(index + 1)}: {round_msg} ROUND")
+            print(f"  Round {self.round[0].split('-')[0]}-{str(index + 1)}: {round_msg.upper()} ROUND")
             if index == 0:
                 continue
             if round_msg == "carousel":

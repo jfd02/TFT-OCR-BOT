@@ -45,7 +45,7 @@ def check_encounter_round() -> list[str]:
             round_list.append("carousel")
         elif any(keyword in round_message for keyword in ["Get pulled into an Encounter"]):
             round_list.append("encounter")
-        elif any(keyword in round_message for keyword in ["Krugs", "Murk Wolves", "Raptors"]):
+        elif any(keyword in round_message for keyword in ["Krugs", "Murk Wolves", "Raptors", "Elder Dragon"]):
             round_list.append("pve")
         else:
             round_list.append("pvp")
