@@ -5,6 +5,7 @@ Handles tasks that happen each game round
 from time import sleep, perf_counter
 import random
 import multiprocessing
+import importlib
 from win32con import BM_CLICK
 import win32gui
 import settings
@@ -20,6 +21,7 @@ class Game:
     """Game class that handles game logic such as round tasks"""
 
     def __init__(self, message_queue: multiprocessing.Queue) -> None:
+        importlib.reload(game_assets)
         self.message_queue = message_queue
         self.arena = Arena(self.message_queue)
         self.round: list[str, int] = ["0-0", 0]
@@ -138,6 +140,7 @@ class Game:
                     self.arena.check_health()
                     ran_round: str = self.round[0]
                 if self.round[1] == 1 and self.round[0].split("-")[1] == "1":
+                    print("[Ecnounter round setup]")
                     self.encounter_round_setup()
             sleep(0.5)
 
@@ -169,33 +172,34 @@ class Game:
             if not item_placement_round.startswith(self.round[0].split("-")[0])
         }
         for index, round_msg in enumerate(game_functions.check_encounter_round()):
+            print(f"[Ecnounter round setup] Round list: {round_msg}")
             if index == 0:
                 continue
             if round_msg == "carousel":
                 game_assets.CAROUSEL_ROUND.add(
-                    self.round[0].split("-") + "-" + str(index + 1)
+                    self.round[0].split("-")[0] + "-" + str(index + 1)
                 )
                 game_assets.ANVIL_ROUNDS.add(
-                    self.round[0].split("-") + "-" + str(index + 2)
+                    self.round[0].split("-")[0] + "-" + str(index + 2)
                 )
                 game_assets.ITEM_PLACEMENT_ROUNDS.add(
-                    self.round[0].split("-") + "-" + str(index + 2)
+                    self.round[0].split("-")[0] + "-" + str(index + 2)
                 )
             elif round_msg == "pve":
                 game_assets.PVE_ROUND.add(
-                    self.round[0].split("-") + "-" + str(index + 1)
+                    self.round[0].split("-")[0] + "-" + str(index + 1)
                 )
             elif round_msg == "pvp":
                 game_assets.PVP_ROUND.add(
-                    self.round[0].split("-") + "-" + str(index + 1)
+                    self.round[0].split("-")[0] + "-" + str(index + 1)
                 )
             elif round_msg == "encounter":
                 game_assets.ENCOUNTER_ROUNDS.add(
-                    self.round[0].split("-") + "-" + str(index + 1)
+                    self.round[0].split("-")[0] + "-" + str(index + 1)
                 )
                 if index+1 == 2:
                     game_assets.AUGMENT_ROUNDS.add(
-                        self.round[0].split("-") + "-" + str(index + 1)
+                        self.round[0].split("-")[0] + "-" + str(index + 1)
                     )
 
     def second_round(self) -> None:
