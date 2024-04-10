@@ -1,0 +1,4 @@
+# Build your custom comps here using https://lolchess.gg/builder/set11
+# Custom comps will be added at the bottom of the list of comps.
+# NOTE: You CAN NOT add mulitple of the same champion at this time... Allow this but having trouble.
+https://lolchess.gg/builder?deck=32ef6a6b3bbf6d50149429774e3fbf81e94735ac

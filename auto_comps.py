@@ -167,8 +167,10 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
             if builder_key in deck_slots:
                 highest_builder = deck_slots[builder_key]
                 break
+        else:  # If no lv5TeamBuilder to lv9TeamBuilder fall back to teamBuilder
+            highest_builder = deck_slots.get("teamBuilder", {})
 
-        augments = highest_builder.get("teamBuilder", {}).get("augments", [])
+        augments = deck_slots.get("teamBuilder", {}).get("augments", [])
         real_augments = [
             arg.get("name")
             for arg in query_data.get("augments", [])
@@ -193,8 +195,10 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
                         .replace("LeeSin", "Lee Sin")
                         .replace("RekSai", "Rek'Sai")
                         .replace("TahmKench", "Tahm Kench")
-                        )
-                    champion_name = re.sub(r"\bRakan\b|\bXayah\b", "Xayah & Rakan", champion_name)
+                    )
+                    champion_name = re.sub(
+                        r"\bRakan\b|\bXayah\b", "Xayah & Rakan", champion_name
+                    )
 
                     star = each_slot.get("star", 1)
                 except Exception:
@@ -212,6 +216,65 @@ def load_lolchess_comps(input_str: str, set_str: str, comps_manager: CompsManage
                 }
             counter += 3
         output_comps.append([nms, slots, real_augments])
+
+    # Process custom comps from the text file
+    with open("custom_comps.txt", "r", encoding="utf-8") as file:
+        custom_comps_links = [line.strip() for line in file if not line.startswith("#")]
+
+    for index, custom_comps_link in enumerate(custom_comps_links):
+        # Extract the deck key from the custom comps link
+        custom_deck_key = custom_comps_link.split("deck=")[-1]
+        custom_comps_response = requests.get(
+            f"https://tft.dakgg.io/api/v1/team-builders/{custom_deck_key}", timeout=20
+        )
+        if custom_comps_response.ok:
+            custom_comps_data = custom_comps_response.json().get("teamBuilder", {})
+            augments = custom_comps_data.get("augments", [])
+            real_augments = [
+                arg.get("name")
+                for arg in query_data.get("augments", [])
+                if arg.get("key") in augments
+            ]
+            slots = {}
+            for each_slot in custom_comps_data.get("slots", []):
+                if each_slot is not None:
+                    try:
+                        champion_name = (
+                            list(
+                                filter(
+                                    lambda e, each_slot=each_slot: e["key"]
+                                    == each_slot.get("champion"),
+                                    query_data.get("champions"),
+                                ),
+                            )[0]["name"]
+                            .replace("ChoGath", "Cho'Gath")
+                            .replace("Kaisa", "Kai'Sa")
+                            .replace("KhaZix", "Kha'Zix")
+                            .replace("KogMaw", "Kog'Maw")
+                            .replace("LeeSin", "Lee Sin")
+                            .replace("RekSai", "Rek'Sai")
+                            .replace("TahmKench", "Tahm Kench")
+                        )
+                        champion_name = re.sub(
+                            r"\bRakan\b|\bXayah\b", "Xayah & Rakan", champion_name
+                        )
+
+                        star = each_slot.get("star", 1)
+                    except Exception:
+                        continue
+                    slot_items = render_item(
+                        query_data.get("items"),
+                        each_slot.get("items", []),
+                    )
+
+                    slots[champion_name] = {
+                        "board_position": LOLCHESS_BOARD_ARRANGE[each_slot.get("index")],
+                        "items": slot_items,
+                        "level": star,
+                        "final_comp": True,
+                    }
+
+            output_comps.append([f"Custom Comp {index+1}", slots, real_augments])
 
     return output_comps
 
