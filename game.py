@@ -2,12 +2,14 @@
 Handles tasks that happen each game round
 """
 
+import importlib
 import multiprocessing
 import random
 import time
 from time import perf_counter, sleep
-from win32con import BM_CLICK
+
 import win32gui
+from win32con import BM_CLICK
 
 import arena_functions
 import game_assets
@@ -32,10 +34,11 @@ class Game:
             message_queue (multiprocessing.Queue): The message queue.
             comps (CompsManager): The CompsManager instance.
         """
+        importlib.reload(game_assets)
         self.message_queue = message_queue
         self.comps_manager = comps
         self.arena = Arena(self.message_queue, comps)
-        self.round = "0-0"
+        self.round: list[str, int] = ["0-0", 0]
         self.time = None
         self.forfeit_time = settings.FORFEIT_TIME + random.randint(50, 150)
         self.found_window = False
@@ -51,7 +54,9 @@ class Game:
         self.loading_screen()
 
     def find_window_callback(
-        self, hwnd, extra  # pylint: disable=unused-argument
+        self,
+        hwnd,
+        extra,  # pylint: disable=unused-argument
     ) -> None:
         """Callback function to find the game window and get its size.
 
@@ -84,7 +89,7 @@ class Game:
         game_functions.default_pos()
         if self.comps_manager.current_comp()[0] == "High Value":
             self.fast8_leveling = True
-        while game_functions.get_round() != "1-1":
+        while game_functions.get_round()[0] != "1-1":
             if self.check_failed_to_connect_window():
                 return
             sleep(1)
@@ -139,10 +144,11 @@ class Game:
             if game_health == -1 and last_game_health > 0:
                 # won the game and exit game automatically
                 self.message_queue.put("CLEAR")
+                sleep(8)
                 break
             last_game_health = game_health
 
-            self.round: str = game_functions.get_round()
+            self.round = game_functions.get_round()
 
             # Display the seconds remaining for this phase in real-time.
             self.start_time_of_round = time.time()
@@ -160,35 +166,101 @@ class Game:
                 and perf_counter() - self.start_time > self.forfeit_time
             ):
                 game_functions.forfeit()
-                return
+                continue
 
-            if self.round != ran_round:
+            if self.round[0] != ran_round:
                 print(
                     f"\n[Comps] Stick to [{','.join(self.comps_manager.current_comp()[1])}] "
                 )
-                if self.round in game_assets.PORTAL_ROUND:
+                if self.round[0] in game_assets.PORTAL_ROUND:
                     self.portal_round()
-                    ran_round: str = self.round
-                elif self.round in game_assets.SECOND_ROUND:
-                    game_functions.default_pos()
-                    self.second_round()
-                    ran_round: str = self.round
-                elif self.round in game_assets.CAROUSEL_ROUND:
-                    self.carousel_round()
-                    ran_round: str = self.round
-                elif self.round in game_assets.PVE_ROUND:
-                    game_functions.default_pos()
-                    self.pve_round()
-                    ran_round: str = self.round
-                elif self.round in game_assets.PVP_ROUND:
+                    ran_round: str = self.round[0]
+                elif self.round[0] in game_assets.PVP_ROUND:
                     game_functions.default_pos()
                     self.pvp_round()
-                    ran_round: str = self.round
+                    ran_round: str = self.round[0]
+                elif self.round[0] in game_assets.PVE_ROUND:
+                    game_functions.default_pos()
+                    self.pve_round()
+                    ran_round: str = self.round[0]
+                elif self.round[0] in game_assets.CAROUSEL_ROUND:
+                    self.carousel_round()
+                    ran_round: str = self.round[0]
+                elif self.round[0] in game_assets.SECOND_ROUND:
+                    self.second_round()
+                    ran_round: str = self.round[0]
+                elif self.round[0] in game_assets.ENCOUNTER_ROUNDS:
+                    print(f"\n[Encounter Round] {self.round[0]}")
+                    print("  Do nothing")
+                    self.message_queue.put("CLEAR")
+                    self.arena.check_health()
+                    ran_round: str = self.round[0]
+                if self.round[1] == 1 and self.round[0].split("-")[1] == "1":
+                    print("\n[Encounter round setup]")
+                    self.encounter_round_setup()
             sleep(0.5)
+
+    def encounter_round_setup(self) -> None:
+        """Remove rounds from game_assets and add it back by checking round message"""
+        game_assets.CAROUSEL_ROUND = {
+            carousel_round
+            for carousel_round in game_assets.CAROUSEL_ROUND
+            if not carousel_round.startswith(self.round[0].split("-")[0])
+        }
+        game_assets.PVE_ROUND = {
+            pve_round
+            for pve_round in game_assets.PVE_ROUND
+            if not pve_round.startswith(self.round[0].split("-")[0])
+        }
+        game_assets.PVP_ROUND = {
+            pvp_round
+            for pvp_round in game_assets.PVP_ROUND
+            if not pvp_round.startswith(self.round[0].split("-")[0])
+        }
+        game_assets.ANVIL_ROUNDS = {
+            anvil_round
+            for anvil_round in game_assets.ANVIL_ROUNDS
+            if not anvil_round.startswith(self.round[0].split("-")[0])
+        }
+        game_assets.ITEM_PLACEMENT_ROUNDS = {
+            item_placement_round
+            for item_placement_round in game_assets.ITEM_PLACEMENT_ROUNDS
+            if not item_placement_round.startswith(self.round[0].split("-")[0])
+        }
+        for index, round_msg in enumerate(game_functions.check_encounter_round()):
+            print(f"  Round {self.round[0].split('-')[0]}-{str(index + 1)}: {round_msg.upper()} ROUND")
+            if index == 0:
+                continue
+            if round_msg == "carousel":
+                game_assets.CAROUSEL_ROUND.add(
+                    self.round[0].split("-")[0] + "-" + str(index + 1)
+                )
+                game_assets.ANVIL_ROUNDS.add(
+                    self.round[0].split("-")[0] + "-" + str(index + 2)
+                )
+                game_assets.ITEM_PLACEMENT_ROUNDS.add(
+                    self.round[0].split("-")[0] + "-" + str(index + 2)
+                )
+            elif round_msg == "pve":
+                game_assets.PVE_ROUND.add(
+                    self.round[0].split("-")[0] + "-" + str(index + 1)
+                )
+            elif round_msg == "pvp":
+                game_assets.PVP_ROUND.add(
+                    self.round[0].split("-")[0] + "-" + str(index + 1)
+                )
+            elif round_msg == "encounter":
+                game_assets.ENCOUNTER_ROUNDS.add(
+                    self.round[0].split("-")[0] + "-" + str(index + 1)
+                )
+                if index+1 == 2 and int(self.round[0].split("-")[0]) <= 4:
+                    game_assets.AUGMENT_ROUNDS.add(
+                        self.round[0].split("-")[0] + "-" + str(index + 2)
+                    )
 
     def portal_round(self) -> None:
         """Waits for Region Augment decision."""
-        print(f"\n[Portal Round] {self.round}")
+        print(f"\n[Portal Round] {self.round[0]}")
         self.start_round_tasks()
         sleep(2.5)
         print("  Voting for a portal")
@@ -196,7 +268,7 @@ class Game:
 
     def second_round(self) -> None:
         """ "Move unknown champion to board after first carousel."""
-        print(f"\n[Second Round] {self.round}")
+        print(f"\n[Second Round] {self.round[0]}")
         self.start_round_tasks()
         while True:
             result = arena_functions.bench_occupied_check()
@@ -211,27 +283,27 @@ class Game:
 
     def carousel_round(self) -> None:
         """Handles tasks for carousel rounds"""
-        print(f"\n[Carousel Round] {self.round}")
+        print(f"\n[Carousel Round] {self.round[0]}")
         self.start_round_tasks()
-        if self.round == "3-4":
+        if self.round[0] == "3-4":
             self.arena.final_comp = True
         sleep(9.7)
         print("  Getting a champ from the carousel")
-        game_functions.get_champ_carousel(self.round)
+        game_functions.get_champ_carousel(self.round[0])
 
     def pve_round(self) -> None:
         """Handles tasks for PVE rounds."""
-        print(f"\n[PvE Round] {self.round}")
+        print(f"\n[PvE Round] {self.round[0]}")
         self.start_round_tasks()
         sleep(0.8)
         seconds_in_round = 30
-        if self.round in game_assets.AUGMENT_ROUNDS:
+        if self.round[0] in game_assets.AUGMENT_ROUNDS:
             sleep(1)
             self.arena.augment_roll = True
             self.arena.pick_augment()
             sleep(2.5)
-            self.arena.check_dummy()
-        if self.round == "1-3":
+            #self.arena.check_dummy()
+        if self.round[0] == "1-3":
             sleep(1.5)
             # Check if the active portal is an anvil portal and clear the anvils it if it is
             if self.arena.active_portal in game_assets.ANVIL_PORTALS:
@@ -240,11 +312,15 @@ class Game:
                 self.arena.anvil_free[:2] = [True, False]
                 self.arena.clear_anvil()
             self.arena.tacticians_crown_check()
+            #self.arena.check_dummy()
 
-        if self.round == "3-7":
+        if self.round[0] == "3-7":
             if self.arena.radiant_item is True:
                 sleep(1.5)
                 self.arena.clear_anvil()
+
+        #if self.round[0] == "4-7":
+        #    self.arena.check_dummy()
 
         self.arena.fix_bench_state()
         self.arena.spend_gold()
@@ -270,55 +346,48 @@ class Game:
 
     def pvp_round(self) -> None:
         """Handles tasks for PVP rounds."""
-        print(f"\n[PvP Round] {self.round}")
+        print(f"\n[PvP Round] {self.round[0]}")
         self.start_round_tasks()
         sleep(0.8)
         seconds_in_round = 30
-        if self.round in game_assets.AUGMENT_ROUNDS:
+        if self.round[0] in game_assets.AUGMENT_ROUNDS:
             seconds_in_round = 50
             sleep(1)
             self.arena.augment_roll = True
             self.arena.pick_augment()
             sleep(2.5)
-            self.arena.check_dummy()
+            #self.arena.check_dummy()
 
         if self.fast8_leveling:
-            if self.round in game_assets.FAST8_LEVEL_ROUNDS:
-                target_level = game_assets.FAST8_LEVEL_ROUNDS[self.round]
+            if self.round[0] in game_assets.FAST8_LEVEL_ROUNDS:
+                target_level = game_assets.FAST8_LEVEL_ROUNDS[self.round[0]]
 
                 if target_level >= arena_functions.get_level_via_https_request():
                     stop_seconds = 10
                     self.level_up(target_level, stop_seconds)
         else:
-            if self.round in game_assets.NORMAL_LEVEL_ROUNDS:
-                target_level = game_assets.NORMAL_LEVEL_ROUNDS[self.round]
+            if self.round[0] in game_assets.NORMAL_LEVEL_ROUNDS:
+                target_level = game_assets.NORMAL_LEVEL_ROUNDS[self.round[0]]
 
                 if target_level >= arena_functions.get_level_via_https_request():
                     stop_seconds = 10
                     self.level_up(target_level, stop_seconds)
 
-        if self.round in game_assets.PICKUP_ROUNDS:
+        if self.round[0] in game_assets.PICKUP_ROUNDS:
             print("  Picking up items")
             game_functions.pickup_items()
 
         self.arena.fix_bench_state()
         self.arena.bench_cleanup()
-
-        if self.round in game_assets.ANVIL_ROUNDS:
+        if self.round[0] in game_assets.ANVIL_ROUNDS:
             self.arena.clear_anvil()
-
-        if self.round in game_assets.PICKUP_ROUNDS:
-            self.arena.spend_gold(speedy=True)
-        else:
-            self.arena.spend_gold()
-
+        self.arena.spend_gold(speedy=self.round[0] in game_assets.PICKUP_ROUNDS)
         if (
             seconds_in_round - (time.time() - self.start_time_of_round) >= 3.0
         ):  # number picked randomly
             self.arena.move_champions()
         else:
             print("  Less than 3 seconds left in planning. No time to move champions.")
-
         if (
             seconds_in_round - (time.time() - self.start_time_of_round) >= 3.0
         ):  # number picked randomly
@@ -327,13 +396,12 @@ class Game:
             print(
                 "  Less than 3 seconds left in planning. No time to replace unknown units."
             )
-
         if self.arena.final_comp:
             self.arena.final_comp_check()
         self.arena.bench_cleanup()
 
         if (seconds_in_round - (time.time() - self.start_time_of_round)) >= 3.0 and (
-            self.round in game_assets.ITEM_PLACEMENT_ROUNDS
+            self.round[0] in game_assets.ITEM_PLACEMENT_ROUNDS
             or arena_functions.get_health() <= 15
             or len(self.arena.items) >= 8
         ):

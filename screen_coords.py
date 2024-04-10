@@ -8,15 +8,15 @@ from vec2 import Vec2
 from vec4 import GameWindow, Vec4
 
 BENCH_HEALTH_POS: list[Vec4] = [
-    Vec4(GameWindow(369, 622, 472, 757)),
-    Vec4(GameWindow(485, 622, 588, 757)),
-    Vec4(GameWindow(601, 622, 704, 757)),
-    Vec4(GameWindow(728, 622, 831, 757)),
-    Vec4(GameWindow(844, 622, 947, 757)),
-    Vec4(GameWindow(960, 622, 1063, 757)),
-    Vec4(GameWindow(1076, 622, 1179, 757)),
-    Vec4(GameWindow(1192, 622, 1295, 757)),
-    Vec4(GameWindow(1308, 622, 1411, 757)),
+    Vec4(GameWindow(369, 650, 472, 757)),
+    Vec4(GameWindow(485, 650, 588, 757)),
+    Vec4(GameWindow(601, 650, 704, 757)),
+    Vec4(GameWindow(728, 650, 831, 757)),
+    Vec4(GameWindow(844, 650, 947, 757)),
+    Vec4(GameWindow(960, 650, 1063, 757)),
+    Vec4(GameWindow(1076, 650, 1179, 757)),
+    Vec4(GameWindow(1192, 650, 1295, 757)),
+    Vec4(GameWindow(1308, 650, 1411, 757)),
 ]
 
 BOARD_HEALTH_POS: list[Vec4] = [
@@ -73,6 +73,17 @@ ROUND_POS_TWO: Vec4 = Vec4(GameWindow(16, 0, 56, 24), use_screen_offset=False)
 
 ROUND_POS_THREE: Vec4 = Vec4(GameWindow(71, 0, 110, 24), use_screen_offset=False)
 
+ROUND_ENCOUNTER_ICON_POS: list[list[Vec2, Vec4]] = [
+    [Vec2(833, 20), Vec4(GameWindow(890, 49, 1218, 75))],
+    [Vec2(869, 20), Vec4(GameWindow(926, 49, 1254, 75))],
+    [Vec2(905, 20), Vec4(GameWindow(962, 49, 1290, 75))],
+    [Vec2(941, 20), Vec4(GameWindow(998, 49, 1326, 75))],
+    [Vec2(977, 20), Vec4(GameWindow(1034, 49, 1362, 75))],
+    [Vec2(1013, 20), Vec4(GameWindow(1070, 49, 1398, 75))],
+    [Vec2(1049, 20), Vec4(GameWindow(1106, 49, 1434, 75))],
+    [Vec2(1085, 20), Vec4(GameWindow(1142, 49, 1470, 75))],
+]
+
 SHOP_POS: Vec4 = Vec4(GameWindow(481, 1039, 1476, 1070))
 
 CHAMP_NAME_POS: list[Vec4] = [
@@ -126,7 +137,7 @@ BUY_LOC: list[Vec2] = [
 ]
 
 ITEM_PICKUP_LOC: list[Vec2] = [
-    Vec2(1480, 605),
+    Vec2(1488, 605),
     Vec2(1293, 313),
     Vec2(1093, 235),
     Vec2(683, 309),
@@ -178,7 +189,7 @@ BOARD_LOC: list[Vec2] = [
     Vec2(1251, 423),
 ]
 
-CAROUSEL_LOC: list[Vec2] = [Vec2(964, 644), Vec2(775, 505), Vec2(1150, 505)]
+CAROUSEL_LOC: list[Vec2] = [Vec2(964, 620), Vec2(775, 505), Vec2(1150, 505)]
 
 EXIT_NOW_LOC: Vec2 = Vec2(962, 575)
 

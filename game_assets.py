@@ -88,7 +88,7 @@ SUPPORT_ITEMS: set[str] = {
     "VirtueoftheMartyr",
     "ZekesHerald",
     "Zephyr",
-    "ZzRotPortal"
+    "ZzRotPortal",
 }
 
 # Trait Items that cannot be crafted
@@ -213,6 +213,7 @@ ROUNDS: set[str] = {
     "2-5",
     "2-6",
     "2-7",
+    "2-8",
     "3-1",
     "3-2",
     "3-3",
@@ -220,6 +221,7 @@ ROUNDS: set[str] = {
     "3-5",
     "3-6",
     "3-7",
+    "3-8",
     "4-1",
     "4-2",
     "4-3",
@@ -227,6 +229,7 @@ ROUNDS: set[str] = {
     "4-5",
     "4-6",
     "4-7",
+    "4-8",
     "5-1",
     "5-2",
     "5-3",
@@ -234,6 +237,7 @@ ROUNDS: set[str] = {
     "5-5",
     "5-6",
     "5-7",
+    "5-8",
     "6-1",
     "6-2",
     "6-3",
@@ -241,6 +245,7 @@ ROUNDS: set[str] = {
     "6-5",
     "6-6",
     "6-7",
+    "6-8",
     "7-1",
     "7-2",
     "7-3",
@@ -248,6 +253,7 @@ ROUNDS: set[str] = {
     "7-5",
     "7-6",
     "7-7",
+    "7-8",
 }
 
 # Specific rounds
@@ -326,8 +332,8 @@ FAST8_LEVEL_ROUNDS: set[str] = {
     "4-1": 7,
     "4-2": 8,
     "4-5": 8,
-    "6-1": 9,
-    "6-2": 9,
+    "5-1": 9,
+    "5-2": 9,
 }
 
 AUGMENT_ROUNDS: set[str] = {"2-1", "3-2", "4-2"}
@@ -355,6 +361,8 @@ ITEM_PLACEMENT_ROUNDS: set[str] = {
     "7-3",
     "7-5",
 }
+
+ENCOUNTER_ROUNDS: set[str] = {"0-0"}
 
 FINAL_COMP_ROUND = "4-1"
 
@@ -450,10 +458,13 @@ RADIANT_ITEMS_DICT = {
 
 # List of augment names to pick
 AUGMENTS: list[str] = [
+    "Lucky Gloves+",
     "Capricious Forge",
     "Sleight of Hand",
     "Roll The Dice",
-    "That's Jazz Baby!",
+    "Tiny but Deadly",
+    "Pumping up",
+    "Extended Duel",
     "You Have My Bow",
     "Blistering Strikes",
     "Buried Treasures",
@@ -503,8 +514,10 @@ AUGMENTS: list[str] = [
 
 # List of augment names to avoid
 AVOID_AUGMENTS: list[str] = [
+    "Mind Over Matter",
     "AFK",
     "Recombobulator",
+    "Forge",
     "Blank Slate",
 ]
 

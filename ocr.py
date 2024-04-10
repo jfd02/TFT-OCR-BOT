@@ -19,7 +19,6 @@ SPACE_WHITELIST = " "
 SYMBOL_WHITELIST = "&'"
 
 
-
 def image_grayscale(image: Image) -> Any:
     """Converts an image to grayscale to improve OCR performance."""
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
