@@ -161,6 +161,9 @@ class Arena:
                         final_comp=self.comps_manager.current_comp()[1][champ_name][
                             "final_comp"
                         ],
+                        trait1=self.comps_manager.champions[champ_name]["Trait1"],
+                        trait2=self.comps_manager.champions[champ_name]["Trait2"],
+                        trait3=self.comps_manager.champions[champ_name]["Trait3"],
                     )
                     self.champs_to_buy[champ_name] -= 1
                 else:
@@ -184,6 +187,9 @@ class Arena:
             slot=slot,
             size=self.comps_manager.champions[name]["Board Size"],
             final_comp=self.comps_manager.current_comp()[1][name]["final_comp"],
+            trait1=self.comps_manager.champions[name]["Trait1"],
+            trait2=self.comps_manager.champions[name]["Trait2"],
+            trait3=self.comps_manager.champions[name]["Trait3"],
         )
         mk_functions.move_mouse(screen_coords.DEFAULT_LOC.get_coords())
         sleep(0.5)
@@ -344,14 +350,10 @@ class Arena:
                     print("  Tacticians Crown on bench, adding extra slot to board")
                     self.bench_tacticians_crown = True
                     if not self.tacticians_crown:
-                        self.board_size -= (
-                            1
-                        )
+                        self.board_size -= 1
                         self.tacticians_crown = True
                     self.move_champions()
-                    self.add_item_to_champs(
-                        index
-                    )
+                    self.add_item_to_champs(index)
                 else:
                     if self.items[index] in [
                         "ChampionDuplicator",
@@ -359,8 +361,24 @@ class Arena:
                     ]:
                         print(f"  {self.items[index]} on bench, duplicating champion")
                         self.use_duplicator_items(index, self.items[index])
+                    elif "Emblem" in self.items[index]:
+                        self.use_trait_emblem(index)
                     else:
                         self.add_item_to_champs(index)
+
+    def use_trait_emblem(self, item_index: int) -> None:
+        """Handle the placement of trait emblem items."""
+        trait_to_check = self.items[item_index].replace("Emblem", "")
+        for champ in self.board:
+            if isinstance(champ, Champion):
+                if not champ.check_trait(trait_to_check):
+                    mk_functions.left_click(screen_coords.ITEM_POS[item_index][0].get_coords())
+                    mk_functions.left_click(champ.coords)
+                    print(f"  Placed {self.items[item_index]} on {champ.name}")
+                    champ.completed_items.append(self.items[item_index])
+                    self.items[item_index] = None
+                    return
+        print(f"No champion found for {self.items[item_index]}")
 
     def use_duplicator_items(self, item_index: int, item: str) -> None:
         """Handle the placement of champion duplicator items."""
@@ -377,16 +395,20 @@ class Arena:
             champs_to_buy_list = [
                 champion for champion, count in self.champs_to_buy.items() if count >= 1
             ]
-            all_champions = self.board + champs_to_buy_list
             sorted_champions = sorted(
-                all_champions,
-                key=lambda champ: self.comps_manager.champion_gold_cost(champ.name),
+                champs_to_buy_list,
+                key=self.comps_manager.champion_gold_cost,
                 reverse=True,
             )
-            for champ in sorted_champions:
-                gold_cost = self.comps_manager.champion_gold_cost(champ.name)
-                if 1 <= gold_cost <= max_cost:
-                    self.add_duplicator_to_champ(item_index, champ)
+            for champ_name in sorted_champions:
+                if champ_name == "Kayle":
+                    continue
+                for champ in self.board + self.bench:
+                    if champ and champ.name == champ_name:  # Check if champ is not None
+                        gold_cost = self.comps_manager.champion_gold_cost(champ_name)
+                        if 1 <= gold_cost <= max_cost:
+                            self.add_duplicator_to_champ(item_index, champ)
+                            return
         else:
             print("No empty slot on the bench, unable to place item.")
 
@@ -455,30 +477,31 @@ class Arena:
                                 # )
 
     def item_needed_on_champions(self, champions, item):
-        """Checks if the item is needed on any champions"""
-        return any(
-            champ is not None
-            and getattr(champ, "build", None) is not None
-            and item in champ.build
-            for champ in champions
-        )
+        """Checks if the item is needed on any champions, accounting for items already placed."""
+        for champ in champions:
+            if champ is not None and getattr(champ, "build", None) is not None:
+                if item in champ.build and item not in champ.completed_items:
+                    return True
+        return False
 
     def other_instances_dont_need_item(self, item):
-        """Checks if any other instance needs the item"""
+        """Check if any other instance (board, bench, champs to buy) needs the item,
+        considering items already placed and adjusting for dynamic needs."""
         item_needed_on_board = self.item_needed_on_champions(self.board, item)
         item_needed_on_bench = self.item_needed_on_champions(self.bench, item)
+
+        # Get the champions from our comp
+        champions_in_comp = self.comps_manager.current_comp()[1].items()
+
+        # Check if the item is needed by any champion in the comp who is not on the board or bench
         item_needed_on_champions_to_buy = any(
-            item
-            in self.comps_manager.current_comp()[1].get(champion, {"items": []})[
-                "items"
-            ]
-            for champion in self.champs_to_buy
+            item in data.get("items", [])
+            and item not in data.get("completed_items", [])
+            for _, data in champions_in_comp
         )
-        return not (
-            item_needed_on_board
-            or item_needed_on_bench
-            or item_needed_on_champions_to_buy
-        )
+
+        # Determine if the item is not needed across all instances.
+        return not (item_needed_on_board or item_needed_on_bench or item_needed_on_champions_to_buy)
 
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
