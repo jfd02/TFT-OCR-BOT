@@ -16,6 +16,9 @@ class Champion:
         slot: int,
         size: int,
         final_comp: bool,
+        trait1: str,
+        trait2: str,
+        trait3: str
     ) -> None:
         self.name: str = name
         self.coords: tuple = coords
@@ -26,6 +29,7 @@ class Champion:
         self.current_building: list = []
         self.max_item_slots: int = 3
         self.final_comp: bool = final_comp
+        self.traits = [trait1, trait2, trait3]
 
     def __str__(self) -> str:
         return (
@@ -33,6 +37,7 @@ class Champion:
             f"build={self.build}, index={self.index}, size={self.size}, "
             f"completed_items={self.completed_items}, "
             f"current_building={self.current_building}, final_comp={self.final_comp}, "
+            f"traits={self.traits}"
         )
 
     def does_need_items(self) -> bool:
@@ -46,3 +51,11 @@ class Champion:
         """Check if the champion has available item slots."""
         max_item_slots = 3
         return len(self.completed_items) < max_item_slots
+
+    def check_trait(self, item: str) -> bool:
+        """Check if the champion has a specific trait based on the item passed."""
+        # Remove "Emblem" from the item name
+        trait_to_check = item.replace("Emblem", "")
+
+        # Check if the trait exists in the champion's traits
+        return trait_to_check in self.traits
