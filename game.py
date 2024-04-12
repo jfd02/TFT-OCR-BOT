@@ -197,7 +197,7 @@ class Game:
                 game_assets.ENCOUNTER_ROUNDS.add(
                     self.round[0].split("-")[0] + "-" + str(index + 1)
                 )
-                if index+1 == 2 and int(self.round[0].split("-")[0]) <= 4:
+                if index+1 == 2 and 3 <= int(self.round[0].split("-")[0]) <= 4:
                     game_assets.AUGMENT_ROUNDS.add(
                         self.round[0].split("-")[0] + "-" + str(index + 2)
                     )
