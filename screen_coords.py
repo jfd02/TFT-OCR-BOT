@@ -137,7 +137,7 @@ BUY_LOC: list[Vec2] = [
 ]
 
 ITEM_PICKUP_LOC: list[Vec2] = [
-    Vec2(1488, 605),
+    Vec2(1490, 605),
     Vec2(1293, 313),
     Vec2(1093, 235),
     Vec2(683, 309),
@@ -202,7 +202,7 @@ REFRESH_LOC: Vec2 = Vec2(364, 1039)
 DEFAULT_LOC: Vec2 = Vec2(60, 222)
 
 # Helps for reading items correctly
-DEFAULT_TACTICIAN_LOC: Vec2 = Vec2(466, 484)
+DEFAULT_TACTICIAN_LOC: Vec2 = Vec2(466, 474)
 
 # The area covering the number that is the tactician's level.
 TACTICIAN_LEVEL_POS: Vec4 = Vec4(GameWindow(316, 880, 332, 902))
