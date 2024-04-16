@@ -42,10 +42,10 @@ class Champion:
 
     def does_need_items(self) -> bool:
         """Returns True if the champion instance needs items, False otherwise"""
-        return (
-            len(self.completed_items) != 3
-            or len(self.build) + len(self.current_building) == 0
-        )
+        if len(self.completed_items) == 3 and len(self.current_building) == 0:
+            return False  # No need for more items if already 3 completed items and no ongoing builds
+        # Allow adding more items if there's less than 3 completed items, or there's an ongoing build
+        return True
 
     def has_available_item_slots(self):
         """Check if the champion has available item slots."""

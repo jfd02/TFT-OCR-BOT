@@ -347,9 +347,9 @@ class Arena:
         for index, _ in enumerate(self.items):
             if self.items[index] is not None:
                 if self.items[index] == "TacticiansCrown":
-                    print("  Tacticians Crown on bench, adding extra slot to board")
                     self.bench_tacticians_crown = True
                     if not self.tacticians_crown:
+                        print("  Tacticians Crown on bench, adding extra slot to board")
                         self.board_size -= 1
                         self.tacticians_crown = True
                     self.move_champions()
@@ -359,7 +359,6 @@ class Arena:
                         "ChampionDuplicator",
                         "LesserChampionDuplicator",
                     ]:
-                        print(f"  {self.items[index]} on bench, duplicating champion")
                         self.use_duplicator_items(index, self.items[index])
                     elif "Emblem" in self.items[index]:
                         self.use_trait_emblem(index)
@@ -372,7 +371,9 @@ class Arena:
         for champ in self.board:
             if isinstance(champ, Champion):
                 if not champ.check_trait(trait_to_check):
-                    mk_functions.left_click(screen_coords.ITEM_POS[item_index][0].get_coords())
+                    mk_functions.left_click(
+                        screen_coords.ITEM_POS[item_index][0].get_coords()
+                    )
                     mk_functions.left_click(champ.coords)
                     print(f"  Placed {self.items[item_index]} on {champ.name}")
                     champ.completed_items.append(self.items[item_index])
@@ -392,6 +393,8 @@ class Arena:
         empty_slot = arena_functions.empty_slot()
 
         if empty_slot != -1:
+            if "Kayle" in self.champs_to_buy:
+                del self.champs_to_buy["Kayle"]
             champs_to_buy_list = [
                 champion for champion, count in self.champs_to_buy.items() if count >= 1
             ]
@@ -401,8 +404,6 @@ class Arena:
                 reverse=True,
             )
             for champ_name in sorted_champions:
-                if champ_name == "Kayle":
-                    continue
                 for champ in self.board + self.bench:
                     if champ and champ.name == champ_name:  # Check if champ is not None
                         gold_cost = self.comps_manager.champion_gold_cost(champ_name)
@@ -440,7 +441,11 @@ class Arena:
                                 self.other_instances_dont_need_item(item)
                                 and (
                                     (item not in gloves)
-                                    or (len(champ.completed_items) == 0)
+                                    or (
+                                        len(champ.completed_items) == 0
+                                        and len(champ.build) == 0
+                                        and len(champ.current_building) == 0
+                                    )
                                 )
                                 and item
                                 in set(game_assets.CRAFTABLE_ITEMS_DICT.values()).union(
@@ -490,7 +495,6 @@ class Arena:
         item_needed_on_board = self.item_needed_on_champions(self.board, item)
         item_needed_on_bench = self.item_needed_on_champions(self.bench, item)
 
-        # Get the champions from our comp
         champions_in_comp = self.comps_manager.current_comp()[1].items()
 
         # Check if the item is needed by any champion in the comp who is not on the board or bench
@@ -501,7 +505,11 @@ class Arena:
         )
 
         # Determine if the item is not needed across all instances.
-        return not (item_needed_on_board or item_needed_on_bench or item_needed_on_champions_to_buy)
+        return not (
+            item_needed_on_board
+            or item_needed_on_bench
+            or item_needed_on_champions_to_buy
+        )
 
     def add_item_to_champ(self, item_index: int, champ: Champion) -> None:
         """Takes item index and champ and applies the item"""
