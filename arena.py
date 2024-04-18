@@ -379,7 +379,6 @@ class Arena:
                     champ.completed_items.append(self.items[item_index])
                     self.items[item_index] = None
                     return
-        print(f"No champion found for {self.items[item_index]}")
 
     def use_duplicator_items(self, item_index: int, item: str) -> None:
         """Handle the placement of champion duplicator items."""
